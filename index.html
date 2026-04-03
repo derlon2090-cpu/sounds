@@ -1,0 +1,612 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Saudi TTS Studio</title>
+  <style>
+    :root {
+      --bg: #06111f;
+      --panel: rgba(255, 255, 255, 0.06);
+      --border: rgba(255, 255, 255, 0.12);
+      --text: #f8fafc;
+      --muted: rgba(255, 255, 255, 0.7);
+      --neon: #32f5c8;
+      --violet: #8b5cf6;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(50, 245, 200, 0.12), transparent 30%),
+        radial-gradient(circle at top right, rgba(139, 92, 246, 0.16), transparent 28%),
+        var(--bg);
+      color: var(--text);
+    }
+
+    .container { width: min(1480px, calc(100vw - 32px)); margin: auto; }
+    .nav {
+      position: sticky;
+      top: 12px;
+      z-index: 20;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-top: 12px;
+      padding: 16px 24px;
+      border: 1px solid var(--border);
+      border-radius: 999px;
+      background: rgba(6, 17, 31, 0.75);
+      backdrop-filter: blur(18px);
+    }
+    .brand { font-size: 22px; font-weight: 800; letter-spacing: 0.04em; }
+    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
+    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
+    .nav-links a:hover { color: var(--text); }
+
+    .hero, .grid-2, .grid-3 { display: grid; gap: 24px; }
+    .hero { grid-template-columns: 1.2fr 0.8fr; padding: 64px 0 32px; align-items: center; }
+    .badge {
+      display: inline-flex;
+      padding: 10px 18px;
+      border-radius: 999px;
+      border: 1px solid rgba(50, 245, 200, 0.25);
+      background: rgba(50, 245, 200, 0.08);
+      color: var(--neon);
+      font-size: 14px;
+    }
+    h1 { margin: 20px 0 0; font-size: clamp(46px, 6vw, 78px); line-height: 1.05; }
+    .lead { max-width: 720px; color: var(--muted); line-height: 2; font-size: 18px; }
+    .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 22px;
+      padding: 16px 28px;
+      font-weight: 800;
+      text-decoration: none;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      transition: 0.2s ease;
+    }
+    .btn-primary { background: white; color: var(--bg); }
+    .btn-primary:hover { background: var(--neon); }
+    .btn-secondary { background: var(--panel); color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary:hover { background: rgba(255, 255, 255, 0.1); }
+
+    .card {
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      padding: 28px;
+      backdrop-filter: blur(16px);
+    }
+    .wave-demo div, .wave-line {
+      border-radius: 999px;
+      background: linear-gradient(270deg, var(--neon), var(--violet), rgba(255,255,255,0.15));
+    }
+    .wave-demo { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
+    .wave-demo div { height: 38px; }
+
+    section { padding: 48px 0; }
+    .section-title { font-size: 38px; margin: 8px 0 0; }
+    .eyebrow { color: var(--neon); font-size: 14px; }
+    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+    .grid-2 { grid-template-columns: 1.45fr 0.85fr; margin-top: 24px; }
+
+    textarea, select, input[type="range"] {
+      width: 100%;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: rgba(6, 17, 31, 0.82);
+      color: var(--text);
+      outline: none;
+    }
+    textarea {
+      min-height: 420px;
+      padding: 24px;
+      font-size: 18px;
+      line-height: 2;
+      resize: none;
+    }
+    select { padding: 16px 18px; margin-top: 12px; }
+    input[type="range"] { accent-color: var(--neon); margin-top: 12px; }
+    .row { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
+    .stack { display: flex; flex-direction: column; gap: 24px; }
+    .status-box {
+      margin-top: 20px;
+      padding: 20px;
+      border-radius: 24px;
+      background: rgba(6, 17, 31, 0.8);
+      border: 1px solid var(--border);
+    }
+    .progress-track {
+      margin-top: 14px;
+      height: 12px;
+      border-radius: 999px;
+      background: rgba(255,255,255,0.08);
+      overflow: hidden;
+    }
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      border-radius: 999px;
+      background: linear-gradient(270deg, var(--neon), var(--violet));
+      transition: width 0.25s ease;
+    }
+    canvas {
+      width: 100%;
+      height: 140px;
+      border-radius: 24px;
+      background: rgba(6, 17, 31, 0.8);
+      border: 1px solid var(--border);
+      margin-top: 16px;
+    }
+    audio { width: 100%; margin-top: 16px; }
+    .project-item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(255,255,255,0.08);
+      color: var(--muted);
+    }
+    .mini { font-size: 13px; color: var(--muted); line-height: 1.8; }
+    .metric { font-size: 34px; font-weight: 900; margin-top: 12px; }
+
+    @media (max-width: 900px) {
+      .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .nav { border-radius: 28px; }
+      .nav-links { gap: 14px; justify-content: flex-end; }
+      textarea { min-height: 320px; }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <header class="nav">
+      <div class="brand">Saudi TTS</div>
+      <nav class="nav-links">
+        <a href="#home">الرئيسية</a>
+        <a href="#studio">الاستوديو</a>
+        <a href="#voices">الأصوات</a>
+        <a href="#projects">المشاريع</a>
+        <a href="#pricing">التسعير</a>
+        <a href="#admin">الأدمن</a>
+      </nav>
+    </header>
+
+    <section id="home" class="hero">
+      <div>
+        <span class="badge">منصة تحويل النص إلى صوت سعودي طبيعي</span>
+        <h1>كل صفحات المنتج داخل ملف واحد، بتجربة استوديو صوت عربي احترافية.</h1>
+        <p class="lead">
+          اكتب النص، اختر الصوت، اضبط السرعة والنبرة، ولّد ملفًا صوتيًا تجريبيًا،
+          واحفظ مشاريعك محليًا بدون أي فولدرات إضافية.
+        </p>
+        <div class="actions">
+          <a class="btn btn-primary" href="#studio">افتح الاستوديو</a>
+          <a class="btn btn-secondary" href="#voices">استعرض الأصوات</a>
+        </div>
+      </div>
+      <div class="card">
+        <div class="row"><span>Live synthesis pipeline</span><span>queued - processing - completed</span></div>
+        <div class="wave-demo">
+          <div style="width:72%"></div>
+          <div style="width:48%"></div>
+          <div style="width:84%"></div>
+          <div style="width:58%"></div>
+          <div style="width:92%"></div>
+          <div style="width:36%"></div>
+        </div>
+        <p class="mini" style="margin-top:20px;">واجهة واحدة تجمع landing page + studio + voices + pricing + projects + admin.</p>
+      </div>
+    </section>
+
+    <section id="studio">
+      <span class="eyebrow">Studio</span>
+      <h2 class="section-title">استوديو توليد الصوت</h2>
+      <div class="grid-2">
+        <div class="card">
+          <div class="row"><span>النص العربي</span><span id="charCount">0 حرف</span></div>
+          <textarea id="scriptText">حياكم الله، اليوم نبدأ تجربة منصة تحويل النص إلى صوت سعودي طبيعي داخل ملف واحد.</textarea>
+          <canvas id="waveCanvas" width="1200" height="220"></canvas>
+          <audio id="audioPlayer" controls></audio>
+        </div>
+
+        <aside class="card stack">
+          <div>
+            <div class="row"><span>الصوت</span><span id="voiceLabel">Saudi Narrator</span></div>
+            <select id="voiceSelect"></select>
+          </div>
+          <div>
+            <div class="row"><span>الأسلوب</span><span id="styleLabel">saudi_formal</span></div>
+            <select id="styleSelect">
+              <option value="saudi_formal">سعودي رسمي</option>
+              <option value="saudi_youth">سعودي شبابي</option>
+              <option value="gulf_soft">خليجي هادئ</option>
+              <option value="promo">إعلاني</option>
+            </select>
+          </div>
+          <div>
+            <div class="row"><span>السرعة</span><span id="speedLabel">1.0x</span></div>
+            <input id="speedRange" type="range" min="0.7" max="1.3" step="0.1" value="1" />
+          </div>
+          <div>
+            <div class="row"><span>النبرة</span><span id="pitchLabel">0</span></div>
+            <input id="pitchRange" type="range" min="-3" max="3" step="1" value="0" />
+          </div>
+          <button class="btn btn-primary" id="generateBtn">توليد الصوت</button>
+          <button class="btn btn-secondary" id="saveProjectBtn">حفظ كمشروع</button>
+          <div class="status-box">
+            <div class="row"><span id="jobIdLabel">job_pending</span><span id="jobStatus">idle</span></div>
+            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
+            <p class="mini" id="statusText">جاهز للتوليد.</p>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="voices">
+      <span class="eyebrow">Voice Library</span>
+      <h2 class="section-title">الأصوات واللهجات</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="eyebrow">saudi_formal</span>
+          <h3>Saudi Narrator</h3>
+          <p class="lead">صوت سعودي رسمي مناسب للشروحات والعروض والتعليق التعليمي.</p>
+          <div class="wave-line" style="height:52px;"></div>
+        </article>
+        <article class="card">
+          <span class="eyebrow">gulf_soft</span>
+          <h3>Gulf Soft</h3>
+          <p class="lead">نبرة هادئة وناعمة مناسبة للبودكاست والرسائل وتجارب المنتج.</p>
+          <div class="wave-line" style="height:52px;"></div>
+        </article>
+        <article class="card">
+          <span class="eyebrow">promo</span>
+          <h3>Ad Voice</h3>
+          <p class="lead">طاقة إعلانية أعلى للحملات والفيديوهات التجارية القصيرة.</p>
+          <div class="wave-line" style="height:52px;"></div>
+        </article>
+      </div>
+    </section>
+
+    <section id="projects">
+      <span class="eyebrow">Projects</span>
+      <h2 class="section-title">المشاريع المحفوظة</h2>
+      <div class="card" id="projectsList"></div>
+    </section>
+
+    <section id="pricing">
+      <span class="eyebrow">Pricing</span>
+      <h2 class="section-title">الخطط</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="eyebrow">Free</span>
+          <h3 class="metric">0 ريال</h3>
+          <p class="lead">Preview قصير + صوت واحد + حفظ محلي بسيط.</p>
+        </article>
+        <article class="card">
+          <span class="eyebrow">Starter</span>
+          <h3 class="metric">99 ريال</h3>
+          <p class="lead">نصوص أطول + تحميل WAV + عدة أساليب صوتية.</p>
+        </article>
+        <article class="card">
+          <span class="eyebrow">Pro</span>
+          <h3 class="metric">299 ريال</h3>
+          <p class="lead">Batch generation + API access + أصوات مميزة.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="admin">
+      <span class="eyebrow">Admin</span>
+      <h2 class="section-title">لوحة المراقبة</h2>
+      <div class="grid-3">
+        <article class="card">
+          <span class="eyebrow">Jobs Today</span>
+          <div class="metric" id="metricJobs">0</div>
+          <p class="mini">عدد التوليدات المحفوظة محليًا في هذا المتصفح.</p>
+        </article>
+        <article class="card">
+          <span class="eyebrow">Avg Duration</span>
+          <div class="metric" id="metricDuration">0.0s</div>
+          <p class="mini">متوسط طول الملفات الصوتية التجريبية المولدة.</p>
+        </article>
+        <article class="card">
+          <span class="eyebrow">Engine</span>
+          <div class="metric">MVP</div>
+          <p class="mini">مولّد WAV محلي تجريبي داخل المتصفح بدل API خارجي.</p>
+        </article>
+      </div>
+    </section>
+  </div>
+
+  <script>
+    const voices = [
+      { id: "voice_sa_narrator_01", name: "Saudi Narrator", accent: "سعودي", baseFreq: 172, gain: 0.50 },
+      { id: "voice_gulf_soft_01", name: "Gulf Soft", accent: "خليجي", baseFreq: 210, gain: 0.38 },
+      { id: "voice_sa_ad_01", name: "Ad Voice", accent: "إعلاني", baseFreq: 188, gain: 0.62 }
+    ];
+
+    const scriptText = document.getElementById("scriptText");
+    const charCount = document.getElementById("charCount");
+    const voiceSelect = document.getElementById("voiceSelect");
+    const voiceLabel = document.getElementById("voiceLabel");
+    const styleSelect = document.getElementById("styleSelect");
+    const styleLabel = document.getElementById("styleLabel");
+    const speedRange = document.getElementById("speedRange");
+    const speedLabel = document.getElementById("speedLabel");
+    const pitchRange = document.getElementById("pitchRange");
+    const pitchLabel = document.getElementById("pitchLabel");
+    const generateBtn = document.getElementById("generateBtn");
+    const saveProjectBtn = document.getElementById("saveProjectBtn");
+    const jobIdLabel = document.getElementById("jobIdLabel");
+    const jobStatus = document.getElementById("jobStatus");
+    const statusText = document.getElementById("statusText");
+    const progressFill = document.getElementById("progressFill");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const projectsList = document.getElementById("projectsList");
+    const metricJobs = document.getElementById("metricJobs");
+    const metricDuration = document.getElementById("metricDuration");
+    const waveCanvas = document.getElementById("waveCanvas");
+    const ctx = waveCanvas.getContext("2d");
+
+    const STORAGE_KEY = "saudi_tts_projects_v1";
+    const SAMPLE_RATE = 22050;
+    let latestBlobUrl = null;
+    let latestDuration = 0;
+
+    const replacements = {
+      "0": "صفر", "1": "واحد", "2": "اثنان", "3": "ثلاثة", "4": "أربعة",
+      "5": "خمسة", "6": "ستة", "7": "سبعة", "8": "ثمانية", "9": "تسعة",
+      "%": " بالمئة ", "&": " و ", "@": " آت ", "+": " زائد "
+    };
+
+    function loadProjects() {
+      try {
+        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function storeProjects(projects) {
+      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
+    }
+
+    function renderProjects() {
+      const projects = loadProjects();
+      metricJobs.textContent = projects.length.toString();
+      const avg = projects.length
+        ? projects.reduce((sum, p) => sum + (p.duration || 0), 0) / projects.length
+        : 0;
+      metricDuration.textContent = `${avg.toFixed(1)}s`;
+
+      if (!projects.length) {
+        projectsList.innerHTML = `<p class="mini">لا توجد مشاريع محفوظة بعد. ولّد صوتًا ثم اضغط "حفظ كمشروع".</p>`;
+        return;
+      }
+
+      projectsList.innerHTML = projects
+        .slice()
+        .reverse()
+        .map((project) => `
+          <div class="project-item">
+            <div>
+              <strong style="color:white">${project.title}</strong>
+              <div class="mini">${project.voiceName} / ${project.style} / ${project.duration.toFixed(1)}s</div>
+            </div>
+            <div class="mini">${project.date}</div>
+          </div>
+        `)
+        .join("");
+    }
+
+    function updateLabels() {
+      const selectedVoice = voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
+      voiceLabel.textContent = selectedVoice.name;
+      styleLabel.textContent = styleSelect.value;
+      speedLabel.textContent = `${Number(speedRange.value).toFixed(1)}x`;
+      pitchLabel.textContent = pitchRange.value;
+      charCount.textContent = `${scriptText.value.trim().length} حرف`;
+    }
+
+    function normalizeArabicText(text) {
+      let output = text.trim();
+      Object.entries(replacements).forEach(([from, to]) => {
+        output = output.split(from).join(to);
+      });
+      output = output.replace(/[إأآ]/g, "ا").replace(/ى/g, "ي").replace(/\s+/g, " ");
+      return output;
+    }
+
+    function splitChunks(text, maxLen = 160) {
+      const parts = text.split(/(?<=[.!؟?؛،])\s+/).map((part) => part.trim()).filter(Boolean);
+      if (!parts.length) return text ? [text] : [];
+      const chunks = [];
+      let current = "";
+      for (const sentence of parts) {
+        const next = `${current} ${sentence}`.trim();
+        if (next.length <= maxLen) {
+          current = next;
+        } else {
+          if (current) chunks.push(current);
+          current = sentence;
+        }
+      }
+      if (current) chunks.push(current);
+      return chunks;
+    }
+
+    function synthesizeWaveform() {
+      const selectedVoice = voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
+      const styleGain = { saudi_formal: 0.52, saudi_youth: 0.46, gulf_soft: 0.38, promo: 0.65 };
+      const speed = Number(speedRange.value);
+      const pitch = Number(pitchRange.value);
+      const baseFrequency = selectedVoice.baseFreq * Math.pow(2, pitch / 12);
+      const gain = (styleGain[styleSelect.value] || selectedVoice.gain) * selectedVoice.gain;
+      const chunks = splitChunks(normalizeArabicText(scriptText.value));
+      const samples = [];
+
+      chunks.forEach((chunk, index) => {
+        const duration = Math.max(0.55, Math.min(5.0, chunk.length / (22 * speed)));
+        const count = Math.floor(SAMPLE_RATE * duration);
+        const freq = baseFrequency + (index % 4) * 8;
+
+        for (let i = 0; i < count; i++) {
+          const t = i / SAMPLE_RATE;
+          const env = Math.min(1, i / 500) * Math.min(1, (count - i) / 500);
+          const tone = Math.sin(2 * Math.PI * freq * t) + 0.35 * Math.sin(2 * Math.PI * freq * 2 * t);
+          samples.push(Math.max(-1, Math.min(1, tone * gain * env)));
+        }
+
+        for (let i = 0; i < SAMPLE_RATE * 0.12; i++) samples.push(0);
+      });
+
+      return new Float32Array(samples.length ? samples : [0]);
+    }
+
+    function encodeWav(floatSamples) {
+      const buffer = new ArrayBuffer(44 + floatSamples.length * 2);
+      const view = new DataView(buffer);
+
+      function writeString(offset, value) {
+        for (let i = 0; i < value.length; i++) {
+          view.setUint8(offset + i, value.charCodeAt(i));
+        }
+      }
+
+      writeString(0, "RIFF");
+      view.setUint32(4, 36 + floatSamples.length * 2, true);
+      writeString(8, "WAVE");
+      writeString(12, "fmt ");
+      view.setUint32(16, 16, true);
+      view.setUint16(20, 1, true);
+      view.setUint16(22, 1, true);
+      view.setUint32(24, SAMPLE_RATE, true);
+      view.setUint32(28, SAMPLE_RATE * 2, true);
+      view.setUint16(32, 2, true);
+      view.setUint16(34, 16, true);
+      writeString(36, "data");
+      view.setUint32(40, floatSamples.length * 2, true);
+
+      let offset = 44;
+      for (let i = 0; i < floatSamples.length; i++, offset += 2) {
+        const s = Math.max(-1, Math.min(1, floatSamples[i]));
+        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
+      }
+
+      return new Blob([buffer], { type: "audio/wav" });
+    }
+
+    function drawWaveform(floatSamples) {
+      const w = waveCanvas.width;
+      const h = waveCanvas.height;
+      ctx.clearRect(0, 0, w, h);
+      ctx.fillStyle = "rgba(6, 17, 31, 0.9)";
+      ctx.fillRect(0, 0, w, h);
+      const bars = 180;
+      const step = Math.max(1, Math.floor(floatSamples.length / bars));
+
+      for (let i = 0; i < bars; i++) {
+        let peak = 0;
+        for (let j = 0; j < step; j++) {
+          peak = Math.max(peak, Math.abs(floatSamples[i * step + j] || 0));
+        }
+        const barHeight = Math.max(6, peak * 180);
+        const x = (i / bars) * w;
+        const grad = ctx.createLinearGradient(x, 0, x, h);
+        grad.addColorStop(0, "#32f5c8");
+        grad.addColorStop(1, "#8b5cf6");
+        ctx.fillStyle = grad;
+        ctx.fillRect(x, (h - barHeight) / 2, Math.max(2, w / bars - 2), barHeight);
+      }
+    }
+
+    async function generateAudio() {
+      const text = scriptText.value.trim();
+      if (!text) {
+        statusText.textContent = "اكتب نصًا قبل التوليد.";
+        return;
+      }
+
+      const jobId = `job_${Date.now().toString(36)}`;
+      jobIdLabel.textContent = jobId;
+      jobStatus.textContent = "queued";
+      statusText.textContent = "تم استقبال النص، تجهيز المعالجة...";
+      progressFill.style.width = "8%";
+      generateBtn.disabled = true;
+
+      let progress = 8;
+      const timer = setInterval(() => {
+        progress = Math.min(progress + 11, 92);
+        jobStatus.textContent = "processing";
+        progressFill.style.width = `${progress}%`;
+        statusText.textContent = `جاري توليد المقطع ${Math.max(1, Math.ceil(progress / 20))} من 6`;
+      }, 180);
+
+      setTimeout(() => {
+        const samples = synthesizeWaveform();
+        const wavBlob = encodeWav(samples);
+        latestDuration = samples.length / SAMPLE_RATE;
+        if (latestBlobUrl) URL.revokeObjectURL(latestBlobUrl);
+        latestBlobUrl = URL.createObjectURL(wavBlob);
+        audioPlayer.src = latestBlobUrl;
+        drawWaveform(samples);
+        clearInterval(timer);
+        progressFill.style.width = "100%";
+        jobStatus.textContent = "completed";
+        statusText.textContent = `اكتمل التوليد بنجاح. المدة التقريبية ${latestDuration.toFixed(1)} ثانية.`;
+        generateBtn.disabled = false;
+      }, 1700);
+    }
+
+    function saveCurrentProject() {
+      const text = scriptText.value.trim();
+      if (!text) {
+        statusText.textContent = "لا يوجد نص لحفظ المشروع.";
+        return;
+      }
+
+      const selectedVoice = voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
+      const projects = loadProjects();
+      projects.push({
+        title: text.slice(0, 38) + (text.length > 38 ? "..." : ""),
+        voiceName: selectedVoice.name,
+        style: styleSelect.value,
+        duration: latestDuration || Math.max(1, text.length / 22),
+        date: new Date().toLocaleString("ar-SA")
+      });
+      storeProjects(projects);
+      renderProjects();
+      statusText.textContent = "تم حفظ المشروع محليًا بنجاح.";
+    }
+
+    voices.forEach((voice) => {
+      const option = document.createElement("option");
+      option.value = voice.id;
+      option.textContent = `${voice.name} - ${voice.accent}`;
+      voiceSelect.appendChild(option);
+    });
+
+    scriptText.addEventListener("input", updateLabels);
+    voiceSelect.addEventListener("change", updateLabels);
+    styleSelect.addEventListener("change", updateLabels);
+    speedRange.addEventListener("input", updateLabels);
+    pitchRange.addEventListener("input", updateLabels);
+    generateBtn.addEventListener("click", generateAudio);
+    saveProjectBtn.addEventListener("click", saveCurrentProject);
+
+    updateLabels();
+    renderProjects();
+    drawWaveform(new Float32Array([0]));
+  </script>
+</body>
+</html>
