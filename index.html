@@ -227,7 +227,7 @@
 
         <aside class="card stack">
           <div>
-            <div class="row"><span>الصوت</span><span id="voiceLabel">Saudi Narrator</span></div>
+            <div class="row"><span>الصوت</span><span id="voiceLabel">شاب سعودي</span></div>
             <select id="voiceSelect"></select>
           </div>
           <div>
@@ -263,21 +263,21 @@
       <h2 class="section-title">الأصوات واللهجات</h2>
       <div class="grid-3">
         <article class="card">
-          <span class="eyebrow">saudi_formal</span>
-          <h3>Saudi Narrator</h3>
-          <p class="lead">صوت سعودي رسمي مناسب للشروحات والعروض والتعليق التعليمي.</p>
+          <span class="eyebrow">saudi_young_male</span>
+          <h3>شاب سعودي</h3>
+          <p class="lead">صوت شبابي سعودي واضح ومناسب للشروحات والمحتوى اليومي بدون حدة مزعجة.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
-          <span class="eyebrow">gulf_soft</span>
-          <h3>Gulf Soft</h3>
-          <p class="lead">نبرة هادئة وناعمة مناسبة للبودكاست والرسائل وتجارب المنتج.</p>
+          <span class="eyebrow">saudi_female_soft</span>
+          <h3>بنت سعودية</h3>
+          <p class="lead">صوت أنثوي سعودي ناعم ومناسب للبودكاست والرسائل وتجارب المنتج.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
-          <span class="eyebrow">promo</span>
-          <h3>Ad Voice</h3>
-          <p class="lead">طاقة إعلانية أعلى للحملات والفيديوهات التجارية القصيرة.</p>
+          <span class="eyebrow">formal_ad</span>
+          <h3>إعلاني رسمي</h3>
+          <p class="lead">صوت رسمي تسويقي واضح للحملات والإعلانات والتقديم التجاري.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
       </div>
@@ -336,9 +336,9 @@
 
   <script>
     const voices = [
-      { id: "voice_sa_narrator_01", name: "Saudi Narrator", accent: "سعودي", baseFreq: 118, gain: 0.9, gender: "male" },
-      { id: "voice_gulf_soft_01", name: "Gulf Soft", accent: "خليجي", baseFreq: 186, gain: 0.78, gender: "female" },
-      { id: "voice_sa_ad_01", name: "Ad Voice", accent: "إعلاني", baseFreq: 142, gain: 1.0, gender: "male" }
+      { id: "voice_sa_young_male_01", name: "شاب سعودي", accent: "سعودي شبابي", baseFreq: 128, gain: 0.82, gender: "male", rateBias: 1.04, pitchBias: 1.0, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
+      { id: "voice_sa_female_01", name: "بنت سعودية", accent: "سعودي ناعم", baseFreq: 205, gain: 0.72, gender: "female", rateBias: 1.0, pitchBias: 1.18, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
+      { id: "voice_sa_formal_ad_01", name: "إعلاني رسمي", accent: "رسمي إعلاني", baseFreq: 146, gain: 0.92, gender: "male", rateBias: 0.96, pitchBias: 0.92, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] }
     ];
 
     const scriptText = document.getElementById("scriptText");
@@ -370,6 +370,7 @@
     let latestDuration = 0;
     let systemVoiceList = [];
     let fallbackTimer = null;
+    let speechKeepAliveTimer = null;
 
     const replacements = {
       "0": "صفر", "1": "واحد", "2": "اثنان", "3": "ثلاثة", "4": "أربعة",
@@ -464,13 +465,17 @@
       const arabicVoices = systemVoiceList.filter((voice) => (voice.lang || "").toLowerCase().startsWith("ar"));
       if (!arabicVoices.length) return null;
 
-      const maleHints = ["male", "naayf", "hossam", "tarik", "mohammed", "maged"];
-      const femaleHints = ["female", "zira", "laila", "salma", "hoda", "mariam"];
-      const hints = selectedVoice.gender === "female" ? femaleHints : maleHints;
+      const scored = arabicVoices.map((voice) => {
+        const haystack = `${voice.name} ${voice.voiceURI} ${voice.lang}`.toLowerCase();
+        const score = selectedVoice.hints.reduce(
+          (sum, hint) => sum + (haystack.includes(hint.toLowerCase()) ? 3 : 0),
+          haystack.includes("sa") || haystack.includes("arabic") ? 2 : 0
+        );
+        return { voice, score };
+      });
 
-      return arabicVoices.find((voice) =>
-        hints.some((hint) => `${voice.name} ${voice.voiceURI}`.toLowerCase().includes(hint))
-      ) || arabicVoices[0];
+      scored.sort((a, b) => b.score - a.score);
+      return scored[0]?.voice || arabicVoices[0];
     }
 
     function estimateSpeechDuration(text) {
@@ -503,8 +508,13 @@
 
         for (let charIndex = 0; charIndex < cleanChunk.length; charIndex++) {
           const char = cleanChunk[charIndex];
-          const isPause = " .,!؟?،؛".includes(char);
-          const duration = isPause ? 0.08 : Math.max(0.045, Math.min(0.13, 0.065 / speed));
+          const isPause = ".,!؟?،؛".includes(char);
+          const isSpace = char === " ";
+          const duration = isPause
+            ? 0.03
+            : isSpace
+              ? 0.012
+              : Math.max(0.04, Math.min(0.11, 0.058 / speed));
           const count = Math.floor(SAMPLE_RATE * duration);
           const [f1, f2, f3] = formantsForChar(char);
           const localPitch = baseFrequency + ((index + charIndex) % 5) * 3.5;
@@ -522,12 +532,12 @@
                 : (0.6 * Math.sin(2 * Math.PI * f1 * t) +
                   0.28 * Math.sin(2 * Math.PI * f2 * t) +
                   0.12 * Math.sin(2 * Math.PI * f3 * t)) * 0.18;
-            const sample = isPause ? 0 : (glottal * 0.82 + vowel + aspiration) * gain * env;
+            const sample = (isPause || isSpace) ? 0 : (glottal * 0.82 + vowel + aspiration) * gain * env;
             samples.push(Math.max(-1, Math.min(1, sample)));
           }
         }
 
-        for (let i = 0; i < SAMPLE_RATE * 0.08; i++) samples.push(0);
+        for (let i = 0; i < SAMPLE_RATE * 0.015; i++) samples.push(0);
       });
 
       return new Float32Array(samples.length ? samples : [0]);
@@ -590,22 +600,48 @@
       }
     }
 
+    function stopSpeechPlayback() {
+      if (speechKeepAliveTimer) {
+        clearInterval(speechKeepAliveTimer);
+        speechKeepAliveTimer = null;
+      }
+      if ("speechSynthesis" in window) {
+        window.speechSynthesis.cancel();
+      }
+    }
+
     function playSystemSpeech(text, done) {
       if (!("speechSynthesis" in window)) return false;
 
       const systemVoice = pickSystemArabicVoice();
       if (!systemVoice) return false;
 
-      window.speechSynthesis.cancel();
+      stopSpeechPlayback();
+      const selectedVoice = voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = systemVoice.lang || "ar-SA";
       utterance.voice = systemVoice;
-      utterance.rate = Number(speedRange.value);
-      utterance.pitch = Math.max(0.6, Math.min(1.6, 1 + Number(pitchRange.value) * 0.08));
+      utterance.rate = Math.max(0.72, Math.min(1.25, Number(speedRange.value) * selectedVoice.rateBias));
+      utterance.pitch = Math.max(
+        0.7,
+        Math.min(1.45, selectedVoice.pitchBias + Number(pitchRange.value) * 0.06)
+      );
       utterance.volume = 1;
-      utterance.onend = done;
-      utterance.onerror = done;
+      utterance.onend = () => {
+        stopSpeechPlayback();
+        done();
+      };
+      utterance.onerror = () => {
+        stopSpeechPlayback();
+        done();
+      };
       window.speechSynthesis.speak(utterance);
+      speechKeepAliveTimer = setInterval(() => {
+        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
+          window.speechSynthesis.pause();
+          window.speechSynthesis.resume();
+        }
+      }, 4500);
       return true;
     }
 
