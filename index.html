@@ -234,7 +234,7 @@
               <option value="saudi_formal">سعودي رسمي</option>
               <option value="saudi_youth">سعودي شبابي</option>
               <option value="gulf_soft">خليجي هادئ</option>
-              <option value="promo">إعلاني</option>
+              <option value="promo">رجل أعمال رسمي</option>
               <option value="fusha_clear">فصحى واضحة</option>
               <option value="robot_mode">روبوت</option>
             </select>
@@ -279,9 +279,9 @@
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
-          <span class="eyebrow">formal_ad</span>
-          <h3>إعلاني رسمي</h3>
-          <p class="lead">صوت رسمي تسويقي واضح للحملات والإعلانات والتقديم التجاري.</p>
+          <span class="eyebrow">business_formal</span>
+          <h3>رجل أعمال رسمي</h3>
+          <p class="lead">صوت رجل رسمي بأسلوب رجل أعمال مناسب للعروض التجارية والرسائل التنفيذية.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
@@ -291,9 +291,9 @@
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
-          <span class="eyebrow">robot_mode</span>
-          <h3>صوت روبوت</h3>
-          <p class="lead">نمط روبوتي صناعي للمؤثرات التقنية والواجهات المستقبلية.</p>
+          <span class="eyebrow">arabic_robot</span>
+          <h3>روبوت عربي</h3>
+          <p class="lead">صوت روبوت يتكلم بالعربي بنبرة آلية واضحة ومناسبة للمساعدات التقنية.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
       </div>
@@ -311,9 +311,9 @@
     const voices = [
       { id: "voice_riyadh_male_01", name: "شاب سعودي - الرياض", accent: "لهجة الرياض", baseFreq: 128, gain: 0.82, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.04, pitchBias: 1.0, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
       { id: "voice_riyadh_female_01", name: "بنت سعودية - الرياض", accent: "لهجة الرياض", baseFreq: 208, gain: 0.72, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.0, pitchBias: 1.18, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
-      { id: "voice_sa_formal_ad_01", name: "إعلاني رسمي", accent: "رسمي إعلاني", baseFreq: 146, gain: 0.92, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.96, pitchBias: 0.92, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
+      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 138, gain: 0.94, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.9, pitchBias: 0.86, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
       { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 162, gain: 0.8, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.94, pitchBias: 1.0, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
-      { id: "voice_robot_01", name: "صوت روبوت", accent: "روبوت", baseFreq: 122, gain: 0.95, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 1.0, pitchBias: 0.8, hints: [] }
+      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 122, gain: 0.95, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.95, pitchBias: 0.72, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
     ];
 
     const scriptText = document.getElementById("scriptText");
@@ -425,7 +425,13 @@
         [/ مرحبا /g, " يا هلا "],
         [/ كيف حالك /g, " وش اخبارك "],
         [/ هذا /g, " ذا "],
-        [/ هذه /g, " هذي "]
+        [/ هذه /g, " هذي "],
+        [/ هناك /g, " هناك "],
+        [/ فقط /g, " بس "],
+        [/ ايضا /g, " بعد "],
+        [/ اذهب /g, " رح "],
+        [/ حسنا /g, " تمام "],
+        [/ اريدك /g, " ابيك "]
       ];
       dialectPairs.forEach(([pattern, replacement]) => {
         output = output.replace(pattern, replacement);
@@ -644,8 +650,6 @@
       if (!("speechSynthesis" in window)) return false;
 
       const selectedVoice = getSelectedVoiceProfile();
-      if (selectedVoice.mode === "robot") return false;
-
       const systemVoice = pickSystemArabicVoice();
       if (!systemVoice) return false;
 
@@ -663,6 +667,10 @@
         0.7,
         Math.min(1.45, selectedVoice.pitchBias + Number(pitchRange.value) * 0.06)
       );
+      if (selectedVoice.mode === "robot") {
+        utterance.rate = Math.max(0.8, Math.min(1.15, utterance.rate * 0.92));
+        utterance.pitch = Math.max(0.5, Math.min(0.95, utterance.pitch));
+      }
       utterance.volume = 1;
       utterance.onend = () => {
         stopSpeechPlayback();
