@@ -182,8 +182,6 @@
         <a href="#studio">الاستوديو</a>
         <a href="#voices">الأصوات</a>
         <a href="#projects">المشاريع</a>
-        <a href="#pricing">التسعير</a>
-        <a href="#admin">الأدمن</a>
       </nav>
     </header>
 
@@ -210,7 +208,7 @@
           <div style="width:92%"></div>
           <div style="width:36%"></div>
         </div>
-        <p class="mini" style="margin-top:20px;">واجهة واحدة تجمع landing page + studio + voices + pricing + projects + admin.</p>
+        <p class="mini" style="margin-top:20px;">واجهة رسمية تجمع الصفحة الرئيسية + الاستوديو + الأصوات + المشاريع، مع لوحة أدمن منفصلة.</p>
       </div>
     </section>
 
@@ -246,6 +244,10 @@
           <div>
             <div class="row"><span>النبرة</span><span id="pitchLabel">0</span></div>
             <input id="pitchRange" type="range" min="-3" max="3" step="1" value="0" />
+          </div>
+          <div>
+            <div class="row"><span>مدة الصوت المطلوبة</span><span id="durationLabel">8.0s</span></div>
+            <input id="durationRange" type="range" min="2" max="60" step="0.5" value="8" />
           </div>
           <button class="btn btn-primary" id="generateBtn">توليد الصوت</button>
           <button class="btn btn-secondary" id="saveProjectBtn">حفظ كمشروع</button>
@@ -289,49 +291,6 @@
       <div class="card" id="projectsList"></div>
     </section>
 
-    <section id="pricing">
-      <span class="eyebrow">Pricing</span>
-      <h2 class="section-title">الخطط</h2>
-      <div class="grid-3">
-        <article class="card">
-          <span class="eyebrow">Free</span>
-          <h3 class="metric">0 ريال</h3>
-          <p class="lead">Preview قصير + صوت واحد + حفظ محلي بسيط.</p>
-        </article>
-        <article class="card">
-          <span class="eyebrow">Starter</span>
-          <h3 class="metric">99 ريال</h3>
-          <p class="lead">نصوص أطول + تحميل WAV + عدة أساليب صوتية.</p>
-        </article>
-        <article class="card">
-          <span class="eyebrow">Pro</span>
-          <h3 class="metric">299 ريال</h3>
-          <p class="lead">Batch generation + API access + أصوات مميزة.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="admin">
-      <span class="eyebrow">Admin</span>
-      <h2 class="section-title">لوحة المراقبة</h2>
-      <div class="grid-3">
-        <article class="card">
-          <span class="eyebrow">Jobs Today</span>
-          <div class="metric" id="metricJobs">0</div>
-          <p class="mini">عدد التوليدات المحفوظة محليًا في هذا المتصفح.</p>
-        </article>
-        <article class="card">
-          <span class="eyebrow">Avg Duration</span>
-          <div class="metric" id="metricDuration">0.0s</div>
-          <p class="mini">متوسط طول الملفات الصوتية التجريبية المولدة.</p>
-        </article>
-        <article class="card">
-          <span class="eyebrow">Engine</span>
-          <div class="metric">MVP</div>
-          <p class="mini">مولّد WAV محلي تجريبي داخل المتصفح بدل API خارجي.</p>
-        </article>
-      </div>
-    </section>
   </div>
 
   <script>
@@ -351,6 +310,8 @@
     const speedLabel = document.getElementById("speedLabel");
     const pitchRange = document.getElementById("pitchRange");
     const pitchLabel = document.getElementById("pitchLabel");
+    const durationRange = document.getElementById("durationRange");
+    const durationLabel = document.getElementById("durationLabel");
     const generateBtn = document.getElementById("generateBtn");
     const saveProjectBtn = document.getElementById("saveProjectBtn");
     const jobIdLabel = document.getElementById("jobIdLabel");
@@ -359,8 +320,6 @@
     const progressFill = document.getElementById("progressFill");
     const audioPlayer = document.getElementById("audioPlayer");
     const projectsList = document.getElementById("projectsList");
-    const metricJobs = document.getElementById("metricJobs");
-    const metricDuration = document.getElementById("metricDuration");
     const waveCanvas = document.getElementById("waveCanvas");
     const ctx = waveCanvas.getContext("2d");
 
@@ -392,11 +351,6 @@
 
     function renderProjects() {
       const projects = loadProjects();
-      metricJobs.textContent = projects.length.toString();
-      const avg = projects.length
-        ? projects.reduce((sum, p) => sum + (p.duration || 0), 0) / projects.length
-        : 0;
-      metricDuration.textContent = `${avg.toFixed(1)}s`;
 
       if (!projects.length) {
         projectsList.innerHTML = `<p class="mini">لا توجد مشاريع محفوظة بعد. ولّد صوتًا ثم اضغط "حفظ كمشروع".</p>`;
@@ -409,7 +363,7 @@
         .map((project) => `
           <div class="project-item">
             <div>
-              <strong style="color:white">${project.title}</strong>
+              <strong style="color:#0f172a">${project.title}</strong>
               <div class="mini">${project.voiceName} / ${project.style} / ${project.duration.toFixed(1)}s</div>
             </div>
             <div class="mini">${project.date}</div>
@@ -424,6 +378,7 @@
       styleLabel.textContent = styleSelect.value;
       speedLabel.textContent = `${Number(speedRange.value).toFixed(1)}x`;
       pitchLabel.textContent = pitchRange.value;
+      durationLabel.textContent = `${Number(durationRange.value).toFixed(1)}s`;
       charCount.textContent = `${scriptText.value.trim().length} حرف`;
     }
 
@@ -478,9 +433,17 @@
       return scored[0]?.voice || arabicVoices[0];
     }
 
-    function estimateSpeechDuration(text) {
-      const len = normalizeArabicText(text).length;
-      return Math.max(1.2, Math.min(45, len / (11 * Number(speedRange.value))));
+    function getTargetDuration() {
+      return Math.max(2, Math.min(60, Number(durationRange.value) || 8));
+    }
+
+    function estimateNaturalSpeechDuration(text) {
+      const len = normalizeArabicText(text).replace(/\s+/g, "").length;
+      return Math.max(1.2, len / 11);
+    }
+
+    function estimateSpeechDuration() {
+      return getTargetDuration();
     }
 
     function formantsForChar(char) {
@@ -495,49 +458,48 @@
     function synthesizeWaveform() {
       const selectedVoice = voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
       const styleGain = { saudi_formal: 0.85, saudi_youth: 0.78, gulf_soft: 0.7, promo: 0.92 };
-      const speed = Number(speedRange.value);
       const pitch = Number(pitchRange.value);
       const baseFrequency = selectedVoice.baseFreq * Math.pow(2, pitch / 12);
       const gain = (styleGain[styleSelect.value] || selectedVoice.gain) * selectedVoice.gain * 0.32;
-      const chunks = splitChunks(normalizeArabicText(scriptText.value));
+      const normalizedText = normalizeArabicText(scriptText.value);
+      const chars = [...normalizedText];
       const samples = [];
       let phase = 0;
 
-      chunks.forEach((chunk, index) => {
-        const cleanChunk = chunk.replace(/\s+/g, " ").trim();
+      if (!chars.length) return new Float32Array([0]);
 
-        for (let charIndex = 0; charIndex < cleanChunk.length; charIndex++) {
-          const char = cleanChunk[charIndex];
-          const isPause = ".,!؟?،؛".includes(char);
-          const isSpace = char === " ";
-          const duration = isPause
-            ? 0.03
-            : isSpace
-              ? 0.012
-              : Math.max(0.04, Math.min(0.11, 0.058 / speed));
-          const count = Math.floor(SAMPLE_RATE * duration);
-          const [f1, f2, f3] = formantsForChar(char);
-          const localPitch = baseFrequency + ((index + charIndex) % 5) * 3.5;
+      const weights = chars.map((char) => {
+        if (".,!؟?،؛".includes(char)) return 0.2;
+        if (char === " ") return 0.08;
+        return 1;
+      });
+      const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
+      const baseUnit = getTargetDuration() / totalWeight;
 
-          for (let i = 0; i < count; i++) {
-            const t = i / SAMPLE_RATE;
-            phase += (2 * Math.PI * localPitch) / SAMPLE_RATE;
-            const env = Math.sin((Math.PI * i) / Math.max(1, count - 1));
-            const vibrato = 1 + 0.015 * Math.sin(2 * Math.PI * 5.2 * t);
-            const glottal = 0.75 * Math.sin(phase * vibrato) + 0.2 * Math.sin(phase * 2.0) + 0.08 * Math.sin(phase * 3.0);
-            const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * 0.015;
-            const vowel =
-              f1 === 0
-                ? 0
-                : (0.6 * Math.sin(2 * Math.PI * f1 * t) +
-                  0.28 * Math.sin(2 * Math.PI * f2 * t) +
-                  0.12 * Math.sin(2 * Math.PI * f3 * t)) * 0.18;
-            const sample = (isPause || isSpace) ? 0 : (glottal * 0.82 + vowel + aspiration) * gain * env;
-            samples.push(Math.max(-1, Math.min(1, sample)));
-          }
+      chars.forEach((char, charIndex) => {
+        const isPause = ".,!؟?،؛".includes(char);
+        const isSpace = char === " ";
+        const duration = Math.max(0.006, baseUnit * weights[charIndex]);
+        const count = Math.max(16, Math.floor(SAMPLE_RATE * duration));
+        const [f1, f2, f3] = formantsForChar(char);
+        const localPitch = baseFrequency + (charIndex % 7) * 1.8;
+
+        for (let i = 0; i < count; i++) {
+          const t = i / SAMPLE_RATE;
+          phase += (2 * Math.PI * localPitch) / SAMPLE_RATE;
+          const edge = Math.min(1, i / 32, (count - i) / 32);
+          const vibrato = 1 + 0.008 * Math.sin(2 * Math.PI * 4.3 * t);
+          const glottal = 0.72 * Math.sin(phase * vibrato) + 0.18 * Math.sin(phase * 2.0) + 0.06 * Math.sin(phase * 3.0);
+          const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * 0.008;
+          const vowel =
+            f1 === 0
+              ? 0
+              : (0.56 * Math.sin(2 * Math.PI * f1 * t) +
+                0.24 * Math.sin(2 * Math.PI * f2 * t) +
+                0.1 * Math.sin(2 * Math.PI * f3 * t)) * 0.12;
+          const sample = (isPause || isSpace) ? 0 : (glottal * 0.9 + vowel + aspiration) * gain * edge;
+          samples.push(Math.max(-1, Math.min(1, sample)));
         }
-
-        for (let i = 0; i < SAMPLE_RATE * 0.015; i++) samples.push(0);
       });
 
       return new Float32Array(samples.length ? samples : [0]);
@@ -621,7 +583,12 @@
       const utterance = new SpeechSynthesisUtterance(text);
       utterance.lang = systemVoice.lang || "ar-SA";
       utterance.voice = systemVoice;
-      utterance.rate = Math.max(0.72, Math.min(1.25, Number(speedRange.value) * selectedVoice.rateBias));
+      const naturalDuration = estimateNaturalSpeechDuration(text);
+      const durationRate = naturalDuration / getTargetDuration();
+      utterance.rate = Math.max(
+        0.6,
+        Math.min(1.5, Number(speedRange.value) * selectedVoice.rateBias * durationRate)
+      );
       utterance.pitch = Math.max(
         0.7,
         Math.min(1.45, selectedVoice.pitchBias + Number(pitchRange.value) * 0.06)
@@ -637,11 +604,10 @@
       };
       window.speechSynthesis.speak(utterance);
       speechKeepAliveTimer = setInterval(() => {
-        if (window.speechSynthesis.speaking && !window.speechSynthesis.paused) {
-          window.speechSynthesis.pause();
+        if (window.speechSynthesis.speaking && window.speechSynthesis.paused) {
           window.speechSynthesis.resume();
         }
-      }, 4500);
+      }, 1200);
       return true;
     }
 
@@ -718,7 +684,7 @@
         title: text.slice(0, 38) + (text.length > 38 ? "..." : ""),
         voiceName: selectedVoice.name,
         style: styleSelect.value,
-        duration: latestDuration || Math.max(1, text.length / 22),
+        duration: latestDuration || getTargetDuration(),
         date: new Date().toLocaleString("ar-SA")
       });
       storeProjects(projects);
@@ -743,6 +709,7 @@
     styleSelect.addEventListener("change", updateLabels);
     speedRange.addEventListener("input", updateLabels);
     pitchRange.addEventListener("input", updateLabels);
+    durationRange.addEventListener("input", updateLabels);
     generateBtn.addEventListener("click", generateAudio);
     saveProjectBtn.addEventListener("click", saveCurrentProject);
 

@@ -1,0 +1,358 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Admin Portal - Saudi TTS</title>
+  <style>
+    :root {
+      --bg: #f4f8ff;
+      --card: #ffffff;
+      --soft: #eef5ff;
+      --line: rgba(37, 99, 235, 0.14);
+      --text: #0f172a;
+      --muted: #475569;
+      --blue: #2563eb;
+      --sky: #0ea5e9;
+      --shadow: 0 30px 70px rgba(15, 23, 42, 0.09);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      margin: 0;
+      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%),
+        linear-gradient(180deg, #ffffff, #f4f8ff 45%, #eaf2ff);
+      color: var(--text);
+    }
+
+    .wrap {
+      width: min(1360px, calc(100vw - 32px));
+      margin: 0 auto;
+      padding: 24px 0 48px;
+    }
+
+    .topbar, .card {
+      background: rgba(255, 255, 255, 0.94);
+      border: 1px solid var(--line);
+      box-shadow: var(--shadow);
+    }
+
+    .topbar {
+      border-radius: 999px;
+      padding: 16px 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+    }
+
+    .brand { font-size: 22px; font-weight: 900; }
+    .muted { color: var(--muted); font-size: 14px; }
+    .grid { display: grid; gap: 24px; grid-template-columns: 0.85fr 1.15fr; margin-top: 36px; }
+    .card { border-radius: 32px; padding: 32px; }
+
+    .tabs {
+      display: flex;
+      gap: 10px;
+      padding: 8px;
+      background: var(--soft);
+      border-radius: 22px;
+      margin-bottom: 24px;
+    }
+
+    .tab, .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 18px;
+      padding: 14px 24px;
+      font-weight: 800;
+      font-size: 15px;
+    }
+
+    .tab {
+      flex: 1;
+      background: transparent;
+      color: var(--muted);
+    }
+
+    .tab.active, .btn-primary {
+      background: linear-gradient(135deg, var(--blue), var(--sky));
+      color: #ffffff;
+    }
+
+    .btn-secondary {
+      background: var(--soft);
+      color: var(--text);
+    }
+
+    label { display: block; color: var(--muted); font-size: 14px; margin-top: 18px; }
+    input {
+      width: 100%;
+      margin-top: 10px;
+      border-radius: 20px;
+      border: 1px solid var(--line);
+      background: #ffffff;
+      padding: 16px 18px;
+      font-size: 16px;
+      color: var(--text);
+      outline: none;
+    }
+
+    .hero-title {
+      font-size: clamp(40px, 5vw, 70px);
+      line-height: 1.05;
+      margin: 0;
+    }
+
+    .actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 24px; }
+    .hidden { display: none !important; }
+
+    .stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+      margin-top: 24px;
+    }
+
+    .stat {
+      background: var(--soft);
+      border-radius: 26px;
+      padding: 22px;
+      border: 1px solid var(--line);
+    }
+
+    .value {
+      font-size: 36px;
+      font-weight: 900;
+      margin-top: 10px;
+    }
+
+    .list { margin-top: 24px; }
+    .item {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      border-bottom: 1px solid var(--line);
+      padding: 16px 0;
+      color: var(--muted);
+    }
+
+    .message {
+      margin-top: 16px;
+      padding: 14px 18px;
+      border-radius: 18px;
+      background: var(--soft);
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.7;
+    }
+
+    @media (max-width: 900px) {
+      .grid, .stats { grid-template-columns: 1fr; }
+      .topbar { border-radius: 26px; }
+    }
+  </style>
+</head>
+<body>
+  <main class="wrap">
+    <header class="topbar">
+      <div class="brand">Saudi TTS Admin</div>
+      <div class="actions" style="margin-top:0;">
+        <a class="btn btn-secondary" href="index.html" style="text-decoration:none;">الرجوع للواجهة</a>
+        <button class="btn btn-secondary hidden" id="logoutBtn">تسجيل خروج</button>
+      </div>
+    </header>
+
+    <section class="grid">
+      <article class="card">
+        <p class="muted">لوحة أدمن مستقلة</p>
+        <h1 class="hero-title">تسجيل دخول أو إنشاء حساب لإدارة المنصة.</h1>
+        <p class="muted" style="line-height:2; margin-top:18px;">
+          هذه الصفحة منفصلة عن واجهة المستخدم، وبعد تسجيل الدخول تعرض إحصائيات المشاريع
+          والتوليدات المحفوظة محليًا.
+        </p>
+      </article>
+
+      <article class="card" id="authCard">
+        <div class="tabs">
+          <button class="tab active" id="loginTab">تسجيل دخول</button>
+          <button class="tab" id="registerTab">إنشاء حساب</button>
+        </div>
+
+        <form id="loginForm">
+          <label>البريد الإلكتروني</label>
+          <input id="loginEmail" type="email" placeholder="admin@sauditts.sa" required />
+          <label>كلمة المرور</label>
+          <input id="loginPassword" type="password" placeholder="••••••••" required />
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">دخول للوحة الأدمن</button>
+          </div>
+        </form>
+
+        <form id="registerForm" class="hidden">
+          <label>اسم المدير</label>
+          <input id="registerName" type="text" placeholder="اسم المسؤول" required />
+          <label>البريد الإلكتروني</label>
+          <input id="registerEmail" type="email" placeholder="admin@sauditts.sa" required />
+          <label>كلمة المرور</label>
+          <input id="registerPassword" type="password" placeholder="حد أدنى 6 أحرف" minlength="6" required />
+          <div class="actions">
+            <button class="btn btn-primary" type="submit">إنشاء الحساب</button>
+          </div>
+        </form>
+
+        <div class="message" id="authMessage">أنشئ حساب أدمن أولًا إذا كانت هذه أول مرة.</div>
+      </article>
+    </section>
+
+    <section class="card hidden" id="dashboardCard" style="margin-top:24px;">
+      <p class="muted">Dashboard</p>
+      <h2 class="hero-title" style="font-size:42px;">لوحة مراقبة المشاريع والتوليد</h2>
+
+      <div class="stats">
+        <div class="stat">
+          <div class="muted">عدد المشاريع</div>
+          <div class="value" id="jobsCount">0</div>
+        </div>
+        <div class="stat">
+          <div class="muted">متوسط المدة</div>
+          <div class="value" id="avgDuration">0.0s</div>
+        </div>
+        <div class="stat">
+          <div class="muted">حساب الأدمن</div>
+          <div class="value" id="adminName" style="font-size:28px;">Admin</div>
+        </div>
+      </div>
+
+      <div class="list" id="projectList"></div>
+    </section>
+  </main>
+
+  <script>
+    const ADMIN_USERS_KEY = "saudi_tts_admin_users_v1";
+    const ADMIN_SESSION_KEY = "saudi_tts_admin_session_v1";
+    const PROJECTS_KEY = "saudi_tts_projects_v1";
+
+    const authCard = document.getElementById("authCard");
+    const dashboardCard = document.getElementById("dashboardCard");
+    const loginTab = document.getElementById("loginTab");
+    const registerTab = document.getElementById("registerTab");
+    const loginForm = document.getElementById("loginForm");
+    const registerForm = document.getElementById("registerForm");
+    const authMessage = document.getElementById("authMessage");
+    const logoutBtn = document.getElementById("logoutBtn");
+    const jobsCount = document.getElementById("jobsCount");
+    const avgDuration = document.getElementById("avgDuration");
+    const adminName = document.getElementById("adminName");
+    const projectList = document.getElementById("projectList");
+
+    function readJSON(key, fallback) {
+      try {
+        return JSON.parse(localStorage.getItem(key) || JSON.stringify(fallback));
+      } catch {
+        return fallback;
+      }
+    }
+
+    function saveJSON(key, value) {
+      localStorage.setItem(key, JSON.stringify(value));
+    }
+
+    function setAuthMode(mode) {
+      const isLogin = mode === "login";
+      loginTab.classList.toggle("active", isLogin);
+      registerTab.classList.toggle("active", !isLogin);
+      loginForm.classList.toggle("hidden", !isLogin);
+      registerForm.classList.toggle("hidden", isLogin);
+      authMessage.textContent = isLogin
+        ? "سجل دخولك بحساب الأدمن."
+        : "أنشئ حساب أدمن جديد ثم ادخل للوحة المراقبة.";
+    }
+
+    function renderDashboard(user) {
+      const projects = readJSON(PROJECTS_KEY, []);
+      const avg = projects.length
+        ? projects.reduce((sum, item) => sum + Number(item.duration || 0), 0) / projects.length
+        : 0;
+
+      authCard.classList.add("hidden");
+      dashboardCard.classList.remove("hidden");
+      logoutBtn.classList.remove("hidden");
+      jobsCount.textContent = projects.length.toString();
+      avgDuration.textContent = `${avg.toFixed(1)}s`;
+      adminName.textContent = user.name;
+
+      projectList.innerHTML = projects.length
+        ? projects.slice().reverse().map((project) => `
+            <div class="item">
+              <div>
+                <strong style="color:#0f172a">${project.title}</strong>
+                <div>${project.voiceName} / ${project.style} / ${Number(project.duration || 0).toFixed(1)}s</div>
+              </div>
+              <div>${project.date}</div>
+            </div>
+          `).join("")
+        : `<div class="message">لا توجد مشاريع محفوظة بعد من الواجهة الرئيسية.</div>`;
+    }
+
+    function restoreSession() {
+      const session = readJSON(ADMIN_SESSION_KEY, null);
+      if (session?.email) {
+        renderDashboard(session);
+      }
+    }
+
+    loginTab.addEventListener("click", () => setAuthMode("login"));
+    registerTab.addEventListener("click", () => setAuthMode("register"));
+
+    registerForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const users = readJSON(ADMIN_USERS_KEY, []);
+      const name = document.getElementById("registerName").value.trim();
+      const email = document.getElementById("registerEmail").value.trim().toLowerCase();
+      const password = document.getElementById("registerPassword").value;
+
+      if (users.some((user) => user.email === email)) {
+        authMessage.textContent = "هذا البريد مسجل مسبقًا. استخدم تسجيل الدخول.";
+        return;
+      }
+
+      const user = { name, email, password };
+      users.push(user);
+      saveJSON(ADMIN_USERS_KEY, users);
+      saveJSON(ADMIN_SESSION_KEY, { name, email });
+      renderDashboard({ name, email });
+    });
+
+    loginForm.addEventListener("submit", (event) => {
+      event.preventDefault();
+      const users = readJSON(ADMIN_USERS_KEY, []);
+      const email = document.getElementById("loginEmail").value.trim().toLowerCase();
+      const password = document.getElementById("loginPassword").value;
+      const user = users.find((item) => item.email === email && item.password === password);
+
+      if (!user) {
+        authMessage.textContent = "بيانات الدخول غير صحيحة أو الحساب غير موجود.";
+        return;
+      }
+
+      saveJSON(ADMIN_SESSION_KEY, { name: user.name, email: user.email });
+      renderDashboard(user);
+    });
+
+    logoutBtn.addEventListener("click", () => {
+      localStorage.removeItem(ADMIN_SESSION_KEY);
+      authCard.classList.remove("hidden");
+      dashboardCard.classList.add("hidden");
+      logoutBtn.classList.add("hidden");
+      setAuthMode("login");
+    });
+
+    setAuthMode("login");
+    restoreSession();
+  </script>
+</body>
+</html>
