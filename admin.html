@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Admin Portal - Saudi TTS</title>
+  <title>Academic Voice Admin</title>
   <style>
     :root {
       --bg: #f4f8ff;
@@ -159,20 +159,20 @@
 <body>
   <main class="wrap">
     <header class="topbar">
-      <div class="brand">Saudi TTS Admin</div>
+      <div class="brand">Academic Voice Admin</div>
       <div class="actions" style="margin-top:0;">
-        <a class="btn btn-secondary" href="index.html" style="text-decoration:none;">الرجوع للواجهة</a>
+        <a class="btn btn-secondary" href="index.html" style="text-decoration:none;">الرجوع للمنصة الأكاديمية</a>
         <button class="btn btn-secondary hidden" id="logoutBtn">تسجيل خروج</button>
       </div>
     </header>
 
     <section class="grid">
       <article class="card">
-        <p class="muted">لوحة أدمن مستقلة</p>
-        <h1 class="hero-title">تسجيل دخول أو إنشاء حساب لإدارة المنصة.</h1>
+        <p class="muted">لوحة إدارة أكاديمية مستقلة</p>
+        <h1 class="hero-title">تسجيل دخول أو إنشاء حساب لإدارة منصة المحاضرات الصوتية.</h1>
         <p class="muted" style="line-height:2; margin-top:18px;">
-          هذه الصفحة منفصلة عن واجهة المستخدم، وبعد تسجيل الدخول تعرض إحصائيات المشاريع
-          والتوليدات المحفوظة محليًا.
+          هذه الصفحة مخصصة للإدارة الأكاديمية، وتعرض بعد تسجيل الدخول إحصائيات المحاضرات
+          الصوتية والمحتوى التعليمي المحفوظ.
         </p>
       </article>
 
@@ -188,7 +188,7 @@
           <label>كلمة المرور</label>
           <input id="loginPassword" type="password" placeholder="••••••••" required />
           <div class="actions">
-            <button class="btn btn-primary" type="submit">دخول للوحة الأدمن</button>
+            <button class="btn btn-primary" type="submit">دخول للوحة الإدارة</button>
           </div>
         </form>
 
@@ -209,16 +209,16 @@
     </section>
 
     <section class="card hidden" id="dashboardCard" style="margin-top:24px;">
-      <p class="muted">Dashboard</p>
-      <h2 class="hero-title" style="font-size:42px;">لوحة مراقبة المشاريع والتوليد</h2>
+      <p class="muted">Academic Dashboard</p>
+      <h2 class="hero-title" style="font-size:42px;">لوحة متابعة المحاضرات الصوتية والمحتوى التعليمي</h2>
 
       <div class="stats">
         <div class="stat">
-          <div class="muted">عدد المشاريع</div>
+          <div class="muted">عدد المحاضرات المحفوظة</div>
           <div class="value" id="jobsCount">0</div>
         </div>
         <div class="stat">
-          <div class="muted">متوسط المدة</div>
+          <div class="muted">متوسط مدة المحاضرة</div>
           <div class="value" id="avgDuration">0.0s</div>
         </div>
         <div class="stat">

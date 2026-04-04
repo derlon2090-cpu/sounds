@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Saudi TTS Studio</title>
+  <title>Academic Voice Platform</title>
   <style>
     :root {
       --bg: #f4f8ff;
@@ -176,30 +176,30 @@
 <body>
   <div class="container">
     <header class="nav">
-      <div class="brand">Saudi TTS</div>
+      <div class="brand">Academic Voice</div>
       <nav class="nav-links">
         <a href="#home">الرئيسية</a>
-        <a href="#studio">الاستوديو</a>
-        <a href="#voices">الأصوات</a>
-        <a href="#projects">المشاريع</a>
+        <a href="#studio">مختبر الصوت الأكاديمي</a>
+        <a href="#voices">الأصوات التعليمية</a>
+        <a href="#projects">المحاضرات المحفوظة</a>
       </nav>
     </header>
 
     <section id="home" class="hero">
       <div>
-        <span class="badge">منصة تحويل النص إلى صوت سعودي طبيعي</span>
-        <h1>كل صفحات المنتج داخل ملف واحد، بتجربة استوديو صوت عربي احترافية.</h1>
+        <span class="badge">منصة أكاديمية لتحويل النصوص العلمية إلى شرح صوتي عربي</span>
+        <h1>حوّل المحاضرات والملازم والنصوص البحثية إلى صوت عربي أكاديمي واضح.</h1>
         <p class="lead">
-          اكتب النص، اختر الصوت، اضبط السرعة والنبرة، ولّد ملفًا صوتيًا تجريبيًا،
-          واحفظ مشاريعك محليًا بدون أي فولدرات إضافية.
+          اكتب محتوى المحاضرة أو الملخص العلمي، اختر صوتًا تعليميًا مناسبًا،
+          اضبط السرعة والنبرة والمدة، ثم أنشئ ملفًا صوتيًا للمراجعة والدراسة.
         </p>
         <div class="actions">
-          <a class="btn btn-primary" href="#studio">افتح الاستوديو</a>
-          <a class="btn btn-secondary" href="#voices">استعرض الأصوات</a>
+          <a class="btn btn-primary" href="#studio">ابدأ إنشاء محاضرة صوتية</a>
+          <a class="btn btn-secondary" href="#voices">استعرض الأصوات التعليمية</a>
         </div>
       </div>
       <div class="card">
-        <div class="row"><span>Live synthesis pipeline</span><span>queued - processing - completed</span></div>
+        <div class="row"><span>Academic synthesis workflow</span><span>lecture draft - processing - ready</span></div>
         <div class="wave-demo">
           <div style="width:72%"></div>
           <div style="width:48%"></div>
@@ -208,28 +208,28 @@
           <div style="width:92%"></div>
           <div style="width:36%"></div>
         </div>
-        <p class="mini" style="margin-top:20px;">واجهة رسمية تجمع الصفحة الرئيسية + الاستوديو + الأصوات + المشاريع، مع لوحة أدمن منفصلة.</p>
+        <p class="mini" style="margin-top:20px;">واجهة أكاديمية رسمية لإعداد المحاضرات الصوتية وحفظ المحتوى التعليمي مع لوحة إدارة منفصلة.</p>
       </div>
     </section>
 
     <section id="studio">
-      <span class="eyebrow">Studio</span>
-      <h2 class="section-title">استوديو توليد الصوت</h2>
+      <span class="eyebrow">Academic Studio</span>
+      <h2 class="section-title">مختبر توليد المحاضرات الصوتية</h2>
       <div class="grid-2">
         <div class="card">
-          <div class="row"><span>النص العربي</span><span id="charCount">0 حرف</span></div>
-          <textarea id="scriptText">حياكم الله، اليوم نبدأ تجربة منصة تحويل النص إلى صوت سعودي طبيعي داخل ملف واحد.</textarea>
+          <div class="row"><span>النص الأكاديمي</span><span id="charCount">0 حرف</span></div>
+          <textarea id="scriptText">مرحبًا بكم في المحاضرة الصوتية، في هذا الدرس سنراجع المفاهيم الأساسية ونشرح الفكرة بأسلوب أكاديمي واضح ومناسب للمذاكرة.</textarea>
           <canvas id="waveCanvas" width="1200" height="220"></canvas>
           <audio id="audioPlayer" controls></audio>
         </div>
 
         <aside class="card stack">
           <div>
-            <div class="row"><span>الصوت</span><span id="voiceLabel">شاب سعودي - الرياض</span></div>
+            <div class="row"><span>الصوت التعليمي</span><span id="voiceLabel">صوت شاب عربي</span></div>
             <select id="voiceSelect"></select>
           </div>
           <div>
-            <div class="row"><span>الأسلوب</span><span id="styleLabel">saudi_formal</span></div>
+            <div class="row"><span>نمط الإلقاء</span><span id="styleLabel">saudi_formal</span></div>
             <select id="styleSelect">
               <option value="saudi_formal">سعودي رسمي</option>
               <option value="saudi_youth">سعودي شبابي</option>
@@ -251,57 +251,57 @@
             <div class="row"><span>مدة الصوت المطلوبة</span><span id="durationLabel">8.0s</span></div>
             <input id="durationRange" type="range" min="2" max="60" step="0.5" value="8" />
           </div>
-          <button class="btn btn-primary" id="generateBtn">توليد الصوت</button>
-          <button class="btn btn-secondary" id="saveProjectBtn">حفظ كمشروع</button>
+          <button class="btn btn-primary" id="generateBtn">توليد المحاضرة الصوتية</button>
+          <button class="btn btn-secondary" id="saveProjectBtn">حفظ كمحاضرة</button>
           <div class="status-box">
             <div class="row"><span id="jobIdLabel">job_pending</span><span id="jobStatus">idle</span></div>
             <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-            <p class="mini" id="statusText">جاهز للتوليد.</p>
+            <p class="mini" id="statusText">جاهز لتحويل النص الأكاديمي إلى صوت.</p>
           </div>
         </aside>
       </div>
     </section>
 
     <section id="voices">
-      <span class="eyebrow">Voice Library</span>
-      <h2 class="section-title">الأصوات واللهجات</h2>
+      <span class="eyebrow">Academic Voice Library</span>
+      <h2 class="section-title">الأصوات التعليمية وأنماط الإلقاء</h2>
       <div class="grid-3">
         <article class="card">
           <span class="eyebrow">riyadh_male</span>
-          <h3>شاب سعودي - لهجة الرياض</h3>
-          <p class="lead">نطق سعودي أقرب للهجة الرياض مع إيقاع شبابي واضح وكلام متواصل.</p>
+          <h3>صوت شاب عربي</h3>
+          <p class="lead">مناسب لشرح الدروس بأسلوب محكي خفيف، ونبرته مختلفة عن الفصحى والروبوت ورجل الأعمال.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
           <span class="eyebrow">riyadh_female</span>
-          <h3>بنت سعودية - لهجة الرياض</h3>
-          <p class="lead">نبرة سعودية ناعمة بلهجة أقرب للرياض ومناسبة للبودكاست والرسائل.</p>
+          <h3>صوت امرأة عربي</h3>
+          <p class="lead">مناسب للملخصات والشرح الهادئ، بطبقة صوت أعلى وأنعم من صوت الشاب.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
           <span class="eyebrow">business_formal</span>
           <h3>رجل أعمال رسمي</h3>
-          <p class="lead">صوت رجل رسمي بأسلوب رجل أعمال مناسب للعروض التجارية والرسائل التنفيذية.</p>
+          <p class="lead">مناسب للعروض الأكاديمية الرسمية، الإعلانات المؤسسية، والرسائل الإدارية.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
           <span class="eyebrow">fusha_clear</span>
           <h3>فصحى واضحة</h3>
-          <p class="lead">صوت عربي فصيح واضح للنصوص الرسمية والأخبار والعروض التعليمية.</p>
+          <p class="lead">مناسب للمحاضرات الرسمية، قراءة النصوص العلمية، والعروض التعليمية الواضحة.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
         <article class="card">
           <span class="eyebrow">arabic_robot</span>
           <h3>روبوت عربي</h3>
-          <p class="lead">صوت روبوت يتكلم بالعربي بنبرة آلية واضحة ومناسبة للمساعدات التقنية.</p>
+          <p class="lead">مناسب لتجارب الذكاء الاصطناعي، المساعد الدراسي، والتنبيهات التقنية داخل المنصة.</p>
           <div class="wave-line" style="height:52px;"></div>
         </article>
       </div>
     </section>
 
     <section id="projects">
-      <span class="eyebrow">Projects</span>
-      <h2 class="section-title">المشاريع المحفوظة</h2>
+      <span class="eyebrow">Lecture Library</span>
+      <h2 class="section-title">المحاضرات الصوتية المحفوظة</h2>
       <div class="card" id="projectsList"></div>
     </section>
 
@@ -309,11 +309,11 @@
 
   <script>
     const voices = [
-      { id: "voice_riyadh_male_01", name: "شاب سعودي - الرياض", accent: "لهجة الرياض", baseFreq: 128, gain: 0.82, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.04, pitchBias: 1.0, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
-      { id: "voice_riyadh_female_01", name: "بنت سعودية - الرياض", accent: "لهجة الرياض", baseFreq: 208, gain: 0.72, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.0, pitchBias: 1.18, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
-      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 138, gain: 0.94, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.9, pitchBias: 0.86, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
-      { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 162, gain: 0.8, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.94, pitchBias: 1.0, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
-      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 122, gain: 0.95, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.95, pitchBias: 0.72, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
+      { id: "voice_riyadh_male_01", name: "صوت شاب عربي", accent: "لهجة محكية", baseFreq: 124, gain: 0.88, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.08, pitchBias: 0.96, formantShift: 0.94, vibratoDepth: 0.006, breath: 0.012, robotMix: 0.0, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
+      { id: "voice_riyadh_female_01", name: "صوت امرأة عربي", accent: "لهجة محكية ناعمة", baseFreq: 228, gain: 0.7, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.02, pitchBias: 1.3, formantShift: 1.18, vibratoDepth: 0.018, breath: 0.02, robotMix: 0.0, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
+      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 112, gain: 0.96, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.88, pitchBias: 0.78, formantShift: 0.88, vibratoDepth: 0.003, breath: 0.008, robotMix: 0.0, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
+      { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 164, gain: 0.82, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.94, pitchBias: 1.0, formantShift: 1.0, vibratoDepth: 0.01, breath: 0.01, robotMix: 0.0, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
+      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 132, gain: 1.0, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.9, pitchBias: 0.62, formantShift: 0.82, vibratoDepth: 0.0, breath: 0.0, robotMix: 1.0, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
     ];
 
     const scriptText = document.getElementById("scriptText");
@@ -369,7 +369,7 @@
       const projects = loadProjects();
 
       if (!projects.length) {
-        projectsList.innerHTML = `<p class="mini">لا توجد مشاريع محفوظة بعد. ولّد صوتًا ثم اضغط "حفظ كمشروع".</p>`;
+        projectsList.innerHTML = `<p class="mini">لا توجد محاضرات محفوظة بعد. أنشئ محاضرة صوتية ثم اضغط "حفظ كمحاضرة".</p>`;
         return;
       }
 
@@ -395,7 +395,7 @@
     function updateLabels() {
       const selectedVoice = getSelectedVoiceProfile();
       voiceLabel.textContent = selectedVoice.name;
-      styleLabel.textContent = styleSelect.value;
+      styleLabel.textContent = styleSelect.options[styleSelect.selectedIndex]?.textContent || styleSelect.value;
       speedLabel.textContent = `${Number(speedRange.value).toFixed(1)}x`;
       pitchLabel.textContent = pitchRange.value;
       durationLabel.textContent = `${Number(durationRange.value).toFixed(1)}s`;
@@ -523,7 +523,7 @@
         robot_mode: 0.95
       };
       const pitch = Number(pitchRange.value);
-      const baseFrequency = selectedVoice.baseFreq * Math.pow(2, pitch / 12);
+      const baseFrequency = selectedVoice.baseFreq * Math.pow(2, pitch / 12) * selectedVoice.pitchBias;
       const gain = (styleGain[styleSelect.value] || selectedVoice.gain) * selectedVoice.gain * 0.34;
       const normalizedText = getPreparedSpeechText(sourceText);
       const chars = [...normalizedText];
@@ -545,14 +545,17 @@
         const isSpace = char === " ";
         const duration = Math.max(0.006, baseUnit * weights[charIndex]);
         const count = Math.max(16, Math.floor(SAMPLE_RATE * duration));
-        const [f1, f2, f3] = formantsForChar(char);
-        const localPitch = baseFrequency + (charIndex % 7) * 1.8;
+        const [rawF1, rawF2, rawF3] = formantsForChar(char);
+        const f1 = rawF1 * selectedVoice.formantShift;
+        const f2 = rawF2 * selectedVoice.formantShift;
+        const f3 = rawF3 * selectedVoice.formantShift;
+        const localPitch = baseFrequency + (charIndex % 7) * (selectedVoice.mode === "robot" ? 0.55 : 1.9);
 
         for (let i = 0; i < count; i++) {
           const t = i / SAMPLE_RATE;
           phase += (2 * Math.PI * localPitch) / SAMPLE_RATE;
           const edge = Math.min(1, i / 32, (count - i) / 32);
-          const vibrato = 1 + 0.008 * Math.sin(2 * Math.PI * 4.3 * t);
+          const vibrato = 1 + selectedVoice.vibratoDepth * Math.sin(2 * Math.PI * 4.3 * t);
           const robotCarrier =
             Math.sign(Math.sin(phase)) * 0.62 +
             Math.sign(Math.sin(phase * 0.5)) * 0.18 +
@@ -561,8 +564,10 @@
             0.72 * Math.sin(phase * vibrato) +
             0.18 * Math.sin(phase * 2.0) +
             0.06 * Math.sin(phase * 3.0);
-          const glottal = selectedVoice.mode === "robot" ? robotCarrier : humanCarrier;
-          const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * 0.008;
+          const glottal =
+            humanCarrier * (1 - selectedVoice.robotMix) +
+            robotCarrier * selectedVoice.robotMix;
+          const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * selectedVoice.breath;
           const vowel =
             f1 === 0
               ? 0
@@ -692,7 +697,7 @@
     async function generateAudio() {
       const text = scriptText.value.trim();
       if (!text) {
-        statusText.textContent = "اكتب نصًا قبل التوليد.";
+        statusText.textContent = "اكتب نص المحاضرة قبل التوليد.";
         return;
       }
       const spokenText = getPreparedSpeechText(text);
@@ -701,7 +706,7 @@
       const jobId = `job_${Date.now().toString(36)}`;
       jobIdLabel.textContent = jobId;
       jobStatus.textContent = "queued";
-      statusText.textContent = "تم استقبال النص، تجهيز المعالجة...";
+      statusText.textContent = "تم استقبال النص الأكاديمي، وجاري تجهيز المحاضرة الصوتية...";
       progressFill.style.width = "8%";
       generateBtn.disabled = true;
       audioPlayer.style.display = "none";
@@ -712,7 +717,7 @@
         progress = Math.min(progress + 11, 92);
         jobStatus.textContent = "processing";
         progressFill.style.width = `${progress}%`;
-        statusText.textContent = `جاري تجهيز وتشغيل الصوت... ${progress}%`;
+        statusText.textContent = `جاري تجهيز وتشغيل المحاضرة الصوتية... ${progress}%`;
       }, 180);
 
       const finishJob = (message) => {
@@ -754,7 +759,7 @@
     function saveCurrentProject() {
       const text = scriptText.value.trim();
       if (!text) {
-        statusText.textContent = "لا يوجد نص لحفظ المشروع.";
+        statusText.textContent = "لا يوجد نص لحفظ المحاضرة.";
         return;
       }
 
@@ -769,7 +774,7 @@
       });
       storeProjects(projects);
       renderProjects();
-      statusText.textContent = "تم حفظ المشروع محليًا بنجاح.";
+      statusText.textContent = "تم حفظ المحاضرة الصوتية محليًا بنجاح.";
     }
 
     voices.forEach((voice) => {
