@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Academic Voice Admin</title>
+  <title>مُلهم ساوند | لوحة الإدارة</title>
   <style>
     :root {
-      --bg: #f4f8ff;
+      --bg: #f6fff8;
       --card: #ffffff;
-      --soft: #eef5ff;
-      --line: rgba(37, 99, 235, 0.14);
+      --soft: #effcf3;
+      --line: rgba(22, 200, 91, 0.16);
       --text: #0f172a;
-      --muted: #475569;
-      --blue: #2563eb;
-      --sky: #0ea5e9;
+      --muted: #64748b;
+      --blue: #16c85b;
+      --sky: #92ef30;
       --shadow: 0 30px 70px rgba(15, 23, 42, 0.09);
     }
 
@@ -23,8 +23,8 @@
       margin: 0;
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%),
-        linear-gradient(180deg, #ffffff, #f4f8ff 45%, #eaf2ff);
+        radial-gradient(circle at top left, rgba(22, 200, 91, 0.10), transparent 30%),
+        linear-gradient(180deg, #ffffff, #f7fff9 45%, #effcf3);
       color: var(--text);
     }
 
@@ -49,7 +49,22 @@
       gap: 16px;
     }
 
-    .brand { font-size: 22px; font-weight: 900; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      object-fit: cover;
+      box-shadow: 0 10px 24px rgba(22, 200, 91, 0.16);
+      background: #ffffff;
+    }
+    .brand {
+      font-size: 23px;
+      font-weight: 900;
+      background: linear-gradient(135deg, #14b84f, #8ae92e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .muted { color: var(--muted); font-size: 14px; }
     .grid { display: grid; gap: 24px; grid-template-columns: 0.85fr 1.15fr; margin-top: 36px; }
     .card { border-radius: 32px; padding: 32px; }
@@ -80,7 +95,7 @@
 
     .tab.active, .btn-primary {
       background: linear-gradient(135deg, var(--blue), var(--sky));
-      color: #ffffff;
+      color: #052e16;
     }
 
     .btn-secondary {
@@ -159,7 +174,10 @@
 <body>
   <main class="wrap">
     <header class="topbar">
-      <div class="brand">Academic Voice Admin</div>
+      <div class="brand-wrap">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم" />
+        <div class="brand">مُلهم ساوند | الإدارة</div>
+      </div>
       <div class="actions" style="margin-top:0;">
         <a class="btn btn-secondary" href="index.html" style="text-decoration:none;">الرجوع للمنصة الأكاديمية</a>
         <button class="btn btn-secondary hidden" id="logoutBtn">تسجيل خروج</button>

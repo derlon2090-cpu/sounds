@@ -3,17 +3,17 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Academic Voice Platform</title>
+  <title>مُلهم ساوند | منصة الصوت الأكاديمية</title>
   <style>
     :root {
-      --bg: #f4f8ff;
+      --bg: #f6fff8;
       --panel: rgba(255, 255, 255, 0.92);
-      --border: rgba(37, 99, 235, 0.14);
+      --border: rgba(34, 197, 94, 0.18);
       --text: #0f172a;
-      --muted: #475569;
-      --neon: #2563eb;
-      --violet: #38bdf8;
-      --soft: #eaf2ff;
+      --muted: #64748b;
+      --neon: #16c85b;
+      --violet: #92ef30;
+      --soft: #effcf3;
       --shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
     }
 
@@ -23,9 +23,9 @@
       margin: 0;
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(37, 99, 235, 0.10), transparent 30%),
-        radial-gradient(circle at top right, rgba(56, 189, 248, 0.14), transparent 28%),
-        linear-gradient(180deg, #ffffff, #f4f8ff 45%, #eaf2ff),
+        radial-gradient(circle at top left, rgba(22, 200, 91, 0.10), transparent 30%),
+        radial-gradient(circle at top right, rgba(146, 239, 48, 0.16), transparent 28%),
+        linear-gradient(180deg, #ffffff, #f7fff9 45%, #effcf3),
         var(--bg);
       color: var(--text);
     }
@@ -47,7 +47,23 @@
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
     }
-    .brand { font-size: 22px; font-weight: 800; letter-spacing: 0.04em; }
+    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+    .brand-logo {
+      width: 48px;
+      height: 48px;
+      border-radius: 16px;
+      object-fit: cover;
+      background: #ffffff;
+      box-shadow: 0 10px 24px rgba(22, 200, 91, 0.16);
+    }
+    .brand {
+      font-size: 23px;
+      font-weight: 900;
+      letter-spacing: 0.02em;
+      background: linear-gradient(135deg, #14b84f, #8ae92e);
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
     .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: var(--text); }
@@ -58,8 +74,8 @@
       display: inline-flex;
       padding: 10px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(37, 99, 235, 0.18);
-      background: #eef5ff;
+      border: 1px solid rgba(22, 200, 91, 0.2);
+      background: #f0fdf4;
       color: var(--neon);
       font-size: 14px;
       font-weight: 700;
@@ -79,7 +95,7 @@
       justify-content: center;
       transition: 0.2s ease;
     }
-    .btn-primary { background: linear-gradient(135deg, #2563eb, #0ea5e9); color: #ffffff; box-shadow: 0 16px 36px rgba(37, 99, 235, 0.22); }
+    .btn-primary { background: linear-gradient(135deg, #16c85b, #92ef30); color: #052e16; box-shadow: 0 16px 36px rgba(22, 200, 91, 0.22); }
     .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.03); }
     .btn-secondary { background: #ffffff; color: var(--text); border: 1px solid var(--border); }
     .btn-secondary:hover { background: var(--soft); transform: translateY(-2px); }
@@ -94,7 +110,7 @@
     }
     .wave-demo div, .wave-line {
       border-radius: 999px;
-      background: linear-gradient(270deg, #2563eb, #38bdf8, #dbeafe);
+      background: linear-gradient(270deg, #16c85b, #92ef30, #dff9e7);
     }
     .wave-demo { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
     .wave-demo div { height: 38px; }
@@ -135,14 +151,14 @@
       margin-top: 14px;
       height: 12px;
       border-radius: 999px;
-      background: #e2e8f0;
+      background: #dcfce7;
       overflow: hidden;
     }
     .progress-fill {
       width: 0%;
       height: 100%;
       border-radius: 999px;
-      background: linear-gradient(270deg, #2563eb, #38bdf8);
+      background: linear-gradient(270deg, #16c85b, #92ef30);
       transition: width 0.25s ease;
     }
     canvas {
@@ -159,7 +175,7 @@
       justify-content: space-between;
       gap: 16px;
       padding: 18px 0;
-      border-bottom: 1px solid rgba(37, 99, 235, 0.1);
+      border-bottom: 1px solid rgba(22, 200, 91, 0.1);
       color: var(--muted);
     }
     .mini { font-size: 13px; color: var(--muted); line-height: 1.8; }
@@ -176,7 +192,10 @@
 <body>
   <div class="container">
     <header class="nav">
-      <div class="brand">Academic Voice</div>
+      <div class="brand-wrap">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم" />
+        <div class="brand">مُلهم ساوند</div>
+      </div>
       <nav class="nav-links">
         <a href="#home">الرئيسية</a>
         <a href="#studio">مختبر الصوت الأكاديمي</a>
@@ -187,8 +206,8 @@
 
     <section id="home" class="hero">
       <div>
-        <span class="badge">منصة أكاديمية لتحويل النصوص العلمية إلى شرح صوتي عربي</span>
-        <h1>حوّل المحاضرات والملازم والنصوص البحثية إلى صوت عربي أكاديمي واضح.</h1>
+        <span class="badge">مُلهم ساوند | منصة أكاديمية لتحويل النصوص العلمية إلى شرح صوتي عربي</span>
+        <h1>حوّل المحاضرات والملازم والنصوص البحثية إلى صوت عربي أكاديمي فاخر.</h1>
         <p class="lead">
           اكتب محتوى المحاضرة أو الملخص العلمي، اختر صوتًا تعليميًا مناسبًا،
           اضبط السرعة والنبرة والمدة، ثم أنشئ ملفًا صوتيًا للمراجعة والدراسة.
@@ -199,6 +218,7 @@
         </div>
       </div>
       <div class="card">
+        <img src="mulhem-logo.jpg" alt="شعار مُلهم ساوند" style="width: 100%; max-height: 280px; object-fit: contain; border-radius: 28px; background: linear-gradient(180deg,#ffffff,#f5fff7); padding: 24px;" />
         <div class="row"><span>Academic synthesis workflow</span><span>lecture draft - processing - ready</span></div>
         <div class="wave-demo">
           <div style="width:72%"></div>
@@ -309,11 +329,11 @@
 
   <script>
     const voices = [
-      { id: "voice_riyadh_male_01", name: "صوت شاب عربي", accent: "لهجة محكية", baseFreq: 124, gain: 0.88, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.08, pitchBias: 0.96, formantShift: 0.94, vibratoDepth: 0.006, breath: 0.012, robotMix: 0.0, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
-      { id: "voice_riyadh_female_01", name: "صوت امرأة عربي", accent: "لهجة محكية ناعمة", baseFreq: 228, gain: 0.7, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.02, pitchBias: 1.3, formantShift: 1.18, vibratoDepth: 0.018, breath: 0.02, robotMix: 0.0, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
-      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 112, gain: 0.96, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.88, pitchBias: 0.78, formantShift: 0.88, vibratoDepth: 0.003, breath: 0.008, robotMix: 0.0, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
-      { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 164, gain: 0.82, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.94, pitchBias: 1.0, formantShift: 1.0, vibratoDepth: 0.01, breath: 0.01, robotMix: 0.0, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
-      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 132, gain: 1.0, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.9, pitchBias: 0.62, formantShift: 0.82, vibratoDepth: 0.0, breath: 0.0, robotMix: 1.0, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
+      { id: "voice_riyadh_male_01", name: "صوت شاب عربي", accent: "لهجة محكية", baseFreq: 132, gain: 0.9, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.14, pitchBias: 0.94, formantShift: 0.92, vibratoDepth: 0.004, breath: 0.01, robotMix: 0.0, harmonic2: 0.22, harmonic3: 0.05, pitchStep: 3.4, sibilance: 0.03, useFallbackPreferred: false, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
+      { id: "voice_riyadh_female_01", name: "صوت امرأة عربي", accent: "لهجة محكية ناعمة", baseFreq: 236, gain: 0.72, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.0, pitchBias: 1.32, formantShift: 1.22, vibratoDepth: 0.02, breath: 0.024, robotMix: 0.0, harmonic2: 0.12, harmonic3: 0.03, pitchStep: 4.9, sibilance: 0.05, useFallbackPreferred: false, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
+      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 104, gain: 0.98, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.84, pitchBias: 0.76, formantShift: 0.86, vibratoDepth: 0.002, breath: 0.006, robotMix: 0.0, harmonic2: 0.28, harmonic3: 0.08, pitchStep: 1.2, sibilance: 0.018, useFallbackPreferred: false, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
+      { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 168, gain: 0.82, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.92, pitchBias: 1.04, formantShift: 1.0, vibratoDepth: 0.01, breath: 0.012, robotMix: 0.0, harmonic2: 0.18, harmonic3: 0.05, pitchStep: 2.2, sibilance: 0.028, useFallbackPreferred: false, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
+      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 136, gain: 1.0, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.9, pitchBias: 0.58, formantShift: 0.8, vibratoDepth: 0.0, breath: 0.0, robotMix: 1.0, harmonic2: 0.45, harmonic3: 0.22, pitchStep: 0.55, sibilance: 0.01, useFallbackPreferred: true, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
     ];
 
     const scriptText = document.getElementById("scriptText");
@@ -352,6 +372,23 @@
       "5": "خمسة", "6": "ستة", "7": "سبعة", "8": "ثمانية", "9": "تسعة",
       "%": " بالمئة ", "&": " و ", "@": " آت ", "+": " زائد "
     };
+
+    const pronunciationRules = [
+      [/\bAI\b/gi, "إيه آي"],
+      [/\bTTS\b/gi, "تي تي إس"],
+      [/\bAPI\b/gi, "إيه بي آي"],
+      [/\bVR\b/gi, "في آر"],
+      [/\bGPU\b/gi, "جي بي يو"],
+      [/\bHTML\b/gi, "إتش تي إم إل"],
+      [/\bCSS\b/gi, "سي إس إس"],
+      [/\bJS\b/gi, "جافا سكريبت"],
+      [/\bد\./g, "دكتور "],
+      [/\bم\./g, "مهندس "],
+      [/ﷺ/g, "صلى الله عليه وسلم"],
+      [/ﷲ/g, "الله"],
+      [/…/g, "..."],
+      [/[\u064B-\u065F\u0670\u0640]/g, ""]
+    ];
 
     function loadProjects() {
       try {
@@ -403,40 +440,67 @@
     }
 
     function normalizeArabicText(text) {
-      let output = text.trim();
+      let output = text
+        .trim()
+        .replace(/[٠-٩]/g, (digit) => "0123456789"["٠١٢٣٤٥٦٧٨٩".indexOf(digit)])
+        .replace(/[۰-۹]/g, (digit) => "0123456789"["۰۱۲۳۴۵۶۷۸۹".indexOf(digit)]);
+
+      pronunciationRules.forEach(([pattern, replacement]) => {
+        output = output.replace(pattern, replacement);
+      });
+
       Object.entries(replacements).forEach(([from, to]) => {
         output = output.split(from).join(to);
       });
-      output = output.replace(/[إأآ]/g, "ا").replace(/ى/g, "ي").replace(/\s+/g, " ");
+      output = output
+        .replace(/ـ/g, "")
+        .replace(/ى/g, "ي")
+        .replace(/ؤ/g, "و")
+        .replace(/ئ/g, "ي")
+        .replace(/\s+([,.،؛:!?؟])/g, "$1")
+        .replace(/([,.،؛:!?؟])([^\s])/g, "$1 $2")
+        .replace(/\s+/g, " ");
       return output;
     }
 
     function applyRiyadhDialect(text) {
       let output = ` ${text} `;
       const dialectPairs = [
-        [/ ماذا /g, " وش "],
-        [/ لماذا /g, " ليه "],
-        [/ الان /g, " الحين "],
-        [/ جدا /g, " مرة "],
-        [/ اريد /g, " ابي "],
-        [/ نريد /g, " نبي "],
-        [/ نحن /g, " حنا "],
-        [/ نعم /g, " ايه "],
-        [/ مرحبا /g, " يا هلا "],
-        [/ كيف حالك /g, " وش اخبارك "],
-        [/ هذا /g, " ذا "],
-        [/ هذه /g, " هذي "],
-        [/ هناك /g, " هناك "],
-        [/ فقط /g, " بس "],
-        [/ ايضا /g, " بعد "],
-        [/ اذهب /g, " رح "],
-        [/ حسنا /g, " تمام "],
-        [/ اريدك /g, " ابيك "]
+        [/(^|\s)ماذا(?=\s|[,.،؛:!?؟]|$)/g, "$1وش"],
+        [/(^|\s)لماذا(?=\s|[,.،؛:!?؟]|$)/g, "$1ليه"],
+        [/(^|\s)الآن(?=\s|[,.،؛:!?؟]|$)/g, "$1الحين"],
+        [/(^|\s)الان(?=\s|[,.،؛:!?؟]|$)/g, "$1الحين"],
+        [/(^|\s)جدا(?=\s|[,.،؛:!?؟]|$)/g, "$1مرة"],
+        [/(^|\s)أريدك(?=\s|[,.،؛:!?؟]|$)/g, "$1أبيك"],
+        [/(^|\s)اريدك(?=\s|[,.،؛:!?؟]|$)/g, "$1أبيك"],
+        [/(^|\s)أريد(?=\s|[,.،؛:!?؟]|$)/g, "$1أبي"],
+        [/(^|\s)اريد(?=\s|[,.،؛:!?؟]|$)/g, "$1أبي"],
+        [/(^|\s)نريد(?=\s|[,.،؛:!?؟]|$)/g, "$1نبي"],
+        [/(^|\s)نحن(?=\s|[,.،؛:!?؟]|$)/g, "$1حنا"],
+        [/(^|\s)نعم(?=\s|[,.،؛:!?؟]|$)/g, "$1ايه"],
+        [/(^|\s)مرحبا(?=\s|[,.،؛:!?؟]|$)/g, "$1يا هلا"],
+        [/(^|\s)كيف حالك(?=\s|[,.،؛:!?؟]|$)/g, "$1وش أخبارك"],
+        [/(^|\s)هذا(?=\s|[,.،؛:!?؟]|$)/g, "$1ذا"],
+        [/(^|\s)هذه(?=\s|[,.،؛:!?؟]|$)/g, "$1هذي"],
+        [/(^|\s)ذلك(?=\s|[,.،؛:!?؟]|$)/g, "$1ذاك"],
+        [/(^|\s)فقط(?=\s|[,.،؛:!?؟]|$)/g, "$1بس"],
+        [/(^|\s)أيضا(?=\s|[,.،؛:!?؟]|$)/g, "$1بعد"],
+        [/(^|\s)ايضا(?=\s|[,.،؛:!?؟]|$)/g, "$1بعد"],
+        [/(^|\s)اذهب(?=\s|[,.،؛:!?؟]|$)/g, "$1رح"],
+        [/(^|\s)حسنا(?=\s|[,.،؛:!?؟]|$)/g, "$1تمام"],
+        [/(^|\s)سوف(?=\s|[,.،؛:!?؟]|$)/g, "$1بـ"],
+        [/(^|\s)أليس كذلك(?=\s|[,.،؛:!?؟]|$)/g, "$1صح؟"],
+        [/(^|\s)الطلاب(?=\s|[,.،؛:!?؟]|$)/g, "$1الطلاب"],
+        [/(^|\s)المحاضرة(?=\s|[,.،؛:!?؟]|$)/g, "$1المحاضرة"]
       ];
       dialectPairs.forEach(([pattern, replacement]) => {
         output = output.replace(pattern, replacement);
       });
-      return output.replace(/\s+/g, " ").trim();
+      return output
+        .replace(/بـ\s+/g, "بـ")
+        .replace(/([,.،؛:!?؟])([^\s])/g, "$1 $2")
+        .replace(/\s+/g, " ")
+        .trim();
     }
 
     function getPreparedSpeechText(rawText) {
@@ -474,15 +538,21 @@
     function pickSystemArabicVoice() {
       if (!systemVoiceList.length) refreshSystemVoices();
       const selectedVoice = getSelectedVoiceProfile();
+      if (selectedVoice.useFallbackPreferred) return null;
+
       const arabicVoices = systemVoiceList.filter((voice) => (voice.lang || "").toLowerCase().startsWith("ar"));
       if (!arabicVoices.length) return null;
 
       const scored = arabicVoices.map((voice) => {
         const haystack = `${voice.name} ${voice.voiceURI} ${voice.lang}`.toLowerCase();
-        const score = selectedVoice.hints.reduce(
+        let score = selectedVoice.hints.reduce(
           (sum, hint) => sum + (haystack.includes(hint.toLowerCase()) ? 3 : 0),
           haystack.includes("sa") || haystack.includes("arabic") ? 2 : 0
         );
+        if (selectedVoice.gender === "male" && /(male|man|maged|tarik|hossam|naayf|fahd|khalid)/i.test(haystack)) score += 5;
+        if (selectedVoice.gender === "female" && /(female|woman|zira|sara|salma|laila|mariam|hoda)/i.test(haystack)) score += 5;
+        if (selectedVoice.mode === "fusha" && /(maged|hossam|formal|standard|arabic)/i.test(haystack)) score += 3;
+        if (selectedVoice.mode === "riyadh" && /(sa|ksa|saudi|naayf|fahd|khalid)/i.test(haystack)) score += 3;
         return { voice, score };
       });
 
@@ -514,6 +584,7 @@
 
     function synthesizeWaveform(sourceText = scriptText.value) {
       const selectedVoice = getSelectedVoiceProfile();
+      const selectedStyle = styleSelect.value;
       const styleGain = {
         saudi_formal: 0.85,
         saudi_youth: 0.78,
@@ -543,39 +614,72 @@
       chars.forEach((char, charIndex) => {
         const isPause = ".,!؟?،؛".includes(char);
         const isSpace = char === " ";
-        const duration = Math.max(0.006, baseUnit * weights[charIndex]);
+        const durationShape =
+          selectedVoice.mode === "robot"
+            ? 0.96
+            : selectedStyle === "promo"
+              ? 1.08
+              : selectedStyle === "gulf_soft"
+                ? 1.03
+                : selectedStyle === "saudi_youth"
+                  ? 0.94
+                  : 1.0;
+        const duration = Math.max(0.006, baseUnit * weights[charIndex] * durationShape);
         const count = Math.max(16, Math.floor(SAMPLE_RATE * duration));
         const [rawF1, rawF2, rawF3] = formantsForChar(char);
         const f1 = rawF1 * selectedVoice.formantShift;
         const f2 = rawF2 * selectedVoice.formantShift;
         const f3 = rawF3 * selectedVoice.formantShift;
-        const localPitch = baseFrequency + (charIndex % 7) * (selectedVoice.mode === "robot" ? 0.55 : 1.9);
+        const contourSeed = (char.charCodeAt(0) || 32) % 11;
+        const prosodyCurve =
+          selectedStyle === "promo"
+            ? Math.sin(charIndex * 0.45) * 2.6 - (charIndex % 5) * 0.22
+            : selectedStyle === "gulf_soft"
+              ? Math.sin(charIndex * 0.65) * 3.4 + 2.1
+              : selectedStyle === "saudi_youth"
+                ? Math.sin(charIndex * 0.9) * 4.8 + (charIndex % 3) * 0.9
+                : selectedStyle === "fusha_clear"
+                  ? Math.sin(charIndex * 0.42) * 2.1
+                  : Math.sin(charIndex * 0.55) * 1.8;
+        const robotStep = selectedVoice.mode === "robot"
+          ? Math.round(contourSeed / 2) * selectedVoice.pitchStep
+          : contourSeed * selectedVoice.pitchStep * 0.18;
+        const localPitch = Math.max(48, baseFrequency + prosodyCurve + robotStep);
 
         for (let i = 0; i < count; i++) {
           const t = i / SAMPLE_RATE;
-          phase += (2 * Math.PI * localPitch) / SAMPLE_RATE;
-          const edge = Math.min(1, i / 32, (count - i) / 32);
-          const vibrato = 1 + selectedVoice.vibratoDepth * Math.sin(2 * Math.PI * 4.3 * t);
+          const sampleTime = (samples.length + i) / SAMPLE_RATE;
+          const vibrato = 1 + selectedVoice.vibratoDepth * Math.sin(2 * Math.PI * (selectedVoice.mode === "robot" ? 2.2 : 4.3) * sampleTime);
+          phase += (2 * Math.PI * localPitch * vibrato) / SAMPLE_RATE;
+          const attack = Math.min(1, i / Math.max(10, count * 0.08));
+          const release = Math.min(1, (count - i) / Math.max(10, count * 0.18));
+          const edge = Math.pow(Math.max(0, Math.min(1, attack * release)), selectedVoice.mode === "robot" ? 0.7 : 0.45);
           const robotCarrier =
-            Math.sign(Math.sin(phase)) * 0.62 +
-            Math.sign(Math.sin(phase * 0.5)) * 0.18 +
-            0.12 * Math.sin(phase * 3.2);
+            Math.sign(Math.sin(phase)) * 0.56 +
+            Math.sign(Math.sin(phase * 0.5)) * 0.2 +
+            selectedVoice.harmonic2 * Math.sin(phase * 2.0) +
+            selectedVoice.harmonic3 * Math.sin(phase * 3.0) +
+            0.08 * Math.sin(phase * 5.0);
           const humanCarrier =
-            0.72 * Math.sin(phase * vibrato) +
-            0.18 * Math.sin(phase * 2.0) +
-            0.06 * Math.sin(phase * 3.0);
+            0.7 * Math.sin(phase) +
+            selectedVoice.harmonic2 * Math.sin(phase * 2.0) +
+            selectedVoice.harmonic3 * Math.sin(phase * 3.0) +
+            0.04 * Math.sin(phase * 4.0);
           const glottal =
             humanCarrier * (1 - selectedVoice.robotMix) +
             robotCarrier * selectedVoice.robotMix;
           const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * selectedVoice.breath;
+          const fricative = /[سشزصثجفحخه]/.test(char)
+            ? Math.sin(phase * 14.0) * selectedVoice.sibilance
+            : 0;
           const vowel =
             f1 === 0
               ? 0
-              : (0.56 * Math.sin(2 * Math.PI * f1 * t) +
-                0.24 * Math.sin(2 * Math.PI * f2 * t) +
-                0.1 * Math.sin(2 * Math.PI * f3 * t)) * 0.12;
+              : (0.58 * Math.sin(2 * Math.PI * f1 * sampleTime) +
+                0.22 * Math.sin(2 * Math.PI * f2 * sampleTime) +
+                0.1 * Math.sin(2 * Math.PI * f3 * sampleTime)) * (selectedVoice.mode === "robot" ? 0.08 : 0.13);
           const bridgeTone = 0.03 * Math.sin(phase) * gain * edge;
-          const speechTone = (glottal * 0.9 + vowel + aspiration) * gain * edge;
+          const speechTone = (glottal * 0.88 + vowel + aspiration + fricative) * gain * edge;
           const sample = (isPause || isSpace) ? bridgeTone : speechTone;
           samples.push(Math.max(-1, Math.min(1, sample)));
         }
@@ -655,6 +759,8 @@
       if (!("speechSynthesis" in window)) return false;
 
       const selectedVoice = getSelectedVoiceProfile();
+      if (selectedVoice.useFallbackPreferred) return false;
+
       const systemVoice = pickSystemArabicVoice();
       if (!systemVoice) return false;
 
@@ -666,15 +772,26 @@
       const durationRate = naturalDuration / getTargetDuration();
       utterance.rate = Math.max(
         0.6,
-        Math.min(1.5, Number(speedRange.value) * selectedVoice.rateBias * durationRate)
+        Math.min(
+          1.5,
+          Number(speedRange.value) *
+            selectedVoice.rateBias *
+            durationRate *
+            (selectedVoice.mode === "riyadh" ? 1.03 : selectedVoice.mode === "fusha" ? 0.96 : 1.0)
+        )
       );
       utterance.pitch = Math.max(
         0.7,
-        Math.min(1.45, selectedVoice.pitchBias + Number(pitchRange.value) * 0.06)
+        Math.min(
+          1.45,
+          selectedVoice.pitchBias +
+            Number(pitchRange.value) * 0.06 +
+            (selectedVoice.gender === "female" ? 0.08 : selectedVoice.mode === "fusha" ? -0.04 : 0)
+        )
       );
-      if (selectedVoice.mode === "robot") {
-        utterance.rate = Math.max(0.8, Math.min(1.15, utterance.rate * 0.92));
-        utterance.pitch = Math.max(0.5, Math.min(0.95, utterance.pitch));
+      if (selectedVoice.defaultStyle === "promo") {
+        utterance.rate = Math.max(0.66, Math.min(1.0, utterance.rate * 0.9));
+        utterance.pitch = Math.max(0.72, Math.min(1.05, utterance.pitch * 0.94));
       }
       utterance.volume = 1;
       utterance.onend = () => {
