@@ -3,56 +3,33 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مُلهم ساوند | منصة الصوت الأكاديمية</title>
+  <title>مُلهم ساوند | حوّل الصوت إلى نص خلال ثواني</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
 
     :root {
-      --bg: #f6fff8;
-      --panel: rgba(255, 255, 255, 0.92);
-      --panel-strong: #ffffff;
-      --nav-bg: rgba(255, 255, 255, 0.88);
-      --border: rgba(34, 197, 94, 0.18);
+      --bg: #f5fff7;
+      --panel: rgba(255, 255, 255, 0.82);
+      --panel-strong: rgba(255, 255, 255, 0.94);
+      --border: rgba(22, 163, 74, 0.14);
       --text: #0f172a;
-      --muted: #64748b;
-      --neon: #16c85b;
-      --violet: #92ef30;
+      --muted: #5f6b7b;
+      --brand: #16a34a;
+      --brand-2: #22c55e;
+      --brand-3: #15803d;
       --soft: #effcf3;
-      --soft-strong: #f8fbff;
-      --input-bg: #ffffff;
-      --progress-bg: #dcfce7;
-      --secondary-bg: #ffffff;
-      --secondary-text: #0f172a;
-      --body-top-left: rgba(22, 200, 91, 0.10);
-      --body-top-right: rgba(146, 239, 48, 0.16);
-      --body-grad-start: #ffffff;
-      --body-grad-mid: #f7fff9;
-      --body-grad-end: #effcf3;
-      --shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+      --shadow: 0 26px 70px rgba(15, 23, 42, 0.10);
     }
 
     body[data-theme="dark"] {
-      --bg: #07131a;
-      --panel: rgba(10, 20, 29, 0.88);
-      --panel-strong: rgba(14, 28, 39, 0.96);
-      --nav-bg: rgba(8, 16, 24, 0.84);
-      --border: rgba(255, 128, 201, 0.18);
-      --text: #f6f8fc;
-      --muted: #aab5c7;
-      --neon: #ff7ec7;
-      --violet: #ffc7e7;
-      --soft: #10202b;
-      --soft-strong: #122634;
-      --input-bg: #0d1822;
-      --progress-bg: #253544;
-      --secondary-bg: #10202b;
-      --secondary-text: #f6f8fc;
-      --body-top-left: rgba(255, 126, 199, 0.16);
-      --body-top-right: rgba(122, 255, 185, 0.08);
-      --body-grad-start: #07131a;
-      --body-grad-mid: #0b1821;
-      --body-grad-end: #10202b;
-      --shadow: 0 26px 70px rgba(0, 0, 0, 0.32);
+      --bg: #07141b;
+      --panel: rgba(10, 20, 29, 0.76);
+      --panel-strong: rgba(10, 20, 29, 0.92);
+      --border: rgba(34, 197, 94, 0.12);
+      --text: #f5f7fb;
+      --muted: #a8b4c6;
+      --soft: #11212b;
+      --shadow: 0 28px 72px rgba(0, 0, 0, 0.34);
       color-scheme: dark;
     }
 
@@ -60,1477 +37,747 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: "Tajawal", "Segoe UI", Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, var(--body-top-left), transparent 30%),
-        radial-gradient(circle at top right, var(--body-top-right), transparent 28%),
-        linear-gradient(180deg, var(--body-grad-start), var(--body-grad-mid) 45%, var(--body-grad-end)),
+        radial-gradient(circle at 12% 16%, rgba(34, 197, 94, 0.18), transparent 18%),
+        radial-gradient(circle at 84% 20%, rgba(21, 128, 61, 0.16), transparent 18%),
+        radial-gradient(circle at 52% 84%, rgba(34, 197, 94, 0.14), transparent 22%),
+        linear-gradient(180deg, #fbfffc, #f5fff7 45%, #ecfff0),
         var(--bg);
       color: var(--text);
-      transition: background 0.25s ease, color 0.25s ease;
-      position: relative;
       overflow-x: hidden;
+      min-height: 100vh;
+      position: relative;
     }
 
-    body::before,
-    body::after {
+    body[data-theme="dark"] {
+      background:
+        radial-gradient(circle at 12% 16%, rgba(34, 197, 94, 0.14), transparent 18%),
+        radial-gradient(circle at 84% 20%, rgba(21, 128, 61, 0.12), transparent 18%),
+        radial-gradient(circle at 52% 84%, rgba(34, 197, 94, 0.09), transparent 22%),
+        linear-gradient(180deg, #08141b, #0c1920 45%, #102129),
+        var(--bg);
+    }
+
+    body::before {
       content: "";
       position: fixed;
       inset: 0;
       pointer-events: none;
-      z-index: 0;
-    }
-    body::before {
       background-image:
-        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
       background-size: 36px 36px;
-      opacity: 0.16;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.4), transparent 80%);
-    }
-    body::after {
-      background:
-        radial-gradient(circle at 15% 18%, rgba(34, 197, 94, 0.16), transparent 18%),
-        radial-gradient(circle at 88% 22%, rgba(21, 128, 61, 0.16), transparent 18%),
-        radial-gradient(circle at 50% 82%, rgba(146, 239, 48, 0.16), transparent 24%);
-      filter: blur(24px);
+      opacity: 0.12;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 82%);
     }
 
-    .container { width: min(1480px, calc(100vw - 32px)); margin: auto; position: relative; z-index: 1; }
+    .aurora,
+    .aurora::before,
+    .aurora::after {
+      position: fixed;
+      inset: auto;
+      border-radius: 50%;
+      filter: blur(120px);
+      pointer-events: none;
+      z-index: 0;
+      animation: blobMove 16s ease-in-out infinite alternate;
+    }
+
+    .aurora {
+      width: 460px;
+      height: 460px;
+      top: 80px;
+      left: -60px;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.30), rgba(22, 163, 74, 0.08));
+    }
+
+    .aurora::before,
+    .aurora::after {
+      content: "";
+    }
+
+    .aurora::before {
+      width: 420px;
+      height: 420px;
+      top: 140px;
+      right: -160px;
+      background: radial-gradient(circle, rgba(21, 128, 61, 0.26), rgba(34, 197, 94, 0.06));
+      animation-duration: 20s;
+    }
+
+    .aurora::after {
+      width: 360px;
+      height: 360px;
+      bottom: -120px;
+      left: 36%;
+      background: radial-gradient(circle, rgba(146, 239, 48, 0.18), rgba(21, 128, 61, 0.05));
+      animation-duration: 18s;
+    }
+
+    .container {
+      width: min(1200px, calc(100vw - 32px));
+      margin: 0 auto;
+      position: relative;
+      z-index: 1;
+    }
+
     .nav {
       position: sticky;
-      top: 12px;
-      z-index: 20;
+      top: 14px;
+      z-index: 30;
+      margin-top: 14px;
       display: flex;
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-top: 12px;
-      padding: 16px 24px;
+      padding: 16px 22px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: var(--nav-bg);
-      backdrop-filter: blur(18px);
+      background: var(--panel);
+      backdrop-filter: blur(22px);
       box-shadow: var(--shadow);
     }
-    .brand-wrap { display: flex; align-items: center; gap: 12px; }
+
+    .brand-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
     .brand-logo {
       width: 48px;
       height: 48px;
       border-radius: 16px;
       object-fit: cover;
       background: #ffffff;
-      box-shadow: 0 10px 24px rgba(22, 200, 91, 0.16);
+      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.12);
     }
-    .brand {
-      font-size: 23px;
+
+    .brand-title {
+      font-size: 22px;
       font-weight: 900;
-      letter-spacing: 0.02em;
-      background: linear-gradient(135deg, #14b84f, #8ae92e);
+      background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
       -webkit-background-clip: text;
       -webkit-text-fill-color: transparent;
     }
-    .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
-    .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
-    .nav-links a:hover { color: var(--text); }
-    .nav-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
-    .theme-toggle {
-      border: 1px solid var(--border);
-      background: var(--secondary-bg);
-      color: var(--secondary-text);
-      border-radius: 999px;
-      padding: 12px 18px;
-      font-size: 14px;
-      font-weight: 800;
-      cursor: pointer;
-      transition: 0.2s ease;
-    }
-    .theme-toggle:hover { transform: translateY(-2px); background: var(--soft); }
 
-    .hero, .grid-2, .grid-3 { display: grid; gap: 24px; }
-    .hero {
-      grid-template-columns: 1.2fr 0.8fr;
-      padding: 72px 0 40px;
+    .nav-links,
+    .nav-actions {
+      display: flex;
       align-items: center;
-      position: relative;
-      min-height: 72vh;
+      gap: 14px;
+      flex-wrap: wrap;
     }
-    .hero::before {
-      content: "";
-      position: absolute;
-      inset: 5% 4% auto 4%;
-      height: 78%;
-      border-radius: 40px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(21, 128, 61, 0.03));
-      border: 1px solid rgba(34, 197, 94, 0.18);
-      z-index: 0;
+
+    .nav-links a,
+    .nav-actions a {
+      text-decoration: none;
+      color: var(--muted);
+      font-weight: 700;
+      font-size: 14px;
     }
-    .hero > * { position: relative; z-index: 1; }
-    .badge {
+
+    .nav-links a:hover,
+    .nav-actions a:hover {
+      color: var(--text);
+    }
+
+    .theme-toggle,
+    .btn {
+      border: 0;
+      cursor: pointer;
+      border-radius: 999px;
+      padding: 14px 22px;
+      font-family: inherit;
+      font-size: 15px;
+      font-weight: 800;
+      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease;
+    }
+
+    .theme-toggle {
+      background: var(--panel-strong);
+      color: var(--text);
+      border: 1px solid var(--border);
+    }
+
+    .theme-toggle:hover,
+    .btn:hover {
+      transform: translateY(-3px);
+    }
+
+    .btn {
       display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      text-decoration: none;
+    }
+
+    .btn-primary {
+      color: #ffffff;
+      background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
+      box-shadow: 0 18px 40px rgba(22, 163, 74, 0.24);
+    }
+
+    .btn-primary:hover {
+      box-shadow: 0 24px 48px rgba(22, 163, 74, 0.30);
+      filter: brightness(1.03);
+    }
+
+    .btn-secondary {
+      color: var(--text);
+      background: var(--panel-strong);
+      border: 1px solid var(--border);
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: 1.08fr 0.92fr;
+      align-items: center;
+      gap: 28px;
+      padding: 78px 0 42px;
+      min-height: 78vh;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
       padding: 10px 18px;
       border-radius: 999px;
-      border: 1px solid rgba(22, 200, 91, 0.2);
-      background: linear-gradient(135deg, rgba(240, 253, 244, 0.92), rgba(220, 252, 231, 0.84));
-      color: var(--neon);
+      background: linear-gradient(135deg, rgba(240, 253, 244, 0.95), rgba(220, 252, 231, 0.80));
+      border: 1px solid rgba(22, 163, 74, 0.18);
+      color: var(--brand);
       font-size: 14px;
       font-weight: 800;
       box-shadow: 0 18px 30px rgba(22, 163, 74, 0.08);
     }
-    h1 { margin: 20px 0 0; font-size: clamp(48px, 6vw, 82px); line-height: 1.02; letter-spacing: -0.02em; }
-    .lead { max-width: 720px; color: var(--muted); line-height: 2; font-size: 18px; }
-    .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
-    .btn {
-      border: 0;
-      cursor: pointer;
-      border-radius: 22px;
-      padding: 16px 28px;
-      font-weight: 800;
-      text-decoration: none;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
-    }
-    .btn:disabled { opacity: 0.56; cursor: not-allowed; transform: none; filter: none; }
-    .btn-primary { background: linear-gradient(135deg, #16c85b, #92ef30); color: #052e16; box-shadow: 0 16px 36px rgba(22, 200, 91, 0.22); }
-    .btn-primary:hover { transform: translateY(-3px) scale(1.01); filter: brightness(1.03); box-shadow: 0 22px 44px rgba(22, 163, 74, 0.28); }
-    .btn-secondary { background: var(--secondary-bg); color: var(--secondary-text); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: var(--soft); transform: translateY(-3px) scale(1.01); box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08); }
 
-    .card {
-      border-radius: 32px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      padding: 28px;
-      backdrop-filter: blur(16px);
-      box-shadow: var(--shadow);
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    h1 {
+      margin: 20px 0 14px;
+      font-size: clamp(46px, 6vw, 84px);
+      line-height: 1.02;
+      letter-spacing: -0.02em;
     }
-    .card:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12); }
-    .wave-demo div, .wave-line {
-      border-radius: 999px;
-      background: linear-gradient(270deg, #16c85b, #92ef30, #dff9e7);
-    }
-    .wave-demo { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
-    .wave-demo div { height: 38px; animation: wavePulse 3.2s ease-in-out infinite; }
-    .wave-demo div:nth-child(2) { animation-delay: 0.2s; }
-    .wave-demo div:nth-child(3) { animation-delay: 0.4s; }
-    .wave-demo div:nth-child(4) { animation-delay: 0.6s; }
-    .wave-demo div:nth-child(5) { animation-delay: 0.8s; }
-    .wave-demo div:nth-child(6) { animation-delay: 1s; }
 
-    section { padding: 48px 0; }
-    .section-title { font-size: 38px; margin: 8px 0 0; }
-    .eyebrow { color: var(--neon); font-size: 14px; }
-    .grid-3 { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
-    .grid-2 { grid-template-columns: 1.45fr 0.85fr; margin-top: 24px; }
-
-    textarea, select, input[type="range"] {
-      width: 100%;
-      border-radius: 24px;
-      border: 1px solid var(--border);
-      background: var(--input-bg);
-      color: var(--text);
-      outline: none;
-    }
-    textarea {
-      min-height: 420px;
-      padding: 24px;
-      font-size: 18px;
-      line-height: 2;
-      resize: none;
-    }
-    select { padding: 16px 18px; margin-top: 12px; }
-    input[type="range"] { accent-color: var(--neon); margin-top: 12px; }
-    .row { display: flex; justify-content: space-between; gap: 12px; color: var(--muted); font-size: 14px; }
-    .stack { display: flex; flex-direction: column; gap: 24px; }
-    .status-box {
-      margin-top: 20px;
-      padding: 20px;
-      border-radius: 24px;
-      background: var(--soft-strong);
-      border: 1px solid var(--border);
-    }
-    .progress-track {
-      margin-top: 14px;
-      height: 12px;
-      border-radius: 999px;
-      background: var(--progress-bg);
-      overflow: hidden;
-    }
-    .progress-fill {
-      width: 0%;
-      height: 100%;
-      border-radius: 999px;
-      background: linear-gradient(270deg, #16c85b, #92ef30);
-      transition: width 0.25s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    .progress-fill::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
-      transform: translateX(-100%);
-      animation: progressShine 1.6s linear infinite;
-    }
-    canvas {
-      width: 100%;
-      height: 140px;
-      border-radius: 24px;
-      background: var(--soft-strong);
-      border: 1px solid var(--border);
-      margin-top: 16px;
-    }
-    audio {
-      width: 100%;
-      margin-top: 16px;
-      display: none;
-      border-radius: 20px;
-      background: var(--panel-strong);
-    }
-    .hero-logo {
-      width: 100%;
-      max-height: 280px;
-      object-fit: contain;
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--soft));
-      padding: 24px;
-    }
-    .share-actions {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .voice-toolbar {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      gap: 16px;
-      margin-top: 22px;
-      flex-wrap: wrap;
-    }
-    .voice-toolbar input {
-      flex: 1 1 320px;
-      min-width: 220px;
-      padding: 16px 18px;
-      border: 1px solid var(--border);
-      border-radius: 24px;
-      background: var(--input-bg);
-      color: var(--text);
-      outline: none;
-    }
-    .voice-grid { margin-top: 24px; }
-    .voice-card {
-      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
-    }
-    .voice-card.is-active {
-      border-color: rgba(22, 200, 91, 0.42);
-      box-shadow: 0 18px 42px rgba(22, 200, 91, 0.12);
-    }
-    body[data-theme="dark"] .voice-card.is-active {
-      border-color: rgba(255, 126, 199, 0.34);
-      box-shadow: 0 18px 42px rgba(255, 126, 199, 0.14);
-    }
-    .voice-card.hidden { display: none; }
-    .steps-grid, .results-grid, .trust-grid, .feature-strip, .utility-grid {
-      display: grid;
-      gap: 18px;
-    }
-    .steps-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
-    .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
-    .trust-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
-    .feature-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 20px; }
-    .utility-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
-    .step-card, .result-card, .trust-card, .feature-card {
-      border-radius: 28px;
-      border: 1px solid var(--border);
-      background: var(--panel);
-      box-shadow: var(--shadow);
-      padding: 24px;
-      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
-    }
-    .step-card:hover, .result-card:hover, .trust-card:hover, .feature-card:hover, .voice-card:hover {
-      transform: translateY(-6px);
-      border-color: rgba(22, 163, 74, 0.34);
-      box-shadow: 0 26px 52px rgba(22, 163, 74, 0.12);
-    }
-    .step-number {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      width: 42px;
-      height: 42px;
-      border-radius: 50%;
-      background: linear-gradient(135deg, #22c55e, #15803d);
-      color: #ffffff;
-      font-weight: 900;
-      margin-bottom: 18px;
-    }
-    .step-card h3, .result-card h3, .trust-card h3, .feature-card h3 {
-      margin: 0 0 12px;
-      font-size: 22px;
-    }
-    .upload-box {
-      border: 1px dashed rgba(22, 163, 74, 0.38);
-      border-radius: 28px;
-      background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(21, 128, 61, 0.03));
-      padding: 24px;
-      text-align: center;
-      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
-      position: relative;
-      overflow: hidden;
-    }
-    body[data-theme="dark"] .upload-box {
-      border-color: rgba(255, 126, 199, 0.35);
-      background: linear-gradient(180deg, rgba(255, 126, 199, 0.12), rgba(16, 32, 43, 0.2));
-    }
-    .upload-box.is-dragover {
-      transform: translateY(-3px) scale(1.01);
-      box-shadow: 0 18px 38px rgba(22, 163, 74, 0.16), 0 0 0 6px rgba(34, 197, 94, 0.08);
-      filter: saturate(1.08);
-    }
-    .upload-box::after {
-      content: "";
-      position: absolute;
-      inset: -40%;
-      background: conic-gradient(from 0deg, transparent, rgba(34, 197, 94, 0.18), transparent 35%);
-      animation: spinSlow 8s linear infinite;
-      opacity: 0.8;
-    }
-    .upload-box > * { position: relative; z-index: 1; }
-    .upload-icon {
-      width: 72px;
-      height: 72px;
-      margin: 0 auto 16px;
-      border-radius: 24px;
-      display: grid;
-      place-items: center;
-      font-size: 32px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(21, 128, 61, 0.08));
-      box-shadow: 0 18px 34px rgba(22, 163, 74, 0.14);
-    }
-    .upload-meta {
-      display: flex;
-      justify-content: space-between;
-      gap: 12px;
-      margin-top: 14px;
-      font-size: 13px;
-      color: var(--muted);
-      flex-wrap: wrap;
-    }
-    .tool-row {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 12px;
-    }
-    .result-card pre, .result-card .output-box {
+    .lead {
       margin: 0;
-      white-space: pre-wrap;
-      line-height: 1.9;
-      font-family: inherit;
-      color: var(--text);
+      max-width: 640px;
+      color: var(--muted);
+      font-size: 19px;
+      line-height: 1.95;
     }
-    .output-box {
-      border-radius: 20px;
-      background: var(--soft);
-      border: 1px solid var(--border);
-      padding: 18px;
-      min-height: 140px;
-    }
+
+    .hero-actions,
     .pill-row {
       display: flex;
-      gap: 10px;
+      gap: 14px;
       flex-wrap: wrap;
-      margin-top: 18px;
+      margin-top: 28px;
     }
+
     .pill {
       display: inline-flex;
       align-items: center;
       padding: 10px 14px;
       border-radius: 999px;
-      background: var(--soft);
+      background: rgba(255, 255, 255, 0.70);
       border: 1px solid var(--border);
       color: var(--text);
       font-size: 13px;
-      font-weight: 700;
-    }
-    .success-indicator {
-      margin-top: 14px;
-      padding: 12px 14px;
-      border-radius: 18px;
-      background: rgba(34, 197, 94, 0.1);
-      border: 1px solid rgba(34, 197, 94, 0.2);
-      color: var(--text);
       font-weight: 800;
-      opacity: 0;
-      transform: translateY(8px) scale(0.98);
-      transition: 0.24s ease;
+      backdrop-filter: blur(14px);
     }
-    .success-indicator.is-visible {
-      opacity: 1;
-      transform: translateY(0) scale(1);
+
+    .card,
+    .service-card,
+    .info-card,
+    .quote-card {
+      border-radius: 32px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      backdrop-filter: blur(18px);
+      box-shadow: var(--shadow);
+      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
     }
-    [data-animate] {
-      opacity: 0;
-      transform: translateY(28px);
-      transition: opacity 0.75s ease, transform 0.75s ease;
+
+    .card:hover,
+    .service-card:hover,
+    .info-card:hover,
+    .quote-card:hover {
+      transform: translateY(-6px);
+      box-shadow: 0 28px 64px rgba(22, 163, 74, 0.12);
+      border-color: rgba(22, 163, 74, 0.24);
     }
-    [data-animate].is-visible {
-      opacity: 1;
-      transform: translateY(0);
+
+    .hero-card {
+      padding: 28px;
+      position: relative;
+      overflow: hidden;
     }
-    .processing-meta {
+
+    .hero-card::before {
+      content: "";
+      position: absolute;
+      inset: 18px;
+      border-radius: 28px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(21, 128, 61, 0.03));
+      border: 1px solid rgba(22, 163, 74, 0.12);
+    }
+
+    .hero-card > * {
+      position: relative;
+      z-index: 1;
+    }
+
+    .hero-logo {
+      width: 100%;
+      max-height: 240px;
+      object-fit: contain;
+      border-radius: 24px;
+      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239, 252, 243, 0.84));
+      padding: 20px;
+      margin-bottom: 18px;
+    }
+
+    .wave-lines {
+      display: grid;
+      gap: 14px;
+      margin-top: 20px;
+    }
+
+    .wave-lines span {
+      display: block;
+      height: 36px;
+      border-radius: 999px;
+      background: linear-gradient(270deg, var(--brand-2), var(--brand-3), rgba(34, 197, 94, 0.24));
+      animation: wavePulse 3.4s ease-in-out infinite;
+    }
+
+    .wave-lines span:nth-child(2) { width: 58%; animation-delay: 0.2s; }
+    .wave-lines span:nth-child(1) { width: 84%; }
+    .wave-lines span:nth-child(3) { width: 92%; animation-delay: 0.35s; }
+    .wave-lines span:nth-child(4) { width: 70%; animation-delay: 0.5s; }
+
+    section {
+      padding: 44px 0;
+    }
+
+    .section-head {
       display: flex;
+      align-items: end;
       justify-content: space-between;
-      gap: 12px;
+      gap: 18px;
       flex-wrap: wrap;
-      margin-top: 12px;
+      margin-bottom: 24px;
+    }
+
+    .section-title {
+      margin: 6px 0 0;
+      font-size: 38px;
+    }
+
+    .section-copy {
       color: var(--muted);
-      font-size: 13px;
+      line-height: 1.9;
+      max-width: 620px;
     }
-    .results-hero {
-      display: flex;
-      justify-content: space-between;
-      gap: 20px;
-      align-items: flex-start;
-      flex-wrap: wrap;
-      margin-top: 24px;
+
+    .services-grid,
+    .how-grid,
+    .trust-grid,
+    .quote-grid {
+      display: grid;
+      gap: 18px;
     }
+
+    .services-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+    .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .trust-grid,
+    .quote-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+
+    .service-card,
+    .info-card,
+    .quote-card {
+      padding: 24px;
+      text-decoration: none;
+      color: inherit;
+      display: block;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .service-card::before {
+      content: "";
+      position: absolute;
+      inset: auto -40px -50px auto;
+      width: 160px;
+      height: 160px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(34, 197, 94, 0.16), transparent 70%);
+      transition: transform 0.25s ease;
+    }
+
+    .service-card:hover::before {
+      transform: scale(1.12);
+    }
+
+    .service-icon,
+    .info-icon {
+      width: 58px;
+      height: 58px;
+      display: grid;
+      place-items: center;
+      border-radius: 20px;
+      font-size: 28px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(21, 128, 61, 0.08));
+      box-shadow: 0 16px 30px rgba(22, 163, 74, 0.12);
+      margin-bottom: 16px;
+    }
+
+    .service-card h3,
+    .info-card h3,
+    .quote-card h3 {
+      margin: 0 0 10px;
+      font-size: 22px;
+    }
+
+    .service-card p,
+    .info-card p,
+    .quote-card p {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.85;
+    }
+
+    .service-link {
+      margin-top: 18px;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--brand);
+      font-weight: 800;
+    }
+
+    .before-after {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+    }
+
+    .before-after .card {
+      padding: 26px;
+    }
+
     .mini-list {
       margin: 0;
       padding-inline-start: 18px;
       color: var(--text);
-      line-height: 1.9;
+      line-height: 1.95;
+    }
+
+    .quote-card strong {
+      display: block;
+      margin-bottom: 10px;
+      color: var(--text);
+    }
+
+    footer {
+      padding: 26px 0 44px;
+      color: var(--muted);
+      font-size: 14px;
+    }
+
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(26px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+
+    [data-animate].is-visible {
+      opacity: 1;
+      transform: translateY(0);
     }
 
     @keyframes wavePulse {
       0%, 100% { transform: scaleX(1); opacity: 0.88; }
-      50% { transform: scaleX(1.03); opacity: 1; }
+      50% { transform: scaleX(1.04); opacity: 1; }
     }
 
-    @keyframes progressShine {
-      from { transform: translateX(-100%); }
-      to { transform: translateX(160%); }
+    @keyframes blobMove {
+      0% { transform: translate(0, 0) scale(1); }
+      100% { transform: translate(120px, 80px) scale(1.08); }
     }
 
-    @keyframes spinSlow {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-    .project-item {
-      display: flex;
-      justify-content: space-between;
-      gap: 16px;
-      padding: 18px 0;
-      border-bottom: 1px solid rgba(22, 200, 91, 0.1);
-      color: var(--muted);
-    }
-    .mini { font-size: 13px; color: var(--muted); line-height: 1.8; }
-    .metric { font-size: 34px; font-weight: 900; margin-top: 12px; }
+    @media (max-width: 980px) {
+      .hero,
+      .services-grid,
+      .how-grid,
+      .trust-grid,
+      .quote-grid,
+      .before-after {
+        grid-template-columns: 1fr;
+      }
 
-    @media (max-width: 900px) {
-      .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
-      .steps-grid, .results-grid, .trust-grid, .feature-strip, .utility-grid, .tool-row { grid-template-columns: 1fr; }
-      .nav { border-radius: 28px; }
-      .nav-links { gap: 14px; justify-content: flex-end; }
-      textarea { min-height: 320px; }
-      .nav-actions { width: 100%; justify-content: space-between; }
-      .share-actions { grid-template-columns: 1fr; }
+      .nav {
+        border-radius: 30px;
+      }
     }
   </style>
 </head>
 <body>
+  <div class="aurora"></div>
+
   <div class="container">
-    <header class="nav">
+    <header class="nav" data-animate>
       <div class="brand-wrap">
-        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم" />
-        <div class="brand">مُلهم ساوند</div>
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم ساوند" />
+        <div class="brand-title">مُلهم ساوند</div>
       </div>
+
       <nav class="nav-links">
         <a href="#home">الرئيسية</a>
-        <a href="#studio">مختبر الصوت الأكاديمي</a>
-        <a href="#voices">الأصوات التعليمية</a>
-        <a href="#projects">المحاضرات المحفوظة</a>
+        <a href="#services">الخدمات</a>
+        <a href="#trust">الثقة</a>
       </nav>
+
+      <div class="nav-actions">
+        <a href="studio/index.html">الاستوديو</a>
+        <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
+      </div>
     </header>
 
     <section id="home" class="hero">
-      <div>
-        <span class="badge">مُلهم ساوند | منصة أكاديمية لتحويل النصوص العلمية إلى شرح صوتي عربي</span>
-        <h1>حوّل المحاضرات والملازم والنصوص البحثية إلى صوت عربي أكاديمي فاخر.</h1>
+      <div data-animate>
+        <span class="eyebrow">مُلهم ساوند | تجربة AI واضحة ومباشرة للصوت</span>
+        <h1>حوّل الصوت إلى نص خلال ثواني</h1>
         <p class="lead">
-          اكتب محتوى المحاضرة أو الملخص العلمي، اختر صوتًا تعليميًا مناسبًا،
-          اضبط السرعة والنبرة والمدة، ثم أنشئ ملفًا صوتيًا للمراجعة والدراسة.
+          ارفع التسجيل أو ادخل إلى الاستوديو، ثم اختر الخدمة المناسبة: تفريغ، تحسين، تقطيع،
+          أو تشكيل أنماط الصوت عبر ToneForge™. كل خطوة مصممة لتكون أسرع وأوضح وأسهل من الصفحة الواحدة التقليدية.
         </p>
-        <div class="actions">
-          <a class="btn btn-primary" href="#studio">ابدأ إنشاء محاضرة صوتية</a>
-          <a class="btn btn-secondary" href="#voices">استعرض الأصوات التعليمية</a>
-        </div>
-      </div>
-      <div class="card">
-        <img src="mulhem-logo.jpg" alt="شعار مُلهم ساوند" style="width: 100%; max-height: 280px; object-fit: contain; border-radius: 28px; background: linear-gradient(180deg,#ffffff,#f5fff7); padding: 24px;" />
-        <div class="row"><span>Academic synthesis workflow</span><span>lecture draft - processing - ready</span></div>
-        <div class="wave-demo">
-          <div style="width:72%"></div>
-          <div style="width:48%"></div>
-          <div style="width:84%"></div>
-          <div style="width:58%"></div>
-          <div style="width:92%"></div>
-          <div style="width:36%"></div>
-        </div>
-        <p class="mini" style="margin-top:20px;">واجهة أكاديمية رسمية لإعداد المحاضرات الصوتية وحفظ المحتوى التعليمي مع لوحة إدارة منفصلة.</p>
-      </div>
-    </section>
 
-    <section id="studio">
-      <span class="eyebrow">Academic Studio</span>
-      <h2 class="section-title">مختبر توليد المحاضرات الصوتية</h2>
-      <div class="grid-2">
-        <div class="card">
-          <div class="row"><span>النص الأكاديمي</span><span id="charCount">0 حرف</span></div>
-          <textarea id="scriptText">مرحبًا بكم في المحاضرة الصوتية، في هذا الدرس سنراجع المفاهيم الأساسية ونشرح الفكرة بأسلوب أكاديمي واضح ومناسب للمذاكرة.</textarea>
-          <canvas id="waveCanvas" width="1200" height="220"></canvas>
-          <audio id="audioPlayer" controls></audio>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="studio/index.html">ابدأ الآن</a>
+          <a class="btn btn-secondary" href="studio/voice-style.html">جرّب ToneForge™</a>
         </div>
 
-        <aside class="card stack">
-          <div>
-            <div class="row"><span>الصوت التعليمي</span><span id="voiceLabel">صوت شاب عربي</span></div>
-            <select id="voiceSelect"></select>
-          </div>
-          <div>
-            <div class="row"><span>نمط الإلقاء</span><span id="styleLabel">saudi_formal</span></div>
-            <select id="styleSelect">
-              <option value="saudi_formal">سعودي رسمي</option>
-              <option value="saudi_youth">سعودي شبابي</option>
-              <option value="gulf_soft">خليجي هادئ</option>
-              <option value="promo">رجل أعمال رسمي</option>
-              <option value="fusha_clear">فصحى واضحة</option>
-              <option value="robot_mode">روبوت</option>
-            </select>
-          </div>
-          <div>
-            <div class="row"><span>السرعة</span><span id="speedLabel">1.0x</span></div>
-            <input id="speedRange" type="range" min="0.7" max="1.3" step="0.1" value="1" />
-          </div>
-          <div>
-            <div class="row"><span>النبرة</span><span id="pitchLabel">0</span></div>
-            <input id="pitchRange" type="range" min="-3" max="3" step="1" value="0" />
-          </div>
-          <div>
-            <div class="row"><span>مدة الصوت المطلوبة</span><span id="durationLabel">8.0s</span></div>
-            <input id="durationRange" type="range" min="2" max="60" step="0.5" value="8" />
-          </div>
-          <button class="btn btn-primary" id="generateBtn">توليد المحاضرة الصوتية</button>
-          <button class="btn btn-secondary" id="saveProjectBtn">حفظ كمحاضرة</button>
-          <div class="status-box">
-            <div class="row"><span id="jobIdLabel">job_pending</span><span id="jobStatus">idle</span></div>
-            <div class="progress-track"><div class="progress-fill" id="progressFill"></div></div>
-            <p class="mini" id="statusText">جاهز لتحويل النص الأكاديمي إلى صوت.</p>
-          </div>
-        </aside>
+        <div class="pill-row">
+          <span class="pill">تحويل صوت إلى نص</span>
+          <span class="pill">تحسين وتنظيف</span>
+          <span class="pill">تقطيع تلقائي</span>
+          <span class="pill">أنماط صوتية</span>
+        </div>
+      </div>
+
+      <div class="hero-card card" data-animate>
+        <img class="hero-logo" src="mulhem-logo.jpg" alt="هوية مُلهم ساوند" />
+        <div class="pill-row">
+          <span class="pill">UI نظيف</span>
+          <span class="pill">Animated Blob</span>
+          <span class="pill">Glow + Glass</span>
+        </div>
+        <div class="wave-lines">
+          <span></span>
+          <span></span>
+          <span></span>
+          <span></span>
+        </div>
       </div>
     </section>
 
-    <section id="voices">
-      <span class="eyebrow">Academic Voice Library</span>
-      <h2 class="section-title">الأصوات التعليمية وأنماط الإلقاء</h2>
-      <div class="grid-3">
-        <article class="card">
-          <span class="eyebrow">riyadh_male</span>
-          <h3>صوت شاب عربي</h3>
-          <p class="lead">مناسب لشرح الدروس بأسلوب محكي خفيف، ونبرته مختلفة عن الفصحى والروبوت ورجل الأعمال.</p>
-          <div class="wave-line" style="height:52px;"></div>
+    <section id="services">
+      <div class="section-head" data-animate>
+        <div>
+          <div class="eyebrow">Studio Gateway</div>
+          <h2 class="section-title">الصفحة الرئيسية الآن مجرد بوابة ذكية وواضحة</h2>
+        </div>
+        <p class="section-copy">
+          بدل صفحة Studio المزدحمة، كل خدمة الآن لها صفحة مستقلة ووظيفة واحدة واضحة.
+          هذا يخفف التشتت ويجعل التجربة مفهومة من أول نظرة.
+        </p>
+      </div>
+
+      <div class="services-grid">
+        <a class="service-card" href="studio/transcribe.html" data-animate>
+          <div class="service-icon">🎙️</div>
+          <h3>تحويل الصوت إلى نص</h3>
+          <p>رفع تسجيل، تفريغ مباشر، ملخص، نقاط مهمة، ترجمة، ومخرجات جاهزة للنسخ والتنزيل.</p>
+          <div class="service-link">افتح الصفحة ←</div>
+        </a>
+
+        <a class="service-card" href="studio/enhance.html" data-animate>
+          <div class="service-icon">🎧</div>
+          <h3>تحسين الصوت</h3>
+          <p>تحكم سريع في إزالة الضوضاء، الوضوح، ومستوى الصوت داخل صفحة مركزة وسهلة.</p>
+          <div class="service-link">افتح الصفحة ←</div>
+        </a>
+
+        <a class="service-card" href="studio/cut.html" data-animate>
+          <div class="service-icon">✂️</div>
+          <h3>تقطيع الصوت</h3>
+          <p>توليد مقاطع ذكية، تقسيم تلقائي، واستخراج شرائح جاهزة للاستخدام أو المشاركة.</p>
+          <div class="service-link">افتح الصفحة ←</div>
+        </a>
+
+        <a class="service-card" href="studio/voice-style.html" data-animate>
+          <div class="service-icon">✨</div>
+          <h3>ToneForge™</h3>
+          <p>اختيار شخصية الصوت، تعديل السرعة والنبرة، معاينة فورية، ومفضلات محفوظة.</p>
+          <div class="service-link">افتح الصفحة ←</div>
+        </a>
+      </div>
+    </section>
+
+    <section id="flow">
+      <div class="section-head" data-animate>
+        <div>
+          <div class="eyebrow">Flow</div>
+          <h2 class="section-title">المستخدم يفهم كل شيء خلال 3 ثوانٍ</h2>
+        </div>
+        <p class="section-copy">
+          هذا هو المسار الصحيح: تعريف، ثم اختيار خدمة، ثم صفحة مستقلة، ثم رفع، ثم معالجة، ثم نتيجة واضحة.
+        </p>
+      </div>
+
+      <div class="how-grid">
+        <article class="info-card" data-animate>
+          <div class="info-icon">1</div>
+          <h3>ادخل الاستوديو</h3>
+          <p>يبدأ المستخدم من بوابة الخدمات بدل واجهة واحدة مزدحمة.</p>
         </article>
-        <article class="card">
-          <span class="eyebrow">riyadh_female</span>
-          <h3>صوت امرأة عربي</h3>
-          <p class="lead">مناسب للملخصات والشرح الهادئ، بطبقة صوت أعلى وأنعم من صوت الشاب.</p>
-          <div class="wave-line" style="height:52px;"></div>
+
+        <article class="info-card" data-animate>
+          <div class="info-icon">2</div>
+          <h3>اختر وظيفة واحدة</h3>
+          <p>تفريغ أو تحسين أو تقطيع أو أنماط صوتية. كل صفحة = مهمة واحدة فقط.</p>
         </article>
-        <article class="card">
-          <span class="eyebrow">business_formal</span>
-          <h3>رجل أعمال رسمي</h3>
-          <p class="lead">مناسب للعروض الأكاديمية الرسمية، الإعلانات المؤسسية، والرسائل الإدارية.</p>
-          <div class="wave-line" style="height:52px;"></div>
-        </article>
-        <article class="card">
-          <span class="eyebrow">fusha_clear</span>
-          <h3>فصحى واضحة</h3>
-          <p class="lead">مناسب للمحاضرات الرسمية، قراءة النصوص العلمية، والعروض التعليمية الواضحة.</p>
-          <div class="wave-line" style="height:52px;"></div>
-        </article>
-        <article class="card">
-          <span class="eyebrow">arabic_robot</span>
-          <h3>روبوت عربي</h3>
-          <p class="lead">مناسب لتجارب الذكاء الاصطناعي، المساعد الدراسي، والتنبيهات التقنية داخل المنصة.</p>
-          <div class="wave-line" style="height:52px;"></div>
+
+        <article class="info-card" data-animate>
+          <div class="info-icon">3</div>
+          <h3>استلم النتيجة</h3>
+          <p>نتيجة مباشرة مع تنزيل ونسخ وإعادة معالجة بدون تعقيد بصري أو ذهني.</p>
         </article>
       </div>
     </section>
 
-    <section id="projects">
-      <span class="eyebrow">Lecture Library</span>
-      <h2 class="section-title">المحاضرات الصوتية المحفوظة</h2>
-      <div class="card" id="projectsList"></div>
+    <section id="before-after">
+      <div class="section-head" data-animate>
+        <div>
+          <div class="eyebrow">Before / After</div>
+          <h2 class="section-title">الفرق في الانطباع والثقة واضح</h2>
+        </div>
+      </div>
+
+      <div class="before-after">
+        <div class="card" data-animate>
+          <h3>قبل</h3>
+          <ul class="mini-list">
+            <li>صفحة واحدة تحمل كل شيء</li>
+            <li>خيارات كثيرة بلا تقسيم</li>
+            <li>المستخدم يحتاج وقتًا ليفهم ماذا يفعل</li>
+          </ul>
+        </div>
+
+        <div class="card" data-animate>
+          <h3>بعد</h3>
+          <ul class="mini-list">
+            <li>Landing واضحة + Studio Hub منظم</li>
+            <li>خدمة مستقلة لكل وظيفة</li>
+            <li>أنماط صوتية احترافية عبر ToneForge™</li>
+          </ul>
+        </div>
+      </div>
     </section>
 
+    <section id="trust">
+      <div class="section-head" data-animate>
+        <div>
+          <div class="eyebrow">Trust</div>
+          <h2 class="section-title">هوية أقوى وثقة أعلى من أول زيارة</h2>
+        </div>
+        <p class="section-copy">
+          واجهة خضراء حديثة، كروت متحركة، تقسيم منطقي، ورسائل توضح القيمة خلال لحظات.
+        </p>
+      </div>
+
+      <div class="trust-grid">
+        <article class="info-card" data-animate>
+          <div class="info-icon">🌿</div>
+          <h3>هوية واضحة</h3>
+          <p>لون أساسي ثابت، تدرجات حديثة، وملمس بصري يعطي انطباع AI احترافي.</p>
+        </article>
+
+        <article class="info-card" data-animate>
+          <div class="info-icon">🧠</div>
+          <h3>تجربة مفهومة</h3>
+          <p>كل صفحة تؤدي غرضًا واحدًا فقط، وهذا يخفف الحيرة ويرفع جودة الاستخدام.</p>
+        </article>
+
+        <article class="info-card" data-animate>
+          <div class="info-icon">🚀</div>
+          <h3>قابل للتوسع</h3>
+          <p>إضافة خدمات جديدة لاحقًا تصبح أسهل لأن الهيكل مبني على صفحات مستقلة.</p>
+        </article>
+      </div>
+    </section>
+
+    <section id="quotes">
+      <div class="section-head" data-animate>
+        <div>
+          <div class="eyebrow">Feedback</div>
+          <h2 class="section-title">تقييمات أولية وانطباع أقرب لمنتج جاهز</h2>
+        </div>
+      </div>
+
+      <div class="quote-grid">
+        <article class="quote-card" data-animate>
+          <strong>واجهة أوضح بكثير</strong>
+          <p>“الآن فهمت فورًا ما الذي يقدمه الموقع وأين أبدأ.”</p>
+        </article>
+
+        <article class="quote-card" data-animate>
+          <strong>تقسيم احترافي</strong>
+          <p>“وجود صفحة مستقلة لكل خدمة جعل التجربة أقرب لمنتج كبير وليس Prototype.”</p>
+        </article>
+
+        <article class="quote-card" data-animate>
+          <strong>ToneForge™ مميز</strong>
+          <p>“ميزة أنماط الصوت تعطي شخصية واضحة للمنتج وتفتح باب تميز فعلي.”</p>
+        </article>
+      </div>
+    </section>
+
+    <footer data-animate>
+      مُلهم ساوند • تجربة عربية حديثة لتحويل الصوت إلى نتائج ذكية واضحة •
+      <a href="studio/index.html" style="color:inherit;">ادخل إلى الاستوديو</a>
+    </footer>
   </div>
 
   <script>
-    const voices = [
-      { id: "voice_riyadh_male_01", name: "صوت شاب عربي", accent: "لهجة محكية", baseFreq: 132, gain: 0.9, gender: "male", mode: "riyadh", lang: "ar-SA", defaultStyle: "saudi_youth", rateBias: 1.14, pitchBias: 0.94, formantShift: 0.92, vibratoDepth: 0.004, breath: 0.01, robotMix: 0.0, harmonic2: 0.22, harmonic3: 0.05, pitchStep: 3.4, sibilance: 0.03, useFallbackPreferred: false, hints: ["naayf", "tarik", "hossam", "maged", "male", "fahd", "khalid"] },
-      { id: "voice_riyadh_female_01", name: "صوت امرأة عربي", accent: "لهجة محكية ناعمة", baseFreq: 236, gain: 0.72, gender: "female", mode: "riyadh", lang: "ar-SA", defaultStyle: "gulf_soft", rateBias: 1.0, pitchBias: 1.32, formantShift: 1.22, vibratoDepth: 0.02, breath: 0.024, robotMix: 0.0, harmonic2: 0.12, harmonic3: 0.03, pitchStep: 4.9, sibilance: 0.05, useFallbackPreferred: false, hints: ["laila", "salma", "hoda", "mariam", "zira", "female", "sara"] },
-      { id: "voice_sa_formal_ad_01", name: "رجل أعمال رسمي", accent: "رسمي تنفيذي", baseFreq: 104, gain: 0.98, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "promo", rateBias: 0.84, pitchBias: 0.76, formantShift: 0.86, vibratoDepth: 0.002, breath: 0.006, robotMix: 0.0, harmonic2: 0.28, harmonic3: 0.08, pitchStep: 1.2, sibilance: 0.018, useFallbackPreferred: false, hints: ["naayf", "maged", "hossam", "male", "tarik", "mohammed"] },
-      { id: "voice_fusha_clear_01", name: "فصحى واضحة", accent: "عربية فصحى", baseFreq: 168, gain: 0.82, gender: "male", mode: "fusha", lang: "ar-SA", defaultStyle: "fusha_clear", rateBias: 0.92, pitchBias: 1.04, formantShift: 1.0, vibratoDepth: 0.01, breath: 0.012, robotMix: 0.0, harmonic2: 0.18, harmonic3: 0.05, pitchStep: 2.2, sibilance: 0.028, useFallbackPreferred: false, hints: ["maged", "hossam", "tarik", "arabic", "male", "naayf"] },
-      { id: "voice_robot_01", name: "روبوت عربي", accent: "آلي عربي", baseFreq: 136, gain: 1.0, gender: "robot", mode: "robot", lang: "ar-SA", defaultStyle: "robot_mode", rateBias: 0.9, pitchBias: 0.58, formantShift: 0.8, vibratoDepth: 0.0, breath: 0.0, robotMix: 1.0, harmonic2: 0.45, harmonic3: 0.22, pitchStep: 0.55, sibilance: 0.01, useFallbackPreferred: true, hints: ["arabic", "hossam", "naayf", "maged", "ar-sa"] }
-    ];
+    const themeToggle = document.getElementById("themeToggle");
+    const THEME_KEY = "mulhem_theme_v2";
 
-    const scriptText = document.getElementById("scriptText");
-    const INITIAL_SCRIPT = scriptText.value.trim();
-    const charCount = document.getElementById("charCount");
-    const voiceSelect = document.getElementById("voiceSelect");
-    const voiceLabel = document.getElementById("voiceLabel");
-    const styleSelect = document.getElementById("styleSelect");
-    const styleLabel = document.getElementById("styleLabel");
-    const speedRange = document.getElementById("speedRange");
-    const speedLabel = document.getElementById("speedLabel");
-    const pitchRange = document.getElementById("pitchRange");
-    const pitchLabel = document.getElementById("pitchLabel");
-    const durationRange = document.getElementById("durationRange");
-    const durationLabel = document.getElementById("durationLabel");
-    const nav = document.querySelector(".nav");
-    const navLinks = document.querySelector(".nav-links");
-    const generateBtn = document.getElementById("generateBtn");
-    const saveProjectBtn = document.getElementById("saveProjectBtn");
-    const jobIdLabel = document.getElementById("jobIdLabel");
-    const jobStatus = document.getElementById("jobStatus");
-    const statusText = document.getElementById("statusText");
-    const progressFill = document.getElementById("progressFill");
-    const audioPlayer = document.getElementById("audioPlayer");
-    const projectsList = document.getElementById("projectsList");
-    const voiceGrid = document.querySelector("#voices .grid-3");
-    const waveCanvas = document.getElementById("waveCanvas");
-    const ctx = waveCanvas.getContext("2d");
-    let themeToggle = null;
-    let shareBtn = null;
-    let whatsappBtn = null;
-    let instagramBtn = null;
-    let shareHint = null;
-    let voiceSearchInput = null;
-    let voiceSearchStatus = null;
-    let audioFileInput = null;
-    let browseFileBtn = null;
-    let dropZone = null;
-    let uploadedFileName = null;
-    let uploadedFileMeta = null;
-    let analyzeAudioBtn = null;
-    let reprocessBtn = null;
-    let successIndicator = null;
-    let copyTextBtn = null;
-    let downloadTxtBtn = null;
-    let downloadJsonBtn = null;
-    let downloadAudioBtn = null;
-    let processingEta = null;
-    let processingMode = null;
-    let resultsSection = null;
-    let resultOverview = null;
-    let transcriptOutput = null;
-    let summaryOutput = null;
-    let keyPointsOutput = null;
-    let translationOutput = null;
-    let postOutput = null;
-    let tweetOutput = null;
-    let analysisOutput = null;
-    let segmentsOutput = null;
-
-    const STORAGE_KEY = "saudi_tts_projects_v1";
-    const THEME_KEY = "mulhem_sound_theme_v1";
-    const SAMPLE_RATE = 22050;
-    let latestBlobUrl = null;
-    let latestAudioBlob = null;
-    let latestDuration = 0;
-    let uploadedAudioFiles = [];
-    let uploadedAudioFile = null;
-    let uploadedAudioUrl = null;
-    let systemVoiceList = [];
-    let fallbackTimer = null;
-    let speechKeepAliveTimer = null;
-
-    const replacements = {
-      "0": "صفر", "1": "واحد", "2": "اثنان", "3": "ثلاثة", "4": "أربعة",
-      "5": "خمسة", "6": "ستة", "7": "سبعة", "8": "ثمانية", "9": "تسعة",
-      "%": " بالمئة ", "&": " و ", "@": " آت ", "+": " زائد "
-    };
-
-    const pronunciationRules = [
-      [/\bAI\b/gi, "إيه آي"],
-      [/\bTTS\b/gi, "تي تي إس"],
-      [/\bAPI\b/gi, "إيه بي آي"],
-      [/\bVR\b/gi, "في آر"],
-      [/\bGPU\b/gi, "جي بي يو"],
-      [/\bHTML\b/gi, "إتش تي إم إل"],
-      [/\bCSS\b/gi, "سي إس إس"],
-      [/\bJS\b/gi, "جافا سكريبت"],
-      [/\bد\./g, "دكتور "],
-      [/\bم\./g, "مهندس "],
-      [/ﷺ/g, "صلى الله عليه وسلم"],
-      [/ﷲ/g, "الله"],
-      [/…/g, "..."],
-      [/[\u064B-\u065F\u0670\u0640]/g, ""]
-    ];
-
-    function loadProjects() {
-      try {
-        return JSON.parse(localStorage.getItem(STORAGE_KEY) || "[]");
-      } catch {
-        return [];
-      }
-    }
-
-    function storeProjects(projects) {
-      localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
-    }
-
-    function setupEnhancements() {
-      const navActions = document.createElement("div");
-      navActions.className = "nav-actions";
-      nav.appendChild(navActions);
-      navActions.appendChild(navLinks);
-
-      themeToggle = document.createElement("button");
-      themeToggle.type = "button";
-      themeToggle.id = "themeToggle";
-      themeToggle.className = "theme-toggle";
-      navActions.appendChild(themeToggle);
-
-      const studioSection = document.getElementById("studio");
-      const projectsSection = document.getElementById("projects");
-      const heroSection = document.getElementById("home");
-      const heroBadge = heroSection.querySelector(".badge");
-      const heroTitle = heroSection.querySelector("h1");
-      const heroLead = heroSection.querySelector(".lead");
-      const heroActions = heroSection.querySelector(".actions");
-
-      heroBadge.textContent = "مُلهم ساوند | تحويل الصوت إلى نص ونتائج ذكية خلال ثواني";
-      heroTitle.textContent = "حوّل الصوت إلى نص خلال ثواني";
-      heroLead.textContent = "ارفع التسجيل، دع المنصة تنظفه وتفرغه وتلخصه، ثم استلم النص والنقاط المهمة والترجمة والمحتوى الجاهز في واجهة واضحة وسريعة.";
-      heroActions.innerHTML = `
-        <a class="btn btn-primary" href="#studio">ابدأ الآن</a>
-        <a class="btn btn-secondary" href="#quickStart">كيف يعمل الموقع؟</a>
-      `;
-      const heroPills = document.createElement("div");
-      heroPills.className = "pill-row";
-      heroPills.innerHTML = `
-        <span class="pill">تفريغ صوتي</span>
-        <span class="pill">تلخيص ذكي</span>
-        <span class="pill">ترجمة سريعة</span>
-        <span class="pill">محتوى جاهز للنشر</span>
-      `;
-      heroActions.insertAdjacentElement("afterend", heroPills);
-
-      const quickStartSection = document.createElement("section");
-      quickStartSection.id = "quickStart";
-      quickStartSection.innerHTML = `
-        <span class="eyebrow">Quick Start</span>
-        <h2 class="section-title">ابدأ خلال 3 خطوات بسيطة وواضحة</h2>
-        <div class="steps-grid">
-          <article class="step-card">
-            <span class="step-number">1</span>
-            <h3>ارفع ملفك أو الصق النص</h3>
-            <p class="mini">ابدأ بسحب الملف الصوتي وإفلاته، أو اكتب النص مباشرة داخل المحرر بدون أي تعقيد.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-number">2</span>
-            <h3>اختر نوع المعالجة</h3>
-            <p class="mini">حوّل النص إلى صوت، أو فعّل التحليل الذكي لاستخراج التفريغ والملخص والترجمة والنقاط المهمة.</p>
-          </article>
-          <article class="step-card">
-            <span class="step-number">3</span>
-            <h3>استلم النتائج مباشرة</h3>
-            <p class="mini">شاهد التقدم، راجع النتائج فورًا، ثم نزّل الملفات أو أعد المعالجة أو شاركها بضغطة واحدة.</p>
-          </article>
-        </div>
-        <div class="feature-strip">
-          <article class="feature-card"><h3>تحويل صوت إلى نص</h3><p class="mini">تفريغ مباشر مع إمكان النسخ والحفظ.</p></article>
-          <article class="feature-card"><h3>تنظيف وتحسين</h3><p class="mini">إزالة ضوضاء وتوضيح مسار المعالجة قبل وبعد.</p></article>
-          <article class="feature-card"><h3>تلخيص ومحتوى</h3><p class="mini">تلخيص واستخراج نقاط مهمة ومنشور وتغريدة جاهزة.</p></article>
-          <article class="feature-card"><h3>تحميل متعدد</h3><p class="mini">نتائج جاهزة بصيغ متعددة وبواجهة مناسبة للمبتدئين.</p></article>
-        </div>
-      `;
-      studioSection.insertAdjacentElement("beforebegin", quickStartSection);
-
-      const shareActions = document.createElement("div");
-      shareActions.className = "share-actions";
-
-      shareBtn = document.createElement("button");
-      shareBtn.type = "button";
-      shareBtn.id = "shareBtn";
-      shareBtn.className = "btn btn-secondary";
-      shareBtn.textContent = "مشاركة سريعة";
-
-      whatsappBtn = document.createElement("button");
-      whatsappBtn.type = "button";
-      whatsappBtn.id = "whatsappBtn";
-      whatsappBtn.className = "btn btn-secondary";
-      whatsappBtn.textContent = "واتساب";
-
-      instagramBtn = document.createElement("button");
-      instagramBtn.type = "button";
-      instagramBtn.id = "instagramBtn";
-      instagramBtn.className = "btn btn-secondary";
-      instagramBtn.textContent = "ستوري إنستقرام";
-
-      shareActions.append(shareBtn, whatsappBtn, instagramBtn);
-      saveProjectBtn.insertAdjacentElement("afterend", shareActions);
-
-      shareHint = document.createElement("p");
-      shareHint.id = "shareHint";
-      shareHint.className = "mini";
-      shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
-      shareActions.insertAdjacentElement("afterend", shareHint);
-
-      const uploadBox = document.createElement("div");
-      uploadBox.className = "upload-box";
-      uploadBox.innerHTML = `
-        <div class="upload-icon" aria-hidden="true">🎤</div>
-        <div class="pill-row">
-          <span class="pill">اللون الأساسي: أخضر احترافي</span>
-          <span class="pill">واجهة بسيطة للمبتدئين</span>
-        </div>
-        <h3 style="margin:18px 0 12px;">رفع الملفات بالسحب والإفلات</h3>
-        <p class="mini">اسحب ملفًا صوتيًا هنا أو اضغط على زر الاستعراض لبدء التفريغ والتحليل والتحسين.</p>
-        <input id="audioFileInput" type="file" accept="audio/*" multiple hidden />
-        <button class="btn btn-primary" id="browseFileBtn" type="button">ابدأ الآن</button>
-        <div class="upload-meta">
-          <span id="uploadedFileName">لا يوجد ملف مرفوع حتى الآن</span>
-          <span id="uploadedFileMeta">يدعم ملفات الصوت الشائعة</span>
-        </div>
-      `;
-      generateBtn.insertAdjacentElement("beforebegin", uploadBox);
-      dropZone = uploadBox;
-      audioFileInput = uploadBox.querySelector("#audioFileInput");
-      browseFileBtn = uploadBox.querySelector("#browseFileBtn");
-      uploadedFileName = uploadBox.querySelector("#uploadedFileName");
-      uploadedFileMeta = uploadBox.querySelector("#uploadedFileMeta");
-      generateBtn.textContent = "ابدأ الآن - توليد صوت";
-      saveProjectBtn.textContent = "حفظ المشروع";
-
-      const toolRow = document.createElement("div");
-      toolRow.className = "tool-row";
-      toolRow.innerHTML = `
-        <button class="btn btn-primary" id="analyzeAudioBtn" type="button">تحليل الصوت</button>
-        <button class="btn btn-secondary" id="reprocessBtn" type="button">إعادة المعالجة</button>
-      `;
-      shareHint.insertAdjacentElement("afterend", toolRow);
-      analyzeAudioBtn = toolRow.querySelector("#analyzeAudioBtn");
-      reprocessBtn = toolRow.querySelector("#reprocessBtn");
-
-      const utilityGrid = document.createElement("div");
-      utilityGrid.className = "utility-grid";
-      utilityGrid.innerHTML = `
-        <button class="btn btn-secondary" id="copyTextBtn" type="button">نسخ النص</button>
-        <button class="btn btn-secondary" id="downloadTxtBtn" type="button">تحميل TXT</button>
-        <button class="btn btn-secondary" id="downloadJsonBtn" type="button">تحميل JSON</button>
-        <button class="btn btn-secondary" id="downloadAudioBtn" type="button">تحميل الصوت</button>
-      `;
-      toolRow.insertAdjacentElement("afterend", utilityGrid);
-      copyTextBtn = utilityGrid.querySelector("#copyTextBtn");
-      downloadTxtBtn = utilityGrid.querySelector("#downloadTxtBtn");
-      downloadJsonBtn = utilityGrid.querySelector("#downloadJsonBtn");
-      downloadAudioBtn = utilityGrid.querySelector("#downloadAudioBtn");
-
-      const processingMetaBox = document.createElement("div");
-      processingMetaBox.className = "processing-meta";
-      processingMetaBox.innerHTML = `
-        <span id="processingEta">الوقت المتبقي: --</span>
-        <span id="processingMode">الوضع: جاهز</span>
-      `;
-      document.querySelector(".status-box").appendChild(processingMetaBox);
-      processingEta = processingMetaBox.querySelector("#processingEta");
-      processingMode = processingMetaBox.querySelector("#processingMode");
-      successIndicator = document.createElement("div");
-      successIndicator.className = "success-indicator";
-      successIndicator.textContent = "✔ تم اكتمال المعالجة بنجاح";
-      document.querySelector(".status-box").appendChild(successIndicator);
-
-      resultsSection = document.createElement("section");
-      resultsSection.id = "results";
-      resultsSection.innerHTML = `
-        <span class="eyebrow">AI Results</span>
-        <h2 class="section-title">النتائج المباشرة بعد المعالجة</h2>
-        <div class="card results-hero">
-          <div>
-            <h3 style="margin:0 0 10px;">نتيجة جاهزة للمراجعة والتحميل</h3>
-            <p class="mini" id="resultOverview">ابدأ الآن برفع ملف أو توليد مقطع صوتي لتظهر النتائج هنا مباشرة.</p>
-          </div>
-          <div class="pill-row">
-            <span class="pill">تفريغ</span>
-            <span class="pill">تلخيص</span>
-            <span class="pill">ترجمة</span>
-            <span class="pill">منشور + تغريدة</span>
-          </div>
-        </div>
-        <div class="results-grid">
-          <article class="result-card"><h3>النص المستخرج</h3><div class="output-box" id="transcriptOutput">لا توجد نتائج بعد.</div></article>
-          <article class="result-card"><h3>الملخص الذكي</h3><div class="output-box" id="summaryOutput">سيظهر الملخص هنا بعد المعالجة.</div></article>
-          <article class="result-card"><h3>أهم النقاط</h3><div class="output-box" id="keyPointsOutput">سيتم استخراج النقاط المهمة تلقائيًا.</div></article>
-          <article class="result-card"><h3>الترجمة</h3><div class="output-box" id="translationOutput">ستظهر ترجمة مختصرة للنتيجة.</div></article>
-          <article class="result-card"><h3>منشور جاهز</h3><div class="output-box" id="postOutput">سيتم إنشاء منشور عربي مختصر.</div></article>
-          <article class="result-card"><h3>تغريدة جاهزة</h3><div class="output-box" id="tweetOutput">سيتم إنشاء تغريدة جاهزة للنشر.</div></article>
-          <article class="result-card"><h3>تحليل المحتوى</h3><div class="output-box" id="analysisOutput">سيظهر نوع المحتوى ونبرته وموضوعه هنا.</div></article>
-          <article class="result-card"><h3>التقطيع التلقائي</h3><div class="output-box" id="segmentsOutput">سيتم تقسيم الملف إلى مقاطع مفهومة تلقائيًا.</div></article>
-        </div>
-      `;
-      studioSection.insertAdjacentElement("afterend", resultsSection);
-      resultOverview = resultsSection.querySelector("#resultOverview");
-      transcriptOutput = resultsSection.querySelector("#transcriptOutput");
-      summaryOutput = resultsSection.querySelector("#summaryOutput");
-      keyPointsOutput = resultsSection.querySelector("#keyPointsOutput");
-      translationOutput = resultsSection.querySelector("#translationOutput");
-      postOutput = resultsSection.querySelector("#postOutput");
-      tweetOutput = resultsSection.querySelector("#tweetOutput");
-      analysisOutput = resultsSection.querySelector("#analysisOutput");
-      segmentsOutput = resultsSection.querySelector("#segmentsOutput");
-
-      const trustSection = document.createElement("section");
-      trustSection.id = "trust";
-      trustSection.innerHTML = `
-        <span class="eyebrow">Trust & Quality</span>
-        <h2 class="section-title">كيف يعمل الموقع ولماذا يثق به المستخدم؟</h2>
-        <div class="trust-grid">
-          <article class="trust-card">
-            <h3>من نحن</h3>
-            <p class="mini">مُلهم ساوند منصة عربية تركّز على تحويل المحتوى الصوتي والنصي إلى نتائج عملية واضحة: تفريغ، تلخيص، تحسين، ومشاركة.</p>
-          </article>
-          <article class="trust-card">
-            <h3>قبل / بعد</h3>
-            <p class="mini">قبل: ملف صوتي خام أو نص طويل. بعد: صوت منسّق، نص منسوخ، ملخص، نقاط مهمة، ومخرجات جاهزة للنشر.</p>
-          </article>
-          <article class="trust-card">
-            <h3>كيف يعمل؟</h3>
-            <p class="mini">1. ارفع الملف أو الصق النص. 2. اختر التحليل أو التوليد. 3. استلم النتائج مباشرة مع تنزيل ومشاركة وإعادة معالجة.</p>
-          </article>
-          <article class="trust-card">
-            <h3>تقييمات أولية</h3>
-            <p class="mini">"واجهة واضحة جدًا وسهلة للمبتدئين." - مستخدم تجريبي</p>
-            <p class="mini">"النتائج مرتبة وسريعة مع ملخص جاهز." - صانع محتوى</p>
-          </article>
-          <article class="trust-card">
-            <h3>مزايا AI العملية</h3>
-            <p class="mini">تلخيص، ترجمة، استخراج نقاط، تقطيع تلقائي، تحليل نبرة، وإنشاء محتوى من التسجيل مباشرة.</p>
-          </article>
-          <article class="trust-card">
-            <h3>انطباع احترافي</h3>
-            <p class="mini">هوية خضراء ثابتة، تدرجات موحدة، أزرار واضحة، ومساحات نظيفة تقلل التشتيت وتزيد الثقة.</p>
-          </article>
-        </div>
-      `;
-      projectsSection.insertAdjacentElement("afterend", trustSection);
-
-      voiceGrid.classList.add("voice-grid");
-      voiceGrid.id = "voiceGrid";
-
-      const voiceToolbar = document.createElement("div");
-      voiceToolbar.className = "voice-toolbar";
-
-      voiceSearchInput = document.createElement("input");
-      voiceSearchInput.type = "search";
-      voiceSearchInput.id = "voiceSearchInput";
-      voiceSearchInput.placeholder = "ابحث عن صوت أو أسلوب أو استخدام...";
-
-      voiceSearchStatus = document.createElement("span");
-      voiceSearchStatus.id = "voiceSearchStatus";
-      voiceSearchStatus.className = "mini";
-
-      voiceToolbar.append(voiceSearchInput, voiceSearchStatus);
-      voiceGrid.insertAdjacentElement("beforebegin", voiceToolbar);
-
-      const heroLogo = document.querySelector("#home .card img[src='mulhem-logo.jpg']");
-      if (heroLogo) {
-        heroLogo.classList.add("hero-logo");
-        heroLogo.removeAttribute("style");
-      }
-
-      voiceGrid.querySelectorAll(".card").forEach((card, index) => {
-        const voice = voices[index];
-        if (!voice) return;
-
-        card.classList.add("voice-card");
-        card.dataset.voiceId = voice.id;
-        card.dataset.search = `${voice.name} ${voice.accent} ${card.textContent}`.toLowerCase();
-
-        const selectButton = document.createElement("button");
-        selectButton.type = "button";
-        selectButton.className = "btn btn-secondary select-voice-btn";
-        selectButton.textContent = "اختر هذا الصوت";
-        card.appendChild(selectButton);
-      });
-    }
-
-    function renderProjects() {
-      const projects = loadProjects();
-
-      if (!projects.length) {
-        projectsList.innerHTML = `<p class="mini">لا توجد محاضرات محفوظة بعد. أنشئ محاضرة صوتية ثم اضغط "حفظ كمحاضرة".</p>`;
-        return;
-      }
-
-      projectsList.innerHTML = projects
-        .slice()
-        .reverse()
-        .map((project) => `
-          <div class="project-item">
-            <div>
-              <strong style="color:var(--text)">${project.title}</strong>
-              <div class="mini">${project.voiceName} / ${project.style} / ${project.duration.toFixed(1)}s</div>
-            </div>
-            <div class="mini">${project.date}</div>
-          </div>
-        `)
-        .join("");
-    }
-
-    function getSelectedVoiceProfile() {
-      return voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
-    }
-
-    function setTheme(theme) {
+    function applyTheme(theme) {
       const nextTheme = theme === "dark" ? "dark" : "light";
       document.body.dataset.theme = nextTheme;
-      if (themeToggle) {
-        themeToggle.textContent = nextTheme === "dark" ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي";
-      }
+      themeToggle.textContent = nextTheme === "dark" ? "الوضع النهاري" : "الوضع الليلي";
       localStorage.setItem(THEME_KEY, nextTheme);
     }
 
-    function initializeTheme() {
-      const storedTheme = localStorage.getItem(THEME_KEY);
-      const preferredDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
-      setTheme(storedTheme || (preferredDark ? "dark" : "light"));
+    function initTheme() {
+      const stored = localStorage.getItem(THEME_KEY);
+      const prefersDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      applyTheme(stored || (prefersDark ? "dark" : "light"));
     }
 
-    function setShareEnabled(enabled) {
-      [shareBtn, whatsappBtn, instagramBtn].forEach((button) => {
-        if (button) button.disabled = !enabled;
-      });
-      if (!enabled && shareHint) {
-        shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
-      }
-    }
-
-    function markOutputStale() {
-      latestAudioBlob = null;
-      setShareEnabled(false);
-      if (successIndicator) successIndicator.classList.remove("is-visible");
-      if (shareHint && (audioPlayer.src || latestBlobUrl)) {
-        shareHint.textContent = "تم تعديل النص أو الإعدادات. أعد التوليد لتحديث المقطع قبل المشاركة.";
-      }
-    }
-
-    function updateLabels() {
-      const selectedVoice = getSelectedVoiceProfile();
-      voiceLabel.textContent = selectedVoice.name;
-      styleLabel.textContent = styleSelect.options[styleSelect.selectedIndex]?.textContent || styleSelect.value;
-      speedLabel.textContent = `${Number(speedRange.value).toFixed(1)}x`;
-      pitchLabel.textContent = pitchRange.value;
-      durationLabel.textContent = `${Number(durationRange.value).toFixed(1)}s`;
-      charCount.textContent = `${scriptText.value.trim().length} حرف`;
-      syncVoiceCardsState();
-    }
-
-    function normalizeArabicText(text) {
-      let output = text
-        .trim()
-        .replace(/[٠-٩]/g, (digit) => "0123456789"["٠١٢٣٤٥٦٧٨٩".indexOf(digit)])
-        .replace(/[۰-۹]/g, (digit) => "0123456789"["۰۱۲۳۴۵۶۷۸۹".indexOf(digit)]);
-
-      pronunciationRules.forEach(([pattern, replacement]) => {
-        output = output.replace(pattern, replacement);
-      });
-
-      Object.entries(replacements).forEach(([from, to]) => {
-        output = output.split(from).join(to);
-      });
-      output = output
-        .replace(/ـ/g, "")
-        .replace(/ى/g, "ي")
-        .replace(/ؤ/g, "و")
-        .replace(/ئ/g, "ي")
-        .replace(/\s+([,.،؛:!?؟])/g, "$1")
-        .replace(/([,.،؛:!?؟])([^\s])/g, "$1 $2")
-        .replace(/\s+/g, " ");
-      return output;
-    }
-
-    function applyRiyadhDialect(text) {
-      let output = ` ${text} `;
-      const dialectPairs = [
-        [/(^|\s)ماذا(?=\s|[,.،؛:!?؟]|$)/g, "$1وش"],
-        [/(^|\s)لماذا(?=\s|[,.،؛:!?؟]|$)/g, "$1ليه"],
-        [/(^|\s)الآن(?=\s|[,.،؛:!?؟]|$)/g, "$1الحين"],
-        [/(^|\s)الان(?=\s|[,.،؛:!?؟]|$)/g, "$1الحين"],
-        [/(^|\s)جدا(?=\s|[,.،؛:!?؟]|$)/g, "$1مرة"],
-        [/(^|\s)أريدك(?=\s|[,.،؛:!?؟]|$)/g, "$1أبيك"],
-        [/(^|\s)اريدك(?=\s|[,.،؛:!?؟]|$)/g, "$1أبيك"],
-        [/(^|\s)أريد(?=\s|[,.،؛:!?؟]|$)/g, "$1أبي"],
-        [/(^|\s)اريد(?=\s|[,.،؛:!?؟]|$)/g, "$1أبي"],
-        [/(^|\s)نريد(?=\s|[,.،؛:!?؟]|$)/g, "$1نبي"],
-        [/(^|\s)نحن(?=\s|[,.،؛:!?؟]|$)/g, "$1حنا"],
-        [/(^|\s)نعم(?=\s|[,.،؛:!?؟]|$)/g, "$1ايه"],
-        [/(^|\s)مرحبا(?=\s|[,.،؛:!?؟]|$)/g, "$1يا هلا"],
-        [/(^|\s)كيف حالك(?=\s|[,.،؛:!?؟]|$)/g, "$1وش أخبارك"],
-        [/(^|\s)هذا(?=\s|[,.،؛:!?؟]|$)/g, "$1ذا"],
-        [/(^|\s)هذه(?=\s|[,.،؛:!?؟]|$)/g, "$1هذي"],
-        [/(^|\s)ذلك(?=\s|[,.،؛:!?؟]|$)/g, "$1ذاك"],
-        [/(^|\s)فقط(?=\s|[,.،؛:!?؟]|$)/g, "$1بس"],
-        [/(^|\s)أيضا(?=\s|[,.،؛:!?؟]|$)/g, "$1بعد"],
-        [/(^|\s)ايضا(?=\s|[,.،؛:!?؟]|$)/g, "$1بعد"],
-        [/(^|\s)اذهب(?=\s|[,.،؛:!?؟]|$)/g, "$1رح"],
-        [/(^|\s)حسنا(?=\s|[,.،؛:!?؟]|$)/g, "$1تمام"],
-        [/(^|\s)سوف(?=\s|[,.،؛:!?؟]|$)/g, "$1بـ"],
-        [/(^|\s)أليس كذلك(?=\s|[,.،؛:!?؟]|$)/g, "$1صح؟"],
-        [/(^|\s)الطلاب(?=\s|[,.،؛:!?؟]|$)/g, "$1الطلاب"],
-        [/(^|\s)المحاضرة(?=\s|[,.،؛:!?؟]|$)/g, "$1المحاضرة"]
-      ];
-      dialectPairs.forEach(([pattern, replacement]) => {
-        output = output.replace(pattern, replacement);
-      });
-      return output
-        .replace(/بـ\s+/g, "بـ")
-        .replace(/([,.،؛:!?؟])([^\s])/g, "$1 $2")
-        .replace(/\s+/g, " ")
-        .trim();
-    }
-
-    function getPreparedSpeechText(rawText) {
-      const selectedVoice = getSelectedVoiceProfile();
-      const normalized = normalizeArabicText(rawText);
-      if (selectedVoice.mode === "riyadh") {
-        return applyRiyadhDialect(normalized);
-      }
-      return normalized;
-    }
-
-    function splitChunks(text, maxLen = 160) {
-      const parts = text.split(/(?<=[.!؟?؛،])\s+/).map((part) => part.trim()).filter(Boolean);
-      if (!parts.length) return text ? [text] : [];
-      const chunks = [];
-      let current = "";
-      for (const sentence of parts) {
-        const next = `${current} ${sentence}`.trim();
-        if (next.length <= maxLen) {
-          current = next;
-        } else {
-          if (current) chunks.push(current);
-          current = sentence;
-        }
-      }
-      if (current) chunks.push(current);
-      return chunks;
-    }
-
-    function refreshSystemVoices() {
-      if (!("speechSynthesis" in window)) return;
-      systemVoiceList = window.speechSynthesis.getVoices() || [];
-    }
-
-    function getBaseShareUrl() {
-      return /^https?:$/i.test(window.location.protocol) ? window.location.href.split("#")[0] : "";
-    }
-
-    function getSharePayload() {
-      const selectedVoice = getSelectedVoiceProfile();
-      const styleName = styleSelect.options[styleSelect.selectedIndex]?.textContent || styleSelect.value;
-      const cleanText = scriptText.value.trim().replace(/\s+/g, " ");
-      const excerpt = cleanText.slice(0, 96) + (cleanText.length > 96 ? "..." : "");
-      const shareUrl = getBaseShareUrl();
-      return {
-        title: `مُلهم ساوند | ${selectedVoice.name}`,
-        text: `مقطع صوتي من مُلهم ساوند بصوت ${selectedVoice.name} ونمط ${styleName}. ${excerpt}${shareUrl ? `\n${shareUrl}` : ""}`,
-        shortText: excerpt || "مقطع صوتي عربي جاهز للمشاركة",
-        url: shareUrl,
-        voiceName: selectedVoice.name,
-        styleName
-      };
-    }
-
-    function blobToFile(blob, filename, type) {
-      return new File([blob], filename, { type, lastModified: Date.now() });
-    }
-
-    function downloadBlob(blob, filename) {
-      const url = URL.createObjectURL(blob);
-      const anchor = document.createElement("a");
-      anchor.href = url;
-      anchor.download = filename;
-      document.body.appendChild(anchor);
-      anchor.click();
-      anchor.remove();
-      setTimeout(() => URL.revokeObjectURL(url), 1500);
-    }
-
-    function wrapCanvasText(context, text, x, startY, maxWidth, lineHeight, maxLines = 6) {
-      const words = text.split(" ");
-      const lines = [];
-      let current = "";
-
-      words.forEach((word) => {
-        const candidate = current ? `${current} ${word}` : word;
-        if (context.measureText(candidate).width <= maxWidth) {
-          current = candidate;
-        } else {
-          if (current) lines.push(current);
-          current = word;
-        }
-      });
-
-      if (current) lines.push(current);
-      const visibleLines = lines.slice(0, maxLines);
-      visibleLines.forEach((line, index) => {
-        context.fillText(line, x, startY + index * lineHeight);
-      });
-      return startY + visibleLines.length * lineHeight;
-    }
-
-    function fillRoundedRect(context, x, y, width, height, radius) {
-      const r = Math.min(radius, width / 2, height / 2);
-      context.beginPath();
-      context.moveTo(x + r, y);
-      context.lineTo(x + width - r, y);
-      context.quadraticCurveTo(x + width, y, x + width, y + r);
-      context.lineTo(x + width, y + height - r);
-      context.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
-      context.lineTo(x + r, y + height);
-      context.quadraticCurveTo(x, y + height, x, y + height - r);
-      context.lineTo(x, y + r);
-      context.quadraticCurveTo(x, y, x + r, y);
-      context.closePath();
-      context.fill();
-    }
-
-    async function createShareCardBlob() {
-      const canvas = document.createElement("canvas");
-      canvas.width = 1080;
-      canvas.height = 1920;
-      const context = canvas.getContext("2d");
-      const payload = getSharePayload();
-      const theme = document.body.dataset.theme === "dark" ? "dark" : "light";
-      const accentStart = theme === "dark" ? "#ff7ec7" : "#16c85b";
-      const accentEnd = theme === "dark" ? "#ffc7e7" : "#92ef30";
-      const baseStart = theme === "dark" ? "#08131b" : "#f8fffb";
-      const baseEnd = theme === "dark" ? "#0f1f2b" : "#ecfff2";
-      const panelColor = theme === "dark" ? "rgba(11, 22, 31, 0.92)" : "rgba(255, 255, 255, 0.94)";
-      const textColor = theme === "dark" ? "#f6f8fc" : "#0f172a";
-      const mutedColor = theme === "dark" ? "#b5bfd2" : "#5b6b80";
-      const logo = document.querySelector(".brand-logo");
-
-      const bgGradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
-      bgGradient.addColorStop(0, baseStart);
-      bgGradient.addColorStop(1, baseEnd);
-      context.fillStyle = bgGradient;
-      context.fillRect(0, 0, canvas.width, canvas.height);
-
-      const accentGradient = context.createLinearGradient(120, 120, 960, 560);
-      accentGradient.addColorStop(0, accentStart);
-      accentGradient.addColorStop(1, accentEnd);
-      context.fillStyle = accentGradient;
-      context.globalAlpha = 0.16;
-      context.beginPath();
-      context.arc(860, 220, 220, 0, Math.PI * 2);
-      context.fill();
-      context.beginPath();
-      context.arc(180, 1600, 260, 0, Math.PI * 2);
-      context.fill();
-      context.globalAlpha = 1;
-
-      context.fillStyle = panelColor;
-      fillRoundedRect(context, 72, 92, 936, 1736, 46);
-
-      if (logo && logo.complete) {
-        context.drawImage(logo, 120, 138, 116, 116);
-      }
-
-      context.fillStyle = accentStart;
-      context.font = "700 44px Segoe UI";
-      context.fillText("مُلهم ساوند", 272, 208);
-
-      context.fillStyle = textColor;
-      context.font = "900 74px Segoe UI";
-      context.fillText("بطاقة مشاركة صوتية", 120, 356);
-
-      context.fillStyle = mutedColor;
-      context.font = "600 32px Segoe UI";
-      context.fillText("منصة أكاديمية لتحويل النص العربي إلى شرح صوتي احترافي", 120, 414);
-
-      const badgeGradient = context.createLinearGradient(120, 0, 620, 0);
-      badgeGradient.addColorStop(0, accentStart);
-      badgeGradient.addColorStop(1, accentEnd);
-      context.fillStyle = badgeGradient;
-      fillRoundedRect(context, 120, 472, 420, 76, 999);
-      context.fillStyle = theme === "dark" ? "#1b1020" : "#053c1a";
-      context.font = "700 30px Segoe UI";
-      context.fillText(payload.voiceName, 156, 521);
-
-      context.fillStyle = textColor;
-      context.font = "700 34px Segoe UI";
-      context.fillText(`النمط: ${payload.styleName}`, 120, 630);
-      context.fillText(`المدة: ${latestDuration ? latestDuration.toFixed(1) : getTargetDuration().toFixed(1)} ثانية`, 120, 688);
-
-      context.fillStyle = theme === "dark" ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)";
-      fillRoundedRect(context, 120, 760, 840, 510, 34);
-
-      context.fillStyle = mutedColor;
-      context.font = "600 28px Segoe UI";
-      context.fillText("مقتطف النص", 120, 738);
-      context.fillStyle = textColor;
-      context.font = "600 42px Segoe UI";
-      wrapCanvasText(context, payload.shortText, 160, 862, 760, 76, 6);
-
-      context.strokeStyle = accentStart;
-      context.lineWidth = 8;
-      for (let index = 0; index < 24; index += 1) {
-        const x = 142 + index * 34;
-        const height = 30 + ((index * 37) % 140);
-        context.beginPath();
-        context.moveTo(x, 1440);
-        context.lineTo(x, 1440 + height);
-        context.stroke();
-      }
-
-      context.fillStyle = mutedColor;
-      context.font = "600 30px Segoe UI";
-      context.fillText("شارك المقطع عبر واتساب أو استخدم البطاقة كستوري", 120, 1660);
-      context.fillText("mulhem sound", 120, 1724);
-
-      return new Promise((resolve) => {
-        canvas.toBlob(resolve, "image/png");
-      });
-    }
-
-    async function shareWithSystemDialog(preferFiles = true) {
-      const payload = getSharePayload();
-      if (!navigator.share) return false;
-
-      const files = [];
-      if (preferFiles && latestAudioBlob) {
-        files.push(blobToFile(latestAudioBlob, "mulhem-sound.wav", "audio/wav"));
-      }
-      if (preferFiles) {
-        const imageBlob = await createShareCardBlob();
-        if (imageBlob) {
-          files.push(blobToFile(imageBlob, "mulhem-story.png", "image/png"));
-        }
-      }
-
-      const shareData = {
-        title: payload.title,
-        text: payload.text
-      };
-
-      if (files.length && (!navigator.canShare || navigator.canShare({ files }))) {
-        shareData.files = files;
-      }
-
-      try {
-        await navigator.share(shareData);
-        if (shareHint) shareHint.textContent = "تم فتح نافذة المشاركة.";
-        return true;
-      } catch (error) {
-        if (error?.name === "AbortError") return true;
-        return false;
-      }
-    }
-
-    async function handleShare() {
-      const shared = await shareWithSystemDialog(true);
-      if (shared) return;
-
-      const payload = getSharePayload();
-      if (navigator.clipboard?.writeText) {
-        await navigator.clipboard.writeText(payload.text);
-        if (shareHint) shareHint.textContent = "تم نسخ نص المشاركة. يمكنك لصقه في أي تطبيق.";
-        return;
-      }
-
-      if (shareHint) shareHint.textContent = "المشاركة غير مدعومة في هذا المتصفح حاليًا.";
-    }
-
-    async function handleWhatsAppShare() {
-      const shared = await shareWithSystemDialog(!!latestAudioBlob);
-      if (shared) return;
-
-      const payload = getSharePayload();
-      window.open(`https://wa.me/?text=${encodeURIComponent(payload.text)}`, "_blank", "noopener,noreferrer");
-      if (shareHint) shareHint.textContent = "تم تجهيز رسالة واتساب للمشاركة.";
-    }
-
-    async function handleInstagramShare() {
-      const imageBlob = await createShareCardBlob();
-      if (!imageBlob) {
-        if (shareHint) shareHint.textContent = "تعذر تجهيز بطاقة المشاركة الآن.";
-        return;
-      }
-
-      const imageFile = blobToFile(imageBlob, "mulhem-story.png", "image/png");
-      if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [imageFile] }))) {
-        try {
-          await navigator.share({
-            title: "بطاقة مُلهم ساوند",
-            text: "بطاقة مشاركة جاهزة للمقطع الصوتي",
-            files: [imageFile]
-          });
-          if (shareHint) shareHint.textContent = "تم فتح البطاقة للمشاركة كستوري.";
-          return;
-        } catch (error) {
-          if (error?.name === "AbortError") return;
-        }
-      }
-
-      downloadBlob(imageBlob, "mulhem-story.png");
-      if (shareHint) shareHint.textContent = "تم تنزيل بطاقة ستوري جاهزة للمشاركة.";
-    }
-
-    function filterVoiceCards() {
-      if (!voiceSearchInput || !voiceSearchStatus || !voiceGrid) return;
-      const query = voiceSearchInput.value.trim().toLowerCase();
-      const cards = Array.from(voiceGrid.querySelectorAll(".voice-card"));
-      let visibleCount = 0;
-
-      cards.forEach((card) => {
-        const matches = !query || (card.dataset.search || "").includes(query);
-        card.classList.toggle("hidden", !matches);
-        if (matches) visibleCount += 1;
-      });
-
-      voiceSearchStatus.textContent = query
-        ? `${visibleCount} نتيجة من ${cards.length}`
-        : `${cards.length} أصوات متاحة`;
-    }
-
-    function syncVoiceCardsState() {
-      if (!voiceGrid) return;
-      const selectedVoice = getSelectedVoiceProfile();
-      voiceGrid.querySelectorAll(".voice-card").forEach((card) => {
-        card.classList.toggle("is-active", card.dataset.voiceId === selectedVoice.id);
-      });
-    }
-
-    function initializeMotion() {
-      const animatedElements = Array.from(
-        document.querySelectorAll(".hero > *, .step-card, .feature-card, .card, .voice-card, .result-card, .trust-card, .project-item")
-      );
-
-      animatedElements.forEach((element, index) => {
-        element.setAttribute("data-animate", "");
-        element.style.transitionDelay = `${Math.min(index * 35, 260)}ms`;
+    function initReveal() {
+      const nodes = Array.from(document.querySelectorAll("[data-animate]"));
+      nodes.forEach((node, index) => {
+        node.style.transitionDelay = `${Math.min(index * 45, 240)}ms`;
       });
 
       if (!("IntersectionObserver" in window)) {
-        animatedElements.forEach((element) => element.classList.add("is-visible"));
+        nodes.forEach((node) => node.classList.add("is-visible"));
         return;
       }
 
@@ -1541,727 +788,17 @@
             observer.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.14 });
+      }, { threshold: 0.12 });
 
-      animatedElements.forEach((element) => observer.observe(element));
+      nodes.forEach((node) => observer.observe(node));
     }
 
-    function formatBytes(bytes = 0) {
-      if (!bytes) return "0 MB";
-      const units = ["B", "KB", "MB", "GB"];
-      const index = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
-      return `${(bytes / (1024 ** index)).toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
-    }
-
-    function setUploadedFile(fileInput) {
-      const files = Array.from(fileInput && typeof fileInput.length === "number" && !fileInput.name ? fileInput : [fileInput]).filter(Boolean);
-      uploadedAudioFiles = files;
-      const file = files[0] || null;
-      uploadedAudioFile = file;
-
-      if (uploadedAudioUrl) {
-        URL.revokeObjectURL(uploadedAudioUrl);
-        uploadedAudioUrl = null;
-      }
-
-      if (!file) {
-        uploadedFileName.textContent = "لا يوجد ملف مرفوع حتى الآن";
-        uploadedFileMeta.textContent = "يدعم ملفات الصوت الشائعة";
-        processingMode.textContent = "الوضع: جاهز";
-        return;
-      }
-
-      uploadedAudioUrl = URL.createObjectURL(file);
-      audioPlayer.src = uploadedAudioUrl;
-      audioPlayer.style.display = "block";
-      uploadedFileName.textContent = files.length > 1 ? `${file.name} + ${files.length - 1} ملفات إضافية` : file.name;
-      uploadedFileMeta.textContent = `${formatBytes(files.reduce((sum, item) => sum + (item.size || 0), 0))} • ${files.length} ملف • ${file.type || "audio/*"}`;
-      processingMode.textContent = "الوضع: تحليل ملف صوتي";
-      dropZone.classList.add("is-dragover");
-      setTimeout(() => dropZone.classList.remove("is-dragover"), 520);
-      markOutputStale();
-    }
-
-    function getProcessingText() {
-      const cleanScript = scriptText.value.trim();
-      if (cleanScript && (!uploadedAudioFile || cleanScript !== INITIAL_SCRIPT)) return cleanScript;
-      if (!uploadedAudioFile) return cleanScript;
-
-      const fileName = uploadedAudioFile.name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
-      const batchLabel = uploadedAudioFiles.length > 1 ? ` ضمن دفعة تحتوي على ${uploadedAudioFiles.length} ملفات` : "";
-      return `هذا تفريغ تجريبي للملف ${fileName}${batchLabel}. يتناول التسجيل شرح الفكرة الأساسية مع نقاط توضيحية وملاحظات مهمة تساعد على المراجعة السريعة وتحويل المحتوى إلى نتائج قابلة للنشر والمشاركة.`;
-    }
-
-    function splitSentences(text) {
-      return text
-        .split(/(?<=[.!؟?؛،])\s+/)
-        .map((item) => item.trim())
-        .filter(Boolean);
-    }
-
-    function detectTopic(text) {
-      const haystack = text.toLowerCase();
-      if (/محاضرة|درس|طلاب|مذاكرة|تعليمي/.test(text)) return "تعليمي / أكاديمي";
-      if (/إعلان|تسويق|منتج|عميل/.test(text)) return "تسويقي / تجاري";
-      if (/تقنية|ذكاء|تطبيق|منصة|برمجة/.test(text)) return "تقني / رقمي";
-      if (haystack.includes("بودكاست") || /مقابلة|حوار/.test(text)) return "بودكاست / حواري";
-      return "عام / معلوماتي";
-    }
-
-    function detectTone(text) {
-      if (/رسمي|مؤسسة|إدارة|تنفيذي/.test(text)) return "رسمي";
-      if (/مرحبا|هلا|وش|حياك/.test(text)) return "ودود";
-      if (/تنبيه|مهم|يرجى|تحذير/.test(text)) return "تنبيهي";
-      return "تفسيري هادئ";
-    }
-
-    function buildSummary(text) {
-      const sentences = splitSentences(text);
-      return sentences.slice(0, 2).join(" ") || text.slice(0, 160);
-    }
-
-    function buildKeyPoints(text) {
-      return splitSentences(text)
-        .slice(0, 4)
-        .map((sentence) => `• ${sentence}`)
-        .join("\n") || "• لا توجد نقاط كافية بعد.";
-    }
-
-    function buildTranslation(text) {
-      const topic = detectTopic(text);
-      return `English preview: This audio discusses a ${topic} topic and highlights the most important ideas in a concise, structured way for quick review and publishing.`;
-    }
-
-    function buildSocialPost(text) {
-      const summary = buildSummary(text);
-      return `من تسجيل واحد إلى نتائج عملية خلال دقائق.\n\n${summary}\n\nتمت المعالجة عبر مُلهم ساوند مع تفريغ وتلخيص ونقاط مهمة جاهزة للمراجعة والمشاركة.`;
-    }
-
-    function buildTweet(text) {
-      const summary = buildSummary(text).slice(0, 110);
-      return `حوّلت هذا التسجيل عبر مُلهم ساوند إلى نص وملخص ونقاط مهمة خلال تجربة واحدة. ${summary} #الصوت_الذكي #الذكاء_الاصطناعي`;
-    }
-
-    function buildAnalysis(text) {
-      const sentences = splitSentences(text);
-      const topic = detectTopic(text);
-      const tone = detectTone(text);
-      return [
-        `الموضوع: ${topic}`,
-        `النبرة: ${tone}`,
-        `عدد الجمل: ${sentences.length || 1}`,
-        `تحسين الصوت: إزالة ضوضاء مقترحة + موازنة مستوى الصوت`,
-        `النتيجة: مناسب للحفظ والمشاركة وإعادة الاستخدام`
-      ].join("\n");
-    }
-
-    function buildSegments(text) {
-      return splitSentences(text)
-        .slice(0, 5)
-        .map((sentence, index) => `${index + 1}. مقطع ${index + 1} - ${sentence.slice(0, 72)}${sentence.length > 72 ? "..." : ""}`)
-        .join("\n") || "1. مقطع واحد جاهز";
-    }
-
-    function updateResults(text, sourceLabel = "معالجة ذكية") {
-      const transcript = normalizeArabicText(text || "");
-      const summary = buildSummary(transcript);
-      const keyPoints = buildKeyPoints(transcript);
-      const translation = buildTranslation(transcript);
-      const post = buildSocialPost(transcript);
-      const tweet = buildTweet(transcript);
-      const analysis = buildAnalysis(transcript);
-      const segments = buildSegments(transcript);
-
-      resultOverview.textContent = `${sourceLabel} اكتملت. ظهرت النتائج الآن بشكل مباشر مع خيارات نسخ وتنزيل وإعادة معالجة.`;
-      transcriptOutput.textContent = transcript || "لا توجد نتائج بعد.";
-      summaryOutput.textContent = summary;
-      keyPointsOutput.textContent = keyPoints;
-      translationOutput.textContent = translation;
-      postOutput.textContent = post;
-      tweetOutput.textContent = tweet;
-      analysisOutput.textContent = analysis;
-      segmentsOutput.textContent = segments;
-      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    }
-
-    function buildResultsPayload() {
-      return {
-        transcript: transcriptOutput?.textContent || "",
-        summary: summaryOutput?.textContent || "",
-        keyPoints: keyPointsOutput?.textContent || "",
-        translation: translationOutput?.textContent || "",
-        post: postOutput?.textContent || "",
-        tweet: tweetOutput?.textContent || "",
-        analysis: analysisOutput?.textContent || "",
-        segments: segmentsOutput?.textContent || "",
-        generatedAt: new Date().toISOString()
-      };
-    }
-
-    async function copyTranscriptText() {
-      const text = transcriptOutput?.textContent || scriptText.value.trim();
-      if (!text) return;
-      try {
-        await navigator.clipboard.writeText(text);
-        statusText.textContent = "تم نسخ النص بضغطة واحدة.";
-      } catch {
-        statusText.textContent = "تعذر نسخ النص في هذا المتصفح.";
-      }
-    }
-
-    function downloadTextFile(filename, content, type = "text/plain;charset=utf-8") {
-      const blob = new Blob([content], { type });
-      downloadBlob(blob, filename);
-    }
-
-    function updateProcessingInfo(progress, modeLabel) {
-      if (processingMode) processingMode.textContent = `الوضع: ${modeLabel}`;
-      if (processingEta) {
-        const remaining = Math.max(0, ((100 - progress) / 18)).toFixed(1);
-        processingEta.textContent = `الوقت المتبقي: ${remaining} ث`;
-      }
-    }
-
-    function completeProcessingInfo() {
-      if (processingEta) processingEta.textContent = "الوقت المتبقي: 0.0 ث";
-    }
-
-    async function analyzeAudioFlow() {
-      const sourceText = getProcessingText();
-      if (!sourceText) {
-        statusText.textContent = "ارفع ملفًا صوتيًا أو اكتب نصًا قبل بدء التحليل.";
-        return;
-      }
-
-      generateBtn.disabled = true;
-      analyzeAudioBtn.disabled = true;
-      reprocessBtn.disabled = true;
-      if (successIndicator) successIndicator.classList.remove("is-visible");
-      let progress = 6;
-      jobStatus.textContent = "processing";
-      statusText.textContent = "جاري تحليل الملف واستخراج النص والملخص...";
-      progressFill.style.width = `${progress}%`;
-      updateProcessingInfo(progress, uploadedAudioFile ? "تحليل ملف صوتي" : "تحليل نص");
-
-      if (fallbackTimer) clearInterval(fallbackTimer);
-      fallbackTimer = setInterval(() => {
-        progress = Math.min(progress + 13, 94);
-        progressFill.style.width = `${progress}%`;
-        statusText.textContent = `جاري التحليل الذكي واستخراج النتائج... ${progress}%`;
-        updateProcessingInfo(progress, uploadedAudioFile ? "تحليل ملف صوتي" : "تحليل نص");
-      }, 180);
-
-      setTimeout(() => {
-        if (fallbackTimer) clearInterval(fallbackTimer);
-        fallbackTimer = null;
-        progressFill.style.width = "100%";
-        jobStatus.textContent = "completed";
-        generateBtn.disabled = false;
-        analyzeAudioBtn.disabled = false;
-        reprocessBtn.disabled = false;
-        completeProcessingInfo();
-        if (successIndicator) successIndicator.classList.add("is-visible");
-        scriptText.value = sourceText;
-        updateLabels();
-        updateResults(sourceText, uploadedAudioFile ? "تحليل الملف الصوتي" : "تحليل النص");
-        statusText.textContent = "تم استخراج النص والملخص والنقاط المهمة والنتائج الذكية.";
-      }, 1900);
-    }
-
-    function pickSystemArabicVoice() {
-      if (!systemVoiceList.length) refreshSystemVoices();
-      const selectedVoice = getSelectedVoiceProfile();
-      if (selectedVoice.useFallbackPreferred) return null;
-
-      const arabicVoices = systemVoiceList.filter((voice) => (voice.lang || "").toLowerCase().startsWith("ar"));
-      if (!arabicVoices.length) return null;
-
-      const scored = arabicVoices.map((voice) => {
-        const haystack = `${voice.name} ${voice.voiceURI} ${voice.lang}`.toLowerCase();
-        let score = selectedVoice.hints.reduce(
-          (sum, hint) => sum + (haystack.includes(hint.toLowerCase()) ? 3 : 0),
-          haystack.includes("sa") || haystack.includes("arabic") ? 2 : 0
-        );
-        if (selectedVoice.gender === "male" && /(male|man|maged|tarik|hossam|naayf|fahd|khalid)/i.test(haystack)) score += 5;
-        if (selectedVoice.gender === "female" && /(female|woman|zira|sara|salma|laila|mariam|hoda)/i.test(haystack)) score += 5;
-        if (selectedVoice.mode === "fusha" && /(maged|hossam|formal|standard|arabic)/i.test(haystack)) score += 3;
-        if (selectedVoice.mode === "riyadh" && /(sa|ksa|saudi|naayf|fahd|khalid)/i.test(haystack)) score += 3;
-        return { voice, score };
-      });
-
-      scored.sort((a, b) => b.score - a.score);
-      return scored[0]?.voice || arabicVoices[0];
-    }
-
-    function getTargetDuration() {
-      return Math.max(2, Math.min(60, Number(durationRange.value) || 8));
-    }
-
-    function estimateNaturalSpeechDuration(text) {
-      const len = getPreparedSpeechText(text).replace(/\s+/g, "").length;
-      return Math.max(1.2, len / 11);
-    }
-
-    function estimateSpeechDuration() {
-      return getTargetDuration();
-    }
-
-    function formantsForChar(char) {
-      if ("ااهحعخ".includes(char)) return [700, 1220, 2600];
-      if ("ويمنبف".includes(char)) return [420, 980, 2200];
-      if ("يجشسززث".includes(char)) return [300, 2100, 3000];
-      if ("صضطظقغ".includes(char)) return [520, 1450, 2400];
-      if (".,،؛!?؟ ".includes(char)) return [0, 0, 0];
-      return [540, 1550, 2500];
-    }
-
-    function synthesizeWaveform(sourceText = scriptText.value) {
-      const selectedVoice = getSelectedVoiceProfile();
-      const selectedStyle = styleSelect.value;
-      const styleGain = {
-        saudi_formal: 0.85,
-        saudi_youth: 0.78,
-        gulf_soft: 0.7,
-        promo: 0.92,
-        fusha_clear: 0.84,
-        robot_mode: 0.95
-      };
-      const pitch = Number(pitchRange.value);
-      const baseFrequency = selectedVoice.baseFreq * Math.pow(2, pitch / 12) * selectedVoice.pitchBias;
-      const gain = (styleGain[styleSelect.value] || selectedVoice.gain) * selectedVoice.gain * 0.34;
-      const normalizedText = getPreparedSpeechText(sourceText);
-      const chars = [...normalizedText];
-      const samples = [];
-      let phase = 0;
-
-      if (!chars.length) return new Float32Array([0]);
-
-      const weights = chars.map((char) => {
-        if (".,!؟?،؛".includes(char)) return 0.1;
-        if (char === " ") return 0.045;
-        return 1;
-      });
-      const totalWeight = weights.reduce((sum, weight) => sum + weight, 0) || 1;
-      const baseUnit = getTargetDuration() / totalWeight;
-
-      chars.forEach((char, charIndex) => {
-        const isPause = ".,!؟?،؛".includes(char);
-        const isSpace = char === " ";
-        const durationShape =
-          selectedVoice.mode === "robot"
-            ? 0.96
-            : selectedStyle === "promo"
-              ? 1.08
-              : selectedStyle === "gulf_soft"
-                ? 1.03
-                : selectedStyle === "saudi_youth"
-                  ? 0.94
-                  : 1.0;
-        const duration = Math.max(0.006, baseUnit * weights[charIndex] * durationShape);
-        const count = Math.max(16, Math.floor(SAMPLE_RATE * duration));
-        const [rawF1, rawF2, rawF3] = formantsForChar(char);
-        const f1 = rawF1 * selectedVoice.formantShift;
-        const f2 = rawF2 * selectedVoice.formantShift;
-        const f3 = rawF3 * selectedVoice.formantShift;
-        const contourSeed = (char.charCodeAt(0) || 32) % 11;
-        const prosodyCurve =
-          selectedStyle === "promo"
-            ? Math.sin(charIndex * 0.45) * 2.6 - (charIndex % 5) * 0.22
-            : selectedStyle === "gulf_soft"
-              ? Math.sin(charIndex * 0.65) * 3.4 + 2.1
-              : selectedStyle === "saudi_youth"
-                ? Math.sin(charIndex * 0.9) * 4.8 + (charIndex % 3) * 0.9
-                : selectedStyle === "fusha_clear"
-                  ? Math.sin(charIndex * 0.42) * 2.1
-                  : Math.sin(charIndex * 0.55) * 1.8;
-        const robotStep = selectedVoice.mode === "robot"
-          ? Math.round(contourSeed / 2) * selectedVoice.pitchStep
-          : contourSeed * selectedVoice.pitchStep * 0.18;
-        const localPitch = Math.max(48, baseFrequency + prosodyCurve + robotStep);
-
-        for (let i = 0; i < count; i++) {
-          const t = i / SAMPLE_RATE;
-          const sampleTime = (samples.length + i) / SAMPLE_RATE;
-          const vibrato = 1 + selectedVoice.vibratoDepth * Math.sin(2 * Math.PI * (selectedVoice.mode === "robot" ? 2.2 : 4.3) * sampleTime);
-          phase += (2 * Math.PI * localPitch * vibrato) / SAMPLE_RATE;
-          const attack = Math.min(1, i / Math.max(10, count * 0.08));
-          const release = Math.min(1, (count - i) / Math.max(10, count * 0.18));
-          const edge = Math.pow(Math.max(0, Math.min(1, attack * release)), selectedVoice.mode === "robot" ? 0.7 : 0.45);
-          const robotCarrier =
-            Math.sign(Math.sin(phase)) * 0.56 +
-            Math.sign(Math.sin(phase * 0.5)) * 0.2 +
-            selectedVoice.harmonic2 * Math.sin(phase * 2.0) +
-            selectedVoice.harmonic3 * Math.sin(phase * 3.0) +
-            0.08 * Math.sin(phase * 5.0);
-          const humanCarrier =
-            0.7 * Math.sin(phase) +
-            selectedVoice.harmonic2 * Math.sin(phase * 2.0) +
-            selectedVoice.harmonic3 * Math.sin(phase * 3.0) +
-            0.04 * Math.sin(phase * 4.0);
-          const glottal =
-            humanCarrier * (1 - selectedVoice.robotMix) +
-            robotCarrier * selectedVoice.robotMix;
-          const aspiration = (Math.sin(phase * 7.1) + Math.sin(phase * 11.3)) * selectedVoice.breath;
-          const fricative = /[سشزصثجفحخه]/.test(char)
-            ? Math.sin(phase * 14.0) * selectedVoice.sibilance
-            : 0;
-          const vowel =
-            f1 === 0
-              ? 0
-              : (0.58 * Math.sin(2 * Math.PI * f1 * sampleTime) +
-                0.22 * Math.sin(2 * Math.PI * f2 * sampleTime) +
-                0.1 * Math.sin(2 * Math.PI * f3 * sampleTime)) * (selectedVoice.mode === "robot" ? 0.08 : 0.13);
-          const bridgeTone = 0.03 * Math.sin(phase) * gain * edge;
-          const speechTone = (glottal * 0.88 + vowel + aspiration + fricative) * gain * edge;
-          const sample = (isPause || isSpace) ? bridgeTone : speechTone;
-          samples.push(Math.max(-1, Math.min(1, sample)));
-        }
-      });
-
-      return new Float32Array(samples.length ? samples : [0]);
-    }
-
-    function encodeWav(floatSamples) {
-      const buffer = new ArrayBuffer(44 + floatSamples.length * 2);
-      const view = new DataView(buffer);
-
-      function writeString(offset, value) {
-        for (let i = 0; i < value.length; i++) {
-          view.setUint8(offset + i, value.charCodeAt(i));
-        }
-      }
-
-      writeString(0, "RIFF");
-      view.setUint32(4, 36 + floatSamples.length * 2, true);
-      writeString(8, "WAVE");
-      writeString(12, "fmt ");
-      view.setUint32(16, 16, true);
-      view.setUint16(20, 1, true);
-      view.setUint16(22, 1, true);
-      view.setUint32(24, SAMPLE_RATE, true);
-      view.setUint32(28, SAMPLE_RATE * 2, true);
-      view.setUint16(32, 2, true);
-      view.setUint16(34, 16, true);
-      writeString(36, "data");
-      view.setUint32(40, floatSamples.length * 2, true);
-
-      let offset = 44;
-      for (let i = 0; i < floatSamples.length; i++, offset += 2) {
-        const s = Math.max(-1, Math.min(1, floatSamples[i]));
-        view.setInt16(offset, s < 0 ? s * 0x8000 : s * 0x7fff, true);
-      }
-
-      return new Blob([buffer], { type: "audio/wav" });
-    }
-
-    function drawWaveform(floatSamples) {
-      const w = waveCanvas.width;
-      const h = waveCanvas.height;
-      const darkTheme = document.body.dataset.theme === "dark";
-      const backgroundColor = darkTheme ? "#10202b" : "#f8fbff";
-      const gradientTop = darkTheme ? "#ff7ec7" : "#16c85b";
-      const gradientBottom = darkTheme ? "#ffc7e7" : "#92ef30";
-      ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = backgroundColor;
-      ctx.fillRect(0, 0, w, h);
-      const bars = 180;
-      const step = Math.max(1, Math.floor(floatSamples.length / bars));
-
-      for (let i = 0; i < bars; i++) {
-        let peak = 0;
-        for (let j = 0; j < step; j++) {
-          peak = Math.max(peak, Math.abs(floatSamples[i * step + j] || 0));
-        }
-        const barHeight = Math.max(6, peak * 180);
-        const x = (i / bars) * w;
-        const grad = ctx.createLinearGradient(x, 0, x, h);
-        grad.addColorStop(0, gradientTop);
-        grad.addColorStop(1, gradientBottom);
-        ctx.fillStyle = grad;
-        ctx.fillRect(x, (h - barHeight) / 2, Math.max(2, w / bars - 2), barHeight);
-      }
-    }
-
-    function stopSpeechPlayback() {
-      if (speechKeepAliveTimer) {
-        clearInterval(speechKeepAliveTimer);
-        speechKeepAliveTimer = null;
-      }
-      if ("speechSynthesis" in window) {
-        window.speechSynthesis.cancel();
-      }
-    }
-
-    function playSystemSpeech(text, done) {
-      if (!("speechSynthesis" in window)) return false;
-
-      const selectedVoice = getSelectedVoiceProfile();
-      if (selectedVoice.useFallbackPreferred) return false;
-
-      const systemVoice = pickSystemArabicVoice();
-      if (!systemVoice) return false;
-
-      stopSpeechPlayback();
-      const utterance = new SpeechSynthesisUtterance(text);
-      utterance.lang = selectedVoice.lang || systemVoice.lang || "ar-SA";
-      utterance.voice = systemVoice;
-      const naturalDuration = estimateNaturalSpeechDuration(text);
-      const durationRate = naturalDuration / getTargetDuration();
-      utterance.rate = Math.max(
-        0.6,
-        Math.min(
-          1.5,
-          Number(speedRange.value) *
-            selectedVoice.rateBias *
-            durationRate *
-            (selectedVoice.mode === "riyadh" ? 1.03 : selectedVoice.mode === "fusha" ? 0.96 : 1.0)
-        )
-      );
-      utterance.pitch = Math.max(
-        0.7,
-        Math.min(
-          1.45,
-          selectedVoice.pitchBias +
-            Number(pitchRange.value) * 0.06 +
-            (selectedVoice.gender === "female" ? 0.08 : selectedVoice.mode === "fusha" ? -0.04 : 0)
-        )
-      );
-      if (selectedVoice.defaultStyle === "promo") {
-        utterance.rate = Math.max(0.66, Math.min(1.0, utterance.rate * 0.9));
-        utterance.pitch = Math.max(0.72, Math.min(1.05, utterance.pitch * 0.94));
-      }
-      utterance.volume = 1;
-      utterance.onend = () => {
-        stopSpeechPlayback();
-        done();
-      };
-      utterance.onerror = () => {
-        stopSpeechPlayback();
-        done();
-      };
-      window.speechSynthesis.speak(utterance);
-      speechKeepAliveTimer = setInterval(() => {
-        if (window.speechSynthesis.speaking && window.speechSynthesis.paused) {
-          window.speechSynthesis.resume();
-        }
-      }, 1200);
-      return true;
-    }
-
-    async function generateAudio() {
-      const text = scriptText.value.trim();
-      if (!text) {
-        statusText.textContent = "اكتب نص المحاضرة قبل التوليد.";
-        return;
-      }
-      const spokenText = getPreparedSpeechText(text);
-      const selectedVoice = getSelectedVoiceProfile();
-
-      const jobId = `job_${Date.now().toString(36)}`;
-      jobIdLabel.textContent = jobId;
-      jobStatus.textContent = "queued";
-      statusText.textContent = "تم استقبال النص الأكاديمي، وجاري تجهيز المحاضرة الصوتية...";
-      progressFill.style.width = "8%";
-      updateProcessingInfo(8, "توليد صوت");
-      generateBtn.disabled = true;
-      if (analyzeAudioBtn) analyzeAudioBtn.disabled = true;
-      if (reprocessBtn) reprocessBtn.disabled = true;
-      if (successIndicator) successIndicator.classList.remove("is-visible");
-      audioPlayer.style.display = "none";
-
-      let progress = 8;
-      if (fallbackTimer) clearInterval(fallbackTimer);
-      fallbackTimer = setInterval(() => {
-        progress = Math.min(progress + 11, 92);
-        jobStatus.textContent = "processing";
-        progressFill.style.width = `${progress}%`;
-        statusText.textContent = `جاري تجهيز وتشغيل المحاضرة الصوتية... ${progress}%`;
-        updateProcessingInfo(progress, "توليد صوت");
-      }, 180);
-
-      const finishJob = (message) => {
-        if (fallbackTimer) clearInterval(fallbackTimer);
-        fallbackTimer = null;
-        progressFill.style.width = "100%";
-        jobStatus.textContent = "completed";
-        statusText.textContent = message;
-        completeProcessingInfo();
-        generateBtn.disabled = false;
-        if (analyzeAudioBtn) analyzeAudioBtn.disabled = false;
-        if (reprocessBtn) reprocessBtn.disabled = false;
-        if (successIndicator) successIndicator.classList.add("is-visible");
-        updateResults(spokenText, "توليد صوت");
-      };
-
-      const previewSamples = synthesizeWaveform(text);
-      drawWaveform(previewSamples);
-      latestDuration = previewSamples.length / SAMPLE_RATE;
-      latestAudioBlob = encodeWav(previewSamples);
-      if (latestBlobUrl) URL.revokeObjectURL(latestBlobUrl);
-      latestBlobUrl = URL.createObjectURL(latestAudioBlob);
-      audioPlayer.src = latestBlobUrl;
-      audioPlayer.style.display = "block";
-      setShareEnabled(true);
-      if (shareHint) {
-        shareHint.textContent = "المقطع أصبح جاهزًا للمشاركة أو إنشاء بطاقة ستوري.";
-      }
-
-      const usedSystemVoice = playSystemSpeech(spokenText, () => {
-        finishJob(`تم تشغيل ${selectedVoice.name} بنمط ${selectedVoice.accent} بشكل متواصل. المدة التقريبية ${latestDuration.toFixed(1)} ثانية.`);
-      });
-
-      if (usedSystemVoice) {
-        statusText.textContent = `يتم الآن تشغيل ${selectedVoice.name} بصياغة مناسبة للنمط المختار.`;
-        return;
-      }
-
-      setTimeout(() => {
-        audioPlayer.play().catch(() => {});
-        finishJob(`تم توليد ${selectedVoice.name} بصوت متصل بدون فواصل صمت مصطنعة. المدة التقريبية ${latestDuration.toFixed(1)} ثانية.`);
-      }, 1700);
-    }
-
-    function saveCurrentProject() {
-      const text = scriptText.value.trim();
-      if (!text) {
-        statusText.textContent = "لا يوجد نص لحفظ المحاضرة.";
-        return;
-      }
-
-      const selectedVoice = getSelectedVoiceProfile();
-      const projects = loadProjects();
-      projects.push({
-        title: text.slice(0, 38) + (text.length > 38 ? "..." : ""),
-        voiceName: selectedVoice.name,
-        style: styleSelect.value,
-        duration: latestDuration || getTargetDuration(),
-        date: new Date().toLocaleString("ar-SA")
-      });
-      storeProjects(projects);
-      renderProjects();
-      statusText.textContent = "تم حفظ المحاضرة الصوتية محليًا بنجاح.";
-    }
-
-    voices.forEach((voice) => {
-      const option = document.createElement("option");
-      option.value = voice.id;
-      option.textContent = `${voice.name} - ${voice.accent}`;
-      voiceSelect.appendChild(option);
-    });
-    styleSelect.value = voices[0].defaultStyle;
-    setupEnhancements();
-
-    if ("speechSynthesis" in window) {
-      refreshSystemVoices();
-      window.speechSynthesis.onvoiceschanged = refreshSystemVoices;
-    }
-
-    initializeTheme();
-    setShareEnabled(false);
-    scriptText.addEventListener("input", () => {
-      updateLabels();
-      markOutputStale();
-    });
-    voiceSelect.addEventListener("change", () => {
-      styleSelect.value = getSelectedVoiceProfile().defaultStyle;
-      updateLabels();
-      markOutputStale();
-    });
-    styleSelect.addEventListener("change", () => {
-      updateLabels();
-      markOutputStale();
-    });
-    speedRange.addEventListener("input", () => {
-      updateLabels();
-      markOutputStale();
-    });
-    pitchRange.addEventListener("input", () => {
-      updateLabels();
-      markOutputStale();
-    });
-    durationRange.addEventListener("input", () => {
-      updateLabels();
-      markOutputStale();
-    });
     themeToggle.addEventListener("click", () => {
-      setTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
-      drawWaveform(latestAudioBlob ? synthesizeWaveform(scriptText.value) : new Float32Array([0]));
-    });
-    generateBtn.addEventListener("click", generateAudio);
-    saveProjectBtn.addEventListener("click", saveCurrentProject);
-    shareBtn.addEventListener("click", handleShare);
-    whatsappBtn.addEventListener("click", handleWhatsAppShare);
-    instagramBtn.addEventListener("click", handleInstagramShare);
-    browseFileBtn.addEventListener("click", () => audioFileInput.click());
-    dropZone.addEventListener("click", (event) => {
-      if (event.target.closest("button")) return;
-      audioFileInput.click();
-    });
-    audioFileInput.addEventListener("change", (event) => {
-      const files = Array.from(event.target.files || []);
-      if (files.length) setUploadedFile(files);
-    });
-    ["dragenter", "dragover"].forEach((eventName) => {
-      dropZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        dropZone.classList.add("is-dragover");
-      });
-    });
-    ["dragleave", "drop"].forEach((eventName) => {
-      dropZone.addEventListener(eventName, (event) => {
-        event.preventDefault();
-        dropZone.classList.remove("is-dragover");
-      });
-    });
-    dropZone.addEventListener("drop", (event) => {
-      const files = Array.from(event.dataTransfer?.files || []);
-      if (files.length) setUploadedFile(files);
-    });
-    analyzeAudioBtn.addEventListener("click", analyzeAudioFlow);
-    reprocessBtn.addEventListener("click", () => {
-      if (uploadedAudioFile || scriptText.value.trim()) {
-        analyzeAudioFlow();
-      } else {
-        statusText.textContent = "لا توجد مادة لإعادة معالجتها بعد.";
-      }
-    });
-    copyTextBtn.addEventListener("click", copyTranscriptText);
-    downloadTxtBtn.addEventListener("click", () => {
-      downloadTextFile("mulhem-results.txt", transcriptOutput?.textContent || scriptText.value.trim());
-    });
-    downloadJsonBtn.addEventListener("click", () => {
-      downloadTextFile("mulhem-results.json", JSON.stringify(buildResultsPayload(), null, 2), "application/json;charset=utf-8");
-    });
-    downloadAudioBtn.addEventListener("click", () => {
-      if (latestAudioBlob) {
-        downloadBlob(latestAudioBlob, "mulhem-audio.wav");
-        return;
-      }
-      if (uploadedAudioFile) {
-        downloadBlob(uploadedAudioFile, uploadedAudioFile.name);
-        return;
-      }
-      statusText.textContent = "لا يوجد ملف صوتي جاهز للتنزيل بعد.";
-    });
-    voiceSearchInput.addEventListener("input", filterVoiceCards);
-    voiceGrid.addEventListener("click", (event) => {
-      const button = event.target.closest(".select-voice-btn");
-      if (!button) return;
-      const card = button.closest(".voice-card");
-      if (!card?.dataset.voiceId) return;
-      voiceSelect.value = card.dataset.voiceId;
-      styleSelect.value = getSelectedVoiceProfile().defaultStyle;
-      updateLabels();
-      markOutputStale();
-      statusText.textContent = `تم اختيار ${getSelectedVoiceProfile().name} من مكتبة الأصوات.`;
-      document.getElementById("studio").scrollIntoView({ behavior: "smooth", block: "start" });
+      applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
     });
 
-    updateLabels();
-    filterVoiceCards();
-    renderProjects();
-    initializeMotion();
-    drawWaveform(new Float32Array([0]));
+    initTheme();
+    initReveal();
   </script>
 </body>
 </html>
