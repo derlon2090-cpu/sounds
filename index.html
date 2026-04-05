@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>مُلهم ساوند | منصة الصوت الأكاديمية</title>
   <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+
     :root {
       --bg: #f6fff8;
       --panel: rgba(255, 255, 255, 0.92);
@@ -58,7 +60,7 @@
     html { scroll-behavior: smooth; }
     body {
       margin: 0;
-      font-family: "Segoe UI", Tahoma, Arial, sans-serif;
+      font-family: "Tajawal", "Segoe UI", Tahoma, Arial, sans-serif;
       background:
         radial-gradient(circle at top left, var(--body-top-left), transparent 30%),
         radial-gradient(circle at top right, var(--body-top-right), transparent 28%),
@@ -66,9 +68,35 @@
         var(--bg);
       color: var(--text);
       transition: background 0.25s ease, color 0.25s ease;
+      position: relative;
+      overflow-x: hidden;
     }
 
-    .container { width: min(1480px, calc(100vw - 32px)); margin: auto; }
+    body::before,
+    body::after {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      z-index: 0;
+    }
+    body::before {
+      background-image:
+        linear-gradient(rgba(255,255,255,0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255,255,255,0.03) 1px, transparent 1px);
+      background-size: 36px 36px;
+      opacity: 0.16;
+      mask-image: linear-gradient(180deg, rgba(0,0,0,0.4), transparent 80%);
+    }
+    body::after {
+      background:
+        radial-gradient(circle at 15% 18%, rgba(34, 197, 94, 0.16), transparent 18%),
+        radial-gradient(circle at 88% 22%, rgba(21, 128, 61, 0.16), transparent 18%),
+        radial-gradient(circle at 50% 82%, rgba(146, 239, 48, 0.16), transparent 24%);
+      filter: blur(24px);
+    }
+
+    .container { width: min(1480px, calc(100vw - 32px)); margin: auto; position: relative; z-index: 1; }
     .nav {
       position: sticky;
       top: 12px;
@@ -120,18 +148,36 @@
     .theme-toggle:hover { transform: translateY(-2px); background: var(--soft); }
 
     .hero, .grid-2, .grid-3 { display: grid; gap: 24px; }
-    .hero { grid-template-columns: 1.2fr 0.8fr; padding: 64px 0 32px; align-items: center; }
+    .hero {
+      grid-template-columns: 1.2fr 0.8fr;
+      padding: 72px 0 40px;
+      align-items: center;
+      position: relative;
+      min-height: 72vh;
+    }
+    .hero::before {
+      content: "";
+      position: absolute;
+      inset: 5% 4% auto 4%;
+      height: 78%;
+      border-radius: 40px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(21, 128, 61, 0.03));
+      border: 1px solid rgba(34, 197, 94, 0.18);
+      z-index: 0;
+    }
+    .hero > * { position: relative; z-index: 1; }
     .badge {
       display: inline-flex;
       padding: 10px 18px;
       border-radius: 999px;
       border: 1px solid rgba(22, 200, 91, 0.2);
-      background: #f0fdf4;
+      background: linear-gradient(135deg, rgba(240, 253, 244, 0.92), rgba(220, 252, 231, 0.84));
       color: var(--neon);
       font-size: 14px;
-      font-weight: 700;
+      font-weight: 800;
+      box-shadow: 0 18px 30px rgba(22, 163, 74, 0.08);
     }
-    h1 { margin: 20px 0 0; font-size: clamp(46px, 6vw, 78px); line-height: 1.05; }
+    h1 { margin: 20px 0 0; font-size: clamp(48px, 6vw, 82px); line-height: 1.02; letter-spacing: -0.02em; }
     .lead { max-width: 720px; color: var(--muted); line-height: 2; font-size: 18px; }
     .actions { display: flex; gap: 14px; flex-wrap: wrap; margin-top: 32px; }
     .btn {
@@ -144,13 +190,13 @@
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      transition: 0.2s ease;
+      transition: transform 0.2s ease, filter 0.2s ease, box-shadow 0.2s ease, background 0.2s ease;
     }
     .btn:disabled { opacity: 0.56; cursor: not-allowed; transform: none; filter: none; }
     .btn-primary { background: linear-gradient(135deg, #16c85b, #92ef30); color: #052e16; box-shadow: 0 16px 36px rgba(22, 200, 91, 0.22); }
-    .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.03); }
+    .btn-primary:hover { transform: translateY(-3px) scale(1.01); filter: brightness(1.03); box-shadow: 0 22px 44px rgba(22, 163, 74, 0.28); }
     .btn-secondary { background: var(--secondary-bg); color: var(--secondary-text); border: 1px solid var(--border); }
-    .btn-secondary:hover { background: var(--soft); transform: translateY(-2px); }
+    .btn-secondary:hover { background: var(--soft); transform: translateY(-3px) scale(1.01); box-shadow: 0 18px 36px rgba(15, 23, 42, 0.08); }
 
     .card {
       border-radius: 32px;
@@ -159,13 +205,20 @@
       padding: 28px;
       backdrop-filter: blur(16px);
       box-shadow: var(--shadow);
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
     }
+    .card:hover { transform: translateY(-6px); box-shadow: 0 30px 70px rgba(15, 23, 42, 0.12); }
     .wave-demo div, .wave-line {
       border-radius: 999px;
       background: linear-gradient(270deg, #16c85b, #92ef30, #dff9e7);
     }
     .wave-demo { display: flex; flex-direction: column; gap: 14px; margin-top: 18px; }
-    .wave-demo div { height: 38px; }
+    .wave-demo div { height: 38px; animation: wavePulse 3.2s ease-in-out infinite; }
+    .wave-demo div:nth-child(2) { animation-delay: 0.2s; }
+    .wave-demo div:nth-child(3) { animation-delay: 0.4s; }
+    .wave-demo div:nth-child(4) { animation-delay: 0.6s; }
+    .wave-demo div:nth-child(5) { animation-delay: 0.8s; }
+    .wave-demo div:nth-child(6) { animation-delay: 1s; }
 
     section { padding: 48px 0; }
     .section-title { font-size: 38px; margin: 8px 0 0; }
@@ -212,6 +265,16 @@
       border-radius: 999px;
       background: linear-gradient(270deg, #16c85b, #92ef30);
       transition: width 0.25s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    .progress-fill::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.45), transparent);
+      transform: translateX(-100%);
+      animation: progressShine 1.6s linear infinite;
     }
     canvas {
       width: 100%;
@@ -287,6 +350,12 @@
       background: var(--panel);
       box-shadow: var(--shadow);
       padding: 24px;
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
+    }
+    .step-card:hover, .result-card:hover, .trust-card:hover, .feature-card:hover, .voice-card:hover {
+      transform: translateY(-6px);
+      border-color: rgba(22, 163, 74, 0.34);
+      box-shadow: 0 26px 52px rgba(22, 163, 74, 0.12);
     }
     .step-number {
       display: inline-flex;
@@ -310,15 +379,38 @@
       background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(21, 128, 61, 0.03));
       padding: 24px;
       text-align: center;
-      transition: 0.2s ease;
+      transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease, filter 0.2s ease;
+      position: relative;
+      overflow: hidden;
     }
     body[data-theme="dark"] .upload-box {
       border-color: rgba(255, 126, 199, 0.35);
       background: linear-gradient(180deg, rgba(255, 126, 199, 0.12), rgba(16, 32, 43, 0.2));
     }
     .upload-box.is-dragover {
-      transform: translateY(-2px);
-      box-shadow: 0 18px 38px rgba(22, 163, 74, 0.16);
+      transform: translateY(-3px) scale(1.01);
+      box-shadow: 0 18px 38px rgba(22, 163, 74, 0.16), 0 0 0 6px rgba(34, 197, 94, 0.08);
+      filter: saturate(1.08);
+    }
+    .upload-box::after {
+      content: "";
+      position: absolute;
+      inset: -40%;
+      background: conic-gradient(from 0deg, transparent, rgba(34, 197, 94, 0.18), transparent 35%);
+      animation: spinSlow 8s linear infinite;
+      opacity: 0.8;
+    }
+    .upload-box > * { position: relative; z-index: 1; }
+    .upload-icon {
+      width: 72px;
+      height: 72px;
+      margin: 0 auto 16px;
+      border-radius: 24px;
+      display: grid;
+      place-items: center;
+      font-size: 32px;
+      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(21, 128, 61, 0.08));
+      box-shadow: 0 18px 34px rgba(22, 163, 74, 0.14);
     }
     .upload-meta {
       display: flex;
@@ -365,6 +457,31 @@
       font-size: 13px;
       font-weight: 700;
     }
+    .success-indicator {
+      margin-top: 14px;
+      padding: 12px 14px;
+      border-radius: 18px;
+      background: rgba(34, 197, 94, 0.1);
+      border: 1px solid rgba(34, 197, 94, 0.2);
+      color: var(--text);
+      font-weight: 800;
+      opacity: 0;
+      transform: translateY(8px) scale(0.98);
+      transition: 0.24s ease;
+    }
+    .success-indicator.is-visible {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+    }
+    [data-animate] {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.75s ease, transform 0.75s ease;
+    }
+    [data-animate].is-visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
     .processing-meta {
       display: flex;
       justify-content: space-between;
@@ -387,6 +504,21 @@
       padding-inline-start: 18px;
       color: var(--text);
       line-height: 1.9;
+    }
+
+    @keyframes wavePulse {
+      0%, 100% { transform: scaleX(1); opacity: 0.88; }
+      50% { transform: scaleX(1.03); opacity: 1; }
+    }
+
+    @keyframes progressShine {
+      from { transform: translateX(-100%); }
+      to { transform: translateX(160%); }
+    }
+
+    @keyframes spinSlow {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
     }
     .project-item {
       display: flex;
@@ -597,6 +729,7 @@
     let uploadedFileMeta = null;
     let analyzeAudioBtn = null;
     let reprocessBtn = null;
+    let successIndicator = null;
     let copyTextBtn = null;
     let downloadTxtBtn = null;
     let downloadJsonBtn = null;
@@ -620,6 +753,7 @@
     let latestBlobUrl = null;
     let latestAudioBlob = null;
     let latestDuration = 0;
+    let uploadedAudioFiles = [];
     let uploadedAudioFile = null;
     let uploadedAudioUrl = null;
     let systemVoiceList = [];
@@ -675,6 +809,28 @@
 
       const studioSection = document.getElementById("studio");
       const projectsSection = document.getElementById("projects");
+      const heroSection = document.getElementById("home");
+      const heroBadge = heroSection.querySelector(".badge");
+      const heroTitle = heroSection.querySelector("h1");
+      const heroLead = heroSection.querySelector(".lead");
+      const heroActions = heroSection.querySelector(".actions");
+
+      heroBadge.textContent = "مُلهم ساوند | تحويل الصوت إلى نص ونتائج ذكية خلال ثواني";
+      heroTitle.textContent = "حوّل الصوت إلى نص خلال ثواني";
+      heroLead.textContent = "ارفع التسجيل، دع المنصة تنظفه وتفرغه وتلخصه، ثم استلم النص والنقاط المهمة والترجمة والمحتوى الجاهز في واجهة واضحة وسريعة.";
+      heroActions.innerHTML = `
+        <a class="btn btn-primary" href="#studio">ابدأ الآن</a>
+        <a class="btn btn-secondary" href="#quickStart">كيف يعمل الموقع؟</a>
+      `;
+      const heroPills = document.createElement("div");
+      heroPills.className = "pill-row";
+      heroPills.innerHTML = `
+        <span class="pill">تفريغ صوتي</span>
+        <span class="pill">تلخيص ذكي</span>
+        <span class="pill">ترجمة سريعة</span>
+        <span class="pill">محتوى جاهز للنشر</span>
+      `;
+      heroActions.insertAdjacentElement("afterend", heroPills);
 
       const quickStartSection = document.createElement("section");
       quickStartSection.id = "quickStart";
@@ -740,13 +896,14 @@
       const uploadBox = document.createElement("div");
       uploadBox.className = "upload-box";
       uploadBox.innerHTML = `
+        <div class="upload-icon" aria-hidden="true">🎤</div>
         <div class="pill-row">
           <span class="pill">اللون الأساسي: أخضر احترافي</span>
           <span class="pill">واجهة بسيطة للمبتدئين</span>
         </div>
         <h3 style="margin:18px 0 12px;">رفع الملفات بالسحب والإفلات</h3>
         <p class="mini">اسحب ملفًا صوتيًا هنا أو اضغط على زر الاستعراض لبدء التفريغ والتحليل والتحسين.</p>
-        <input id="audioFileInput" type="file" accept="audio/*" hidden />
+        <input id="audioFileInput" type="file" accept="audio/*" multiple hidden />
         <button class="btn btn-primary" id="browseFileBtn" type="button">ابدأ الآن</button>
         <div class="upload-meta">
           <span id="uploadedFileName">لا يوجد ملف مرفوع حتى الآن</span>
@@ -795,6 +952,10 @@
       document.querySelector(".status-box").appendChild(processingMetaBox);
       processingEta = processingMetaBox.querySelector("#processingEta");
       processingMode = processingMetaBox.querySelector("#processingMode");
+      successIndicator = document.createElement("div");
+      successIndicator.className = "success-indicator";
+      successIndicator.textContent = "✔ تم اكتمال المعالجة بنجاح";
+      document.querySelector(".status-box").appendChild(successIndicator);
 
       resultsSection = document.createElement("section");
       resultsSection.id = "results";
@@ -964,6 +1125,7 @@
     function markOutputStale() {
       latestAudioBlob = null;
       setShareEnabled(false);
+      if (successIndicator) successIndicator.classList.remove("is-visible");
       if (shareHint && (audioPlayer.src || latestBlobUrl)) {
         shareHint.textContent = "تم تعديل النص أو الإعدادات. أعد التوليد لتحديث المقطع قبل المشاركة.";
       }
@@ -1357,6 +1519,33 @@
       });
     }
 
+    function initializeMotion() {
+      const animatedElements = Array.from(
+        document.querySelectorAll(".hero > *, .step-card, .feature-card, .card, .voice-card, .result-card, .trust-card, .project-item")
+      );
+
+      animatedElements.forEach((element, index) => {
+        element.setAttribute("data-animate", "");
+        element.style.transitionDelay = `${Math.min(index * 35, 260)}ms`;
+      });
+
+      if (!("IntersectionObserver" in window)) {
+        animatedElements.forEach((element) => element.classList.add("is-visible"));
+        return;
+      }
+
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add("is-visible");
+            observer.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.14 });
+
+      animatedElements.forEach((element) => observer.observe(element));
+    }
+
     function formatBytes(bytes = 0) {
       if (!bytes) return "0 MB";
       const units = ["B", "KB", "MB", "GB"];
@@ -1364,8 +1553,11 @@
       return `${(bytes / (1024 ** index)).toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
     }
 
-    function setUploadedFile(file) {
-      uploadedAudioFile = file || null;
+    function setUploadedFile(fileInput) {
+      const files = Array.from(fileInput && typeof fileInput.length === "number" && !fileInput.name ? fileInput : [fileInput]).filter(Boolean);
+      uploadedAudioFiles = files;
+      const file = files[0] || null;
+      uploadedAudioFile = file;
 
       if (uploadedAudioUrl) {
         URL.revokeObjectURL(uploadedAudioUrl);
@@ -1382,9 +1574,11 @@
       uploadedAudioUrl = URL.createObjectURL(file);
       audioPlayer.src = uploadedAudioUrl;
       audioPlayer.style.display = "block";
-      uploadedFileName.textContent = file.name;
-      uploadedFileMeta.textContent = `${formatBytes(file.size)} • ${file.type || "audio/*"}`;
+      uploadedFileName.textContent = files.length > 1 ? `${file.name} + ${files.length - 1} ملفات إضافية` : file.name;
+      uploadedFileMeta.textContent = `${formatBytes(files.reduce((sum, item) => sum + (item.size || 0), 0))} • ${files.length} ملف • ${file.type || "audio/*"}`;
       processingMode.textContent = "الوضع: تحليل ملف صوتي";
+      dropZone.classList.add("is-dragover");
+      setTimeout(() => dropZone.classList.remove("is-dragover"), 520);
       markOutputStale();
     }
 
@@ -1394,7 +1588,8 @@
       if (!uploadedAudioFile) return cleanScript;
 
       const fileName = uploadedAudioFile.name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
-      return `هذا تفريغ تجريبي للملف ${fileName}. يتناول التسجيل شرح الفكرة الأساسية مع نقاط توضيحية وملاحظات مهمة تساعد على المراجعة السريعة وتحويل المحتوى إلى نتائج قابلة للنشر والمشاركة.`;
+      const batchLabel = uploadedAudioFiles.length > 1 ? ` ضمن دفعة تحتوي على ${uploadedAudioFiles.length} ملفات` : "";
+      return `هذا تفريغ تجريبي للملف ${fileName}${batchLabel}. يتناول التسجيل شرح الفكرة الأساسية مع نقاط توضيحية وملاحظات مهمة تساعد على المراجعة السريعة وتحويل المحتوى إلى نتائج قابلة للنشر والمشاركة.`;
     }
 
     function splitSentences(text) {
@@ -1541,6 +1736,7 @@
       generateBtn.disabled = true;
       analyzeAudioBtn.disabled = true;
       reprocessBtn.disabled = true;
+      if (successIndicator) successIndicator.classList.remove("is-visible");
       let progress = 6;
       jobStatus.textContent = "processing";
       statusText.textContent = "جاري تحليل الملف واستخراج النص والملخص...";
@@ -1564,6 +1760,7 @@
         analyzeAudioBtn.disabled = false;
         reprocessBtn.disabled = false;
         completeProcessingInfo();
+        if (successIndicator) successIndicator.classList.add("is-visible");
         scriptText.value = sourceText;
         updateLabels();
         updateResults(sourceText, uploadedAudioFile ? "تحليل الملف الصوتي" : "تحليل النص");
@@ -1869,6 +2066,7 @@
       generateBtn.disabled = true;
       if (analyzeAudioBtn) analyzeAudioBtn.disabled = true;
       if (reprocessBtn) reprocessBtn.disabled = true;
+      if (successIndicator) successIndicator.classList.remove("is-visible");
       audioPlayer.style.display = "none";
 
       let progress = 8;
@@ -1891,6 +2089,7 @@
         generateBtn.disabled = false;
         if (analyzeAudioBtn) analyzeAudioBtn.disabled = false;
         if (reprocessBtn) reprocessBtn.disabled = false;
+        if (successIndicator) successIndicator.classList.add("is-visible");
         updateResults(spokenText, "توليد صوت");
       };
 
@@ -1994,9 +2193,13 @@
     whatsappBtn.addEventListener("click", handleWhatsAppShare);
     instagramBtn.addEventListener("click", handleInstagramShare);
     browseFileBtn.addEventListener("click", () => audioFileInput.click());
+    dropZone.addEventListener("click", (event) => {
+      if (event.target.closest("button")) return;
+      audioFileInput.click();
+    });
     audioFileInput.addEventListener("change", (event) => {
-      const [file] = event.target.files || [];
-      if (file) setUploadedFile(file);
+      const files = Array.from(event.target.files || []);
+      if (files.length) setUploadedFile(files);
     });
     ["dragenter", "dragover"].forEach((eventName) => {
       dropZone.addEventListener(eventName, (event) => {
@@ -2011,8 +2214,8 @@
       });
     });
     dropZone.addEventListener("drop", (event) => {
-      const [file] = event.dataTransfer?.files || [];
-      if (file) setUploadedFile(file);
+      const files = Array.from(event.dataTransfer?.files || []);
+      if (files.length) setUploadedFile(files);
     });
     analyzeAudioBtn.addEventListener("click", analyzeAudioFlow);
     reprocessBtn.addEventListener("click", () => {
@@ -2057,6 +2260,7 @@
     updateLabels();
     filterVoiceCards();
     renderProjects();
+    initializeMotion();
     drawWaveform(new Float32Array([0]));
   </script>
 </body>
