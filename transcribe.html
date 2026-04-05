@@ -1,2 +1,238 @@
-﻿<!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تحويل الصوت إلى نص | مُلهم ساوند</title><style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap');:root{--bg:#f5fff7;--panel:#ffffffd9;--text:#0f172a;--muted:#64748b;--b:#16a34a;--b2:#22c55e;--b3:#15803d;--border:#16a34a24}body[data-theme=dark]{--bg:#08141b;--panel:#0a141de3;--text:#f6f8fc;--muted:#a8b5c6;--border:#22c55e22;color-scheme:dark}*{box-sizing:border-box}body{margin:0;font-family:Tajawal,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 12% 16%,#22c55e2e,transparent 18%),linear-gradient(180deg,#fbfffc,#f4fff7 46%,#ecfff0),var(--bg);color:var(--text)}body[data-theme=dark]{background:radial-gradient(circle at 12% 16%,#22c55e26,transparent 18%),linear-gradient(180deg,#08141b,#0d1920 46%,#112129),var(--bg)}.c{width:min(1100px,calc(100vw - 32px));margin:auto;padding-bottom:32px}.nav,.card{background:var(--panel);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:28px}.nav{margin-top:14px;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.r{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.logo{width:44px;height:44px;border-radius:14px;object-fit:cover;background:#fff}.t{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--b2),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.nav a{text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}.btn{border:0;border-radius:999px;padding:13px 18px;font:800 15px Tajawal;cursor:pointer}.p{background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff}.s,.toggle{background:#ffffffc9;border:1px solid var(--border);color:var(--text)}body[data-theme=dark] .s,body[data-theme=dark] .toggle{background:#10202b}.hero{padding:42px 0 20px}.ey{display:inline-flex;padding:9px 16px;border-radius:999px;border:1px solid var(--border);color:var(--b);background:#fff9;font-weight:800}h1{margin:16px 0 12px;font-size:clamp(34px,5vw,54px)}.lead,.mini{color:var(--muted);line-height:1.9}.g{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px}.card{padding:22px}.up{border:1px dashed #16a34a66;border-radius:22px;padding:20px;text-align:center;background:linear-gradient(180deg,#22c55e12,#15803d08);transition:.2s}.up.on{transform:translateY(-2px);box-shadow:0 0 0 6px #22c55e14}.icon{width:64px;height:64px;margin:0 auto 14px;border-radius:20px;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,#22c55e2b,#15803d14)}.meta,.st{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:12px}.track{margin-top:14px;height:12px;border-radius:999px;background:#22c55e1f;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--b2),var(--b3));transition:width .25s}.out{display:grid;grid-template-columns:1fr 1fr;gap:14px}.box{min-height:132px;border-radius:18px;border:1px solid var(--border);padding:14px;background:#22c55e0a;white-space:pre-wrap;line-height:1.8}.hist{display:grid;gap:12px}.item{border:1px solid var(--border);border-radius:18px;padding:14px;color:var(--muted);background:#22c55e08}.item strong{display:block;color:var(--text);margin-bottom:8px}audio,canvas{width:100%;margin-top:14px;border-radius:18px;border:1px solid var(--border);background:#fff}body[data-theme=dark] audio,body[data-theme=dark] canvas{background:#10202b}@media(max-width:900px){.g,.out{grid-template-columns:1fr}}</style></head><body><div class="c"><div class="nav"><div class="r"><img class="logo" src="../mulhem-logo.jpg" alt="logo"><div class="t">مُلهم ساوند</div></div><div class="r"><a href="../index.html">الرئيسية</a><a href="index.html">الاستوديو</a><a href="voice-style.html">ToneForge™</a><button id="theme" class="btn toggle" type="button">الوضع الليلي</button></div></div><section class="hero"><span class="ey">Transcribe</span><h1>حوّل التسجيل إلى نص</h1><p class="lead">صفحة مستقلة للتفريغ: رفع، معالجة، Waveform، ملخص، نقاط مهمة، وHistory.</p></section><section class="g"><div class="card"><h2>رفع ومعالجة</h2><div id="drop" class="up"><div class="icon">🎤</div><h3>اسحب الملف أو اضغط للرفع</h3><p class="mini">يدعم أكثر من ملف، وسيتم تحليل أول ملف مع إظهار حجم الدفعة.</p><input id="file" type="file" accept="audio/*" multiple hidden><div class="r" style="justify-content:center"><button id="browse" class="btn p" type="button">ابدأ الآن</button><button id="run" class="btn s" type="button">حلّل التسجيل</button></div><div class="meta"><span id="name">لا يوجد ملف مرفوع</span><span id="meta">audio/*</span></div></div><div class="st"><span id="status">جاهز للتحويل</span><span id="eta">الوقت المتبقي: --</span></div><div class="track"><div id="fill" class="fill"></div></div><canvas id="wave" width="1200" height="220"></canvas><audio id="audio" controls></audio><div class="r" style="margin-top:14px"><button id="copy" class="btn s" type="button">نسخ النص</button><button id="txt" class="btn s" type="button">تحميل TXT</button><button id="json" class="btn s" type="button">تحميل JSON</button><button id="redo" class="btn s" type="button">إعادة</button></div></div><div class="card"><h2>نتائج التفريغ</h2><div class="out"><div><h3>النص</h3><div id="tr" class="box">ستظهر النتيجة هنا.</div></div><div><h3>الملخص</h3><div id="su" class="box">سيظهر الملخص هنا.</div></div><div><h3>النقاط</h3><div id="po" class="box">سيتم استخراج النقاط هنا.</div></div><div><h3>الترجمة</h3><div id="en" class="box">سيظهر المعاينة الإنجليزية هنا.</div></div></div></div></section><section class="card"><h2>History</h2><div id="hist" class="hist"><div class="item">لا توجد عمليات سابقة بعد.</div></div></section></div><script>const K='mulhem_theme_v2',H='mulhem_transcribe_history_v1',theme=document.getElementById('theme'),drop=document.getElementById('drop'),file=document.getElementById('file'),browse=document.getElementById('browse'),run=document.getElementById('run'),redo=document.getElementById('redo'),copy=document.getElementById('copy'),txt=document.getElementById('txt'),json=document.getElementById('json'),nameEl=document.getElementById('name'),metaEl=document.getElementById('meta'),statusEl=document.getElementById('status'),eta=document.getElementById('eta'),fill=document.getElementById('fill'),audio=document.getElementById('audio'),tr=document.getElementById('tr'),su=document.getElementById('su'),po=document.getElementById('po'),en=document.getElementById('en'),hist=document.getElementById('hist'),wave=document.getElementById('wave'),ctx=wave.getContext('2d');let files=[],current=null,url=null,duration=0,payload=null,timer=null;function applyTheme(v){const t=v==='dark'?'dark':'light';document.body.dataset.theme=t;theme.textContent=t==='dark'?'الوضع النهاري':'الوضع الليلي';localStorage.setItem(K,t)}function initTheme(){const s=localStorage.getItem(K),d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;applyTheme(s||(d?'dark':'light'))}function loadHist(){try{return JSON.parse(localStorage.getItem(H)||'[]')}catch{return[]}}function saveHist(v){localStorage.setItem(H,JSON.stringify(v))}function renderHist(){const items=loadHist();hist.innerHTML=items.length?items.slice().reverse().map(i=>`<div class="item"><strong>${i.name}</strong><div>${i.date}</div><div>${i.duration} ثانية • ${i.count} ملف</div></div>`).join(''):'<div class="item">لا توجد عمليات سابقة بعد.</div>'}function blob(b,n){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}function waveData(seed=1,d=0){const out=[];let c=Math.max(.2,(seed%97)/97);for(let i=0;i<180;i++){c=(c*9301+49297+i*13+d*11)%233280;out.push(.15+((c/233280)*.9))}return out}function draw(vals){const dark=document.body.dataset.theme==='dark',bg=dark?'#10202b':'#f8fbff',t=dark?'#7ef7a8':'#22c55e',b=dark?'#c7ffd9':'#15803d';ctx.clearRect(0,0,wave.width,wave.height);ctx.fillStyle=bg;ctx.fillRect(0,0,wave.width,wave.height);if(!vals.length)return;const w=wave.width,h=wave.height,bw=w/vals.length;vals.forEach((v,i)=>{const x=i*bw,bh=Math.max(6,v*160),g=ctx.createLinearGradient(x,0,x,h);g.addColorStop(0,t);g.addColorStop(1,b);ctx.fillStyle=g;ctx.fillRect(x,(h-bh)/2,Math.max(2,bw-2),bh)})}function split(text){return text.split(/(?<=[.!؟?؛،])\s+/).map(s=>s.trim()).filter(Boolean)}function setFiles(list){files=list;current=list[0]||null;payload=null;duration=0;tr.textContent='ستظهر النتيجة هنا.';su.textContent='سيظهر الملخص هنا.';po.textContent='سيتم استخراج النقاط هنا.';en.textContent='سيظهر المعاينة الإنجليزية هنا.';fill.style.width='0%';eta.textContent='الوقت المتبقي: --';if(url){URL.revokeObjectURL(url);url=null}if(!current){nameEl.textContent='لا يوجد ملف مرفوع';metaEl.textContent='audio/*';statusEl.textContent='جاهز للتحويل';draw([]);return}url=URL.createObjectURL(current);audio.src=url;nameEl.textContent=list.length>1?`${current.name} + ${list.length-1} ملفات إضافية`:current.name;metaEl.textContent=`${(list.reduce((s,f)=>s+f.size,0)/1024/1024).toFixed(2)} MB • ${list.length} ملف`;statusEl.textContent='تم استلام الملف. اضغط حلّل التسجيل.';drop.classList.add('on');setTimeout(()=>drop.classList.remove('on'),450);const probe=new Audio(url);probe.addEventListener('loadedmetadata',()=>{duration=Number.isFinite(probe.duration)?probe.duration:0;draw(waveData(current.size,duration))},{once:true})}function analyze(){if(!current){statusEl.textContent='ارفع ملفًا أولًا.';return}let p=8;fill.style.width=`${p}%`;statusEl.textContent='جاري التفريغ الذكي...';run.disabled=true;browse.disabled=true;redo.disabled=true;if(timer)clearInterval(timer);timer=setInterval(()=>{p=Math.min(p+12,94);fill.style.width=`${p}%`;statusEl.textContent=`جاري التفريغ الذكي... ${p}%`;eta.textContent=`الوقت المتبقي: ${Math.max(0,((100-p)/16)).toFixed(1)} ث`},180);setTimeout(()=>{if(timer)clearInterval(timer);const title=current.name.replace(/\.[^/.]+$/,'').replace(/[_-]+/g,' '),trans=`تفريغ أولي للتسجيل ${title}. هذا التسجيل${files.length>1?` جزء من دفعة تحتوي على ${files.length} ملفات`:''} ويبدو أنه يشرح فكرة رئيسية مع مجموعة من النقاط المهمة. ${duration?`مدة الملف تقارب ${duration.toFixed(1)} ثانية.`:''} تم ترتيب المحتوى هنا في صياغة واضحة قابلة للنسخ والنشر.`;const summary=split(trans).slice(0,2).join(' ')||trans;const points=split(trans).slice(0,4).map(s=>`• ${s}`).join('\n');payload={transcript:trans,summary,points,translation:'English preview: This recording explains the main idea clearly and highlights the key points.',file:current.name,duration};tr.textContent=payload.transcript;su.textContent=payload.summary;po.textContent=payload.points;en.textContent=payload.translation;fill.style.width='100%';statusEl.textContent='تم اكتمال التفريغ بنجاح.';eta.textContent='الوقت المتبقي: 0.0 ث';run.disabled=false;browse.disabled=false;redo.disabled=false;const h=loadHist();h.push({name:current.name,date:new Date().toLocaleString('ar-SA'),duration:(duration||0).toFixed(1),count:files.length});saveHist(h.slice(-10));renderHist()},1850)}theme.onclick=()=>{applyTheme(document.body.dataset.theme==='dark'?'light':'dark');draw(current?waveData(current.size,duration):[])};browse.onclick=()=>file.click();drop.onclick=(e)=>{if(e.target.closest('button'))return;file.click()};file.onchange=(e)=>{const f=Array.from(e.target.files||[]);if(f.length)setFiles(f)};['dragenter','dragover'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.add('on')}));['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('on')}));drop.addEventListener('drop',e=>{const f=Array.from(e.dataTransfer?.files||[]);if(f.length)setFiles(f)});run.onclick=analyze;redo.onclick=analyze;copy.onclick=async()=>{if(!payload?.transcript){statusEl.textContent='لا يوجد نص لنسخه بعد.';return}try{await navigator.clipboard.writeText(payload.transcript);statusEl.textContent='تم نسخ النص.'}catch{statusEl.textContent='تعذر النسخ في هذا المتصفح.'}};txt.onclick=()=>{if(!payload?.transcript){statusEl.textContent='لا توجد نتيجة TXT بعد.';return}blob(new Blob([payload.transcript],{type:'text/plain;charset=utf-8'}),'transcript.txt')};json.onclick=()=>{if(!payload){statusEl.textContent='لا توجد نتيجة JSON بعد.';return}blob(new Blob([JSON.stringify(payload,null,2)],{type:'application/json;charset=utf-8'}),'transcript.json')};initTheme();renderHist();draw([]);document.querySelectorAll('.nav,.hero,.card').forEach((n,i)=>{setTimeout(()=>n.classList.add('is-visible'),80+i*60)})</script></body></html>
+﻿<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>WriteWave™ | تحويل الصوت إلى نص | مُلهم ساوند</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
+    :root{--bg:#f5fff7;--panel:rgba(255,255,255,.86);--panel-strong:rgba(255,255,255,.96);--border:rgba(22,163,74,.14);--text:#0f172a;--muted:#607082;--brand:#16a34a;--brand2:#22c55e;--brand3:#15803d;--shadow:0 30px 72px rgba(15,23,42,.10)}
+    body[data-theme="dark"]{--bg:#08141b;--panel:rgba(10,20,29,.82);--panel-strong:rgba(10,20,29,.94);--border:rgba(34,197,94,.13);--text:#f6f8fc;--muted:#a8b5c6;--shadow:0 30px 74px rgba(0,0,0,.34);color-scheme:dark}
+    *{box-sizing:border-box}html{scroll-behavior:smooth}body{margin:0;font-family:"Tajawal","Segoe UI",Arial,sans-serif;color:var(--text);min-height:100vh;background:radial-gradient(circle at 15% 14%,rgba(34,197,94,.18),transparent 18%),radial-gradient(circle at 88% 18%,rgba(21,128,61,.14),transparent 20%),linear-gradient(180deg,#fbfffc,#f5fff7 46%,#ecfff0),var(--bg);overflow-x:hidden;position:relative}body[data-theme="dark"]{background:radial-gradient(circle at 15% 14%,rgba(34,197,94,.14),transparent 18%),radial-gradient(circle at 88% 18%,rgba(21,128,61,.10),transparent 20%),linear-gradient(180deg,#08141b,#0d1920 46%,#112129),var(--bg)}body::before{content:"";position:fixed;inset:0;background-image:linear-gradient(rgba(22,163,74,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(22,163,74,.03) 1px,transparent 1px);background-size:36px 36px;mask-image:radial-gradient(circle at center,black 40%,transparent 90%);pointer-events:none;z-index:0}.blob,.blob::before,.blob::after{position:fixed;border-radius:50%;filter:blur(130px);pointer-events:none;z-index:0;animation:blobMove 18s ease-in-out infinite alternate}.blob{width:420px;height:420px;top:80px;left:-70px;background:radial-gradient(circle,rgba(34,197,94,.28),rgba(22,163,74,.04))}.blob::before,.blob::after{content:""}.blob::before{width:340px;height:340px;top:160px;right:-150px;background:radial-gradient(circle,rgba(21,128,61,.22),rgba(34,197,94,.04));animation-duration:20s}.blob::after{width:260px;height:260px;bottom:-90px;left:40%;background:radial-gradient(circle,rgba(34,197,94,.18),transparent 70%);animation-duration:16s}.container{width:min(1200px,calc(100vw - 32px));margin:0 auto;position:relative;z-index:1;padding-bottom:40px}.glass{border:1px solid var(--border);background:var(--panel);backdrop-filter:blur(22px);box-shadow:var(--shadow);border-radius:30px}.nav{margin-top:14px;padding:16px 22px;border-radius:999px;display:flex;justify-content:space-between;align-items:center;gap:14px;flex-wrap:wrap}.brand-wrap,.nav-links,.nav-actions,.hero-actions,.hero-highlights,.row,.tabs,.queue-list,.action-actions,.history-actions,.history-meta,.quick-tags,.support-list{display:flex;gap:12px;flex-wrap:wrap;align-items:center}.brand-logo{width:46px;height:46px;object-fit:cover;border-radius:16px;background:#fff;box-shadow:0 14px 26px rgba(22,163,74,.12)}.brand-title{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--brand2),var(--brand3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}a{color:inherit;text-decoration:none}.nav-links a{color:var(--muted);font-size:14px;font-weight:700}.btn,.ghost-btn,.theme-toggle,.tab,.field,.range-wrap{border:1px solid var(--border);font-family:inherit;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}.btn,.ghost-btn,.theme-toggle,.tab{cursor:pointer}.btn:hover,.ghost-btn:hover,.theme-toggle:hover,.tab:hover{transform:translateY(-2px)}.btn{border-radius:999px;padding:14px 22px;font-size:15px;font-weight:800}.btn-primary{color:#fff;border:0;background:linear-gradient(135deg,var(--brand2),var(--brand3));box-shadow:0 18px 40px rgba(22,163,74,.26)}.btn-secondary,.ghost-btn,.theme-toggle,.tab,.field,.range-wrap{color:var(--text);background:var(--panel-strong)}body[data-theme="dark"] .btn-secondary,body[data-theme="dark"] .ghost-btn,body[data-theme="dark"] .theme-toggle,body[data-theme="dark"] .tab,body[data-theme="dark"] .field,body[data-theme="dark"] .range-wrap{background:rgba(14,26,35,.96)}.ghost-btn,.theme-toggle,.tab{border-radius:999px;padding:12px 16px;font-size:14px;font-weight:800}.hero{padding:60px 0 34px;display:grid;grid-template-columns:1.08fr .92fr;gap:24px;align-items:stretch}.eyebrow{display:inline-flex;padding:10px 18px;border-radius:999px;background:rgba(255,255,255,.76);border:1px solid rgba(22,163,74,.18);color:var(--brand);font-size:14px;font-weight:800;backdrop-filter:blur(16px)}h1,h2,h3{margin:0}h1{margin-top:16px;font-size:clamp(40px,5.6vw,68px);line-height:1.06;letter-spacing:-.02em}.lead,.section-copy,.muted,.small-note,.empty-copy{color:var(--muted);line-height:1.9}.lead{margin:16px 0 0;font-size:18px;max-width:680px}.hero-actions{margin-top:28px}.hero-highlights{margin-top:18px}.hero-highlight,.support-badge,.queue-pill,.quick-tag,.keyword-chip{padding:10px 14px;border-radius:999px;border:1px solid var(--border);background:rgba(255,255,255,.72);color:var(--muted);font-size:13px;font-weight:700}body[data-theme="dark"] .hero-highlight,body[data-theme="dark"] .support-badge,body[data-theme="dark"] .queue-pill,body[data-theme="dark"] .quick-tag,body[data-theme="dark"] .keyword-chip{background:rgba(14,26,35,.88)}.hero-card,.section-card,.upload-card,.result-card,.history-card{padding:24px}.hero-card,.stack,.pipeline,.preview-shell,.field-grid,.history-card{display:grid;gap:16px}.hero-stat{display:grid;grid-template-columns:auto 1fr;gap:14px;align-items:center;padding:16px;border-radius:22px;background:linear-gradient(180deg,rgba(34,197,94,.10),rgba(22,163,74,.05));border:1px solid var(--border)}.hero-stat-icon,.section-icon{width:52px;height:52px;border-radius:18px;display:grid;place-items:center;font-size:24px;background:linear-gradient(135deg,rgba(34,197,94,.24),rgba(21,128,61,.10));box-shadow:0 14px 26px rgba(22,163,74,.12);flex:none}.hero-stat strong,.metric-value{font-size:22px;font-weight:900}section{padding:16px 0}.section-head{display:flex;align-items:end;justify-content:space-between;gap:18px;flex-wrap:wrap;margin-bottom:18px}.section-head h2{font-size:34px}.workspace{display:grid;grid-template-columns:1.18fr .82fr;gap:18px;align-items:start}.upload-shell{padding:22px;border-radius:26px;border:1px dashed rgba(22,163,74,.46);background:linear-gradient(180deg,rgba(34,197,94,.10),rgba(21,128,61,.05));min-height:260px;display:grid;gap:16px;position:relative;overflow:hidden;transition:transform .22s ease,box-shadow .22s ease,border-color .22s ease}.upload-shell::before{content:"";position:absolute;inset:auto auto -80px -70px;width:210px;height:210px;border-radius:50%;background:radial-gradient(circle,rgba(34,197,94,.18),transparent 70%);pointer-events:none}.upload-shell.dragging{transform:translateY(-2px);border-color:rgba(34,197,94,.72);box-shadow:0 0 0 8px rgba(34,197,94,.10)}.upload-head{display:flex;gap:16px;align-items:start;flex-wrap:wrap}.upload-copy h3{font-size:28px;margin-bottom:6px}.upload-actions,.meta-grid,.stage-grid,.history-grid{display:grid;gap:12px}.upload-actions{grid-template-columns:repeat(2,minmax(0,max-content));align-items:center}.meta-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.metric-card{padding:14px 16px;border-radius:22px;border:1px solid var(--border);background:rgba(255,255,255,.64)}body[data-theme="dark"] .metric-card,body[data-theme="dark"] .history-card,body[data-theme="dark"] .panel,body[data-theme="dark"] audio,body[data-theme="dark"] canvas{background:rgba(14,26,35,.88)}.metric-label,.range-head,.status-line,.field-label{font-size:13px;color:var(--muted);font-weight:700}.status-line{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:center}.stage-track{position:relative;height:14px;border-radius:999px;background:rgba(34,197,94,.14);overflow:hidden}.stage-fill{height:100%;width:0;border-radius:inherit;background:linear-gradient(90deg,var(--brand2),var(--brand3));transition:width .28s ease}.stage-glow{position:absolute;top:0;right:-18%;width:22%;height:100%;background:linear-gradient(90deg,transparent,rgba(255,255,255,.56),transparent);transform:skewX(-18deg);opacity:0;transition:right .45s ease,opacity .22s ease}.stage-track.loading .stage-glow{opacity:1;right:100%}.stage-grid{grid-template-columns:repeat(4,minmax(0,1fr))}.stage-pill{padding:12px;border-radius:18px;border:1px solid var(--border);background:rgba(255,255,255,.64);color:var(--muted);text-align:center;font-weight:700;font-size:13px;transition:transform .22s ease,border-color .22s ease,color .22s ease,background .22s ease}body[data-theme="dark"] .stage-pill,body[data-theme="dark"] .history-empty{background:rgba(14,26,35,.84)}.stage-pill.active,.stage-pill.done{color:var(--text);border-color:rgba(34,197,94,.32);background:linear-gradient(180deg,rgba(34,197,94,.16),rgba(21,128,61,.08))}.stage-pill.active{transform:translateY(-2px);box-shadow:0 12px 24px rgba(22,163,74,.12)}canvas,audio{width:100%;border-radius:22px;border:1px solid var(--border);background:rgba(255,255,255,.86)}.field-grid{margin-top:18px}.field-group{display:grid;gap:8px}.field{width:100%;border-radius:18px;padding:14px 16px;font-size:15px;outline:none}.range-wrap{padding:14px 16px;border-radius:20px}input[type="range"]{width:100%;accent-color:var(--brand)}.suggestion-box{margin-top:18px;padding:18px;border-radius:22px;border:1px solid var(--border);background:linear-gradient(180deg,rgba(34,197,94,.10),rgba(21,128,61,.05))}.suggestion-box strong{display:block;font-size:18px;margin-bottom:6px}.action-bar{display:flex;justify-content:space-between;gap:16px;align-items:center;padding:18px;position:sticky;top:14px;z-index:2}.result-wrap,.panels{display:grid;gap:18px}.panel{display:none;margin-top:18px;min-height:240px;border-radius:24px;border:1px solid var(--border);background:rgba(34,197,94,.06);padding:18px;line-height:1.95;white-space:pre-wrap}.panel.active{display:block}.keywords-grid{display:flex;gap:10px;flex-wrap:wrap}.history-grid{grid-template-columns:repeat(3,minmax(0,1fr))}.history-card{border:1px solid var(--border);background:rgba(255,255,255,.72)}.history-card strong{font-size:20px}.history-empty{padding:24px;border-radius:24px;border:1px dashed rgba(22,163,74,.34);text-align:center}.hidden{display:none !important}[data-animate]{opacity:0;transform:translateY(26px);transition:opacity .7s ease,transform .7s ease}[data-animate].is-visible{opacity:1;transform:translateY(0)}@keyframes blobMove{0%{transform:translate(0,0) scale(1)}100%{transform:translate(105px,72px) scale(1.08)}}@media(max-width:1040px){.hero,.workspace,.history-grid{grid-template-columns:1fr}}@media(max-width:820px){.nav{border-radius:30px}.meta-grid,.stage-grid{grid-template-columns:1fr}.upload-actions{grid-template-columns:1fr}.action-bar{position:static}}
+  </style>
+</head>
+<body>
+  <div class="blob"></div>
+  <div class="container">
+    <header class="nav glass" data-animate>
+      <div class="brand-wrap">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم ساوند" />
+        <div class="brand-title">مُلهم ساوند</div>
+      </div>
+      <nav class="nav-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="index.html#services">الخدمات</a>
+        <a href="text-to-speech.html">Voxa™</a>
+      </nav>
+      <div class="nav-actions">
+        <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div data-animate>
+        <span class="eyebrow">WriteWave™</span>
+        <h1>حوّل التسجيل إلى نص خلال ثوانٍ وبنتيجة جاهزة للاستخدام</h1>
+        <p class="lead">ارفع ملفك، شاهد مراحل المعالجة بوضوح، ثم احصل على تفريغ كامل وملخص ونقاط رئيسية وترجمة وكلمات مفتاحية في صفحة واحدة مرتبة وواضحة.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#uploadZone">ابدأ التفريغ الآن</a>
+          <a class="btn btn-secondary" href="index.html#services">استكشف الخدمات</a>
+        </div>
+        <div class="hero-highlights">
+          <div class="hero-highlight">تفريغ + ملخص + ترجمة</div>
+          <div class="hero-highlight">معاينة صوتية قبل التحويل</div>
+          <div class="hero-highlight">تصدير TXT و JSON و SRT</div>
+        </div>
+      </div>
+      <aside class="hero-card glass" data-animate>
+        <div class="hero-stat"><div class="hero-stat-icon">🎙️</div><div><strong>الخدمة القائدة</strong><span class="muted">هذه الصفحة صارت المنتج الأوضح داخل المنصة، لذلك ركزنا على أن تكون أسرع فهمًا وأقرب لمنصة جاهزة لا مجرد نموذج أولي.</span></div></div>
+        <div class="hero-stat"><div class="hero-stat-icon">⚡</div><div><strong>تدفّق بسيط</strong><span class="muted">ارفع الملف، اختر اللغة، شغّل التحليل، ثم تنقّل بين النتائج داخل تبويبات واضحة بدل تكديس طويل.</span></div></div>
+        <div class="hero-stat"><div class="hero-stat-icon">📦</div><div><strong>نتيجة نهائية جاهزة</strong><span class="muted">شريط إجراءات واضح للتنزيل والنسخ وإعادة المعالجة، مع سجل نتائج يمكن الرجوع إليه في أي وقت.</span></div></div>
+      </aside>
+    </section>
+
+    <section>
+      <div class="section-head" data-animate>
+        <div><span class="eyebrow">واجهة العمل</span><h2>صفحة تفريغ مصممة كمنتج حقيقي</h2></div>
+        <p class="section-copy">فصلنا الرفع والإعدادات والنتائج حتى يفهم المستخدم ما الذي يحدث فورًا، بدل الشعور بأن كل شيء موضوع دفعة واحدة.</p>
+      </div>
+
+      <div class="workspace">
+        <div class="stack">
+          <article class="upload-card glass" id="uploadZone" data-animate>
+            <div class="upload-shell" id="dropZone">
+              <div class="upload-head">
+                <div class="section-icon">🎧</div>
+                <div class="upload-copy">
+                  <h3>اسحب ملفك هنا أو اضغط للرفع</h3>
+                  <p class="muted">يمكنك رفع أكثر من ملف، وسنعالج أول ملف مباشرة مع إظهار الدفعة والمدة والصيغة بشكل واضح.</p>
+                </div>
+              </div>
+              <div class="support-list">
+                <div class="support-badge">MP3</div>
+                <div class="support-badge">WAV</div>
+                <div class="support-badge">M4A</div>
+                <div class="support-badge">دعم رفع متعدد</div>
+              </div>
+              <div class="upload-actions">
+                <div class="row">
+                  <button class="btn btn-primary" id="browseBtn" type="button">ابدأ الآن</button>
+                  <button class="btn btn-secondary" id="runBtn" type="button">حلّل التسجيل</button>
+                </div>
+                <div class="row">
+                  <button class="ghost-btn" id="clearBtn" type="button">مسح الملف</button>
+                  <button class="ghost-btn" id="demoBtn" type="button">تجربة سريعة</button>
+                </div>
+              </div>
+              <div class="meta-grid">
+                <div class="metric-card"><div class="metric-label">الملف الحالي</div><div class="metric-value" id="fileName">لا يوجد ملف مرفوع</div></div>
+                <div class="metric-card"><div class="metric-label">مدة التسجيل</div><div class="metric-value" id="fileDuration">--</div></div>
+                <div class="metric-card"><div class="metric-label">الدفعة</div><div class="metric-value" id="fileBatch">0 ملف</div></div>
+              </div>
+              <div class="queue-list" id="queueList"><div class="queue-pill">لم يتم رفع أي ملف بعد</div></div>
+            </div>
+            <input id="fileInput" type="file" accept="audio/*" multiple hidden />
+          </article>
+
+          <article class="section-card glass" data-animate>
+            <div class="section-head">
+              <div><span class="eyebrow">حالة المعالجة</span><h3>تابع كل خطوة بوضوح</h3></div>
+              <div class="small-note" id="statusNote">جاهز للتفريغ. ارفع ملفًا وابدأ التحليل.</div>
+            </div>
+            <div class="pipeline">
+              <div class="status-line"><span><strong>الحالة:</strong> <span id="statusValue">جاهز</span></span><span id="etaLabel">الوقت المتبقي: --</span></div>
+              <div class="stage-track" id="stageTrack"><div class="stage-fill" id="stageFill"></div><div class="stage-glow"></div></div>
+              <div class="stage-grid">
+                <div class="stage-pill" data-stage="0">رفع الملف</div>
+                <div class="stage-pill" data-stage="1">التفريغ الذكي</div>
+                <div class="stage-pill" data-stage="2">تلخيص واستخراج</div>
+                <div class="stage-pill" data-stage="3">تجهيز النتائج</div>
+              </div>
+            </div>
+          </article>
+
+          <article class="section-card glass preview-shell" data-animate>
+            <div class="section-head">
+              <div><span class="eyebrow">المعاينة</span><h3>استمع وراجع قبل استخدام النتيجة</h3></div>
+              <div class="small-note" id="previewMeta">سيظهر Waveform والمعاينة الصوتية بعد رفع الملف.</div>
+            </div>
+            <canvas id="waveCanvas" width="1200" height="220"></canvas>
+            <audio id="audioPreview" controls preload="metadata"></audio>
+            <div class="quick-tags" id="quickTags">
+              <div class="quick-tag">اللغة: تلقائي</div>
+              <div class="quick-tag">مستوى الملخص: متوسط</div>
+              <div class="quick-tag">جاهز للنسخ والتنزيل بعد التحليل</div>
+            </div>
+          </article>
+        </div>
+        <div class="stack">
+          <article class="section-card glass" data-animate>
+            <div class="section-head">
+              <div><span class="eyebrow">الإعدادات</span><h3>اضبط النتيجة قبل بدء التفريغ</h3></div>
+            </div>
+            <div class="field-grid">
+              <div class="field-group">
+                <label class="field-label" for="languageSelect">لغة التفريغ</label>
+                <select class="field" id="languageSelect">
+                  <option value="auto">تلقائي</option>
+                  <option value="ar">العربية</option>
+                  <option value="en">الإنجليزية</option>
+                  <option value="ar-gulf">العربية الخليجية</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="summarySelect">مستوى الملخص</label>
+                <select class="field" id="summarySelect">
+                  <option value="short">قصير</option>
+                  <option value="medium" selected>متوسط</option>
+                  <option value="detailed">مفصل</option>
+                </select>
+              </div>
+              <div class="field-group">
+                <label class="field-label" for="exportSelect">التصدير الافتراضي</label>
+                <select class="field" id="exportSelect">
+                  <option value="txt-json">TXT + JSON</option>
+                  <option value="txt-srt">TXT + SRT</option>
+                  <option value="all">كل الصيغ</option>
+                </select>
+              </div>
+              <div class="range-wrap">
+                <div class="range-head"><span>عدد الكلمات المفتاحية</span><strong id="keywordsCountLabel">6</strong></div>
+                <input id="keywordsRange" type="range" min="4" max="10" step="1" value="6" />
+              </div>
+            </div>
+            <div class="suggestion-box">
+              <strong id="suggestionTitle">اقتراح تلقائي</strong>
+              <span id="suggestionBody">للملفات التعليمية أو الاجتماعات، ابدأ بالعربية ومستوى ملخص متوسط لتحصل على توازن جيد بين الاختصار والدقة.</span>
+            </div>
+          </article>
+
+          <article class="section-card glass" data-animate>
+            <div class="section-head">
+              <div><span class="eyebrow">الاستخدامات</span><h3>أين تفيدك النتيجة؟</h3></div>
+            </div>
+            <div class="stack">
+              <div class="hero-stat"><div class="hero-stat-icon">🎓</div><div><strong>تعليم ومحاضرات</strong><span class="muted">تفريغ التسجيل، تلخيصه، ثم استخراج أهم النقاط لملاحظات الدراسة أو المحتوى التدريبي.</span></div></div>
+              <div class="hero-stat"><div class="hero-stat-icon">🎙️</div><div><strong>بودكاست ومقابلات</strong><span class="muted">تحويل المقابلات الطويلة إلى نص قابل للنشر مع ترجمة ومعاينة كلمات مفتاحية مهمة.</span></div></div>
+              <div class="hero-stat"><div class="hero-stat-icon">📣</div><div><strong>سوشيال ومحتوى</strong><span class="muted">أعد استخدام المقطع بسرعة عبر نقاط أساسية وملخص واضح وتصدير منظم يسهل البناء عليه.</span></div></div>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section class="result-wrap">
+      <div class="section-head" data-animate>
+        <div><span class="eyebrow">النتائج</span><h2>نتيجة منظمة بدل تكديس طويل</h2></div>
+        <p class="section-copy">بعد اكتمال التحليل ستظهر النتيجة داخل تبويبات واضحة مع شريط إجراءات ثابت للتنزيل والنسخ وإعادة المعالجة.</p>
+      </div>
+
+      <article class="action-bar glass" data-animate>
+        <div>
+          <strong id="resultTitle">لا توجد نتيجة بعد</strong>
+          <div class="small-note" id="resultMeta">ابدأ التحليل ليظهر النص والملخص والكلمات المفتاحية هنا.</div>
+        </div>
+        <div class="action-actions">
+          <button class="ghost-btn" id="copyBtn" type="button">نسخ النص</button>
+          <button class="ghost-btn" id="txtBtn" type="button">تحميل TXT</button>
+          <button class="ghost-btn" id="jsonBtn" type="button">تحميل JSON</button>
+          <button class="ghost-btn" id="srtBtn" type="button">تحميل SRT</button>
+          <button class="btn btn-secondary" id="rerunBtn" type="button">إعادة المعالجة</button>
+        </div>
+      </article>
+
+      <article class="result-card glass" data-animate>
+        <div class="tabs">
+          <button class="tab active" data-tab="transcript" type="button">النص الكامل</button>
+          <button class="tab" data-tab="summary" type="button">الملخص</button>
+          <button class="tab" data-tab="points" type="button">النقاط المهمة</button>
+          <button class="tab" data-tab="translation" type="button">الترجمة</button>
+          <button class="tab" data-tab="keywords" type="button">الكلمات المفتاحية</button>
+          <button class="tab" data-tab="raw" type="button">الملف الخام</button>
+        </div>
+        <div class="panel active" data-panel="transcript" id="transcriptPanel">ستظهر نتيجة التفريغ هنا بعد بدء المعالجة.</div>
+        <div class="panel" data-panel="summary" id="summaryPanel">سيظهر الملخص هنا.</div>
+        <div class="panel" data-panel="points" id="pointsPanel">ستظهر النقاط الرئيسية هنا.</div>
+        <div class="panel" data-panel="translation" id="translationPanel">ستظهر الترجمة هنا.</div>
+        <div class="panel" data-panel="keywords" id="keywordsPanel"><div class="keywords-grid" id="keywordsGrid"><div class="keyword-chip">ابدأ المعالجة أولًا</div></div></div>
+        <div class="panel" data-panel="raw" id="rawPanel">سيظهر JSON الخام هنا.</div>
+      </article>
+    </section>
+
+    <section>
+      <div class="section-head" data-animate>
+        <div><span class="eyebrow">History</span><h2>عمليات سابقة يمكن الرجوع إليها</h2></div>
+        <p class="section-copy">حفظنا السجل بصيغة بطاقات أوضح: اسم الملف، مدة التسجيل، اللغة، وقت المعالجة، ثم إجراءات مباشرة لفتح النتيجة السابقة أو إعادة بنائها.</p>
+      </div>
+      <div class="history-grid" id="historyGrid" data-animate>
+        <div class="history-empty glass" id="historyEmpty">
+          <h3>لا توجد نتائج محفوظة بعد</h3>
+          <p class="empty-copy">ابدأ بأول عملية تفريغ وسنحفظ لك السجل هنا لتعود إليه لاحقًا بسهولة.</p>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script src="transcribe.js"></script>
+</body>
+</html>
