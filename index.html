@@ -8,13 +8,50 @@
     :root {
       --bg: #f6fff8;
       --panel: rgba(255, 255, 255, 0.92);
+      --panel-strong: #ffffff;
+      --nav-bg: rgba(255, 255, 255, 0.88);
       --border: rgba(34, 197, 94, 0.18);
       --text: #0f172a;
       --muted: #64748b;
       --neon: #16c85b;
       --violet: #92ef30;
       --soft: #effcf3;
+      --soft-strong: #f8fbff;
+      --input-bg: #ffffff;
+      --progress-bg: #dcfce7;
+      --secondary-bg: #ffffff;
+      --secondary-text: #0f172a;
+      --body-top-left: rgba(22, 200, 91, 0.10);
+      --body-top-right: rgba(146, 239, 48, 0.16);
+      --body-grad-start: #ffffff;
+      --body-grad-mid: #f7fff9;
+      --body-grad-end: #effcf3;
       --shadow: 0 24px 60px rgba(15, 23, 42, 0.08);
+    }
+
+    body[data-theme="dark"] {
+      --bg: #07131a;
+      --panel: rgba(10, 20, 29, 0.88);
+      --panel-strong: rgba(14, 28, 39, 0.96);
+      --nav-bg: rgba(8, 16, 24, 0.84);
+      --border: rgba(255, 128, 201, 0.18);
+      --text: #f6f8fc;
+      --muted: #aab5c7;
+      --neon: #ff7ec7;
+      --violet: #ffc7e7;
+      --soft: #10202b;
+      --soft-strong: #122634;
+      --input-bg: #0d1822;
+      --progress-bg: #253544;
+      --secondary-bg: #10202b;
+      --secondary-text: #f6f8fc;
+      --body-top-left: rgba(255, 126, 199, 0.16);
+      --body-top-right: rgba(122, 255, 185, 0.08);
+      --body-grad-start: #07131a;
+      --body-grad-mid: #0b1821;
+      --body-grad-end: #10202b;
+      --shadow: 0 26px 70px rgba(0, 0, 0, 0.32);
+      color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
@@ -23,11 +60,12 @@
       margin: 0;
       font-family: "Segoe UI", Tahoma, Arial, sans-serif;
       background:
-        radial-gradient(circle at top left, rgba(22, 200, 91, 0.10), transparent 30%),
-        radial-gradient(circle at top right, rgba(146, 239, 48, 0.16), transparent 28%),
-        linear-gradient(180deg, #ffffff, #f7fff9 45%, #effcf3),
+        radial-gradient(circle at top left, var(--body-top-left), transparent 30%),
+        radial-gradient(circle at top right, var(--body-top-right), transparent 28%),
+        linear-gradient(180deg, var(--body-grad-start), var(--body-grad-mid) 45%, var(--body-grad-end)),
         var(--bg);
       color: var(--text);
+      transition: background 0.25s ease, color 0.25s ease;
     }
 
     .container { width: min(1480px, calc(100vw - 32px)); margin: auto; }
@@ -43,7 +81,7 @@
       padding: 16px 24px;
       border: 1px solid var(--border);
       border-radius: 999px;
-      background: rgba(255, 255, 255, 0.88);
+      background: var(--nav-bg);
       backdrop-filter: blur(18px);
       box-shadow: var(--shadow);
     }
@@ -67,6 +105,19 @@
     .nav-links { display: flex; gap: 20px; flex-wrap: wrap; }
     .nav-links a { color: var(--muted); text-decoration: none; font-size: 14px; }
     .nav-links a:hover { color: var(--text); }
+    .nav-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; }
+    .theme-toggle {
+      border: 1px solid var(--border);
+      background: var(--secondary-bg);
+      color: var(--secondary-text);
+      border-radius: 999px;
+      padding: 12px 18px;
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+      transition: 0.2s ease;
+    }
+    .theme-toggle:hover { transform: translateY(-2px); background: var(--soft); }
 
     .hero, .grid-2, .grid-3 { display: grid; gap: 24px; }
     .hero { grid-template-columns: 1.2fr 0.8fr; padding: 64px 0 32px; align-items: center; }
@@ -95,9 +146,10 @@
       justify-content: center;
       transition: 0.2s ease;
     }
+    .btn:disabled { opacity: 0.56; cursor: not-allowed; transform: none; filter: none; }
     .btn-primary { background: linear-gradient(135deg, #16c85b, #92ef30); color: #052e16; box-shadow: 0 16px 36px rgba(22, 200, 91, 0.22); }
     .btn-primary:hover { transform: translateY(-2px); filter: brightness(1.03); }
-    .btn-secondary { background: #ffffff; color: var(--text); border: 1px solid var(--border); }
+    .btn-secondary { background: var(--secondary-bg); color: var(--secondary-text); border: 1px solid var(--border); }
     .btn-secondary:hover { background: var(--soft); transform: translateY(-2px); }
 
     .card {
@@ -125,7 +177,7 @@
       width: 100%;
       border-radius: 24px;
       border: 1px solid var(--border);
-      background: #ffffff;
+      background: var(--input-bg);
       color: var(--text);
       outline: none;
     }
@@ -144,14 +196,14 @@
       margin-top: 20px;
       padding: 20px;
       border-radius: 24px;
-      background: #f8fbff;
+      background: var(--soft-strong);
       border: 1px solid var(--border);
     }
     .progress-track {
       margin-top: 14px;
       height: 12px;
       border-radius: 999px;
-      background: #dcfce7;
+      background: var(--progress-bg);
       overflow: hidden;
     }
     .progress-fill {
@@ -165,11 +217,56 @@
       width: 100%;
       height: 140px;
       border-radius: 24px;
-      background: #f8fbff;
+      background: var(--soft-strong);
       border: 1px solid var(--border);
       margin-top: 16px;
     }
-    audio { width: 100%; margin-top: 16px; display: none; }
+    audio {
+      width: 100%;
+      margin-top: 16px;
+      display: none;
+      border-radius: 20px;
+      background: var(--panel-strong);
+    }
+    .hero-logo {
+      width: 100%;
+      max-height: 280px;
+      object-fit: contain;
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(255, 255, 255, 0.96), var(--soft));
+      padding: 24px;
+    }
+    .share-actions {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .voice-toolbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      margin-top: 22px;
+      flex-wrap: wrap;
+    }
+    .voice-toolbar input {
+      flex: 1 1 320px;
+      min-width: 220px;
+      padding: 16px 18px;
+    }
+    .voice-grid { margin-top: 24px; }
+    .voice-card {
+      transition: transform 0.2s ease, border-color 0.2s ease, box-shadow 0.2s ease;
+    }
+    .voice-card.is-active {
+      border-color: rgba(22, 200, 91, 0.42);
+      box-shadow: 0 18px 42px rgba(22, 200, 91, 0.12);
+    }
+    body[data-theme="dark"] .voice-card.is-active {
+      border-color: rgba(255, 126, 199, 0.34);
+      box-shadow: 0 18px 42px rgba(255, 126, 199, 0.14);
+    }
+    .voice-card.hidden { display: none; }
     .project-item {
       display: flex;
       justify-content: space-between;
@@ -186,6 +283,8 @@
       .nav { border-radius: 28px; }
       .nav-links { gap: 14px; justify-content: flex-end; }
       textarea { min-height: 320px; }
+      .nav-actions { width: 100%; justify-content: space-between; }
+      .share-actions { grid-template-columns: 1fr; }
     }
   </style>
 </head>
@@ -348,6 +447,8 @@
     const pitchLabel = document.getElementById("pitchLabel");
     const durationRange = document.getElementById("durationRange");
     const durationLabel = document.getElementById("durationLabel");
+    const nav = document.querySelector(".nav");
+    const navLinks = document.querySelector(".nav-links");
     const generateBtn = document.getElementById("generateBtn");
     const saveProjectBtn = document.getElementById("saveProjectBtn");
     const jobIdLabel = document.getElementById("jobIdLabel");
@@ -356,12 +457,22 @@
     const progressFill = document.getElementById("progressFill");
     const audioPlayer = document.getElementById("audioPlayer");
     const projectsList = document.getElementById("projectsList");
+    const voiceGrid = document.querySelector("#voices .grid-3");
     const waveCanvas = document.getElementById("waveCanvas");
     const ctx = waveCanvas.getContext("2d");
+    let themeToggle = null;
+    let shareBtn = null;
+    let whatsappBtn = null;
+    let instagramBtn = null;
+    let shareHint = null;
+    let voiceSearchInput = null;
+    let voiceSearchStatus = null;
 
     const STORAGE_KEY = "saudi_tts_projects_v1";
+    const THEME_KEY = "mulhem_sound_theme_v1";
     const SAMPLE_RATE = 22050;
     let latestBlobUrl = null;
+    let latestAudioBlob = null;
     let latestDuration = 0;
     let systemVoiceList = [];
     let fallbackTimer = null;
@@ -402,6 +513,82 @@
       localStorage.setItem(STORAGE_KEY, JSON.stringify(projects));
     }
 
+    function setupEnhancements() {
+      const navActions = document.createElement("div");
+      navActions.className = "nav-actions";
+      nav.appendChild(navActions);
+      navActions.appendChild(navLinks);
+
+      themeToggle = document.createElement("button");
+      themeToggle.type = "button";
+      themeToggle.id = "themeToggle";
+      themeToggle.className = "theme-toggle";
+      navActions.appendChild(themeToggle);
+
+      const shareActions = document.createElement("div");
+      shareActions.className = "share-actions";
+
+      shareBtn = document.createElement("button");
+      shareBtn.type = "button";
+      shareBtn.id = "shareBtn";
+      shareBtn.className = "btn btn-secondary";
+      shareBtn.textContent = "مشاركة سريعة";
+
+      whatsappBtn = document.createElement("button");
+      whatsappBtn.type = "button";
+      whatsappBtn.id = "whatsappBtn";
+      whatsappBtn.className = "btn btn-secondary";
+      whatsappBtn.textContent = "واتساب";
+
+      instagramBtn = document.createElement("button");
+      instagramBtn.type = "button";
+      instagramBtn.id = "instagramBtn";
+      instagramBtn.className = "btn btn-secondary";
+      instagramBtn.textContent = "ستوري إنستقرام";
+
+      shareActions.append(shareBtn, whatsappBtn, instagramBtn);
+      saveProjectBtn.insertAdjacentElement("afterend", shareActions);
+
+      shareHint = document.createElement("p");
+      shareHint.id = "shareHint";
+      shareHint.className = "mini";
+      shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
+      shareActions.insertAdjacentElement("afterend", shareHint);
+
+      voiceGrid.classList.add("voice-grid");
+      voiceGrid.id = "voiceGrid";
+
+      const voiceToolbar = document.createElement("div");
+      voiceToolbar.className = "voice-toolbar";
+
+      voiceSearchInput = document.createElement("input");
+      voiceSearchInput.type = "search";
+      voiceSearchInput.id = "voiceSearchInput";
+      voiceSearchInput.placeholder = "ابحث عن صوت أو أسلوب أو استخدام...";
+
+      voiceSearchStatus = document.createElement("span");
+      voiceSearchStatus.id = "voiceSearchStatus";
+      voiceSearchStatus.className = "mini";
+
+      voiceToolbar.append(voiceSearchInput, voiceSearchStatus);
+      voiceGrid.insertAdjacentElement("beforebegin", voiceToolbar);
+
+      voiceGrid.querySelectorAll(".card").forEach((card, index) => {
+        const voice = voices[index];
+        if (!voice) return;
+
+        card.classList.add("voice-card");
+        card.dataset.voiceId = voice.id;
+        card.dataset.search = `${voice.name} ${voice.accent} ${card.textContent}`.toLowerCase();
+
+        const selectButton = document.createElement("button");
+        selectButton.type = "button";
+        selectButton.className = "btn btn-secondary select-voice-btn";
+        selectButton.textContent = "اختر هذا الصوت";
+        card.appendChild(selectButton);
+      });
+    }
+
     function renderProjects() {
       const projects = loadProjects();
 
@@ -416,7 +603,7 @@
         .map((project) => `
           <div class="project-item">
             <div>
-              <strong style="color:#0f172a">${project.title}</strong>
+              <strong style="color:var(--text)">${project.title}</strong>
               <div class="mini">${project.voiceName} / ${project.style} / ${project.duration.toFixed(1)}s</div>
             </div>
             <div class="mini">${project.date}</div>
@@ -429,6 +616,30 @@
       return voices.find((voice) => voice.id === voiceSelect.value) || voices[0];
     }
 
+    function setTheme(theme) {
+      const nextTheme = theme === "dark" ? "dark" : "light";
+      document.body.dataset.theme = nextTheme;
+      if (themeToggle) {
+        themeToggle.textContent = nextTheme === "dark" ? "تفعيل الوضع النهاري" : "تفعيل الوضع الليلي";
+      }
+      localStorage.setItem(THEME_KEY, nextTheme);
+    }
+
+    function initializeTheme() {
+      const storedTheme = localStorage.getItem(THEME_KEY);
+      const preferredDark = window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches;
+      setTheme(storedTheme || (preferredDark ? "dark" : "light"));
+    }
+
+    function setShareEnabled(enabled) {
+      [shareBtn, whatsappBtn, instagramBtn].forEach((button) => {
+        if (button) button.disabled = !enabled;
+      });
+      if (!enabled && shareHint) {
+        shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
+      }
+    }
+
     function updateLabels() {
       const selectedVoice = getSelectedVoiceProfile();
       voiceLabel.textContent = selectedVoice.name;
@@ -437,6 +648,7 @@
       pitchLabel.textContent = pitchRange.value;
       durationLabel.textContent = `${Number(durationRange.value).toFixed(1)}s`;
       charCount.textContent = `${scriptText.value.trim().length} حرف`;
+      syncVoiceCardsState();
     }
 
     function normalizeArabicText(text) {
@@ -533,6 +745,277 @@
     function refreshSystemVoices() {
       if (!("speechSynthesis" in window)) return;
       systemVoiceList = window.speechSynthesis.getVoices() || [];
+    }
+
+    function getBaseShareUrl() {
+      return /^https?:$/i.test(window.location.protocol) ? window.location.href.split("#")[0] : "";
+    }
+
+    function getSharePayload() {
+      const selectedVoice = getSelectedVoiceProfile();
+      const styleName = styleSelect.options[styleSelect.selectedIndex]?.textContent || styleSelect.value;
+      const cleanText = scriptText.value.trim().replace(/\s+/g, " ");
+      const excerpt = cleanText.slice(0, 96) + (cleanText.length > 96 ? "..." : "");
+      const shareUrl = getBaseShareUrl();
+      return {
+        title: `مُلهم ساوند | ${selectedVoice.name}`,
+        text: `مقطع صوتي من مُلهم ساوند بصوت ${selectedVoice.name} ونمط ${styleName}. ${excerpt}${shareUrl ? `\n${shareUrl}` : ""}`,
+        shortText: excerpt || "مقطع صوتي عربي جاهز للمشاركة",
+        url: shareUrl,
+        voiceName: selectedVoice.name,
+        styleName
+      };
+    }
+
+    function blobToFile(blob, filename, type) {
+      return new File([blob], filename, { type, lastModified: Date.now() });
+    }
+
+    function downloadBlob(blob, filename) {
+      const url = URL.createObjectURL(blob);
+      const anchor = document.createElement("a");
+      anchor.href = url;
+      anchor.download = filename;
+      document.body.appendChild(anchor);
+      anchor.click();
+      anchor.remove();
+      setTimeout(() => URL.revokeObjectURL(url), 1500);
+    }
+
+    function wrapCanvasText(context, text, x, startY, maxWidth, lineHeight, maxLines = 6) {
+      const words = text.split(" ");
+      const lines = [];
+      let current = "";
+
+      words.forEach((word) => {
+        const candidate = current ? `${current} ${word}` : word;
+        if (context.measureText(candidate).width <= maxWidth) {
+          current = candidate;
+        } else {
+          if (current) lines.push(current);
+          current = word;
+        }
+      });
+
+      if (current) lines.push(current);
+      const visibleLines = lines.slice(0, maxLines);
+      visibleLines.forEach((line, index) => {
+        context.fillText(line, x, startY + index * lineHeight);
+      });
+      return startY + visibleLines.length * lineHeight;
+    }
+
+    async function createShareCardBlob() {
+      const canvas = document.createElement("canvas");
+      canvas.width = 1080;
+      canvas.height = 1920;
+      const context = canvas.getContext("2d");
+      const payload = getSharePayload();
+      const theme = document.body.dataset.theme === "dark" ? "dark" : "light";
+      const accentStart = theme === "dark" ? "#ff7ec7" : "#16c85b";
+      const accentEnd = theme === "dark" ? "#ffc7e7" : "#92ef30";
+      const baseStart = theme === "dark" ? "#08131b" : "#f8fffb";
+      const baseEnd = theme === "dark" ? "#0f1f2b" : "#ecfff2";
+      const panelColor = theme === "dark" ? "rgba(11, 22, 31, 0.92)" : "rgba(255, 255, 255, 0.94)";
+      const textColor = theme === "dark" ? "#f6f8fc" : "#0f172a";
+      const mutedColor = theme === "dark" ? "#b5bfd2" : "#5b6b80";
+      const logo = document.querySelector(".brand-logo");
+
+      const bgGradient = context.createLinearGradient(0, 0, canvas.width, canvas.height);
+      bgGradient.addColorStop(0, baseStart);
+      bgGradient.addColorStop(1, baseEnd);
+      context.fillStyle = bgGradient;
+      context.fillRect(0, 0, canvas.width, canvas.height);
+
+      const accentGradient = context.createLinearGradient(120, 120, 960, 560);
+      accentGradient.addColorStop(0, accentStart);
+      accentGradient.addColorStop(1, accentEnd);
+      context.fillStyle = accentGradient;
+      context.globalAlpha = 0.16;
+      context.beginPath();
+      context.arc(860, 220, 220, 0, Math.PI * 2);
+      context.fill();
+      context.beginPath();
+      context.arc(180, 1600, 260, 0, Math.PI * 2);
+      context.fill();
+      context.globalAlpha = 1;
+
+      context.fillStyle = panelColor;
+      context.beginPath();
+      context.roundRect(72, 92, 936, 1736, 46);
+      context.fill();
+
+      if (logo && logo.complete) {
+        context.drawImage(logo, 120, 138, 116, 116);
+      }
+
+      context.fillStyle = accentStart;
+      context.font = "700 44px Segoe UI";
+      context.fillText("مُلهم ساوند", 272, 208);
+
+      context.fillStyle = textColor;
+      context.font = "900 74px Segoe UI";
+      context.fillText("بطاقة مشاركة صوتية", 120, 356);
+
+      context.fillStyle = mutedColor;
+      context.font = "600 32px Segoe UI";
+      context.fillText("منصة أكاديمية لتحويل النص العربي إلى شرح صوتي احترافي", 120, 414);
+
+      const badgeGradient = context.createLinearGradient(120, 0, 620, 0);
+      badgeGradient.addColorStop(0, accentStart);
+      badgeGradient.addColorStop(1, accentEnd);
+      context.fillStyle = badgeGradient;
+      context.beginPath();
+      context.roundRect(120, 472, 420, 76, 999);
+      context.fill();
+      context.fillStyle = theme === "dark" ? "#1b1020" : "#053c1a";
+      context.font = "700 30px Segoe UI";
+      context.fillText(payload.voiceName, 156, 521);
+
+      context.fillStyle = textColor;
+      context.font = "700 34px Segoe UI";
+      context.fillText(`النمط: ${payload.styleName}`, 120, 630);
+      context.fillText(`المدة: ${latestDuration ? latestDuration.toFixed(1) : getTargetDuration().toFixed(1)} ثانية`, 120, 688);
+
+      context.fillStyle = theme === "dark" ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)";
+      context.beginPath();
+      context.roundRect(120, 760, 840, 510, 34);
+      context.fill();
+
+      context.fillStyle = mutedColor;
+      context.font = "600 28px Segoe UI";
+      context.fillText("مقتطف النص", 120, 738);
+      context.fillStyle = textColor;
+      context.font = "600 42px Segoe UI";
+      wrapCanvasText(context, payload.shortText, 160, 862, 760, 76, 6);
+
+      context.strokeStyle = accentStart;
+      context.lineWidth = 8;
+      for (let index = 0; index < 24; index += 1) {
+        const x = 142 + index * 34;
+        const height = 30 + ((index * 37) % 140);
+        context.beginPath();
+        context.moveTo(x, 1440);
+        context.lineTo(x, 1440 + height);
+        context.stroke();
+      }
+
+      context.fillStyle = mutedColor;
+      context.font = "600 30px Segoe UI";
+      context.fillText("شارك المقطع عبر واتساب أو استخدم البطاقة كستوري", 120, 1660);
+      context.fillText("mulhem sound", 120, 1724);
+
+      return new Promise((resolve) => {
+        canvas.toBlob(resolve, "image/png");
+      });
+    }
+
+    async function shareWithSystemDialog(preferFiles = true) {
+      const payload = getSharePayload();
+      if (!navigator.share) return false;
+
+      const files = [];
+      if (preferFiles && latestAudioBlob) {
+        files.push(blobToFile(latestAudioBlob, "mulhem-sound.wav", "audio/wav"));
+      }
+      if (preferFiles) {
+        const imageBlob = await createShareCardBlob();
+        if (imageBlob) {
+          files.push(blobToFile(imageBlob, "mulhem-story.png", "image/png"));
+        }
+      }
+
+      const shareData = {
+        title: payload.title,
+        text: payload.text
+      };
+
+      if (files.length && (!navigator.canShare || navigator.canShare({ files }))) {
+        shareData.files = files;
+      }
+
+      try {
+        await navigator.share(shareData);
+        if (shareHint) shareHint.textContent = "تم فتح نافذة المشاركة.";
+        return true;
+      } catch (error) {
+        if (error?.name === "AbortError") return true;
+        return false;
+      }
+    }
+
+    async function handleShare() {
+      const shared = await shareWithSystemDialog(true);
+      if (shared) return;
+
+      const payload = getSharePayload();
+      if (navigator.clipboard?.writeText) {
+        await navigator.clipboard.writeText(payload.text);
+        if (shareHint) shareHint.textContent = "تم نسخ نص المشاركة. يمكنك لصقه في أي تطبيق.";
+        return;
+      }
+
+      if (shareHint) shareHint.textContent = "المشاركة غير مدعومة في هذا المتصفح حاليًا.";
+    }
+
+    async function handleWhatsAppShare() {
+      const shared = await shareWithSystemDialog(!!latestAudioBlob);
+      if (shared) return;
+
+      const payload = getSharePayload();
+      window.open(`https://wa.me/?text=${encodeURIComponent(payload.text)}`, "_blank", "noopener,noreferrer");
+      if (shareHint) shareHint.textContent = "تم تجهيز رسالة واتساب للمشاركة.";
+    }
+
+    async function handleInstagramShare() {
+      const imageBlob = await createShareCardBlob();
+      if (!imageBlob) {
+        if (shareHint) shareHint.textContent = "تعذر تجهيز بطاقة المشاركة الآن.";
+        return;
+      }
+
+      const imageFile = blobToFile(imageBlob, "mulhem-story.png", "image/png");
+      if (navigator.share && (!navigator.canShare || navigator.canShare({ files: [imageFile] }))) {
+        try {
+          await navigator.share({
+            title: "بطاقة مُلهم ساوند",
+            text: "بطاقة مشاركة جاهزة للمقطع الصوتي",
+            files: [imageFile]
+          });
+          if (shareHint) shareHint.textContent = "تم فتح البطاقة للمشاركة كستوري.";
+          return;
+        } catch (error) {
+          if (error?.name === "AbortError") return;
+        }
+      }
+
+      downloadBlob(imageBlob, "mulhem-story.png");
+      if (shareHint) shareHint.textContent = "تم تنزيل بطاقة ستوري جاهزة للمشاركة.";
+    }
+
+    function filterVoiceCards() {
+      if (!voiceSearchInput || !voiceSearchStatus || !voiceGrid) return;
+      const query = voiceSearchInput.value.trim().toLowerCase();
+      const cards = Array.from(voiceGrid.querySelectorAll(".voice-card"));
+      let visibleCount = 0;
+
+      cards.forEach((card) => {
+        const matches = !query || (card.dataset.search || "").includes(query);
+        card.classList.toggle("hidden", !matches);
+        if (matches) visibleCount += 1;
+      });
+
+      voiceSearchStatus.textContent = query
+        ? `${visibleCount} نتيجة من ${cards.length}`
+        : `${cards.length} أصوات متاحة`;
+    }
+
+    function syncVoiceCardsState() {
+      if (!voiceGrid) return;
+      const selectedVoice = getSelectedVoiceProfile();
+      voiceGrid.querySelectorAll(".voice-card").forEach((card) => {
+        card.classList.toggle("is-active", card.dataset.voiceId === selectedVoice.id);
+      });
     }
 
     function pickSystemArabicVoice() {
@@ -724,8 +1207,12 @@
     function drawWaveform(floatSamples) {
       const w = waveCanvas.width;
       const h = waveCanvas.height;
+      const darkTheme = document.body.dataset.theme === "dark";
+      const backgroundColor = darkTheme ? "#10202b" : "#f8fbff";
+      const gradientTop = darkTheme ? "#ff7ec7" : "#16c85b";
+      const gradientBottom = darkTheme ? "#ffc7e7" : "#92ef30";
       ctx.clearRect(0, 0, w, h);
-      ctx.fillStyle = "#f8fbff";
+      ctx.fillStyle = backgroundColor;
       ctx.fillRect(0, 0, w, h);
       const bars = 180;
       const step = Math.max(1, Math.floor(floatSamples.length / bars));
@@ -738,8 +1225,8 @@
         const barHeight = Math.max(6, peak * 180);
         const x = (i / bars) * w;
         const grad = ctx.createLinearGradient(x, 0, x, h);
-        grad.addColorStop(0, "#2563eb");
-        grad.addColorStop(1, "#38bdf8");
+        grad.addColorStop(0, gradientTop);
+        grad.addColorStop(1, gradientBottom);
         ctx.fillStyle = grad;
         ctx.fillRect(x, (h - barHeight) / 2, Math.max(2, w / bars - 2), barHeight);
       }
@@ -848,7 +1335,16 @@
 
       const previewSamples = synthesizeWaveform(text);
       drawWaveform(previewSamples);
-      latestDuration = estimateSpeechDuration();
+      latestDuration = previewSamples.length / SAMPLE_RATE;
+      latestAudioBlob = encodeWav(previewSamples);
+      if (latestBlobUrl) URL.revokeObjectURL(latestBlobUrl);
+      latestBlobUrl = URL.createObjectURL(latestAudioBlob);
+      audioPlayer.src = latestBlobUrl;
+      audioPlayer.style.display = "block";
+      setShareEnabled(true);
+      if (shareHint) {
+        shareHint.textContent = "المقطع أصبح جاهزًا للمشاركة أو إنشاء بطاقة ستوري.";
+      }
 
       const usedSystemVoice = playSystemSpeech(spokenText, () => {
         finishJob(`تم تشغيل ${selectedVoice.name} بنمط ${selectedVoice.accent} بشكل متواصل. المدة التقريبية ${latestDuration.toFixed(1)} ثانية.`);
@@ -860,15 +1356,7 @@
       }
 
       setTimeout(() => {
-        const samples = synthesizeWaveform(text);
-        const wavBlob = encodeWav(samples);
-        latestDuration = samples.length / SAMPLE_RATE;
-        if (latestBlobUrl) URL.revokeObjectURL(latestBlobUrl);
-        latestBlobUrl = URL.createObjectURL(wavBlob);
-        audioPlayer.src = latestBlobUrl;
-        audioPlayer.style.display = "block";
         audioPlayer.play().catch(() => {});
-        drawWaveform(samples);
         finishJob(`تم توليد ${selectedVoice.name} بصوت متصل بدون فواصل صمت مصطنعة. المدة التقريبية ${latestDuration.toFixed(1)} ثانية.`);
       }, 1700);
     }
@@ -901,12 +1389,15 @@
       voiceSelect.appendChild(option);
     });
     styleSelect.value = voices[0].defaultStyle;
+    setupEnhancements();
 
     if ("speechSynthesis" in window) {
       refreshSystemVoices();
       window.speechSynthesis.onvoiceschanged = refreshSystemVoices;
     }
 
+    initializeTheme();
+    setShareEnabled(false);
     scriptText.addEventListener("input", updateLabels);
     voiceSelect.addEventListener("change", () => {
       styleSelect.value = getSelectedVoiceProfile().defaultStyle;
@@ -916,10 +1407,30 @@
     speedRange.addEventListener("input", updateLabels);
     pitchRange.addEventListener("input", updateLabels);
     durationRange.addEventListener("input", updateLabels);
+    themeToggle.addEventListener("click", () => {
+      setTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
+      drawWaveform(latestAudioBlob ? synthesizeWaveform(scriptText.value) : new Float32Array([0]));
+    });
     generateBtn.addEventListener("click", generateAudio);
     saveProjectBtn.addEventListener("click", saveCurrentProject);
+    shareBtn.addEventListener("click", handleShare);
+    whatsappBtn.addEventListener("click", handleWhatsAppShare);
+    instagramBtn.addEventListener("click", handleInstagramShare);
+    voiceSearchInput.addEventListener("input", filterVoiceCards);
+    voiceGrid.addEventListener("click", (event) => {
+      const button = event.target.closest(".select-voice-btn");
+      if (!button) return;
+      const card = button.closest(".voice-card");
+      if (!card?.dataset.voiceId) return;
+      voiceSelect.value = card.dataset.voiceId;
+      styleSelect.value = getSelectedVoiceProfile().defaultStyle;
+      updateLabels();
+      statusText.textContent = `تم اختيار ${getSelectedVoiceProfile().name} من مكتبة الأصوات.`;
+      document.getElementById("studio").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
 
     updateLabels();
+    filterVoiceCards();
     renderProjects();
     drawWaveform(new Float32Array([0]));
   </script>
