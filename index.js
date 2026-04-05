@@ -1,0 +1,542 @@
+const THEME_KEY = "mulhem_theme_v2";
+const LANG_KEY = "mulhem_lang_v2";
+
+const themeToggle = document.getElementById("themeToggle");
+const langAr = document.getElementById("langAr");
+const langEn = document.getElementById("langEn");
+const heroText = document.getElementById("heroText");
+const heroVoice = document.getElementById("heroVoice");
+const heroPreview = document.getElementById("heroPreview");
+const heroStatus = document.getElementById("heroStatus");
+const servicesGrid = document.getElementById("servicesGrid");
+const voicesGrid = document.getElementById("voicesGrid");
+const usesGrid = document.getElementById("usesGrid");
+const trustGrid = document.getElementById("trustGrid");
+const faqGrid = document.getElementById("faqGrid");
+
+let currentLang = "ar";
+
+const copy = {
+  ar: {
+    title: "مُلهم ساوند | منصة الصوت الذكية",
+    theme_dark: "الوضع الليلي",
+    theme_light: "الوضع النهاري",
+    nav_home: "الرئيسية",
+    nav_services: "الخدمات",
+    nav_voices: "الأصوات",
+    nav_faq: "الأسئلة الشائعة",
+    hero_badge: "منصة الصوت الذكية",
+    hero_title: "أنشئ صوتًا عربيًا احترافيًا أو حوّل التسجيل إلى نص خلال ثوانٍ",
+    hero_lead: "مُلهم ساوند يجمع بين النص إلى صوت، والصوت إلى نص، وتلخيص التسجيلات، وتحسين الصوت، وأنماط جاهزة للمحتوى داخل تجربة واحدة واضحة وسريعة.",
+    hero_primary: "جرّب تحويل الصوت إلى نص",
+    hero_secondary: "جرّب تحويل النص إلى صوت",
+    hero_tag_1: "تفريغ ذكي + تلخيص",
+    hero_tag_2: "أصوات عربية جاهزة",
+    hero_tag_3: "تجربة سريعة وواضحة",
+    stat_one: "ملف صوتي تم العمل عليه",
+    stat_two: "أصوات رئيسية داخل Voxa",
+    stat_three: "متوسط تجهيز النتيجة",
+    demo_badge: "تجربة مباشرة",
+    demo_title: "جرّب عينة صوتية من الصفحة نفسها",
+    demo_lead: "اكتب سطرًا قصيرًا، اختر صوتًا، واستمع إلى معاينة فورية. المعاينة الحالية تعتمد على أصوات المتصفح المتاحة، لكنها توضّح تدفّق المنتج داخل المنصة.",
+    demo_voice_label: "الصوت المقترح",
+    demo_preview: "استمع الآن",
+    demo_cta: "افتح Voxa",
+    demo_status: "المعاينة الحالية توضّح شكل المنتج، بينما الصوت الفعلي سيصبح أقوى كلما تطورت مكتبة الأصوات الداخلية.",
+    demo_text: "مرحبًا بكم في مُلهم ساوند. هنا نساعدك على تحويل الصوت والنص إلى محتوى احترافي بسرعة ووضوح.",
+    services_badge: "الخدمات",
+    services_title: "منتجان رئيسيان وثلاث أدوات مساندة",
+    services_copy: "WriteWave وVoxa هما نجمتا المنصة، بينما تأتي بقية الأدوات لدعم دورة العمل الصوتية من البداية حتى النتيجة النهائية.",
+    voices_badge: "اسمع الفرق",
+    voices_title: "مكتبة أصوات أكثر إقناعًا من التسميات العامة",
+    voices_copy: "رفعنا قيمة التجربة التسويقية عبر أسماء أصوات أوضح، واستخدامات محددة، وزر استماع لكل بطاقة حتى يشعر المستخدم أن المنصة غنية وليست مجرد واجهة تجريبية.",
+    uses_badge: "الاستخدامات",
+    uses_title: "أين تستفيد من مُلهم ساوند؟",
+    uses_copy: "المنصة مصممة لتخدم المحتوى، والتعليم، والإعلانات، والتوثيق الصوتي بدل أن تكون مجرد أداة منعزلة عن السياق العملي.",
+    trust_badge: "الثقة",
+    trust_title: "عناصر ثقة ترفع قيمة المنتج",
+    trust_copy: "الموقع الآن لا يكتفي بشرح الفكرة، بل يعرض مؤشرات ثقة واضحة: سرعة، دقة، مخرجات متعددة، وتجربة ثنائية اللغة.",
+    faq_badge: "FAQ",
+    faq_title: "أسئلة متوقعة قبل التجربة أو الشراء",
+    faq_copy: "هذا القسم يخفف التردد ويشرح بوضوح ما هو جاهز الآن، وما الذي ما يزال في مرحلة التطوير داخل المنصة.",
+    faq_toggle_open: "إظهار الإجابة",
+    faq_toggle_close: "إخفاء الإجابة",
+    preview_playing: "جارٍ تشغيل معاينة صوتية لصوت {voice}. هذه المعاينة تعتمد على إمكانات المتصفح الحالية.",
+    preview_missing: "المتصفح الحالي لا يدعم تشغيل معاينة صوتية عبر SpeechSynthesis.",
+    preview_ready: "اختر صوتًا ثم اضغط استمع الآن لتجربة عينة سريعة."
+  },
+  en: {
+    title: "Mulhem Sound | AI Audio Platform",
+    theme_dark: "Dark Mode",
+    theme_light: "Light Mode",
+    nav_home: "Home",
+    nav_services: "Services",
+    nav_voices: "Voices",
+    nav_faq: "FAQ",
+    hero_badge: "AI Audio Platform",
+    hero_title: "Create polished Arabic voiceovers or turn recordings into text in seconds",
+    hero_lead: "Mulhem Sound brings together text to speech, speech to text, audio summaries, enhancement, and ready-made voice styles inside one clear product flow.",
+    hero_primary: "Try Speech to Text",
+    hero_secondary: "Try Text to Speech",
+    hero_tag_1: "Smart transcription + summary",
+    hero_tag_2: "Ready Arabic voices",
+    hero_tag_3: "Fast and clear UX",
+    stat_one: "audio files processed",
+    stat_two: "core voices inside Voxa",
+    stat_three: "average result time",
+    demo_badge: "Live Demo",
+    demo_title: "Try a quick voice sample from the homepage",
+    demo_lead: "Write a short line, choose a voice, and listen instantly. The current preview still depends on browser voices, but it already shows the intended product flow.",
+    demo_voice_label: "Suggested voice",
+    demo_preview: "Listen Now",
+    demo_cta: "Open Voxa",
+    demo_status: "The current preview shows the UX direction, while the final voice quality will grow with the internal voice library.",
+    demo_text: "Welcome to Mulhem Sound. We help you turn text and audio into polished content with speed and clarity.",
+    services_badge: "Services",
+    services_title: "Two flagship products and three supporting tools",
+    services_copy: "WriteWave and Voxa lead the platform, while the remaining tools support the full workflow from raw audio to final output.",
+    voices_badge: "Hear The Difference",
+    voices_title: "A stronger voice shelf than generic labels",
+    voices_copy: "We upgraded the product story with clearer voice names, sharper use-cases, and preview buttons so the platform feels richer and easier to trust.",
+    uses_badge: "Use Cases",
+    uses_title: "Where does Mulhem Sound help?",
+    uses_copy: "The platform is built for creators, education, ads, and voice documentation instead of feeling like a disconnected utility.",
+    trust_badge: "Trust",
+    trust_title: "Signals that make the product feel ready",
+    trust_copy: "The site now goes beyond explaining the idea and starts showing speed, clarity, export flexibility, and a bilingual experience.",
+    faq_badge: "FAQ",
+    faq_title: "Questions users ask before they try or buy",
+    faq_copy: "This section reduces hesitation and makes it clear what is ready today versus what is still evolving in the platform.",
+    faq_toggle_open: "Show Answer",
+    faq_toggle_close: "Hide Answer",
+    preview_playing: "Playing a preview for {voice}. This sample currently relies on browser speech support.",
+    preview_missing: "This browser does not support SpeechSynthesis preview.",
+    preview_ready: "Choose a voice and press Listen Now for a quick sample."
+  }
+};
+
+const services = {
+  ar: [
+    {
+      icon: "🎙️",
+      title: "WriteWave™",
+      text: "حوّل التسجيل إلى نص مع تبويبات للملخص والنقاط والترجمة والتصدير.",
+      href: "transcribe.html",
+      cta: "افتح الخدمة"
+    },
+    {
+      icon: "🔊",
+      title: "Voxa™",
+      text: "حوّل النص إلى صوت مع مكتبة أصوات أوضح وتصنيفات أقرب للاستخدام الفعلي.",
+      href: "text-to-speech.html",
+      cta: "جرّب الآن"
+    },
+    {
+      icon: "🎧",
+      title: "ClearTone™",
+      text: "حسّن جودة الصوت وأزل الضوضاء وراجع الفرق قبل وبعد.",
+      href: "enhance.html",
+      cta: "حسّن الصوت"
+    },
+    {
+      icon: "✂️",
+      title: "ClipFlow™",
+      text: "قسّم المقاطع الطويلة إلى أجزاء منظمة قابلة لإعادة الاستخدام والتصدير.",
+      href: "cut.html",
+      cta: "ابدأ التقطيع"
+    },
+    {
+      icon: "✨",
+      title: "ToneForge™",
+      text: "اختر أسلوب القراءة المناسب: بودكاست أو قصة أو إعلان أو تعليمي.",
+      href: "voice-style.html",
+      cta: "جرّب الأنماط"
+    }
+  ],
+  en: [
+    {
+      icon: "🎙️",
+      title: "WriteWave™",
+      text: "Turn recordings into text with tabs for summary, highlights, translation, and exports.",
+      href: "transcribe.html",
+      cta: "Open Service"
+    },
+    {
+      icon: "🔊",
+      title: "Voxa™",
+      text: "Convert text into speech with a clearer voice shelf and more practical categories.",
+      href: "text-to-speech.html",
+      cta: "Try Now"
+    },
+    {
+      icon: "🎧",
+      title: "ClearTone™",
+      text: "Enhance audio quality, remove noise, and compare before versus after.",
+      href: "enhance.html",
+      cta: "Enhance Audio"
+    },
+    {
+      icon: "✂️",
+      title: "ClipFlow™",
+      text: "Split long recordings into reusable segments that are easier to export.",
+      href: "cut.html",
+      cta: "Start Cutting"
+    },
+    {
+      icon: "✨",
+      title: "ToneForge™",
+      text: "Choose the right reading style: podcast, story, ad, or educational.",
+      href: "voice-style.html",
+      cta: "Try Styles"
+    }
+  ]
+};
+
+const voiceShelf = {
+  ar: [
+    {
+      name: "سِراج",
+      label: "رسمي",
+      desc: "صوت رجالي رسمي للعروض التنفيذية والمقدمات الواثقة.",
+      sample: "مرحبًا بكم. هذا مثال على صوت رسمي واضح من مُلهم ساوند."
+    },
+    {
+      name: "لُجين",
+      label: "واضح",
+      desc: "صوت نسائي أنيق للشرح والمحتوى التعليمي الهادئ.",
+      sample: "أهلًا بكم. هذا نموذج صوتي واضح يناسب الشروحات والمحتوى التعليمي."
+    },
+    {
+      name: "رَواد",
+      label: "إذاعي",
+      desc: "صوت إذاعي قوي للمقدمات والهوية السمعية والمحتوى الإعلاني.",
+      sample: "هنا تبدأ التجربة بصوت إذاعي قوي يمنح النص حضورًا أكبر."
+    },
+    {
+      name: "نوف",
+      label: "خليجي",
+      desc: "صوت خليجي دافئ للمحتوى المحلي والسوشيال القريب من المستخدم.",
+      sample: "هذا مثال على صوت خليجي دافئ يناسب المحتوى المحلي اليومي."
+    }
+  ],
+  en: [
+    {
+      name: "Siraj",
+      label: "Formal",
+      desc: "A formal male voice for executive presentations and confident intros.",
+      sample: "Welcome. This is a formal sample voice from Mulhem Sound."
+    },
+    {
+      name: "Lujain",
+      label: "Clear",
+      desc: "An elegant female voice for explainers and calm educational content.",
+      sample: "Welcome. This is a clear sample voice built for educational content."
+    },
+    {
+      name: "Ruwad",
+      label: "Radio",
+      desc: "A radio-style voice for intros, sonic branding, and strong promo reads.",
+      sample: "This is a radio-style sample with stronger presence and delivery."
+    },
+    {
+      name: "Nouf",
+      label: "Gulf",
+      desc: "A warm Gulf-style voice for regional content and local social media.",
+      sample: "Here is a warm Gulf-style sample that feels more local and approachable."
+    }
+  ]
+};
+
+const useCases = {
+  ar: [
+    { icon: "🎓", title: "تعليم", text: "حوّل المحاضرات إلى نص، لخّصها، ثم أنشئ نسخة صوتية للشرح نفسه." },
+    { icon: "🎙️", title: "بودكاست", text: "أنشئ مقدمات، حرر الحلقات، واستخرج نصوصًا قابلة للنشر والمراجعة." },
+    { icon: "📣", title: "إعلانات", text: "جهّز نصًا إعلانيًا، جرّب أكثر من صوت، ثم صدّر النتيجة بسرعة." },
+    { icon: "📱", title: "سوشيال", text: "حوّل فكرة قصيرة إلى تعليق صوتي أو نقاط نصية جاهزة للنشر." }
+  ],
+  en: [
+    { icon: "🎓", title: "Education", text: "Turn lectures into text, summarize them, then create a voice version for learning content." },
+    { icon: "🎙️", title: "Podcasting", text: "Create intros, refine episodes, and extract publish-ready transcripts and notes." },
+    { icon: "📣", title: "Advertising", text: "Prepare ad scripts, preview multiple voices, and export campaign audio fast." },
+    { icon: "📱", title: "Social Media", text: "Turn short ideas into voiceovers or structured text snippets ready to publish." }
+  ]
+};
+
+const trustSignals = {
+  ar: [
+    { value: "سريع", title: "تدفّق واضح", text: "المستخدم يفهم خلال ثوانٍ ما الذي يستطيع فعله وأين يذهب بعد ذلك." },
+    { value: "AR / EN", title: "ثنائي اللغة", text: "واجهة عربية وإنجليزية مع حفظ التفضيل داخل المتصفح." },
+    { value: "TXT / JSON / SRT", title: "مخرجات متعددة", text: "النتيجة لا تتوقف عند النص، بل تمتد إلى تصديرات جاهزة للاستخدام." },
+    { value: "8", title: "أصوات أوضح", text: "مكتبة أصوات أكثر إقناعًا من التسميات العامة القديمة." }
+  ],
+  en: [
+    { value: "Fast", title: "Clear flow", text: "Users understand within seconds what they can do and where to go next." },
+    { value: "AR / EN", title: "Bilingual UI", text: "Arabic and English interface with the preference stored locally." },
+    { value: "TXT / JSON / SRT", title: "Multiple outputs", text: "The result goes beyond plain text into export-ready formats." },
+    { value: "8", title: "Stronger voice shelf", text: "A more convincing voice library than the earlier generic labels." }
+  ]
+};
+
+const faqs = {
+  ar: [
+    {
+      q: "هل تحويل الصوت إلى نص موجود فعليًا الآن؟",
+      a: "نعم. WriteWave صفحة مستقلة للصوت إلى نص، وبداخلها رفع ملفات، ومعالجة متعددة المراحل، وتبويبات للنتائج، وتصدير TXT وJSON وSRT."
+    },
+    {
+      q: "هل يوجد زر لغة عربي / English؟",
+      a: "نعم. أضفنا تبديلاً واضحًا للغة في الصفحة الرئيسية وصفحة Voxa، مع حفظ الاختيار داخل المتصفح."
+    },
+    {
+      q: "هل Voxa يعمل بمحرك أصوات داخلي كامل؟",
+      a: "ليس بعد. المعاينة الحالية ما تزال تعتمد على أصوات المتصفح، لكن تجربة المنتج ومكتبة الأصوات والاختيار أصبحت أقرب لمنصة جاهزة للبيع."
+    },
+    {
+      q: "ما الخطوة التالية بعد هذه النسخة؟",
+      a: "الأولوية التالية هي ربط Voxa بمحرك TTS فعلي، ثم توسيع العينات الجاهزة، ثم رفع بقية الصفحات لنفس مستوى WriteWave."
+    }
+  ],
+  en: [
+    {
+      q: "Is speech to text actually available now?",
+      a: "Yes. WriteWave is already a dedicated speech-to-text page with uploads, staged processing, tabbed results, and TXT/JSON/SRT export."
+    },
+    {
+      q: "Is there now an Arabic / English switch?",
+      a: "Yes. We added a visible language switch on the homepage and Voxa, while keeping the preference stored locally."
+    },
+    {
+      q: "Does Voxa already run on a fully internal TTS engine?",
+      a: "Not yet. The current preview still depends on browser voices, but the product framing and voice shelf are now far more convincing."
+    },
+    {
+      q: "What should be built next?",
+      a: "The next priority is connecting Voxa to a real TTS engine, expanding ready-made samples, and bringing the remaining pages up to the same product level as WriteWave."
+    }
+  ]
+};
+
+const heroVoices = {
+  ar: [
+    { id: "siraj", label: "سِراج — رسمي", sample: "مرحبًا بكم في مُلهم ساوند. هنا نساعدكم على تحويل الصوت والنص إلى محتوى احترافي بسرعة ووضوح." },
+    { id: "lujain", label: "لُجين — واضحة", sample: "هذه معاينة لصوت واضح ومريح يناسب الشروحات والمحتوى التعليمي." },
+    { id: "ruwad", label: "رَواد — إذاعي", sample: "ابدأ الآن مع صوت إذاعي أقوى حضورًا للمقدمات والهوية السمعية." },
+    { id: "nouf", label: "نوف — خليجي", sample: "هنا تجربة صوت خليجي دافئ أقرب للمحتوى المحلي والسوشيال." }
+  ],
+  en: [
+    { id: "siraj", label: "Siraj — Formal", sample: "Welcome to Mulhem Sound. We help you turn text and audio into polished content with speed and clarity." },
+    { id: "lujain", label: "Lujain — Clear", sample: "This is a calm and clear sample voice that works well for explainers and educational content." },
+    { id: "ruwad", label: "Ruwad — Radio", sample: "Start with a stronger radio-style voice for intros and brand identity." },
+    { id: "nouf", label: "Nouf — Gulf", sample: "Here is a warm Gulf-style sample built for local content and social media." }
+  ]
+};
+
+function revealNodes() {
+  const nodes = Array.from(document.querySelectorAll("[data-animate]"));
+  nodes.forEach((node, index) => {
+    node.style.transitionDelay = `${Math.min(index * 45, 220)}ms`;
+  });
+
+  if (!("IntersectionObserver" in window)) {
+    nodes.forEach((node) => node.classList.add("is-visible"));
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach((entry) => {
+      if (entry.isIntersecting) {
+        entry.target.classList.add("is-visible");
+        observer.unobserve(entry.target);
+      }
+    });
+  }, { threshold: 0.12 });
+
+  nodes.forEach((node) => observer.observe(node));
+}
+
+function setText(node, value) {
+  if (node) node.textContent = value;
+}
+
+function applyTheme(theme) {
+  const next = theme === "dark" ? "dark" : "light";
+  document.body.dataset.theme = next;
+  setText(themeToggle, next === "dark" ? copy[currentLang].theme_light : copy[currentLang].theme_dark);
+  localStorage.setItem(THEME_KEY, next);
+}
+
+function getPreferredVoice(langCode) {
+  const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  if (!voices.length) return null;
+  return voices.find((voice) => voice.lang.toLowerCase().startsWith(langCode.toLowerCase()))
+    || voices.find((voice) => voice.lang.toLowerCase().includes("ar"))
+    || voices[0];
+}
+
+function playPreview(text, voiceLabel) {
+  if (!("speechSynthesis" in window)) {
+    setText(heroStatus, copy[currentLang].preview_missing);
+    return;
+  }
+
+  const utterance = new SpeechSynthesisUtterance(text);
+  const langCode = currentLang === "ar" ? "ar" : "en";
+  const matchedVoice = getPreferredVoice(langCode);
+  utterance.lang = currentLang === "ar" ? "ar-SA" : "en-US";
+  if (matchedVoice) utterance.voice = matchedVoice;
+
+  window.speechSynthesis.cancel();
+  window.speechSynthesis.speak(utterance);
+  setText(heroStatus, copy[currentLang].preview_playing.replace("{voice}", voiceLabel));
+}
+
+function renderServices() {
+  servicesGrid.innerHTML = services[currentLang].map((item) => `
+    <article class="card" data-animate>
+      <div class="icon">${item.icon}</div>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+      <a class="service-link" href="${item.href}">${item.cta} ←</a>
+    </article>
+  `).join("");
+}
+
+function renderVoiceShelf() {
+  voicesGrid.innerHTML = voiceShelf[currentLang].map((voice) => `
+    <article class="card" data-animate>
+      <div class="icon">🎚️</div>
+      <div class="voice-meta">
+        <span class="voice-badge">${voice.label}</span>
+      </div>
+      <h3>${voice.name}</h3>
+      <p>${voice.desc}</p>
+      <div class="voice-actions">
+        <button class="btn btn-secondary preview-shelf" type="button" data-sample="${voice.sample}" data-voice="${voice.name}">
+          ${currentLang === "ar" ? "استمع" : "Listen"}
+        </button>
+        <a class="voice-link" href="text-to-speech.html">${currentLang === "ar" ? "افتح Voxa" : "Open Voxa"} ←</a>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderUseCases() {
+  usesGrid.innerHTML = useCases[currentLang].map((item) => `
+    <article class="card" data-animate>
+      <div class="icon">${item.icon}</div>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+    </article>
+  `).join("");
+}
+
+function renderTrustSignals() {
+  trustGrid.innerHTML = trustSignals[currentLang].map((item) => `
+    <article class="card" data-animate>
+      <strong>${item.value}</strong>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+    </article>
+  `).join("");
+}
+
+function renderFaq() {
+  faqGrid.innerHTML = faqs[currentLang].map((item, index) => `
+    <article class="faq-item" data-animate>
+      <div class="faq-row">
+        <h3 style="flex:1;">${item.q}</h3>
+        <button class="faq-toggle" type="button" data-faq="${index}">
+          ${copy[currentLang].faq_toggle_open}
+        </button>
+      </div>
+      <div class="faq-answer">${item.a}</div>
+    </article>
+  `).join("");
+}
+
+function renderHeroVoices() {
+  heroVoice.innerHTML = heroVoices[currentLang].map((voice) => `
+    <option value="${voice.id}">${voice.label}</option>
+  `).join("");
+}
+
+function updateLocalizedNodes() {
+  document.querySelectorAll("[data-i18n]").forEach((node) => {
+    const key = node.dataset.i18n;
+    if (copy[currentLang][key]) {
+      node.textContent = copy[currentLang][key];
+    }
+  });
+}
+
+function refreshMotionVisibility() {
+  document.querySelectorAll("[data-animate]").forEach((node) => {
+    node.classList.remove("is-visible");
+  });
+  revealNodes();
+}
+
+function applyLanguage(lang) {
+  currentLang = lang === "en" ? "en" : "ar";
+  document.documentElement.lang = currentLang;
+  document.documentElement.dir = currentLang === "ar" ? "rtl" : "ltr";
+  document.title = copy[currentLang].title;
+
+  langAr.classList.toggle("active", currentLang === "ar");
+  langEn.classList.toggle("active", currentLang === "en");
+
+  updateLocalizedNodes();
+  renderServices();
+  renderVoiceShelf();
+  renderUseCases();
+  renderTrustSignals();
+  renderFaq();
+  renderHeroVoices();
+
+  heroText.value = copy[currentLang].demo_text;
+  setText(heroStatus, copy[currentLang].preview_ready);
+  applyTheme(document.body.dataset.theme || localStorage.getItem(THEME_KEY) || "light");
+  localStorage.setItem(LANG_KEY, currentLang);
+  refreshMotionVisibility();
+}
+
+heroPreview.addEventListener("click", () => {
+  const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
+  const text = heroText.value.trim() || selected.sample;
+  playPreview(text, selected.label);
+});
+
+heroVoice.addEventListener("change", () => {
+  const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
+  if (!heroText.value.trim()) {
+    heroText.value = selected.sample;
+  }
+});
+
+voicesGrid.addEventListener("click", (event) => {
+  const button = event.target.closest(".preview-shelf");
+  if (!button) return;
+  playPreview(button.dataset.sample, button.dataset.voice);
+});
+
+faqGrid.addEventListener("click", (event) => {
+  const button = event.target.closest("[data-faq]");
+  if (!button) return;
+  const item = button.closest(".faq-item");
+  const open = item.classList.toggle("open");
+  button.textContent = open ? copy[currentLang].faq_toggle_close : copy[currentLang].faq_toggle_open;
+});
+
+themeToggle.addEventListener("click", () => {
+  applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
+});
+
+langAr.addEventListener("click", () => applyLanguage("ar"));
+langEn.addEventListener("click", () => applyLanguage("en"));
+
+window.speechSynthesis?.addEventListener?.("voiceschanged", () => {
+  setText(heroStatus, copy[currentLang].preview_ready);
+});
+
+applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"));
+applyLanguage(localStorage.getItem(LANG_KEY) || "ar");
