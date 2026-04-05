@@ -1,82 +1,63 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>مُلهم ساوند | حوّل الصوت إلى نص خلال ثواني</title>
+  <title>مُلهم ساوند | صفحة الخدمات</title>
   <style>
     @import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&display=swap');
 
     :root {
       --bg: #f5fff7;
-      --panel: rgba(255, 255, 255, 0.82);
-      --panel-strong: rgba(255, 255, 255, 0.94);
-      --border: rgba(22, 163, 74, 0.14);
+      --panel: rgba(255,255,255,0.84);
+      --panel-strong: rgba(255,255,255,0.94);
+      --border: rgba(22,163,74,0.14);
       --text: #0f172a;
-      --muted: #5f6b7b;
+      --muted: #607082;
       --brand: #16a34a;
       --brand-2: #22c55e;
       --brand-3: #15803d;
-      --soft: #effcf3;
-      --shadow: 0 26px 70px rgba(15, 23, 42, 0.10);
+      --shadow: 0 28px 72px rgba(15,23,42,0.10);
     }
 
     body[data-theme="dark"] {
-      --bg: #07141b;
-      --panel: rgba(10, 20, 29, 0.76);
-      --panel-strong: rgba(10, 20, 29, 0.92);
-      --border: rgba(34, 197, 94, 0.12);
-      --text: #f5f7fb;
-      --muted: #a8b4c6;
-      --soft: #11212b;
-      --shadow: 0 28px 72px rgba(0, 0, 0, 0.34);
+      --bg: #08141b;
+      --panel: rgba(10,20,29,0.80);
+      --panel-strong: rgba(10,20,29,0.92);
+      --border: rgba(34,197,94,0.12);
+      --text: #f6f8fc;
+      --muted: #a9b5c5;
+      --shadow: 0 28px 74px rgba(0,0,0,0.34);
       color-scheme: dark;
     }
 
     * { box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
     body {
       margin: 0;
       font-family: "Tajawal", "Segoe UI", Arial, sans-serif;
       background:
-        radial-gradient(circle at 12% 16%, rgba(34, 197, 94, 0.18), transparent 18%),
-        radial-gradient(circle at 84% 20%, rgba(21, 128, 61, 0.16), transparent 18%),
-        radial-gradient(circle at 52% 84%, rgba(34, 197, 94, 0.14), transparent 22%),
-        linear-gradient(180deg, #fbfffc, #f5fff7 45%, #ecfff0),
+        radial-gradient(circle at 12% 16%, rgba(34,197,94,0.18), transparent 18%),
+        radial-gradient(circle at 86% 18%, rgba(21,128,61,0.14), transparent 18%),
+        linear-gradient(180deg, #fbfffc, #f4fff7 46%, #ecfff0),
         var(--bg);
       color: var(--text);
-      overflow-x: hidden;
       min-height: 100vh;
+      overflow-x: hidden;
       position: relative;
     }
 
     body[data-theme="dark"] {
       background:
-        radial-gradient(circle at 12% 16%, rgba(34, 197, 94, 0.14), transparent 18%),
-        radial-gradient(circle at 84% 20%, rgba(21, 128, 61, 0.12), transparent 18%),
-        radial-gradient(circle at 52% 84%, rgba(34, 197, 94, 0.09), transparent 22%),
-        linear-gradient(180deg, #08141b, #0c1920 45%, #102129),
+        radial-gradient(circle at 12% 16%, rgba(34,197,94,0.14), transparent 18%),
+        radial-gradient(circle at 86% 18%, rgba(21,128,61,0.10), transparent 18%),
+        linear-gradient(180deg, #08141b, #0d1920 46%, #112129),
         var(--bg);
     }
 
-    body::before {
-      content: "";
+    .blob,
+    .blob::before,
+    .blob::after {
       position: fixed;
-      inset: 0;
-      pointer-events: none;
-      background-image:
-        linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px);
-      background-size: 36px 36px;
-      opacity: 0.12;
-      mask-image: linear-gradient(180deg, rgba(0,0,0,0.5), transparent 82%);
-    }
-
-    .aurora,
-    .aurora::before,
-    .aurora::after {
-      position: fixed;
-      inset: auto;
       border-radius: 50%;
       filter: blur(120px);
       pointer-events: none;
@@ -84,74 +65,74 @@
       animation: blobMove 16s ease-in-out infinite alternate;
     }
 
-    .aurora {
-      width: 460px;
-      height: 460px;
-      top: 80px;
-      left: -60px;
-      background: radial-gradient(circle, rgba(34, 197, 94, 0.30), rgba(22, 163, 74, 0.08));
+    .blob {
+      width: 420px;
+      height: 420px;
+      top: 70px;
+      left: -40px;
+      background: radial-gradient(circle, rgba(34,197,94,0.28), rgba(22,163,74,0.06));
     }
 
-    .aurora::before,
-    .aurora::after {
+    .blob::before,
+    .blob::after {
       content: "";
     }
 
-    .aurora::before {
-      width: 420px;
-      height: 420px;
-      top: 140px;
-      right: -160px;
-      background: radial-gradient(circle, rgba(21, 128, 61, 0.26), rgba(34, 197, 94, 0.06));
-      animation-duration: 20s;
-    }
-
-    .aurora::after {
+    .blob::before {
       width: 360px;
       height: 360px;
-      bottom: -120px;
-      left: 36%;
-      background: radial-gradient(circle, rgba(146, 239, 48, 0.18), rgba(21, 128, 61, 0.05));
+      top: 100px;
+      right: -180px;
+      background: radial-gradient(circle, rgba(21,128,61,0.22), rgba(34,197,94,0.05));
       animation-duration: 18s;
     }
 
+    .blob::after {
+      width: 280px;
+      height: 280px;
+      bottom: -80px;
+      left: 38%;
+      background: radial-gradient(circle, rgba(34,197,94,0.18), transparent 70%);
+      animation-duration: 14s;
+    }
+
     .container {
-      width: min(1200px, calc(100vw - 32px));
+      width: min(1180px, calc(100vw - 32px));
       margin: 0 auto;
       position: relative;
       z-index: 1;
     }
 
     .nav {
-      position: sticky;
-      top: 14px;
-      z-index: 30;
       margin-top: 14px;
+      padding: 16px 22px;
+      border-radius: 999px;
       display: flex;
       align-items: center;
       justify-content: space-between;
-      gap: 16px;
-      padding: 16px 22px;
+      gap: 14px;
       border: 1px solid var(--border);
-      border-radius: 999px;
       background: var(--panel);
       backdrop-filter: blur(22px);
       box-shadow: var(--shadow);
     }
 
-    .brand-wrap {
+    .brand-wrap,
+    .nav-links,
+    .nav-actions {
       display: flex;
       align-items: center;
       gap: 12px;
+      flex-wrap: wrap;
     }
 
     .brand-logo {
-      width: 48px;
-      height: 48px;
-      border-radius: 16px;
+      width: 46px;
+      height: 46px;
       object-fit: cover;
-      background: #ffffff;
-      box-shadow: 0 12px 24px rgba(22, 163, 74, 0.12);
+      border-radius: 16px;
+      background: #fff;
+      box-shadow: 0 12px 24px rgba(22,163,74,0.12);
     }
 
     .brand-title {
@@ -162,25 +143,16 @@
       -webkit-text-fill-color: transparent;
     }
 
-    .nav-links,
-    .nav-actions {
-      display: flex;
-      align-items: center;
-      gap: 14px;
-      flex-wrap: wrap;
+    a {
+      color: inherit;
+      text-decoration: none;
     }
 
     .nav-links a,
     .nav-actions a {
-      text-decoration: none;
       color: var(--muted);
-      font-weight: 700;
       font-size: 14px;
-    }
-
-    .nav-links a:hover,
-    .nav-actions a:hover {
-      color: var(--text);
+      font-weight: 700;
     }
 
     .theme-toggle,
@@ -192,216 +164,157 @@
       font-family: inherit;
       font-size: 15px;
       font-weight: 800;
-      transition: transform 0.22s ease, box-shadow 0.22s ease, filter 0.22s ease, background 0.22s ease;
+      transition: transform 0.22s ease, box-shadow 0.22s ease;
     }
 
     .theme-toggle {
-      background: var(--panel-strong);
       color: var(--text);
+      background: var(--panel-strong);
       border: 1px solid var(--border);
     }
 
-    .theme-toggle:hover,
-    .btn:hover {
+    .btn,
+    .theme-toggle:hover {
       transform: translateY(-3px);
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      text-decoration: none;
-    }
-
     .btn-primary {
-      color: #ffffff;
+      color: #fff;
       background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
-      box-shadow: 0 18px 40px rgba(22, 163, 74, 0.24);
-    }
-
-    .btn-primary:hover {
-      box-shadow: 0 24px 48px rgba(22, 163, 74, 0.30);
-      filter: brightness(1.03);
-    }
-
-    .btn-secondary {
-      color: var(--text);
-      background: var(--panel-strong);
-      border: 1px solid var(--border);
+      box-shadow: 0 18px 40px rgba(22,163,74,0.26);
     }
 
     .hero {
       display: grid;
-      grid-template-columns: 1.08fr 0.92fr;
+      grid-template-columns: 1.04fr 0.96fr;
       align-items: center;
       gap: 28px;
-      padding: 78px 0 42px;
-      min-height: 78vh;
+      padding: 72px 0 40px;
+      min-height: 60vh;
     }
 
     .eyebrow {
       display: inline-flex;
-      align-items: center;
-      gap: 10px;
       padding: 10px 18px;
       border-radius: 999px;
-      background: linear-gradient(135deg, rgba(240, 253, 244, 0.95), rgba(220, 252, 231, 0.80));
-      border: 1px solid rgba(22, 163, 74, 0.18);
+      background: rgba(255,255,255,0.72);
+      border: 1px solid rgba(22,163,74,0.18);
       color: var(--brand);
       font-size: 14px;
       font-weight: 800;
-      box-shadow: 0 18px 30px rgba(22, 163, 74, 0.08);
+      backdrop-filter: blur(16px);
     }
 
     h1 {
-      margin: 20px 0 14px;
-      font-size: clamp(46px, 6vw, 84px);
-      line-height: 1.02;
+      margin: 18px 0 14px;
+      font-size: clamp(42px, 5.8vw, 72px);
+      line-height: 1.04;
       letter-spacing: -0.02em;
     }
 
     .lead {
       margin: 0;
-      max-width: 640px;
       color: var(--muted);
-      font-size: 19px;
-      line-height: 1.95;
+      font-size: 18px;
+      line-height: 1.9;
+      max-width: 640px;
     }
 
-    .hero-actions,
-    .pill-row {
+    .hero-actions {
       display: flex;
       gap: 14px;
       flex-wrap: wrap;
-      margin-top: 28px;
+      margin-top: 26px;
     }
 
-    .pill {
-      display: inline-flex;
-      align-items: center;
-      padding: 10px 14px;
-      border-radius: 999px;
-      background: rgba(255, 255, 255, 0.70);
-      border: 1px solid var(--border);
-      color: var(--text);
-      font-size: 13px;
-      font-weight: 800;
-      backdrop-filter: blur(14px);
-    }
-
-    .card,
+    .hero-card,
     .service-card,
-    .info-card,
-    .quote-card {
-      border-radius: 32px;
+    .flow-card {
+      border-radius: 30px;
       border: 1px solid var(--border);
       background: var(--panel);
-      backdrop-filter: blur(18px);
+      backdrop-filter: blur(20px);
       box-shadow: var(--shadow);
-      transition: transform 0.25s ease, box-shadow 0.25s ease, border-color 0.25s ease;
+      transition: transform 0.24s ease, box-shadow 0.24s ease, border-color 0.24s ease;
     }
 
-    .card:hover,
+    .hero-card:hover,
     .service-card:hover,
-    .info-card:hover,
-    .quote-card:hover {
+    .flow-card:hover {
       transform: translateY(-6px);
-      box-shadow: 0 28px 64px rgba(22, 163, 74, 0.12);
-      border-color: rgba(22, 163, 74, 0.24);
+      border-color: rgba(22,163,74,0.24);
+      box-shadow: 0 28px 64px rgba(22,163,74,0.12);
     }
 
     .hero-card {
-      padding: 28px;
-      position: relative;
-      overflow: hidden;
+      padding: 26px;
     }
 
-    .hero-card::before {
-      content: "";
-      position: absolute;
-      inset: 18px;
-      border-radius: 28px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.12), rgba(21, 128, 61, 0.03));
-      border: 1px solid rgba(22, 163, 74, 0.12);
-    }
-
-    .hero-card > * {
-      position: relative;
-      z-index: 1;
-    }
-
-    .hero-logo {
-      width: 100%;
-      max-height: 240px;
-      object-fit: contain;
-      border-radius: 24px;
-      background: linear-gradient(180deg, rgba(255,255,255,0.96), rgba(239, 252, 243, 0.84));
-      padding: 20px;
-      margin-bottom: 18px;
-    }
-
-    .wave-lines {
+    .flow-list {
       display: grid;
       gap: 14px;
-      margin-top: 20px;
+      margin-top: 18px;
     }
 
-    .wave-lines span {
-      display: block;
-      height: 36px;
-      border-radius: 999px;
-      background: linear-gradient(270deg, var(--brand-2), var(--brand-3), rgba(34, 197, 94, 0.24));
-      animation: wavePulse 3.4s ease-in-out infinite;
+    .flow-item {
+      display: flex;
+      gap: 12px;
+      align-items: center;
+      color: var(--muted);
+      line-height: 1.8;
     }
 
-    .wave-lines span:nth-child(2) { width: 58%; animation-delay: 0.2s; }
-    .wave-lines span:nth-child(1) { width: 84%; }
-    .wave-lines span:nth-child(3) { width: 92%; animation-delay: 0.35s; }
-    .wave-lines span:nth-child(4) { width: 70%; animation-delay: 0.5s; }
-
-    section {
-      padding: 44px 0;
+    .flow-item span {
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      display: grid;
+      place-items: center;
+      flex: none;
+      background: linear-gradient(135deg, var(--brand-2), var(--brand-3));
+      color: #fff;
+      font-weight: 900;
     }
+
+    section { padding: 40px 0; }
 
     .section-head {
       display: flex;
-      align-items: end;
       justify-content: space-between;
-      gap: 18px;
+      gap: 20px;
+      align-items: end;
       flex-wrap: wrap;
       margin-bottom: 24px;
     }
 
     .section-title {
       margin: 6px 0 0;
-      font-size: 38px;
+      font-size: 36px;
     }
 
     .section-copy {
+      max-width: 620px;
       color: var(--muted);
       line-height: 1.9;
-      max-width: 620px;
     }
 
     .services-grid,
-    .how-grid,
-    .trust-grid,
-    .quote-grid {
+    .flow-grid {
       display: grid;
       gap: 18px;
     }
 
-    .services-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); }
-    .how-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
-    .trust-grid,
-    .quote-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); }
+    .services-grid {
+      grid-template-columns: repeat(5, minmax(0, 1fr));
+    }
+
+    .flow-grid {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
 
     .service-card,
-    .info-card,
-    .quote-card {
+    .flow-card {
       padding: 24px;
-      text-decoration: none;
-      color: inherit;
       display: block;
       position: relative;
       overflow: hidden;
@@ -410,41 +323,40 @@
     .service-card::before {
       content: "";
       position: absolute;
-      inset: auto -40px -50px auto;
-      width: 160px;
-      height: 160px;
+      width: 180px;
+      height: 180px;
+      left: -40px;
+      bottom: -70px;
       border-radius: 50%;
-      background: radial-gradient(circle, rgba(34, 197, 94, 0.16), transparent 70%);
-      transition: transform 0.25s ease;
+      background: radial-gradient(circle, rgba(34,197,94,0.20), transparent 70%);
+      transition: transform 0.24s ease;
     }
 
     .service-card:hover::before {
-      transform: scale(1.12);
+      transform: scale(1.08);
     }
 
     .service-icon,
-    .info-icon {
+    .flow-icon {
       width: 58px;
       height: 58px;
+      border-radius: 20px;
       display: grid;
       place-items: center;
-      border-radius: 20px;
       font-size: 28px;
-      background: linear-gradient(135deg, rgba(34, 197, 94, 0.18), rgba(21, 128, 61, 0.08));
-      box-shadow: 0 16px 30px rgba(22, 163, 74, 0.12);
+      background: linear-gradient(135deg, rgba(34,197,94,0.20), rgba(21,128,61,0.08));
+      box-shadow: 0 14px 28px rgba(22,163,74,0.12);
       margin-bottom: 16px;
     }
 
     .service-card h3,
-    .info-card h3,
-    .quote-card h3 {
+    .flow-card h3 {
       margin: 0 0 10px;
       font-size: 22px;
     }
 
     .service-card p,
-    .info-card p,
-    .quote-card p {
+    .flow-card p {
       margin: 0;
       color: var(--muted);
       line-height: 1.85;
@@ -459,39 +371,10 @@
       font-weight: 800;
     }
 
-    .before-after {
-      display: grid;
-      grid-template-columns: repeat(2, minmax(0, 1fr));
-      gap: 18px;
-    }
-
-    .before-after .card {
-      padding: 26px;
-    }
-
-    .mini-list {
-      margin: 0;
-      padding-inline-start: 18px;
-      color: var(--text);
-      line-height: 1.95;
-    }
-
-    .quote-card strong {
-      display: block;
-      margin-bottom: 10px;
-      color: var(--text);
-    }
-
-    footer {
-      padding: 26px 0 44px;
-      color: var(--muted);
-      font-size: 14px;
-    }
-
     [data-animate] {
       opacity: 0;
       transform: translateY(26px);
-      transition: opacity 0.7s ease, transform 0.7s ease;
+      transition: opacity 0.72s ease, transform 0.72s ease;
     }
 
     [data-animate].is-visible {
@@ -499,88 +382,68 @@
       transform: translateY(0);
     }
 
-    @keyframes wavePulse {
-      0%, 100% { transform: scaleX(1); opacity: 0.88; }
-      50% { transform: scaleX(1.04); opacity: 1; }
-    }
-
     @keyframes blobMove {
       0% { transform: translate(0, 0) scale(1); }
-      100% { transform: translate(120px, 80px) scale(1.08); }
+      100% { transform: translate(110px, 70px) scale(1.08); }
     }
 
     @media (max-width: 980px) {
       .hero,
       .services-grid,
-      .how-grid,
-      .trust-grid,
-      .quote-grid,
-      .before-after {
+      .flow-grid {
         grid-template-columns: 1fr;
       }
 
       .nav {
-        border-radius: 30px;
+        border-radius: 28px;
       }
     }
   </style>
 </head>
 <body>
-  <div class="aurora"></div>
+  <div class="blob"></div>
 
   <div class="container">
     <header class="nav" data-animate>
       <div class="brand-wrap">
-        <img class="brand-logo" src="mulhem-logo.jpg" alt="شعار مُلهم ساوند" />
+        <img class="brand-logo" src="../mulhem-logo.jpg" alt="شعار مُلهم ساوند" />
         <div class="brand-title">مُلهم ساوند</div>
       </div>
 
       <nav class="nav-links">
-        <a href="#home">الرئيسية</a>
+        <a href="../index.html">الرئيسية</a>
         <a href="#services">الخدمات</a>
-        <a href="#trust">الثقة</a>
+        <a href="voice-style.html">ToneForge™</a>
       </nav>
 
       <div class="nav-actions">
-        <a href="studio/index.html">الاستوديو</a>
+
         <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
       </div>
     </header>
 
-    <section id="home" class="hero">
+    <section class="hero">
       <div data-animate>
-        <span class="eyebrow">مُلهم ساوند | تجربة AI واضحة ومباشرة للصوت</span>
-        <h1>حوّل الصوت إلى نص خلال ثواني</h1>
+        <span class="eyebrow">بوابة الخدمات</span>
+        <h1>اختر الخدمة ثم انتقل إلى صفحة مستقلة وواضحة</h1>
         <p class="lead">
-          ارفع التسجيل أو ادخل إلى الاستوديو، ثم اختر الخدمة المناسبة: تفريغ، تحسين، تقطيع،
-          أو تشكيل أنماط الصوت عبر ToneForge™. كل خطوة مصممة لتكون أسرع وأوضح وأسهل من الصفحة الواحدة التقليدية.
+          هذا هو الاستوديو الجديد: لا مزيد من تكديس كل شيء في صفحة واحدة.
+          الآن كل خدمة لها تجربة مخصصة، مع بطاقة واضحة، وصف بسيط، وCTA مباشر يجعل المنتج أسهل فهمًا وبيعًا.
         </p>
-
         <div class="hero-actions">
-          <a class="btn btn-primary" href="studio/index.html">ابدأ الآن</a>
-          <a class="btn btn-secondary" href="studio/voice-style.html">جرّب ToneForge™</a>
-        </div>
-
-        <div class="pill-row">
-          <span class="pill">تحويل صوت إلى نص</span>
-          <span class="pill">تحسين وتنظيف</span>
-          <span class="pill">تقطيع تلقائي</span>
-          <span class="pill">أنماط صوتية</span>
+          <a class="btn btn-primary" href="text-to-speech.html">جرّب Voxa™</a>
+          <a class="btn btn-secondary" href="#services">اختر الخدمة</a>
         </div>
       </div>
 
-      <div class="hero-card card" data-animate>
-        <img class="hero-logo" src="mulhem-logo.jpg" alt="هوية مُلهم ساوند" />
-        <div class="pill-row">
-          <span class="pill">UI نظيف</span>
-          <span class="pill">Animated Blob</span>
-          <span class="pill">Glow + Glass</span>
-        </div>
-        <div class="wave-lines">
-          <span></span>
-          <span></span>
-          <span></span>
-          <span></span>
+      <div class="hero-card" data-animate>
+        <div class="eyebrow">Flow مثالي</div>
+        <div class="flow-list">
+          <div class="flow-item"><span>1</span> يدخل المستخدم الاستوديو ويفهم الخيارات فورًا</div>
+          <div class="flow-item"><span>2</span> يختار خدمة واحدة بدل مواجهة كل الوظائف مرة واحدة</div>
+          <div class="flow-item"><span>3</span> ينتقل إلى صفحة مركزة ويرفع الملف أو النص</div>
+          <div class="flow-item"><span>4</span> تظهر النتائج مباشرة بشكل واضح وقابل للتنزيل</div>
+          <div class="flow-item"><span>5</span> خدمة Voxa تضيف النص إلى صوت كمنتج أساسي داخل المنصة</div>
         </div>
       </div>
     </section>
@@ -588,41 +451,45 @@
     <section id="services">
       <div class="section-head" data-animate>
         <div>
-          <div class="eyebrow">Studio Gateway</div>
-          <h2 class="section-title">الصفحة الرئيسية الآن مجرد بوابة ذكية وواضحة</h2>
+          <div class="eyebrow">الخدمات</div>
+          <h2 class="section-title">بطاقات خدمات واضحة وسريعة الفهم</h2>
         </div>
-        <p class="section-copy">
-          بدل صفحة Studio المزدحمة، كل خدمة الآن لها صفحة مستقلة ووظيفة واحدة واضحة.
-          هذا يخفف التشتت ويجعل التجربة مفهومة من أول نظرة.
-        </p>
+        <p class="section-copy">كل بطاقة هنا تفتح صفحة جديدة. هذا يجعل التجربة مرتبة، والشخصية أوضح، والانطباع أقرب لمنصات AI الكبيرة.</p>
       </div>
 
       <div class="services-grid">
-        <a class="service-card" href="studio/transcribe.html" data-animate>
+        <a class="service-card" href="transcribe.html" data-animate>
           <div class="service-icon">🎙️</div>
-          <h3>تحويل الصوت إلى نص</h3>
-          <p>رفع تسجيل، تفريغ مباشر، ملخص، نقاط مهمة، ترجمة، ومخرجات جاهزة للنسخ والتنزيل.</p>
+          <h3>WriteWave™</h3>
+          <p>رفع تسجيل، تفريغ، تلخيص، نقاط مهمة، وترجمة داخل صفحة مخصصة لهذه المهمة فقط.</p>
           <div class="service-link">افتح الصفحة ←</div>
         </a>
 
-        <a class="service-card" href="studio/enhance.html" data-animate>
+        <a class="service-card" href="text-to-speech.html" data-animate>
+          <div class="service-icon">🔊</div>
+          <h3>Voxa™</h3>
+          <p>تحويل النص إلى صوت طبيعي مع معاينة، إعدادات سرعة ونبرة، ومكتبة أصوات جاهزة للمحتوى.</p>
+          <div class="service-link">جرّب الآن ←</div>
+        </a>
+
+        <a class="service-card" href="enhance.html" data-animate>
           <div class="service-icon">🎧</div>
-          <h3>تحسين الصوت</h3>
-          <p>تحكم سريع في إزالة الضوضاء، الوضوح، ومستوى الصوت داخل صفحة مركزة وسهلة.</p>
+          <h3>ClearTone™</h3>
+          <p>إزالة ضوضاء، رفع الوضوح، موازنة مستوى الصوت، ومقارنة قبل/بعد بطريقة مباشرة.</p>
           <div class="service-link">افتح الصفحة ←</div>
         </a>
 
-        <a class="service-card" href="studio/cut.html" data-animate>
+        <a class="service-card" href="cut.html" data-animate>
           <div class="service-icon">✂️</div>
-          <h3>تقطيع الصوت</h3>
-          <p>توليد مقاطع ذكية، تقسيم تلقائي، واستخراج شرائح جاهزة للاستخدام أو المشاركة.</p>
+          <h3>ClipFlow™</h3>
+          <p>استخراج مقاطع ذكية، تقسيم تلقائي، وعرض المقاطع الناتجة في تخطيط بسيط ومرن.</p>
           <div class="service-link">افتح الصفحة ←</div>
         </a>
 
-        <a class="service-card" href="studio/voice-style.html" data-animate>
+        <a class="service-card" href="voice-style.html" data-animate>
           <div class="service-icon">✨</div>
           <h3>ToneForge™</h3>
-          <p>اختيار شخصية الصوت، تعديل السرعة والنبرة، معاينة فورية، ومفضلات محفوظة.</p>
+          <p>ميزة أنماط الأصوات: بودكاست، إعلان، قصة، تعليمي، مع معاينة وSliders ومفضلات.</p>
           <div class="service-link">افتح الصفحة ←</div>
         </a>
       </div>
@@ -631,126 +498,32 @@
     <section id="flow">
       <div class="section-head" data-animate>
         <div>
-          <div class="eyebrow">Flow</div>
-          <h2 class="section-title">المستخدم يفهم كل شيء خلال 3 ثوانٍ</h2>
+          <div class="eyebrow">لماذا هذا الترتيب؟</div>
+          <h2 class="section-title">لماذا هذا الترتيب أفضل من الصفحة الواحدة؟</h2>
         </div>
-        <p class="section-copy">
-          هذا هو المسار الصحيح: تعريف، ثم اختيار خدمة، ثم صفحة مستقلة، ثم رفع، ثم معالجة، ثم نتيجة واضحة.
-        </p>
       </div>
 
-      <div class="how-grid">
-        <article class="info-card" data-animate>
-          <div class="info-icon">1</div>
-          <h3>ادخل الاستوديو</h3>
-          <p>يبدأ المستخدم من بوابة الخدمات بدل واجهة واحدة مزدحمة.</p>
+      <div class="flow-grid">
+        <article class="flow-card" data-animate>
+          <div class="flow-icon">🧭</div>
+          <h3>أوضح للمستخدم</h3>
+          <p>المستخدم يرى 5 خيارات فقط ويختار مباشرة، بدل محاولة فهم عشرات العناصر في واجهة واحدة.</p>
         </article>
 
-        <article class="info-card" data-animate>
-          <div class="info-icon">2</div>
-          <h3>اختر وظيفة واحدة</h3>
-          <p>تفريغ أو تحسين أو تقطيع أو أنماط صوتية. كل صفحة = مهمة واحدة فقط.</p>
+        <article class="flow-card" data-animate>
+          <div class="flow-icon">🧩</div>
+          <h3>كل صفحة = وظيفة واحدة</h3>
+          <p>هذا يرفع جودة التجربة ويجعل كل خدمة قابلة للتحسين والتطوير دون التأثير على بقية الصفحات.</p>
         </article>
 
-        <article class="info-card" data-animate>
-          <div class="info-icon">3</div>
-          <h3>استلم النتيجة</h3>
-          <p>نتيجة مباشرة مع تنزيل ونسخ وإعادة معالجة بدون تعقيد بصري أو ذهني.</p>
+        <article class="flow-card" data-animate>
+          <div class="flow-icon">🚀</div>
+          <h3>أقرب لمنتج احترافي</h3>
+          <p>بطاقات Hover وGlow وAnimated Blob والانتقال إلى صفحات مستقلة تعطي إحساس منصة قوية وليست Prototype.</p>
         </article>
       </div>
     </section>
-
-    <section id="before-after">
-      <div class="section-head" data-animate>
-        <div>
-          <div class="eyebrow">Before / After</div>
-          <h2 class="section-title">الفرق في الانطباع والثقة واضح</h2>
-        </div>
-      </div>
-
-      <div class="before-after">
-        <div class="card" data-animate>
-          <h3>قبل</h3>
-          <ul class="mini-list">
-            <li>صفحة واحدة تحمل كل شيء</li>
-            <li>خيارات كثيرة بلا تقسيم</li>
-            <li>المستخدم يحتاج وقتًا ليفهم ماذا يفعل</li>
-          </ul>
-        </div>
-
-        <div class="card" data-animate>
-          <h3>بعد</h3>
-          <ul class="mini-list">
-            <li>Landing واضحة + Studio Hub منظم</li>
-            <li>خدمة مستقلة لكل وظيفة</li>
-            <li>أنماط صوتية احترافية عبر ToneForge™</li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <section id="trust">
-      <div class="section-head" data-animate>
-        <div>
-          <div class="eyebrow">Trust</div>
-          <h2 class="section-title">هوية أقوى وثقة أعلى من أول زيارة</h2>
-        </div>
-        <p class="section-copy">
-          واجهة خضراء حديثة، كروت متحركة، تقسيم منطقي، ورسائل توضح القيمة خلال لحظات.
-        </p>
-      </div>
-
-      <div class="trust-grid">
-        <article class="info-card" data-animate>
-          <div class="info-icon">🌿</div>
-          <h3>هوية واضحة</h3>
-          <p>لون أساسي ثابت، تدرجات حديثة، وملمس بصري يعطي انطباع AI احترافي.</p>
-        </article>
-
-        <article class="info-card" data-animate>
-          <div class="info-icon">🧠</div>
-          <h3>تجربة مفهومة</h3>
-          <p>كل صفحة تؤدي غرضًا واحدًا فقط، وهذا يخفف الحيرة ويرفع جودة الاستخدام.</p>
-        </article>
-
-        <article class="info-card" data-animate>
-          <div class="info-icon">🚀</div>
-          <h3>قابل للتوسع</h3>
-          <p>إضافة خدمات جديدة لاحقًا تصبح أسهل لأن الهيكل مبني على صفحات مستقلة.</p>
-        </article>
-      </div>
-    </section>
-
-    <section id="quotes">
-      <div class="section-head" data-animate>
-        <div>
-          <div class="eyebrow">Feedback</div>
-          <h2 class="section-title">تقييمات أولية وانطباع أقرب لمنتج جاهز</h2>
-        </div>
-      </div>
-
-      <div class="quote-grid">
-        <article class="quote-card" data-animate>
-          <strong>واجهة أوضح بكثير</strong>
-          <p>“الآن فهمت فورًا ما الذي يقدمه الموقع وأين أبدأ.”</p>
-        </article>
-
-        <article class="quote-card" data-animate>
-          <strong>تقسيم احترافي</strong>
-          <p>“وجود صفحة مستقلة لكل خدمة جعل التجربة أقرب لمنتج كبير وليس Prototype.”</p>
-        </article>
-
-        <article class="quote-card" data-animate>
-          <strong>ToneForge™ مميز</strong>
-          <p>“ميزة أنماط الصوت تعطي شخصية واضحة للمنتج وتفتح باب تميز فعلي.”</p>
-        </article>
-      </div>
-    </section>
-
-    <footer data-animate>
-      مُلهم ساوند • تجربة عربية حديثة لتحويل الصوت إلى نتائج ذكية واضحة •
-      <a href="studio/index.html" style="color:inherit;">ادخل إلى الاستوديو</a>
-    </footer>
+  </div>
   </div>
 
   <script>
@@ -773,7 +546,7 @@
     function initReveal() {
       const nodes = Array.from(document.querySelectorAll("[data-animate]"));
       nodes.forEach((node, index) => {
-        node.style.transitionDelay = `${Math.min(index * 45, 240)}ms`;
+        node.style.transitionDelay = `${Math.min(index * 45, 220)}ms`;
       });
 
       if (!("IntersectionObserver" in window)) {
@@ -802,3 +575,4 @@
   </script>
 </body>
 </html>
+
