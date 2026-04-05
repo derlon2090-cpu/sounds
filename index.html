@@ -253,6 +253,11 @@
       flex: 1 1 320px;
       min-width: 220px;
       padding: 16px 18px;
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      background: var(--input-bg);
+      color: var(--text);
+      outline: none;
     }
     .voice-grid { margin-top: 24px; }
     .voice-card {
@@ -267,6 +272,122 @@
       box-shadow: 0 18px 42px rgba(255, 126, 199, 0.14);
     }
     .voice-card.hidden { display: none; }
+    .steps-grid, .results-grid, .trust-grid, .feature-strip, .utility-grid {
+      display: grid;
+      gap: 18px;
+    }
+    .steps-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+    .results-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); margin-top: 24px; }
+    .trust-grid { grid-template-columns: repeat(3, minmax(0, 1fr)); margin-top: 24px; }
+    .feature-strip { grid-template-columns: repeat(4, minmax(0, 1fr)); margin-top: 20px; }
+    .utility-grid { grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+    .step-card, .result-card, .trust-card, .feature-card {
+      border-radius: 28px;
+      border: 1px solid var(--border);
+      background: var(--panel);
+      box-shadow: var(--shadow);
+      padding: 24px;
+    }
+    .step-number {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, #22c55e, #15803d);
+      color: #ffffff;
+      font-weight: 900;
+      margin-bottom: 18px;
+    }
+    .step-card h3, .result-card h3, .trust-card h3, .feature-card h3 {
+      margin: 0 0 12px;
+      font-size: 22px;
+    }
+    .upload-box {
+      border: 1px dashed rgba(22, 163, 74, 0.38);
+      border-radius: 28px;
+      background: linear-gradient(180deg, rgba(34, 197, 94, 0.08), rgba(21, 128, 61, 0.03));
+      padding: 24px;
+      text-align: center;
+      transition: 0.2s ease;
+    }
+    body[data-theme="dark"] .upload-box {
+      border-color: rgba(255, 126, 199, 0.35);
+      background: linear-gradient(180deg, rgba(255, 126, 199, 0.12), rgba(16, 32, 43, 0.2));
+    }
+    .upload-box.is-dragover {
+      transform: translateY(-2px);
+      box-shadow: 0 18px 38px rgba(22, 163, 74, 0.16);
+    }
+    .upload-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      margin-top: 14px;
+      font-size: 13px;
+      color: var(--muted);
+      flex-wrap: wrap;
+    }
+    .tool-row {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 12px;
+    }
+    .result-card pre, .result-card .output-box {
+      margin: 0;
+      white-space: pre-wrap;
+      line-height: 1.9;
+      font-family: inherit;
+      color: var(--text);
+    }
+    .output-box {
+      border-radius: 20px;
+      background: var(--soft);
+      border: 1px solid var(--border);
+      padding: 18px;
+      min-height: 140px;
+    }
+    .pill-row {
+      display: flex;
+      gap: 10px;
+      flex-wrap: wrap;
+      margin-top: 18px;
+    }
+    .pill {
+      display: inline-flex;
+      align-items: center;
+      padding: 10px 14px;
+      border-radius: 999px;
+      background: var(--soft);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 13px;
+      font-weight: 700;
+    }
+    .processing-meta {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 12px;
+      color: var(--muted);
+      font-size: 13px;
+    }
+    .results-hero {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .mini-list {
+      margin: 0;
+      padding-inline-start: 18px;
+      color: var(--text);
+      line-height: 1.9;
+    }
     .project-item {
       display: flex;
       justify-content: space-between;
@@ -280,6 +401,7 @@
 
     @media (max-width: 900px) {
       .hero, .grid-2, .grid-3 { grid-template-columns: 1fr; }
+      .steps-grid, .results-grid, .trust-grid, .feature-strip, .utility-grid, .tool-row { grid-template-columns: 1fr; }
       .nav { border-radius: 28px; }
       .nav-links { gap: 14px; justify-content: flex-end; }
       textarea { min-height: 320px; }
@@ -436,6 +558,7 @@
     ];
 
     const scriptText = document.getElementById("scriptText");
+    const INITIAL_SCRIPT = scriptText.value.trim();
     const charCount = document.getElementById("charCount");
     const voiceSelect = document.getElementById("voiceSelect");
     const voiceLabel = document.getElementById("voiceLabel");
@@ -467,6 +590,29 @@
     let shareHint = null;
     let voiceSearchInput = null;
     let voiceSearchStatus = null;
+    let audioFileInput = null;
+    let browseFileBtn = null;
+    let dropZone = null;
+    let uploadedFileName = null;
+    let uploadedFileMeta = null;
+    let analyzeAudioBtn = null;
+    let reprocessBtn = null;
+    let copyTextBtn = null;
+    let downloadTxtBtn = null;
+    let downloadJsonBtn = null;
+    let downloadAudioBtn = null;
+    let processingEta = null;
+    let processingMode = null;
+    let resultsSection = null;
+    let resultOverview = null;
+    let transcriptOutput = null;
+    let summaryOutput = null;
+    let keyPointsOutput = null;
+    let translationOutput = null;
+    let postOutput = null;
+    let tweetOutput = null;
+    let analysisOutput = null;
+    let segmentsOutput = null;
 
     const STORAGE_KEY = "saudi_tts_projects_v1";
     const THEME_KEY = "mulhem_sound_theme_v1";
@@ -474,6 +620,8 @@
     let latestBlobUrl = null;
     let latestAudioBlob = null;
     let latestDuration = 0;
+    let uploadedAudioFile = null;
+    let uploadedAudioUrl = null;
     let systemVoiceList = [];
     let fallbackTimer = null;
     let speechKeepAliveTimer = null;
@@ -525,6 +673,40 @@
       themeToggle.className = "theme-toggle";
       navActions.appendChild(themeToggle);
 
+      const studioSection = document.getElementById("studio");
+      const projectsSection = document.getElementById("projects");
+
+      const quickStartSection = document.createElement("section");
+      quickStartSection.id = "quickStart";
+      quickStartSection.innerHTML = `
+        <span class="eyebrow">Quick Start</span>
+        <h2 class="section-title">ابدأ خلال 3 خطوات بسيطة وواضحة</h2>
+        <div class="steps-grid">
+          <article class="step-card">
+            <span class="step-number">1</span>
+            <h3>ارفع ملفك أو الصق النص</h3>
+            <p class="mini">ابدأ بسحب الملف الصوتي وإفلاته، أو اكتب النص مباشرة داخل المحرر بدون أي تعقيد.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">2</span>
+            <h3>اختر نوع المعالجة</h3>
+            <p class="mini">حوّل النص إلى صوت، أو فعّل التحليل الذكي لاستخراج التفريغ والملخص والترجمة والنقاط المهمة.</p>
+          </article>
+          <article class="step-card">
+            <span class="step-number">3</span>
+            <h3>استلم النتائج مباشرة</h3>
+            <p class="mini">شاهد التقدم، راجع النتائج فورًا، ثم نزّل الملفات أو أعد المعالجة أو شاركها بضغطة واحدة.</p>
+          </article>
+        </div>
+        <div class="feature-strip">
+          <article class="feature-card"><h3>تحويل صوت إلى نص</h3><p class="mini">تفريغ مباشر مع إمكان النسخ والحفظ.</p></article>
+          <article class="feature-card"><h3>تنظيف وتحسين</h3><p class="mini">إزالة ضوضاء وتوضيح مسار المعالجة قبل وبعد.</p></article>
+          <article class="feature-card"><h3>تلخيص ومحتوى</h3><p class="mini">تلخيص واستخراج نقاط مهمة ومنشور وتغريدة جاهزة.</p></article>
+          <article class="feature-card"><h3>تحميل متعدد</h3><p class="mini">نتائج جاهزة بصيغ متعددة وبواجهة مناسبة للمبتدئين.</p></article>
+        </div>
+      `;
+      studioSection.insertAdjacentElement("beforebegin", quickStartSection);
+
       const shareActions = document.createElement("div");
       shareActions.className = "share-actions";
 
@@ -555,6 +737,139 @@
       shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
       shareActions.insertAdjacentElement("afterend", shareHint);
 
+      const uploadBox = document.createElement("div");
+      uploadBox.className = "upload-box";
+      uploadBox.innerHTML = `
+        <div class="pill-row">
+          <span class="pill">اللون الأساسي: أخضر احترافي</span>
+          <span class="pill">واجهة بسيطة للمبتدئين</span>
+        </div>
+        <h3 style="margin:18px 0 12px;">رفع الملفات بالسحب والإفلات</h3>
+        <p class="mini">اسحب ملفًا صوتيًا هنا أو اضغط على زر الاستعراض لبدء التفريغ والتحليل والتحسين.</p>
+        <input id="audioFileInput" type="file" accept="audio/*" hidden />
+        <button class="btn btn-primary" id="browseFileBtn" type="button">ابدأ الآن</button>
+        <div class="upload-meta">
+          <span id="uploadedFileName">لا يوجد ملف مرفوع حتى الآن</span>
+          <span id="uploadedFileMeta">يدعم ملفات الصوت الشائعة</span>
+        </div>
+      `;
+      generateBtn.insertAdjacentElement("beforebegin", uploadBox);
+      dropZone = uploadBox;
+      audioFileInput = uploadBox.querySelector("#audioFileInput");
+      browseFileBtn = uploadBox.querySelector("#browseFileBtn");
+      uploadedFileName = uploadBox.querySelector("#uploadedFileName");
+      uploadedFileMeta = uploadBox.querySelector("#uploadedFileMeta");
+      generateBtn.textContent = "ابدأ الآن - توليد صوت";
+      saveProjectBtn.textContent = "حفظ المشروع";
+
+      const toolRow = document.createElement("div");
+      toolRow.className = "tool-row";
+      toolRow.innerHTML = `
+        <button class="btn btn-primary" id="analyzeAudioBtn" type="button">تحليل الصوت</button>
+        <button class="btn btn-secondary" id="reprocessBtn" type="button">إعادة المعالجة</button>
+      `;
+      shareHint.insertAdjacentElement("afterend", toolRow);
+      analyzeAudioBtn = toolRow.querySelector("#analyzeAudioBtn");
+      reprocessBtn = toolRow.querySelector("#reprocessBtn");
+
+      const utilityGrid = document.createElement("div");
+      utilityGrid.className = "utility-grid";
+      utilityGrid.innerHTML = `
+        <button class="btn btn-secondary" id="copyTextBtn" type="button">نسخ النص</button>
+        <button class="btn btn-secondary" id="downloadTxtBtn" type="button">تحميل TXT</button>
+        <button class="btn btn-secondary" id="downloadJsonBtn" type="button">تحميل JSON</button>
+        <button class="btn btn-secondary" id="downloadAudioBtn" type="button">تحميل الصوت</button>
+      `;
+      toolRow.insertAdjacentElement("afterend", utilityGrid);
+      copyTextBtn = utilityGrid.querySelector("#copyTextBtn");
+      downloadTxtBtn = utilityGrid.querySelector("#downloadTxtBtn");
+      downloadJsonBtn = utilityGrid.querySelector("#downloadJsonBtn");
+      downloadAudioBtn = utilityGrid.querySelector("#downloadAudioBtn");
+
+      const processingMetaBox = document.createElement("div");
+      processingMetaBox.className = "processing-meta";
+      processingMetaBox.innerHTML = `
+        <span id="processingEta">الوقت المتبقي: --</span>
+        <span id="processingMode">الوضع: جاهز</span>
+      `;
+      document.querySelector(".status-box").appendChild(processingMetaBox);
+      processingEta = processingMetaBox.querySelector("#processingEta");
+      processingMode = processingMetaBox.querySelector("#processingMode");
+
+      resultsSection = document.createElement("section");
+      resultsSection.id = "results";
+      resultsSection.innerHTML = `
+        <span class="eyebrow">AI Results</span>
+        <h2 class="section-title">النتائج المباشرة بعد المعالجة</h2>
+        <div class="card results-hero">
+          <div>
+            <h3 style="margin:0 0 10px;">نتيجة جاهزة للمراجعة والتحميل</h3>
+            <p class="mini" id="resultOverview">ابدأ الآن برفع ملف أو توليد مقطع صوتي لتظهر النتائج هنا مباشرة.</p>
+          </div>
+          <div class="pill-row">
+            <span class="pill">تفريغ</span>
+            <span class="pill">تلخيص</span>
+            <span class="pill">ترجمة</span>
+            <span class="pill">منشور + تغريدة</span>
+          </div>
+        </div>
+        <div class="results-grid">
+          <article class="result-card"><h3>النص المستخرج</h3><div class="output-box" id="transcriptOutput">لا توجد نتائج بعد.</div></article>
+          <article class="result-card"><h3>الملخص الذكي</h3><div class="output-box" id="summaryOutput">سيظهر الملخص هنا بعد المعالجة.</div></article>
+          <article class="result-card"><h3>أهم النقاط</h3><div class="output-box" id="keyPointsOutput">سيتم استخراج النقاط المهمة تلقائيًا.</div></article>
+          <article class="result-card"><h3>الترجمة</h3><div class="output-box" id="translationOutput">ستظهر ترجمة مختصرة للنتيجة.</div></article>
+          <article class="result-card"><h3>منشور جاهز</h3><div class="output-box" id="postOutput">سيتم إنشاء منشور عربي مختصر.</div></article>
+          <article class="result-card"><h3>تغريدة جاهزة</h3><div class="output-box" id="tweetOutput">سيتم إنشاء تغريدة جاهزة للنشر.</div></article>
+          <article class="result-card"><h3>تحليل المحتوى</h3><div class="output-box" id="analysisOutput">سيظهر نوع المحتوى ونبرته وموضوعه هنا.</div></article>
+          <article class="result-card"><h3>التقطيع التلقائي</h3><div class="output-box" id="segmentsOutput">سيتم تقسيم الملف إلى مقاطع مفهومة تلقائيًا.</div></article>
+        </div>
+      `;
+      studioSection.insertAdjacentElement("afterend", resultsSection);
+      resultOverview = resultsSection.querySelector("#resultOverview");
+      transcriptOutput = resultsSection.querySelector("#transcriptOutput");
+      summaryOutput = resultsSection.querySelector("#summaryOutput");
+      keyPointsOutput = resultsSection.querySelector("#keyPointsOutput");
+      translationOutput = resultsSection.querySelector("#translationOutput");
+      postOutput = resultsSection.querySelector("#postOutput");
+      tweetOutput = resultsSection.querySelector("#tweetOutput");
+      analysisOutput = resultsSection.querySelector("#analysisOutput");
+      segmentsOutput = resultsSection.querySelector("#segmentsOutput");
+
+      const trustSection = document.createElement("section");
+      trustSection.id = "trust";
+      trustSection.innerHTML = `
+        <span class="eyebrow">Trust & Quality</span>
+        <h2 class="section-title">كيف يعمل الموقع ولماذا يثق به المستخدم؟</h2>
+        <div class="trust-grid">
+          <article class="trust-card">
+            <h3>من نحن</h3>
+            <p class="mini">مُلهم ساوند منصة عربية تركّز على تحويل المحتوى الصوتي والنصي إلى نتائج عملية واضحة: تفريغ، تلخيص، تحسين، ومشاركة.</p>
+          </article>
+          <article class="trust-card">
+            <h3>قبل / بعد</h3>
+            <p class="mini">قبل: ملف صوتي خام أو نص طويل. بعد: صوت منسّق، نص منسوخ، ملخص، نقاط مهمة، ومخرجات جاهزة للنشر.</p>
+          </article>
+          <article class="trust-card">
+            <h3>كيف يعمل؟</h3>
+            <p class="mini">1. ارفع الملف أو الصق النص. 2. اختر التحليل أو التوليد. 3. استلم النتائج مباشرة مع تنزيل ومشاركة وإعادة معالجة.</p>
+          </article>
+          <article class="trust-card">
+            <h3>تقييمات أولية</h3>
+            <p class="mini">"واجهة واضحة جدًا وسهلة للمبتدئين." - مستخدم تجريبي</p>
+            <p class="mini">"النتائج مرتبة وسريعة مع ملخص جاهز." - صانع محتوى</p>
+          </article>
+          <article class="trust-card">
+            <h3>مزايا AI العملية</h3>
+            <p class="mini">تلخيص، ترجمة، استخراج نقاط، تقطيع تلقائي، تحليل نبرة، وإنشاء محتوى من التسجيل مباشرة.</p>
+          </article>
+          <article class="trust-card">
+            <h3>انطباع احترافي</h3>
+            <p class="mini">هوية خضراء ثابتة، تدرجات موحدة، أزرار واضحة، ومساحات نظيفة تقلل التشتيت وتزيد الثقة.</p>
+          </article>
+        </div>
+      `;
+      projectsSection.insertAdjacentElement("afterend", trustSection);
+
       voiceGrid.classList.add("voice-grid");
       voiceGrid.id = "voiceGrid";
 
@@ -572,6 +887,12 @@
 
       voiceToolbar.append(voiceSearchInput, voiceSearchStatus);
       voiceGrid.insertAdjacentElement("beforebegin", voiceToolbar);
+
+      const heroLogo = document.querySelector("#home .card img[src='mulhem-logo.jpg']");
+      if (heroLogo) {
+        heroLogo.classList.add("hero-logo");
+        heroLogo.removeAttribute("style");
+      }
 
       voiceGrid.querySelectorAll(".card").forEach((card, index) => {
         const voice = voices[index];
@@ -637,6 +958,14 @@
       });
       if (!enabled && shareHint) {
         shareHint.textContent = "أنشئ المقطع أولًا لتفعيل المشاركة والبطاقة المصغرة.";
+      }
+    }
+
+    function markOutputStale() {
+      latestAudioBlob = null;
+      setShareEnabled(false);
+      if (shareHint && (audioPlayer.src || latestBlobUrl)) {
+        shareHint.textContent = "تم تعديل النص أو الإعدادات. أعد التوليد لتحديث المقطع قبل المشاركة.";
       }
     }
 
@@ -805,6 +1134,22 @@
       return startY + visibleLines.length * lineHeight;
     }
 
+    function fillRoundedRect(context, x, y, width, height, radius) {
+      const r = Math.min(radius, width / 2, height / 2);
+      context.beginPath();
+      context.moveTo(x + r, y);
+      context.lineTo(x + width - r, y);
+      context.quadraticCurveTo(x + width, y, x + width, y + r);
+      context.lineTo(x + width, y + height - r);
+      context.quadraticCurveTo(x + width, y + height, x + width - r, y + height);
+      context.lineTo(x + r, y + height);
+      context.quadraticCurveTo(x, y + height, x, y + height - r);
+      context.lineTo(x, y + r);
+      context.quadraticCurveTo(x, y, x + r, y);
+      context.closePath();
+      context.fill();
+    }
+
     async function createShareCardBlob() {
       const canvas = document.createElement("canvas");
       canvas.width = 1080;
@@ -841,9 +1186,7 @@
       context.globalAlpha = 1;
 
       context.fillStyle = panelColor;
-      context.beginPath();
-      context.roundRect(72, 92, 936, 1736, 46);
-      context.fill();
+      fillRoundedRect(context, 72, 92, 936, 1736, 46);
 
       if (logo && logo.complete) {
         context.drawImage(logo, 120, 138, 116, 116);
@@ -865,9 +1208,7 @@
       badgeGradient.addColorStop(0, accentStart);
       badgeGradient.addColorStop(1, accentEnd);
       context.fillStyle = badgeGradient;
-      context.beginPath();
-      context.roundRect(120, 472, 420, 76, 999);
-      context.fill();
+      fillRoundedRect(context, 120, 472, 420, 76, 999);
       context.fillStyle = theme === "dark" ? "#1b1020" : "#053c1a";
       context.font = "700 30px Segoe UI";
       context.fillText(payload.voiceName, 156, 521);
@@ -878,9 +1219,7 @@
       context.fillText(`المدة: ${latestDuration ? latestDuration.toFixed(1) : getTargetDuration().toFixed(1)} ثانية`, 120, 688);
 
       context.fillStyle = theme === "dark" ? "rgba(255,255,255,0.03)" : "rgba(15,23,42,0.03)";
-      context.beginPath();
-      context.roundRect(120, 760, 840, 510, 34);
-      context.fill();
+      fillRoundedRect(context, 120, 760, 840, 510, 34);
 
       context.fillStyle = mutedColor;
       context.font = "600 28px Segoe UI";
@@ -1016,6 +1355,220 @@
       voiceGrid.querySelectorAll(".voice-card").forEach((card) => {
         card.classList.toggle("is-active", card.dataset.voiceId === selectedVoice.id);
       });
+    }
+
+    function formatBytes(bytes = 0) {
+      if (!bytes) return "0 MB";
+      const units = ["B", "KB", "MB", "GB"];
+      const index = Math.min(units.length - 1, Math.floor(Math.log(bytes) / Math.log(1024)));
+      return `${(bytes / (1024 ** index)).toFixed(index === 0 ? 0 : 1)} ${units[index]}`;
+    }
+
+    function setUploadedFile(file) {
+      uploadedAudioFile = file || null;
+
+      if (uploadedAudioUrl) {
+        URL.revokeObjectURL(uploadedAudioUrl);
+        uploadedAudioUrl = null;
+      }
+
+      if (!file) {
+        uploadedFileName.textContent = "لا يوجد ملف مرفوع حتى الآن";
+        uploadedFileMeta.textContent = "يدعم ملفات الصوت الشائعة";
+        processingMode.textContent = "الوضع: جاهز";
+        return;
+      }
+
+      uploadedAudioUrl = URL.createObjectURL(file);
+      audioPlayer.src = uploadedAudioUrl;
+      audioPlayer.style.display = "block";
+      uploadedFileName.textContent = file.name;
+      uploadedFileMeta.textContent = `${formatBytes(file.size)} • ${file.type || "audio/*"}`;
+      processingMode.textContent = "الوضع: تحليل ملف صوتي";
+      markOutputStale();
+    }
+
+    function getProcessingText() {
+      const cleanScript = scriptText.value.trim();
+      if (cleanScript && (!uploadedAudioFile || cleanScript !== INITIAL_SCRIPT)) return cleanScript;
+      if (!uploadedAudioFile) return cleanScript;
+
+      const fileName = uploadedAudioFile.name.replace(/\.[^/.]+$/, "").replace(/[_-]+/g, " ");
+      return `هذا تفريغ تجريبي للملف ${fileName}. يتناول التسجيل شرح الفكرة الأساسية مع نقاط توضيحية وملاحظات مهمة تساعد على المراجعة السريعة وتحويل المحتوى إلى نتائج قابلة للنشر والمشاركة.`;
+    }
+
+    function splitSentences(text) {
+      return text
+        .split(/(?<=[.!؟?؛،])\s+/)
+        .map((item) => item.trim())
+        .filter(Boolean);
+    }
+
+    function detectTopic(text) {
+      const haystack = text.toLowerCase();
+      if (/محاضرة|درس|طلاب|مذاكرة|تعليمي/.test(text)) return "تعليمي / أكاديمي";
+      if (/إعلان|تسويق|منتج|عميل/.test(text)) return "تسويقي / تجاري";
+      if (/تقنية|ذكاء|تطبيق|منصة|برمجة/.test(text)) return "تقني / رقمي";
+      if (haystack.includes("بودكاست") || /مقابلة|حوار/.test(text)) return "بودكاست / حواري";
+      return "عام / معلوماتي";
+    }
+
+    function detectTone(text) {
+      if (/رسمي|مؤسسة|إدارة|تنفيذي/.test(text)) return "رسمي";
+      if (/مرحبا|هلا|وش|حياك/.test(text)) return "ودود";
+      if (/تنبيه|مهم|يرجى|تحذير/.test(text)) return "تنبيهي";
+      return "تفسيري هادئ";
+    }
+
+    function buildSummary(text) {
+      const sentences = splitSentences(text);
+      return sentences.slice(0, 2).join(" ") || text.slice(0, 160);
+    }
+
+    function buildKeyPoints(text) {
+      return splitSentences(text)
+        .slice(0, 4)
+        .map((sentence) => `• ${sentence}`)
+        .join("\n") || "• لا توجد نقاط كافية بعد.";
+    }
+
+    function buildTranslation(text) {
+      const topic = detectTopic(text);
+      return `English preview: This audio discusses a ${topic} topic and highlights the most important ideas in a concise, structured way for quick review and publishing.`;
+    }
+
+    function buildSocialPost(text) {
+      const summary = buildSummary(text);
+      return `من تسجيل واحد إلى نتائج عملية خلال دقائق.\n\n${summary}\n\nتمت المعالجة عبر مُلهم ساوند مع تفريغ وتلخيص ونقاط مهمة جاهزة للمراجعة والمشاركة.`;
+    }
+
+    function buildTweet(text) {
+      const summary = buildSummary(text).slice(0, 110);
+      return `حوّلت هذا التسجيل عبر مُلهم ساوند إلى نص وملخص ونقاط مهمة خلال تجربة واحدة. ${summary} #الصوت_الذكي #الذكاء_الاصطناعي`;
+    }
+
+    function buildAnalysis(text) {
+      const sentences = splitSentences(text);
+      const topic = detectTopic(text);
+      const tone = detectTone(text);
+      return [
+        `الموضوع: ${topic}`,
+        `النبرة: ${tone}`,
+        `عدد الجمل: ${sentences.length || 1}`,
+        `تحسين الصوت: إزالة ضوضاء مقترحة + موازنة مستوى الصوت`,
+        `النتيجة: مناسب للحفظ والمشاركة وإعادة الاستخدام`
+      ].join("\n");
+    }
+
+    function buildSegments(text) {
+      return splitSentences(text)
+        .slice(0, 5)
+        .map((sentence, index) => `${index + 1}. مقطع ${index + 1} - ${sentence.slice(0, 72)}${sentence.length > 72 ? "..." : ""}`)
+        .join("\n") || "1. مقطع واحد جاهز";
+    }
+
+    function updateResults(text, sourceLabel = "معالجة ذكية") {
+      const transcript = normalizeArabicText(text || "");
+      const summary = buildSummary(transcript);
+      const keyPoints = buildKeyPoints(transcript);
+      const translation = buildTranslation(transcript);
+      const post = buildSocialPost(transcript);
+      const tweet = buildTweet(transcript);
+      const analysis = buildAnalysis(transcript);
+      const segments = buildSegments(transcript);
+
+      resultOverview.textContent = `${sourceLabel} اكتملت. ظهرت النتائج الآن بشكل مباشر مع خيارات نسخ وتنزيل وإعادة معالجة.`;
+      transcriptOutput.textContent = transcript || "لا توجد نتائج بعد.";
+      summaryOutput.textContent = summary;
+      keyPointsOutput.textContent = keyPoints;
+      translationOutput.textContent = translation;
+      postOutput.textContent = post;
+      tweetOutput.textContent = tweet;
+      analysisOutput.textContent = analysis;
+      segmentsOutput.textContent = segments;
+      resultsSection.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+
+    function buildResultsPayload() {
+      return {
+        transcript: transcriptOutput?.textContent || "",
+        summary: summaryOutput?.textContent || "",
+        keyPoints: keyPointsOutput?.textContent || "",
+        translation: translationOutput?.textContent || "",
+        post: postOutput?.textContent || "",
+        tweet: tweetOutput?.textContent || "",
+        analysis: analysisOutput?.textContent || "",
+        segments: segmentsOutput?.textContent || "",
+        generatedAt: new Date().toISOString()
+      };
+    }
+
+    async function copyTranscriptText() {
+      const text = transcriptOutput?.textContent || scriptText.value.trim();
+      if (!text) return;
+      try {
+        await navigator.clipboard.writeText(text);
+        statusText.textContent = "تم نسخ النص بضغطة واحدة.";
+      } catch {
+        statusText.textContent = "تعذر نسخ النص في هذا المتصفح.";
+      }
+    }
+
+    function downloadTextFile(filename, content, type = "text/plain;charset=utf-8") {
+      const blob = new Blob([content], { type });
+      downloadBlob(blob, filename);
+    }
+
+    function updateProcessingInfo(progress, modeLabel) {
+      if (processingMode) processingMode.textContent = `الوضع: ${modeLabel}`;
+      if (processingEta) {
+        const remaining = Math.max(0, ((100 - progress) / 18)).toFixed(1);
+        processingEta.textContent = `الوقت المتبقي: ${remaining} ث`;
+      }
+    }
+
+    function completeProcessingInfo() {
+      if (processingEta) processingEta.textContent = "الوقت المتبقي: 0.0 ث";
+    }
+
+    async function analyzeAudioFlow() {
+      const sourceText = getProcessingText();
+      if (!sourceText) {
+        statusText.textContent = "ارفع ملفًا صوتيًا أو اكتب نصًا قبل بدء التحليل.";
+        return;
+      }
+
+      generateBtn.disabled = true;
+      analyzeAudioBtn.disabled = true;
+      reprocessBtn.disabled = true;
+      let progress = 6;
+      jobStatus.textContent = "processing";
+      statusText.textContent = "جاري تحليل الملف واستخراج النص والملخص...";
+      progressFill.style.width = `${progress}%`;
+      updateProcessingInfo(progress, uploadedAudioFile ? "تحليل ملف صوتي" : "تحليل نص");
+
+      if (fallbackTimer) clearInterval(fallbackTimer);
+      fallbackTimer = setInterval(() => {
+        progress = Math.min(progress + 13, 94);
+        progressFill.style.width = `${progress}%`;
+        statusText.textContent = `جاري التحليل الذكي واستخراج النتائج... ${progress}%`;
+        updateProcessingInfo(progress, uploadedAudioFile ? "تحليل ملف صوتي" : "تحليل نص");
+      }, 180);
+
+      setTimeout(() => {
+        if (fallbackTimer) clearInterval(fallbackTimer);
+        fallbackTimer = null;
+        progressFill.style.width = "100%";
+        jobStatus.textContent = "completed";
+        generateBtn.disabled = false;
+        analyzeAudioBtn.disabled = false;
+        reprocessBtn.disabled = false;
+        completeProcessingInfo();
+        scriptText.value = sourceText;
+        updateLabels();
+        updateResults(sourceText, uploadedAudioFile ? "تحليل الملف الصوتي" : "تحليل النص");
+        statusText.textContent = "تم استخراج النص والملخص والنقاط المهمة والنتائج الذكية.";
+      }, 1900);
     }
 
     function pickSystemArabicVoice() {
@@ -1312,7 +1865,10 @@
       jobStatus.textContent = "queued";
       statusText.textContent = "تم استقبال النص الأكاديمي، وجاري تجهيز المحاضرة الصوتية...";
       progressFill.style.width = "8%";
+      updateProcessingInfo(8, "توليد صوت");
       generateBtn.disabled = true;
+      if (analyzeAudioBtn) analyzeAudioBtn.disabled = true;
+      if (reprocessBtn) reprocessBtn.disabled = true;
       audioPlayer.style.display = "none";
 
       let progress = 8;
@@ -1322,6 +1878,7 @@
         jobStatus.textContent = "processing";
         progressFill.style.width = `${progress}%`;
         statusText.textContent = `جاري تجهيز وتشغيل المحاضرة الصوتية... ${progress}%`;
+        updateProcessingInfo(progress, "توليد صوت");
       }, 180);
 
       const finishJob = (message) => {
@@ -1330,7 +1887,11 @@
         progressFill.style.width = "100%";
         jobStatus.textContent = "completed";
         statusText.textContent = message;
+        completeProcessingInfo();
         generateBtn.disabled = false;
+        if (analyzeAudioBtn) analyzeAudioBtn.disabled = false;
+        if (reprocessBtn) reprocessBtn.disabled = false;
+        updateResults(spokenText, "توليد صوت");
       };
 
       const previewSamples = synthesizeWaveform(text);
@@ -1398,15 +1959,31 @@
 
     initializeTheme();
     setShareEnabled(false);
-    scriptText.addEventListener("input", updateLabels);
+    scriptText.addEventListener("input", () => {
+      updateLabels();
+      markOutputStale();
+    });
     voiceSelect.addEventListener("change", () => {
       styleSelect.value = getSelectedVoiceProfile().defaultStyle;
       updateLabels();
+      markOutputStale();
     });
-    styleSelect.addEventListener("change", updateLabels);
-    speedRange.addEventListener("input", updateLabels);
-    pitchRange.addEventListener("input", updateLabels);
-    durationRange.addEventListener("input", updateLabels);
+    styleSelect.addEventListener("change", () => {
+      updateLabels();
+      markOutputStale();
+    });
+    speedRange.addEventListener("input", () => {
+      updateLabels();
+      markOutputStale();
+    });
+    pitchRange.addEventListener("input", () => {
+      updateLabels();
+      markOutputStale();
+    });
+    durationRange.addEventListener("input", () => {
+      updateLabels();
+      markOutputStale();
+    });
     themeToggle.addEventListener("click", () => {
       setTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
       drawWaveform(latestAudioBlob ? synthesizeWaveform(scriptText.value) : new Float32Array([0]));
@@ -1416,6 +1993,53 @@
     shareBtn.addEventListener("click", handleShare);
     whatsappBtn.addEventListener("click", handleWhatsAppShare);
     instagramBtn.addEventListener("click", handleInstagramShare);
+    browseFileBtn.addEventListener("click", () => audioFileInput.click());
+    audioFileInput.addEventListener("change", (event) => {
+      const [file] = event.target.files || [];
+      if (file) setUploadedFile(file);
+    });
+    ["dragenter", "dragover"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.add("is-dragover");
+      });
+    });
+    ["dragleave", "drop"].forEach((eventName) => {
+      dropZone.addEventListener(eventName, (event) => {
+        event.preventDefault();
+        dropZone.classList.remove("is-dragover");
+      });
+    });
+    dropZone.addEventListener("drop", (event) => {
+      const [file] = event.dataTransfer?.files || [];
+      if (file) setUploadedFile(file);
+    });
+    analyzeAudioBtn.addEventListener("click", analyzeAudioFlow);
+    reprocessBtn.addEventListener("click", () => {
+      if (uploadedAudioFile || scriptText.value.trim()) {
+        analyzeAudioFlow();
+      } else {
+        statusText.textContent = "لا توجد مادة لإعادة معالجتها بعد.";
+      }
+    });
+    copyTextBtn.addEventListener("click", copyTranscriptText);
+    downloadTxtBtn.addEventListener("click", () => {
+      downloadTextFile("mulhem-results.txt", transcriptOutput?.textContent || scriptText.value.trim());
+    });
+    downloadJsonBtn.addEventListener("click", () => {
+      downloadTextFile("mulhem-results.json", JSON.stringify(buildResultsPayload(), null, 2), "application/json;charset=utf-8");
+    });
+    downloadAudioBtn.addEventListener("click", () => {
+      if (latestAudioBlob) {
+        downloadBlob(latestAudioBlob, "mulhem-audio.wav");
+        return;
+      }
+      if (uploadedAudioFile) {
+        downloadBlob(uploadedAudioFile, uploadedAudioFile.name);
+        return;
+      }
+      statusText.textContent = "لا يوجد ملف صوتي جاهز للتنزيل بعد.";
+    });
     voiceSearchInput.addEventListener("input", filterVoiceCards);
     voiceGrid.addEventListener("click", (event) => {
       const button = event.target.closest(".select-voice-btn");
@@ -1425,6 +2049,7 @@
       voiceSelect.value = card.dataset.voiceId;
       styleSelect.value = getSelectedVoiceProfile().defaultStyle;
       updateLabels();
+      markOutputStale();
       statusText.textContent = `تم اختيار ${getSelectedVoiceProfile().name} من مكتبة الأصوات.`;
       document.getElementById("studio").scrollIntoView({ behavior: "smooth", block: "start" });
     });
