@@ -5,6 +5,7 @@ const FAV_KEY = "mulhem_voxa_favorites_v3";
 const themeToggle = document.getElementById("themeToggle");
 const langAr = document.getElementById("langAr");
 const langEn = document.getElementById("langEn");
+const toTopBtn = document.getElementById("toTopBtn");
 const voiceGrid = document.getElementById("voiceGrid");
 const textInput = document.getElementById("textInput");
 const styleSelect = document.getElementById("styleSelect");
@@ -43,12 +44,12 @@ const copy = {
     hero_tag_1: "أصوات مسمّاة بوضوح",
     hero_tag_2: "بودكاست / إعلان / تعليم",
     hero_tag_3: "أفضل إعداد تلقائيًا",
-    hero_problem_title: "المشكلة القديمة",
-    hero_problem_text: "التجربة كانت تبدو كأنها 4 أصوات عامة فوق بعض المنزلقات، وهذا لا يكفي لإقناع المستخدم بالجودة أو بالدفع.",
-    hero_now_title: "ما تغيّر الآن",
-    hero_now_text: "صارت عندك مكتبة أصوات أوضح: سِراج، لُجين، رَواد، نوف، سامي، أثير، جُمان، وبرق مع وصف واستخدام واستماع.",
-    hero_next_title: "الخطوة التالية",
-    hero_next_text: "الواجهة الآن أقرب لمنتج حقيقي، وبقي ربطها بمحرك TTS فعلي لرفع الجودة من Preview متصفح إلى أصوات إنتاجية.",
+    hero_problem_title: "مكتبة أصوات أوضح",
+    hero_problem_text: "هذه الصفحة تُظهر الأصوات كمنتج فعلي: اسم، وصف، استخدام، ومفضلات بدل إبقائها خيارات عامة غير مقنعة.",
+    hero_now_title: "الاقتراح الذكي",
+    hero_now_text: "صارت المنصة تساعدك على اختيار الصوت والنمط الأنسب للنص بدل تركك مع قائمة أسماء فقط.",
+    hero_next_title: "اتجاه المنتج",
+    hero_next_text: "الخطوة التالية هي رفع جودة المحرك الصوتي نفسه، مع الحفاظ على نفس الوضوح في تجربة الاختيار والاستخدام.",
     library_badge: "المكتبة",
     library_title: "اختر الصوت كمنتج، لا كإعداد تقني فقط",
     library_copy: "كل بطاقة تحمل اسمًا ووصفًا واستخدامًا مناسبًا حتى يبدو الاختيار أقرب لمنصات الصوت الاحترافية.",
@@ -65,11 +66,11 @@ const copy = {
     save_btn: "حفظ كمفضل",
     favorites_title: "المفضلات وآخر الإعدادات",
     favorites_empty: "لا توجد مفضلات بعد.",
-    status_idle: "اختر الصوت أو الإعداد المناسب ثم جرّب المعاينة. هذه النسخة ما تزال تعتمد على أصوات المتصفح المتاحة.",
+    status_idle: "اختر الصوت أو الإعداد المناسب ثم جرّب المعاينة أو احفظ الإعداد ضمن المفضلات.",
     status_suggested: "تم اقتراح الصوت {voice} بناءً على النص الحالي.",
     status_best: "تم تطبيق أفضل إعدادات تلقائيًا حسب نوع النص.",
     status_loaded: "تم اختيار {voice}. يمكنك الآن تعديل السرعة والنبرة أو تشغيل المعاينة.",
-    status_preview: "جارٍ تشغيل معاينة صوتية لـ {voice}. هذه المعاينة تعتمد على SpeechSynthesis داخل المتصفح.",
+    status_preview: "جارٍ تشغيل معاينة صوتية لـ {voice}.",
     status_saved: "تم حفظ {voice} ضمن المفضلات.",
     status_restore: "تمت استعادة {voice} من المفضلات.",
     status_error: "المتصفح الحالي لا يدعم SpeechSynthesis.",
@@ -94,12 +95,12 @@ const copy = {
     hero_tag_1: "Clearly named voices",
     hero_tag_2: "Podcast / Ad / Education",
     hero_tag_3: "Auto best settings",
-    hero_problem_title: "The old problem",
-    hero_problem_text: "The experience looked like four generic voices placed above a few sliders, which was not enough to build trust or justify payment.",
-    hero_now_title: "What changed now",
-    hero_now_text: "You now have a clearer voice library: Siraj, Lujain, Ruwad, Nouf, Sami, Atheer, Juman, and Barq with use-cases and previews.",
-    hero_next_title: "What comes next",
-    hero_next_text: "The interface now feels closer to a real product, while the next step is connecting it to a real TTS engine for production-grade output.",
+    hero_problem_title: "A clearer voice shelf",
+    hero_problem_text: "This page now presents voices like real product options: a name, a use-case, a description, and a way to save favorites.",
+    hero_now_title: "Smart guidance",
+    hero_now_text: "The platform now helps suggest a voice and a preset based on the content instead of leaving the user with names only.",
+    hero_next_title: "Product direction",
+    hero_next_text: "The next step is improving the engine quality itself while keeping the current clarity of the selection flow.",
     library_badge: "Library",
     library_title: "Choose a voice like a product, not just a technical setting",
     library_copy: "Each card carries a name, description, and a practical use-case so the choice feels closer to premium audio platforms.",
@@ -116,11 +117,11 @@ const copy = {
     save_btn: "Save Favorite",
     favorites_title: "Favorites And Recent Settings",
     favorites_empty: "No favorites saved yet.",
-    status_idle: "Choose a voice or preset, then preview it. This demo still depends on browser speech support.",
+    status_idle: "Choose a voice or preset, then preview it or save it to favorites.",
     status_suggested: "Suggested {voice} based on the current text.",
     status_best: "Applied the best automatic settings based on the content.",
     status_loaded: "Selected {voice}. You can now adjust speed, pitch, or play a preview.",
-    status_preview: "Playing a preview for {voice}. This sample currently relies on browser speech synthesis.",
+    status_preview: "Playing a preview for {voice}.",
     status_saved: "Saved {voice} to favorites.",
     status_restore: "Restored {voice} from favorites.",
     status_error: "This browser does not support SpeechSynthesis.",
@@ -437,9 +438,16 @@ function previewVoice(voiceId = currentVoiceId) {
 
   const utterance = new SpeechSynthesisUtterance(text);
   utterance.lang = currentLang === "ar" ? "ar-SA" : "en-US";
-  utterance.rate = Number(speed.value);
-  utterance.pitch = Math.max(0.5, Math.min(1.8, 1 + Number(pitch.value) * 0.08));
-  const matchedVoice = preferredSpeechVoice(currentLang === "ar" ? "ar" : "en");
+  const useDefaults = voiceId !== currentVoiceId;
+  utterance.rate = useDefaults ? voice.rate : Number(speed.value);
+  utterance.pitch = useDefaults
+    ? Math.max(0.5, Math.min(1.8, 1 + Number(voice.pitch) * 0.08))
+    : Math.max(0.5, Math.min(1.8, 1 + Number(pitch.value) * 0.08));
+  const available = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
+  const filtered = available.filter((item) => item.lang.toLowerCase().startsWith(currentLang === "ar" ? "ar" : "en"));
+  const fallback = preferredSpeechVoice(currentLang === "ar" ? "ar" : "en");
+  const voiceIndex = Math.max(0, voices.findIndex((item) => item.id === voice.id));
+  const matchedVoice = filtered.length ? filtered[voiceIndex % filtered.length] : fallback;
   if (matchedVoice) utterance.voice = matchedVoice;
 
   window.speechSynthesis.cancel();
@@ -596,6 +604,14 @@ favoriteList.addEventListener("click", (event) => {
   const button = event.target.closest("[data-fav]");
   if (!button) return;
   restoreFavorite(Number(button.dataset.fav));
+});
+
+window.addEventListener("scroll", () => {
+  toTopBtn.classList.toggle("visible", window.scrollY > 320);
+});
+
+toTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
 document.querySelectorAll("[data-animate]").forEach((node, index) => {

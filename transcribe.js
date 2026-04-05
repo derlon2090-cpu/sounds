@@ -56,6 +56,7 @@ const ui = {
   tabs: all(".tab"),
   panels: all(".panel")
 };
+const toTopBtn = $("toTopBtn");
 
 const staticNodes = {
   navHome: d.querySelector(".nav-links a:nth-child(1)"),
@@ -392,6 +393,14 @@ ui.historyGrid.addEventListener("click", (event) => { const button = event.targe
 ["dragenter", "dragover"].forEach((eventName) => ui.drop.addEventListener(eventName, (event) => { event.preventDefault(); ui.drop.classList.add("dragging"); }));
 ["dragleave", "drop"].forEach((eventName) => ui.drop.addEventListener(eventName, (event) => { event.preventDefault(); ui.drop.classList.remove("dragging"); }));
 ui.drop.addEventListener("drop", (event) => setFiles(event.dataTransfer.files));
+
+window.addEventListener("scroll", () => {
+  toTopBtn.classList.toggle("visible", window.scrollY > 320);
+});
+
+toTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
 applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"));
 applyLanguage(currentLang);

@@ -419,6 +419,11 @@
       background: rgba(14, 26, 35, 0.88);
     }
 
+    .footer{margin:18px 0 24px;padding:22px;border-radius:30px;border:1px solid var(--border);background:var(--panel);backdrop-filter:blur(20px);box-shadow:var(--shadow);display:grid;gap:14px}
+    .footer-links{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+    .footer-note{color:var(--muted);line-height:1.85}
+    .to-top{position:fixed;left:18px;bottom:22px;width:58px;height:58px;border:0;border-radius:18px;display:grid;place-items:center;font-size:24px;color:#fff;background:linear-gradient(135deg,var(--brand-2),var(--brand-3));box-shadow:0 18px 36px rgba(22,163,74,.28);cursor:pointer;opacity:0;pointer-events:none;transform:translateY(14px);transition:opacity .22s ease,transform .22s ease;z-index:30}
+    .to-top.visible{opacity:1;pointer-events:auto;transform:translateY(0)}
     [data-animate] {
       opacity: 0;
       transform: translateY(24px);
@@ -442,10 +447,10 @@
 <body>
   <div class="container">
     <header class="nav glass" data-animate>
-      <div class="brand">
+      <a class="brand" href="index.html" aria-label="Mulhem Sound Home">
         <img class="logo" src="mulhem-logo.jpg" alt="Mulhem Sound Logo" />
         <div class="brand-title">مُلهم ساوند</div>
-      </div>
+      </a>
 
       <nav class="nav-links">
         <a href="index.html" data-i18n="nav_home">الرئيسية</a>
@@ -565,7 +570,19 @@
       </div>
     </section>
 
+    <footer class="footer" data-animate>
+      <div class="footer-links">
+        <a href="index.html">الرئيسية</a>
+        <a href="about.html">من نحن</a>
+        <a href="offerings.html">ماذا نقدم</a>
+        <a href="contact.html">تواصل معنا</a>
+        <a href="faq.html">الأسئلة الشائعة</a>
+      </div>
+      <div class="footer-note">Voxa يقود تجربة النص إلى صوت داخل مُلهم ساوند، بينما تبني الصفحات التعريفية الثقة وتشرح المنتج بصورة أوضح.</div>
+    </footer>
+
     <script src="voxa.js"></script>
   </div>
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Scroll To Top">↑</button>
 </body>
 </html>

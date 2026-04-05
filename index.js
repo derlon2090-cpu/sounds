@@ -11,8 +11,10 @@ const heroStatus = document.getElementById("heroStatus");
 const servicesGrid = document.getElementById("servicesGrid");
 const voicesGrid = document.getElementById("voicesGrid");
 const usesGrid = document.getElementById("usesGrid");
+const infoGrid = document.getElementById("infoGrid");
 const trustGrid = document.getElementById("trustGrid");
 const faqGrid = document.getElementById("faqGrid");
+const toTopBtn = document.getElementById("toTopBtn");
 
 let currentLang = "ar";
 
@@ -38,27 +40,36 @@ const copy = {
     stat_three: "متوسط تجهيز النتيجة",
     demo_badge: "تجربة مباشرة",
     demo_title: "جرّب عينة صوتية من الصفحة نفسها",
-    demo_lead: "اكتب سطرًا قصيرًا، اختر صوتًا، واستمع إلى معاينة فورية. المعاينة الحالية تعتمد على أصوات المتصفح المتاحة، لكنها توضّح تدفّق المنتج داخل المنصة.",
+    demo_lead: "اكتب سطرًا قصيرًا، اختر صوتًا مناسبًا، واستمع إلى معاينة فورية توضّح كيف تبدأ تجربة النص إلى صوت داخل المنصة.",
     demo_voice_label: "الصوت المقترح",
     demo_preview: "استمع الآن",
     demo_cta: "افتح Voxa",
-    demo_status: "المعاينة الحالية توضّح شكل المنتج، بينما الصوت الفعلي سيصبح أقوى كلما تطورت مكتبة الأصوات الداخلية.",
+    demo_status: "جرّب العينة السريعة هنا، ثم افتح Voxa لاختيار الصوت والنمط وحفظ الإعدادات داخل تجربة أوضح.",
     demo_text: "مرحبًا بكم في مُلهم ساوند. هنا نساعدك على تحويل الصوت والنص إلى محتوى احترافي بسرعة ووضوح.",
     services_badge: "الخدمات",
-    services_title: "منتجان رئيسيان وثلاث أدوات مساندة",
-    services_copy: "WriteWave وVoxa هما نجمتا المنصة، بينما تأتي بقية الأدوات لدعم دورة العمل الصوتية من البداية حتى النتيجة النهائية.",
+    services_title: "خدمتان رئيسيتان تبدأ منهما التجربة",
+    services_copy: "ابدأ إمّا بتحويل الصوت إلى نص عبر WriteWave، أو بتحويل النص إلى صوت عبر Voxa. هذا هو قلب المنتج قبل أي أدوات مساندة.",
     voices_badge: "اسمع الفرق",
     voices_title: "مكتبة أصوات أكثر إقناعًا من التسميات العامة",
     voices_copy: "رفعنا قيمة التجربة التسويقية عبر أسماء أصوات أوضح، واستخدامات محددة، وزر استماع لكل بطاقة حتى يشعر المستخدم أن المنصة غنية وليست مجرد واجهة تجريبية.",
     uses_badge: "الاستخدامات",
     uses_title: "أين تستفيد من مُلهم ساوند؟",
     uses_copy: "المنصة مصممة لتخدم المحتوى، والتعليم، والإعلانات، والتوثيق الصوتي بدل أن تكون مجرد أداة منعزلة عن السياق العملي.",
+    info_badge: "الثقة والهوية",
+    info_title: "تعرّف على المنتج قبل أن تبدأ",
+    info_copy: "أضفنا صفحات مستقلة تبني الثقة وتشرح من نحن وماذا نقدم وكيف تتواصل معنا بسهولة.",
     trust_badge: "الثقة",
     trust_title: "عناصر ثقة ترفع قيمة المنتج",
     trust_copy: "الموقع الآن لا يكتفي بشرح الفكرة، بل يعرض مؤشرات ثقة واضحة: سرعة، دقة، مخرجات متعددة، وتجربة ثنائية اللغة.",
     faq_badge: "FAQ",
     faq_title: "أسئلة متوقعة قبل التجربة أو الشراء",
     faq_copy: "هذا القسم يخفف التردد ويشرح بوضوح ما هو جاهز الآن، وما الذي ما يزال في مرحلة التطوير داخل المنصة.",
+    footer_home: "الرئيسية",
+    footer_about: "من نحن",
+    footer_offerings: "ماذا نقدم",
+    footer_contact: "تواصل معنا",
+    footer_faq: "الأسئلة الشائعة",
+    footer_note: "منصة صوت ذكية تركّز على منتجين رئيسيين واضحين: تحويل النص إلى صوت وتحويل الصوت إلى نص، مع أدوات مساندة عند الحاجة.",
     faq_toggle_open: "إظهار الإجابة",
     faq_toggle_close: "إخفاء الإجابة",
     preview_playing: "جارٍ تشغيل معاينة صوتية لصوت {voice}. هذه المعاينة تعتمد على إمكانات المتصفح الحالية.",
@@ -86,27 +97,36 @@ const copy = {
     stat_three: "average result time",
     demo_badge: "Live Demo",
     demo_title: "Try a quick voice sample from the homepage",
-    demo_lead: "Write a short line, choose a voice, and listen instantly. The current preview still depends on browser voices, but it already shows the intended product flow.",
+    demo_lead: "Write a short line, choose a suitable voice, and listen instantly to see how the text-to-speech experience begins inside the platform.",
     demo_voice_label: "Suggested voice",
     demo_preview: "Listen Now",
     demo_cta: "Open Voxa",
-    demo_status: "The current preview shows the UX direction, while the final voice quality will grow with the internal voice library.",
+    demo_status: "Try the quick sample here, then open Voxa to pick a voice, a style, and save your preferred setup.",
     demo_text: "Welcome to Mulhem Sound. We help you turn text and audio into polished content with speed and clarity.",
     services_badge: "Services",
-    services_title: "Two flagship products and three supporting tools",
-    services_copy: "WriteWave and Voxa lead the platform, while the remaining tools support the full workflow from raw audio to final output.",
+    services_title: "Two primary products lead the experience",
+    services_copy: "Start with WriteWave for speech to text or Voxa for text to speech. These two products now carry the product story first.",
     voices_badge: "Hear The Difference",
     voices_title: "A stronger voice shelf than generic labels",
     voices_copy: "We upgraded the product story with clearer voice names, sharper use-cases, and preview buttons so the platform feels richer and easier to trust.",
     uses_badge: "Use Cases",
     uses_title: "Where does Mulhem Sound help?",
     uses_copy: "The platform is built for creators, education, ads, and voice documentation instead of feeling like a disconnected utility.",
+    info_badge: "Identity",
+    info_title: "Understand the product before you start",
+    info_copy: "We added dedicated pages that explain who we are, what we offer, and how to contact the team.",
     trust_badge: "Trust",
     trust_title: "Signals that make the product feel ready",
     trust_copy: "The site now goes beyond explaining the idea and starts showing speed, clarity, export flexibility, and a bilingual experience.",
     faq_badge: "FAQ",
     faq_title: "Questions users ask before they try or buy",
     faq_copy: "This section reduces hesitation and makes it clear what is ready today versus what is still evolving in the platform.",
+    footer_home: "Home",
+    footer_about: "About",
+    footer_offerings: "What We Offer",
+    footer_contact: "Contact",
+    footer_faq: "FAQ",
+    footer_note: "An audio platform centered on two clear flagship products: text to speech and speech to text, with supporting tools when needed.",
     faq_toggle_open: "Show Answer",
     faq_toggle_close: "Hide Answer",
     preview_playing: "Playing a preview for {voice}. This sample currently relies on browser speech support.",
@@ -130,27 +150,6 @@ const services = {
       text: "حوّل النص إلى صوت مع مكتبة أصوات أوضح وتصنيفات أقرب للاستخدام الفعلي.",
       href: "text-to-speech.html",
       cta: "جرّب الآن"
-    },
-    {
-      icon: "🎧",
-      title: "ClearTone™",
-      text: "حسّن جودة الصوت وأزل الضوضاء وراجع الفرق قبل وبعد.",
-      href: "enhance.html",
-      cta: "حسّن الصوت"
-    },
-    {
-      icon: "✂️",
-      title: "ClipFlow™",
-      text: "قسّم المقاطع الطويلة إلى أجزاء منظمة قابلة لإعادة الاستخدام والتصدير.",
-      href: "cut.html",
-      cta: "ابدأ التقطيع"
-    },
-    {
-      icon: "✨",
-      title: "ToneForge™",
-      text: "اختر أسلوب القراءة المناسب: بودكاست أو قصة أو إعلان أو تعليمي.",
-      href: "voice-style.html",
-      cta: "جرّب الأنماط"
     }
   ],
   en: [
@@ -167,27 +166,55 @@ const services = {
       text: "Convert text into speech with a clearer voice shelf and more practical categories.",
       href: "text-to-speech.html",
       cta: "Try Now"
+    }
+  ]
+};
+
+const infoCards = {
+  ar: [
+    {
+      icon: "🟢",
+      title: "من نحن",
+      text: "صفحة قصيرة تشرح لماذا بُني مُلهم ساوند ولمن صُمم وما الذي نريد تحسينه في تجربة الصوت العربية.",
+      href: "about.html",
+      cta: "اكتشف الصفحة"
     },
     {
-      icon: "🎧",
-      title: "ClearTone™",
-      text: "Enhance audio quality, remove noise, and compare before versus after.",
-      href: "enhance.html",
-      cta: "Enhance Audio"
+      icon: "🧩",
+      title: "ماذا نقدم",
+      text: "شرح سريع للمنتجين الرئيسيين والأدوات المساندة مثل التحسين والتقطيع وأنماط الصوت.",
+      href: "offerings.html",
+      cta: "شاهد الخدمات"
     },
     {
-      icon: "✂️",
-      title: "ClipFlow™",
-      text: "Split long recordings into reusable segments that are easier to export.",
-      href: "cut.html",
-      cta: "Start Cutting"
+      icon: "📨",
+      title: "تواصل معنا",
+      text: "طرق واضحة للتواصل وطلب العروض والأسئلة العامة بدل ترك الموقع بلا نقطة ثقة مباشرة.",
+      href: "contact.html",
+      cta: "افتح الصفحة"
+    }
+  ],
+  en: [
+    {
+      icon: "🟢",
+      title: "About",
+      text: "A short page explaining why Mulhem Sound was built, who it serves, and what we aim to improve in Arabic audio workflows.",
+      href: "about.html",
+      cta: "Open Page"
     },
     {
-      icon: "✨",
-      title: "ToneForge™",
-      text: "Choose the right reading style: podcast, story, ad, or educational.",
-      href: "voice-style.html",
-      cta: "Try Styles"
+      icon: "🧩",
+      title: "What We Offer",
+      text: "A quick overview of the two flagship products and the supporting tools around enhancement, cutting, and voice styles.",
+      href: "offerings.html",
+      cta: "See Services"
+    },
+    {
+      icon: "📨",
+      title: "Contact",
+      text: "Clear ways to reach the team for questions, product feedback, or enterprise requests.",
+      href: "contact.html",
+      cta: "Get In Touch"
     }
   ]
 };
@@ -430,6 +457,17 @@ function renderUseCases() {
   `).join("");
 }
 
+function renderInfoCards() {
+  infoGrid.innerHTML = infoCards[currentLang].map((item) => `
+    <article class="card" data-animate>
+      <div class="icon">${item.icon}</div>
+      <h3>${item.title}</h3>
+      <p>${item.text}</p>
+      <a class="service-link" href="${item.href}">${item.cta} ←</a>
+    </article>
+  `).join("");
+}
+
 function renderTrustSignals() {
   trustGrid.innerHTML = trustSignals[currentLang].map((item) => `
     <article class="card" data-animate>
@@ -489,6 +527,7 @@ function applyLanguage(lang) {
   renderServices();
   renderVoiceShelf();
   renderUseCases();
+  renderInfoCards();
   renderTrustSignals();
   renderFaq();
   renderHeroVoices();
@@ -533,6 +572,14 @@ themeToggle.addEventListener("click", () => {
 
 langAr.addEventListener("click", () => applyLanguage("ar"));
 langEn.addEventListener("click", () => applyLanguage("en"));
+
+window.addEventListener("scroll", () => {
+  toTopBtn.classList.toggle("visible", window.scrollY > 420);
+});
+
+toTopBtn.addEventListener("click", () => {
+  window.scrollTo({ top: 0, behavior: "smooth" });
+});
 
 window.speechSynthesis?.addEventListener?.("voiceschanged", () => {
   setText(heroStatus, copy[currentLang].preview_ready);
