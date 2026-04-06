@@ -72,8 +72,8 @@ const copy = {
     footer_note: "منصة صوت ذكية تركّز على منتجين رئيسيين واضحين: تحويل النص إلى صوت وتحويل الصوت إلى نص، مع أدوات مساندة عند الحاجة.",
     faq_toggle_open: "إظهار الإجابة",
     faq_toggle_close: "إخفاء الإجابة",
-    preview_playing: "جارٍ تشغيل معاينة صوتية لصوت {voice}. هذه المعاينة تعتمد على إمكانات المتصفح الحالية.",
-    preview_missing: "المتصفح الحالي لا يدعم تشغيل معاينة صوتية عبر SpeechSynthesis.",
+    preview_playing: "جارٍ تشغيل معاينة صوتية لصوت {voice}. افتح Voxa لتعديل النبرة والإيقاع وحفظ الإعداد.",
+    preview_missing: "تعذّر تشغيل المعاينة الصوتية على هذا المتصفح حاليًا.",
     preview_ready: "اختر صوتًا ثم اضغط استمع الآن لتجربة عينة سريعة."
   },
   en: {
@@ -129,8 +129,8 @@ const copy = {
     footer_note: "An audio platform centered on two clear flagship products: text to speech and speech to text, with supporting tools when needed.",
     faq_toggle_open: "Show Answer",
     faq_toggle_close: "Hide Answer",
-    preview_playing: "Playing a preview for {voice}. This sample currently relies on browser speech support.",
-    preview_missing: "This browser does not support SpeechSynthesis preview.",
+    preview_playing: "Playing a preview for {voice}. Open Voxa to refine the tone, pacing, and saved setup.",
+    preview_missing: "Audio preview is currently unavailable in this browser.",
     preview_ready: "Choose a voice and press Listen Now for a quick sample."
   }
 };
@@ -316,7 +316,7 @@ const faqs = {
     },
     {
       q: "هل Voxa يعمل بمحرك أصوات داخلي كامل؟",
-      a: "ليس بعد. المعاينة الحالية ما تزال تعتمد على أصوات المتصفح، لكن تجربة المنتج ومكتبة الأصوات والاختيار أصبحت أقرب لمنصة جاهزة للبيع."
+      a: "ليس بعد بالكامل. المعاينة الحالية تبدأ من الأصوات المتاحة على الجهاز، بينما تتجه المرحلة التالية إلى ربط Voxa بمكتبة أصوات أوسع وتجربة أكثر ثباتًا."
     },
     {
       q: "ما الخطوة التالية بعد هذه النسخة؟",
@@ -334,7 +334,7 @@ const faqs = {
     },
     {
       q: "Does Voxa already run on a fully internal TTS engine?",
-      a: "Not yet. The current preview still depends on browser voices, but the product framing and voice shelf are now far more convincing."
+      a: "Not fully yet. The current preview starts from device-available voices, while the next stage connects Voxa to a broader voice library and a steadier audio experience."
     },
     {
       q: "What should be built next?",
@@ -392,24 +392,57 @@ function applyTheme(theme) {
   localStorage.setItem(THEME_KEY, next);
 }
 
-function getPreferredVoice(langCode) {
+const previewProfiles = {
+  siraj: { langCode: "ar-SA", voiceIndex: 0, voiceHints: ["hamed", "saudi", "male", "ar-sa"], rate: 0.94, pitch: 0.88 },
+  lujain: { langCode: "ar-SA", voiceIndex: 1, voiceHints: ["zariyah", "female", "saudi", "ar-sa"], rate: 0.99, pitch: 1.16 },
+  ruwad: { langCode: "ar-EG", voiceIndex: 2, voiceHints: ["shakir", "broadcast", "male", "ar-eg"], rate: 1.02, pitch: 0.94 },
+  nouf: { langCode: "ar-SA", voiceIndex: 3, voiceHints: ["female", "saudi", "gulf", "ar-sa"], rate: 1.0, pitch: 1.08 }
+};
+
+function getPreferredVoice(langCode, profileId = "siraj") {
   const voices = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
   if (!voices.length) return null;
-  return voices.find((voice) => voice.lang.toLowerCase().startsWith(langCode.toLowerCase()))
-    || voices.find((voice) => voice.lang.toLowerCase().includes("ar"))
-    || voices[0];
+  const profile = previewProfiles[profileId] || previewProfiles.siraj;
+  const desiredCodes = [currentLang === "ar" ? profile.langCode : null, langCode]
+    .filter(Boolean)
+    .map((code) => code.toLowerCase());
+
+  let filtered = voices.filter((voice) => {
+    const candidate = voice.lang.toLowerCase();
+    return desiredCodes.some((code) => candidate.startsWith(code));
+  });
+
+  if (!filtered.length) {
+    const baseCode = currentLang === "ar" ? "ar" : "en";
+    filtered = voices.filter((voice) => voice.lang.toLowerCase().startsWith(baseCode));
+  }
+
+  if (!filtered.length) filtered = voices;
+
+  const hinted = filtered.find((voice) => {
+    const ref = `${voice.name} ${voice.voiceURI} ${voice.lang}`.toLowerCase();
+    return profile.voiceHints.some((hint) => ref.includes(hint));
+  });
+
+  return hinted
+    || filtered[profile.voiceIndex % filtered.length]
+    || filtered[0]
+    || null;
 }
 
-function playPreview(text, voiceLabel) {
+function playPreview(text, voiceLabel, profileId = "siraj") {
   if (!("speechSynthesis" in window)) {
     setText(heroStatus, copy[currentLang].preview_missing);
     return;
   }
 
+  const profile = previewProfiles[profileId] || previewProfiles.siraj;
   const utterance = new SpeechSynthesisUtterance(text);
   const langCode = currentLang === "ar" ? "ar" : "en";
-  const matchedVoice = getPreferredVoice(langCode);
-  utterance.lang = currentLang === "ar" ? "ar-SA" : "en-US";
+  const matchedVoice = getPreferredVoice(langCode, profileId);
+  utterance.lang = currentLang === "ar" ? (profile.langCode || "ar-SA") : "en-US";
+  utterance.rate = profile.rate;
+  utterance.pitch = profile.pitch;
   if (matchedVoice) utterance.voice = matchedVoice;
 
   window.speechSynthesis.cancel();
@@ -429,7 +462,7 @@ function renderServices() {
 }
 
 function renderVoiceShelf() {
-  voicesGrid.innerHTML = voiceShelf[currentLang].map((voice) => `
+  voicesGrid.innerHTML = voiceShelf[currentLang].map((voice, index) => `
     <article class="card" data-animate>
       <div class="icon">🎚️</div>
       <div class="voice-meta">
@@ -438,7 +471,7 @@ function renderVoiceShelf() {
       <h3>${voice.name}</h3>
       <p>${voice.desc}</p>
       <div class="voice-actions">
-        <button class="btn btn-secondary preview-shelf" type="button" data-sample="${voice.sample}" data-voice="${voice.name}">
+        <button class="btn btn-secondary preview-shelf" type="button" data-sample="${voice.sample}" data-voice="${voice.name}" data-voice-id="${heroVoices[currentLang][index]?.id || "siraj"}">
           ${currentLang === "ar" ? "استمع" : "Listen"}
         </button>
         <a class="voice-link" href="text-to-speech.html">${currentLang === "ar" ? "افتح Voxa" : "Open Voxa"} ←</a>
@@ -542,7 +575,7 @@ function applyLanguage(lang) {
 heroPreview.addEventListener("click", () => {
   const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
   const text = heroText.value.trim() || selected.sample;
-  playPreview(text, selected.label);
+  playPreview(text, selected.label, selected.id);
 });
 
 heroVoice.addEventListener("change", () => {
@@ -555,7 +588,7 @@ heroVoice.addEventListener("change", () => {
 voicesGrid.addEventListener("click", (event) => {
   const button = event.target.closest(".preview-shelf");
   if (!button) return;
-  playPreview(button.dataset.sample, button.dataset.voice);
+  playPreview(button.dataset.sample, button.dataset.voice, button.dataset.voiceId);
 });
 
 faqGrid.addEventListener("click", (event) => {

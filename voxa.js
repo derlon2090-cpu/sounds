@@ -73,10 +73,11 @@ const copy = {
     status_preview: "جارٍ تشغيل معاينة صوتية لـ {voice}.",
     status_saved: "تم حفظ {voice} ضمن المفضلات.",
     status_restore: "تمت استعادة {voice} من المفضلات.",
-    status_error: "المتصفح الحالي لا يدعم SpeechSynthesis.",
+    status_error: "تعذّر تشغيل المعاينة الصوتية على هذا المتصفح حاليًا.",
     estimate_seconds: "{value} ثانية تقريبًا",
     listen_btn: "استمع",
     use_btn: "استخدم الصوت",
+    voice_sample_label: "جملة المعاينة",
     voice_select_label: "اختر الصوت",
     style_select_label: "اختر الأسلوب",
     demo_text: "مرحبًا بكم في Voxa من مُلهم ساوند. هنا يمكننا تحويل النص إلى صوت عربي واضح يصلح للبودكاست، التعليم، الإعلانات، والمحتوى اليومي."
@@ -124,10 +125,11 @@ const copy = {
     status_preview: "Playing a preview for {voice}.",
     status_saved: "Saved {voice} to favorites.",
     status_restore: "Restored {voice} from favorites.",
-    status_error: "This browser does not support SpeechSynthesis.",
+    status_error: "Audio preview is currently unavailable in this browser.",
     estimate_seconds: "About {value} seconds",
     listen_btn: "Listen",
     use_btn: "Use Voice",
+    voice_sample_label: "Preview line",
     voice_select_label: "Choose voice",
     style_select_label: "Choose style",
     demo_text: "Welcome to Voxa from Mulhem Sound. Here we can turn text into clear Arabic speech for podcasting, education, advertising, and everyday content."
@@ -172,14 +174,25 @@ const styles = {
 const voices = [
   {
     id: "siraj",
+    icon: "🎙️",
     nameAr: "سِراج",
     nameEn: "Siraj",
     badgeAr: "رسمي",
     badgeEn: "Formal",
+    dialectAr: "فصحى تنفيذية",
+    dialectEn: "Executive MSA",
+    toneAr: "واثق ومنظّم",
+    toneEn: "Confident and structured",
     useAr: "عروض ومقدمات تنفيذية",
     useEn: "Executive intros and formal demos",
     descAr: "صوت رجالي رسمي بثقة أعلى ووتيرة أكثر ثباتًا.",
     descEn: "A formal male voice with a steadier, more confident delivery.",
+    voiceId: "mulhem-siraj-v1",
+    langCode: "ar-SA",
+    voiceHints: ["hamed", "saudi", "male", "ar-sa"],
+    voiceIndex: 0,
+    sampleAr: "مرحبًا بكم. يسعدنا تقديم هذا الملخص التنفيذي بصوت رسمي واضح ومنظّم.",
+    sampleEn: "Welcome. This is a formal executive-style sample with a steady and confident tone.",
     style: "education",
     rate: 0.95,
     pitch: -1,
@@ -188,14 +201,25 @@ const voices = [
   },
   {
     id: "lujain",
+    icon: "✨",
     nameAr: "لُجين",
     nameEn: "Lujain",
     badgeAr: "واضح",
     badgeEn: "Clear",
+    dialectAr: "فصحى واضحة",
+    dialectEn: "Clear MSA",
+    toneAr: "هادئ ومباشر",
+    toneEn: "Calm and direct",
     useAr: "شرح وتعليم",
     useEn: "Explainers and education",
     descAr: "صوت نسائي أنيق يركز على الوضوح والهدوء.",
     descEn: "An elegant female voice focused on clarity and calm delivery.",
+    voiceId: "mulhem-lujain-v1",
+    langCode: "ar-SA",
+    voiceHints: ["zariyah", "female", "saudi", "ar-sa"],
+    voiceIndex: 1,
+    sampleAr: "أهلًا بك. في هذا الشرح سنرتب الفكرة خطوة بخطوة بصوت مريح وواضح.",
+    sampleEn: "Hello there. This explainer sample is designed to sound calm, clear, and easy to follow.",
     style: "education",
     rate: 0.98,
     pitch: 1,
@@ -204,14 +228,25 @@ const voices = [
   },
   {
     id: "ruwad",
+    icon: "📻",
     nameAr: "رَواد",
     nameEn: "Ruwad",
     badgeAr: "إذاعي",
     badgeEn: "Radio",
+    dialectAr: "فصحى إذاعية",
+    dialectEn: "Broadcast MSA",
+    toneAr: "قوي وحاضر",
+    toneEn: "Bold and present",
     useAr: "هوية ومقدمات",
     useEn: "Intros and sonic branding",
     descAr: "صوت إذاعي أقوى حضورًا للمقدمات والإعلانات الأطول.",
     descEn: "A radio-style voice with stronger presence for intros and branded reads.",
+    voiceId: "mulhem-ruwad-v1",
+    langCode: "ar-EG",
+    voiceHints: ["shakir", "broadcast", "male", "ar-eg"],
+    voiceIndex: 2,
+    sampleAr: "هنا تبدأ الهوية الصوتية للمحتوى. حضور إذاعي أوضح للمقدمات والافتتاحيات.",
+    sampleEn: "This is a broadcast-style sample built for intros, sonic identity, and high-presence reads.",
     style: "podcast",
     rate: 1.0,
     pitch: 0,
@@ -220,14 +255,25 @@ const voices = [
   },
   {
     id: "nouf",
+    icon: "🌿",
     nameAr: "نوف",
     nameEn: "Nouf",
     badgeAr: "خليجي",
     badgeEn: "Gulf",
+    dialectAr: "خليجي دافئ",
+    dialectEn: "Warm Gulf",
+    toneAr: "محلي وقريب",
+    toneEn: "Local and warm",
     useAr: "محتوى محلي",
     useEn: "Local content",
     descAr: "صوت خليجي دافئ أقرب للتجارب المحلية والسوشيال.",
     descEn: "A warm Gulf-style voice that feels closer to local users and social content.",
+    voiceId: "mulhem-nouf-v1",
+    langCode: "ar-SA",
+    voiceHints: ["saudi", "female", "zariyah", "ar-sa"],
+    voiceIndex: 3,
+    sampleAr: "يا هلا. هذا نموذج صوت خليجي دافئ يناسب المحتوى المحلي واليومي بشكل أقرب.",
+    sampleEn: "Here is a warmer Gulf-style sample tailored for regional content and local audiences.",
     style: "podcast",
     rate: 1.02,
     pitch: 1,
@@ -236,14 +282,25 @@ const voices = [
   },
   {
     id: "sami",
+    icon: "⚡",
     nameAr: "سامي",
     nameEn: "Sami",
     badgeAr: "شبابي",
     badgeEn: "Youth",
+    dialectAr: "عربي شبابي",
+    dialectEn: "Youthful Arabic",
+    toneAr: "سريع وحيوي",
+    toneEn: "Fast and lively",
     useAr: "سوشيال ويوتيوب",
     useEn: "Social and creator content",
     descAr: "نبرة أخف للمحتوى السريع واليومي.",
     descEn: "A lighter tone built for social media and fast-paced creator content.",
+    voiceId: "mulhem-sami-v1",
+    langCode: "ar-SA",
+    voiceHints: ["male", "saudi", "ar-sa", "young"],
+    voiceIndex: 4,
+    sampleAr: "أهلًا! هذا مثال أسرع للمحتوى القصير والسوشيال والريلز واليوميات.",
+    sampleEn: "This faster sample fits creator content, shorts, and social media voiceovers.",
     style: "ad",
     rate: 1.12,
     pitch: 1,
@@ -252,14 +309,25 @@ const voices = [
   },
   {
     id: "atheer",
+    icon: "📖",
     nameAr: "أثير",
     nameEn: "Atheer",
     badgeAr: "قصصي",
     badgeEn: "Story",
+    dialectAr: "فصحى سردية",
+    dialectEn: "Narrative MSA",
+    toneAr: "هادئ وسردي",
+    toneEn: "Soft and narrative",
     useAr: "قصص وبودكاست",
     useEn: "Stories and podcasts",
     descAr: "أسلوب سردي هادئ للمحتوى الطويل.",
     descEn: "A softer storytelling style for long-form narrative content.",
+    voiceId: "mulhem-atheer-v1",
+    langCode: "ar-SA",
+    voiceHints: ["arabic", "soft", "narrative", "female"],
+    voiceIndex: 5,
+    sampleAr: "كان يا ما كان، في بداية الحكاية، يظهر الصوت الهادئ ليقود السرد بسلاسة.",
+    sampleEn: "Once upon a time, a softer narrative voice carried the story with a slower, calmer rhythm.",
     style: "story",
     rate: 0.86,
     pitch: 1,
@@ -268,14 +336,25 @@ const voices = [
   },
   {
     id: "juman",
+    icon: "🎓",
     nameAr: "جُمان",
     nameEn: "Juman",
     badgeAr: "تعليمي",
     badgeEn: "Education",
+    dialectAr: "فصحى تعليمية",
+    dialectEn: "Educational MSA",
+    toneAr: "مرتب وواضح",
+    toneEn: "Structured and clear",
     useAr: "دروس وشروحات",
     useEn: "Lessons and explainers",
     descAr: "صوت أنيق للدروس والتسجيلات التوضيحية.",
     descEn: "A refined voice for lessons, explainers, and guided learning content.",
+    voiceId: "mulhem-juman-v1",
+    langCode: "ar-SA",
+    voiceHints: ["clear", "female", "education", "ar-sa"],
+    voiceIndex: 6,
+    sampleAr: "في هذا الدرس سنراجع الفكرة الأساسية، ثم ننتقل إلى الخطوات واحدة بعد الأخرى.",
+    sampleEn: "In this lesson, we will review the core idea first, then move through the steps one by one.",
     style: "education",
     rate: 0.94,
     pitch: 0,
@@ -284,14 +363,25 @@ const voices = [
   },
   {
     id: "barq",
+    icon: "📣",
     nameAr: "برق",
     nameEn: "Barq",
     badgeAr: "إعلاني",
     badgeEn: "Ad",
+    dialectAr: "إعلاني قوي",
+    dialectEn: "High-energy promo",
+    toneAr: "سريع وحاسم",
+    toneEn: "Punchy and urgent",
     useAr: "عروض قصيرة",
     useEn: "Short promotional reads",
     descAr: "إيقاع أسرع ووقفة أقل للعبارات الإعلانية.",
     descEn: "Faster pacing and shorter pauses for ad copy and short promos.",
+    voiceId: "mulhem-barq-v1",
+    langCode: "ar-SA",
+    voiceHints: ["male", "strong", "promo", "ar-sa"],
+    voiceIndex: 7,
+    sampleAr: "عرض اليوم يبدأ الآن. جرّب الفرق بسرعة، واطلب الخدمة خلال ثوانٍ.",
+    sampleEn: "Today’s offer starts now. Hear the difference fast and launch your promo in seconds.",
     style: "ad",
     rate: 1.18,
     pitch: 2,
@@ -326,6 +416,18 @@ function voiceUse(voice) {
   return currentLang === "ar" ? voice.useAr : voice.useEn;
 }
 
+function voiceDialect(voice) {
+  return currentLang === "ar" ? voice.dialectAr : voice.dialectEn;
+}
+
+function voiceTone(voice) {
+  return currentLang === "ar" ? voice.toneAr : voice.toneEn;
+}
+
+function voiceSample(voice) {
+  return currentLang === "ar" ? voice.sampleAr : voice.sampleEn;
+}
+
 function voiceDesc(voice) {
   return currentLang === "ar" ? voice.descAr : voice.descEn;
 }
@@ -351,13 +453,21 @@ function updateEstimate() {
 function renderVoiceGrid() {
   voiceGrid.innerHTML = voices.map((voice) => `
     <article class="voice-card" data-animate>
-      <div class="voice-icon">🔉</div>
+      <div class="voice-icon">${voice.icon}</div>
       <div class="voice-meta">
         <span class="voice-badge">${voiceBadge(voice)}</span>
-        <span class="voice-badge">${voiceUse(voice)}</span>
+        <span class="voice-badge">${voiceDialect(voice)}</span>
       </div>
       <h3>${voiceName(voice)}</h3>
       <p>${voiceDesc(voice)}</p>
+      <div class="voice-facts">
+        <span class="voice-fact">${voiceUse(voice)}</span>
+        <span class="voice-fact">${voiceTone(voice)}</span>
+      </div>
+      <div class="voice-sample">
+        <strong>${copy[currentLang].voice_sample_label}</strong>
+        <span>${voiceSample(voice)}</span>
+      </div>
       <div class="voice-actions">
         <button class="btn btn-secondary" type="button" data-preview="${voice.id}">${copy[currentLang].listen_btn}</button>
         <button class="btn btn-primary" type="button" data-use="${voice.id}">${copy[currentLang].use_btn}</button>
@@ -379,7 +489,7 @@ function renderSelects() {
   `).join("");
 
   voiceSelect.innerHTML = voices.map((voice) => `
-    <option value="${voice.id}">${voiceName(voice)} — ${voiceBadge(voice)}</option>
+    <option value="${voice.id}">${voiceName(voice)} — ${voiceBadge(voice)} • ${voiceDialect(voice)}</option>
   `).join("");
 
   voiceSelect.value = currentVoiceId;
@@ -399,12 +509,16 @@ function loadVoice(id) {
 }
 
 function suggestVoiceId() {
-  const text = textInput.value;
-  if (/قصة|حكاية|رواية|story|novel/i.test(text)) return "atheer";
-  if (/عرض|خصم|إعلان|product|offer|sale/i.test(text)) return "barq";
-  if (/درس|شرح|تعليم|lecture|course|training/i.test(text)) return "juman";
-  if (/بودكاست|حلقة|ضيف|podcast|episode/i.test(text)) return "ruwad";
-  if (/سوشيال|يوتيوب|ريلز|social|shorts|tiktok/i.test(text)) return "sami";
+  const text = textInput.value.trim();
+  if (!text) return currentVoiceId;
+  if (/عرض|خصم|إعلان|اشترك|اطلب الآن|سارع|launch|promo|offer|sale|discount/i.test(text)) return "barq";
+  if (/كان يا ما كان|حكاية|قصة|رواية|novel|story|once upon/i.test(text)) return "atheer";
+  if (/في هذا الدرس|سنتعلم|شرح|خطوة|course|lesson|tutorial|training|lecture/i.test(text)) return "juman";
+  if (/بودكاست|حلقة|ضيف|مقدّمة|podcast|episode|guest|intro/i.test(text)) return "ruwad";
+  if (/يا هلا|حياكم|وش|هال|أبشر|معنا اليوم|gulf|khaleeji/i.test(text)) return "nouf";
+  if (/ريلز|تيك توك|سناب|يوتيوب|shorts|reel|social|creator|tiktok|youtube/i.test(text)) return "sami";
+  if (/أهلًا|مرحبًا|تعرف على|خطوات|guide|walkthrough|explainer/i.test(text)) return "lujain";
+  if (/يسرنا|يسعدنا|التقرير|الإدارة|الشركة|executive|report|statement|board/i.test(text)) return "siraj";
   return "siraj";
 }
 
@@ -419,17 +533,93 @@ function applyBestSettings() {
   return voice;
 }
 
-function preferredSpeechVoice(langCode) {
+function preferredSpeechVoice(langCode, profile = voices[0]) {
   const available = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-  return available.find((voice) => voice.lang.toLowerCase().startsWith(langCode))
-    || available.find((voice) => voice.lang.toLowerCase().includes("ar"))
-    || available[0]
+  if (!available.length) return null;
+
+  const desiredCodes = [currentLang === "ar" ? profile.langCode : null, langCode]
+    .filter(Boolean)
+    .map((code) => code.toLowerCase());
+
+  let filtered = available.filter((item) => {
+    const candidate = item.lang.toLowerCase();
+    return desiredCodes.some((code) => candidate.startsWith(code));
+  });
+
+  if (!filtered.length) {
+    const baseCode = currentLang === "ar" ? "ar" : "en";
+    filtered = available.filter((item) => item.lang.toLowerCase().startsWith(baseCode));
+  }
+
+  if (!filtered.length) filtered = available;
+
+  const hinted = filtered.find((item) => {
+    const ref = `${item.name} ${item.voiceURI} ${item.lang}`.toLowerCase();
+    return (profile.voiceHints || []).some((hint) => ref.includes(hint.toLowerCase()));
+  });
+
+  return hinted
+    || filtered[profile.voiceIndex % filtered.length]
+    || filtered[0]
     || null;
+}
+
+function computeSpeechRate(profile) {
+  const base = Number(profile.rate) || 1;
+  const energyBoost = ((Number(profile.energy) || 50) - 50) / 240;
+  const pauseDrag = ((Number(profile.pauses) || 40) - 40) / 260;
+  return Math.max(0.74, Math.min(1.34, base + energyBoost - pauseDrag));
+}
+
+function computeSpeechPitch(profile) {
+  return Math.max(0.55, Math.min(1.85, 1 + (Number(profile.pitch) || 0) * 0.12));
+}
+
+function computeSpeechVolume(profile) {
+  return Math.max(0.72, Math.min(1, 0.72 + (Number(profile.energy) || 50) / 380));
+}
+
+function stylizePreviewText(text, voice, useSample = false) {
+  let output = text.replace(/\s+/g, " ").trim();
+  if (!output) output = voiceSample(voice);
+
+  if (voice.id === "barq") {
+    output = output.replace(/\s*[.]+$/u, "");
+    if (currentLang === "ar" && useSample) output = `${output} جرّب الآن.`;
+    if (currentLang === "en" && useSample) output = `${output} Try it now.`;
+  }
+
+  if (voice.id === "atheer") {
+    output = output.replace(/([.؟!?])/gu, " ... ");
+  }
+
+  if (voice.id === "juman") {
+    output = output.replace(/[:؛]/gu, ". ");
+  }
+
+  if (voice.id === "sami" && !/[!؟?]$/u.test(output)) {
+    output = `${output}${currentLang === "ar" ? "!" : "!"}`;
+  }
+
+  return output.replace(/\s{2,}/g, " ").trim();
+}
+
+function previewTextForVoice(voice, useSample = false) {
+  const source = useSample ? voiceSample(voice) : (textInput.value.trim() || voiceSample(voice));
+  return stylizePreviewText(source, voice, useSample);
 }
 
 function previewVoice(voiceId = currentVoiceId) {
   const voice = voices.find((item) => item.id === voiceId) || voices[0];
-  const text = textInput.value.trim() || copy[currentLang].demo_text;
+  const useDefaults = voiceId !== currentVoiceId;
+  const profile = useDefaults ? voice : {
+    ...voice,
+    rate: Number(speed.value),
+    pitch: Number(pitch.value),
+    energy: Number(energy.value),
+    pauses: Number(pauses.value)
+  };
+  const text = previewTextForVoice(voice, useDefaults);
 
   if (!("speechSynthesis" in window)) {
     setText(statusBox, copy[currentLang].status_error);
@@ -437,17 +627,11 @@ function previewVoice(voiceId = currentVoiceId) {
   }
 
   const utterance = new SpeechSynthesisUtterance(text);
-  utterance.lang = currentLang === "ar" ? "ar-SA" : "en-US";
-  const useDefaults = voiceId !== currentVoiceId;
-  utterance.rate = useDefaults ? voice.rate : Number(speed.value);
-  utterance.pitch = useDefaults
-    ? Math.max(0.5, Math.min(1.8, 1 + Number(voice.pitch) * 0.08))
-    : Math.max(0.5, Math.min(1.8, 1 + Number(pitch.value) * 0.08));
-  const available = window.speechSynthesis ? window.speechSynthesis.getVoices() : [];
-  const filtered = available.filter((item) => item.lang.toLowerCase().startsWith(currentLang === "ar" ? "ar" : "en"));
-  const fallback = preferredSpeechVoice(currentLang === "ar" ? "ar" : "en");
-  const voiceIndex = Math.max(0, voices.findIndex((item) => item.id === voice.id));
-  const matchedVoice = filtered.length ? filtered[voiceIndex % filtered.length] : fallback;
+  utterance.lang = currentLang === "ar" ? (profile.langCode || "ar-SA") : "en-US";
+  utterance.rate = computeSpeechRate(profile);
+  utterance.pitch = computeSpeechPitch(profile);
+  utterance.volume = computeSpeechVolume(profile);
+  const matchedVoice = preferredSpeechVoice(currentLang === "ar" ? (profile.langCode || "ar") : "en", voice);
   if (matchedVoice) utterance.voice = matchedVoice;
 
   window.speechSynthesis.cancel();

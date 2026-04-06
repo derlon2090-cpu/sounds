@@ -1,2 +1,646 @@
-﻿<!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>ToneForge™ | مُلهم ساوند</title><style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap');:root{--bg:#f5fff7;--panel:#ffffffd9;--text:#0f172a;--muted:#64748b;--b:#16a34a;--b2:#22c55e;--b3:#15803d;--border:#16a34a24;--soft:#effcf3}body[data-theme=dark]{--bg:#08141b;--panel:#0a141de3;--text:#f6f8fc;--muted:#a8b5c6;--border:#22c55e22;--soft:#10202b;color-scheme:dark}*{box-sizing:border-box}body{margin:0;font-family:Tajawal,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 12% 16%,#22c55e2e,transparent 18%),linear-gradient(180deg,#fbfffc,#f4fff7 46%,#ecfff0),var(--bg);color:var(--text)}body[data-theme=dark]{background:radial-gradient(circle at 12% 16%,#22c55e26,transparent 18%),linear-gradient(180deg,#08141b,#0d1920 46%,#112129),var(--bg)}.c{width:min(1100px,calc(100vw - 32px));margin:auto;padding-bottom:32px}.nav,.card{background:var(--panel);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:28px}.nav{margin-top:14px;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.r{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.logo{width:44px;height:44px;border-radius:14px;object-fit:cover;background:#fff}.t{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--b2),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.nav a{text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}.btn{border:0;border-radius:999px;padding:13px 18px;font:800 15px Tajawal;cursor:pointer;transition:transform .2s ease}.btn:hover{transform:translateY(-2px)}.p{background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff}.s,.toggle{background:#ffffffc9;border:1px solid var(--border);color:var(--text)}body[data-theme=dark] .s,body[data-theme=dark] .toggle{background:#10202b}.hero{padding:42px 0 20px}.ey,.pill{display:inline-flex;padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:#fff9;font-weight:800}.ey{color:var(--b);font-size:14px}.pill{font-size:13px;color:var(--text)}h1{margin:16px 0 12px;font-size:clamp(34px,5vw,54px)}.lead,.mini{color:var(--muted);line-height:1.9}.lead{max-width:760px;font-size:18px}.g{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px}.card{padding:22px}.styles{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin-top:14px}.style{padding:16px;border-radius:20px;border:1px solid var(--border);background:var(--soft);cursor:pointer;font:800 14px Tajawal;text-align:center}.style.on{background:linear-gradient(135deg,#22c55e1f,#15803d12);border-color:#16a34a66}.sl{margin-top:14px}.sl label{display:flex;justify-content:space-between;color:var(--muted);font-weight:700}.sl input{width:100%;accent-color:var(--b);margin-top:8px}textarea{width:100%;min-height:220px;border-radius:20px;border:1px solid var(--border);background:var(--soft);padding:16px;font:700 16px Tajawal;color:var(--text);resize:vertical}.fav{display:grid;gap:10px;margin-top:14px}.fav .item{padding:12px 14px;border-radius:16px;border:1px solid var(--border);background:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.status{margin-top:14px;padding:14px;border-radius:18px;border:1px solid var(--border);background:var(--soft);color:var(--muted);line-height:1.8}[data-animate]{opacity:0;transform:translateY(22px);transition:.6s}[data-animate].is-visible{opacity:1;transform:none}@media(max-width:900px){.g,.styles{grid-template-columns:1fr}}</style></head><body><div class="c"><div class="nav"><div class="r"><img class="logo" src="../mulhem-logo.jpg" alt="logo"><div class="t">مُلهم ساوند</div></div><div class="r"><a href="../index.html">الرئيسية</a><a href="index.html">الاستوديو</a><a href="transcribe.html">تفريغ</a><button id="theme" class="btn toggle" type="button">الوضع الليلي</button></div></div><section class="hero" data-animate><span class="ey">ToneForge™</span><h1>شكّل شخصية الصوت باحتراف</h1><p class="lead">ميزة أنماط الصوت: نبرات بشرية، محتوى، وذكاء اصطناعي، مع Preview وSliders واقتراح تلقائي وحفظ للمفضلات.</p><div class="r"><span class="pill">Calm</span><span class="pill">Professional</span><span class="pill">Storytelling</span><span class="pill">AI Clear</span></div></section><section class="g"><div class="card" data-animate><h2>EchoCraft / ToneForge</h2><div id="styles" class="styles"></div><div class="sl"><label><span>السرعة</span><strong id="speedVal">1.0x</strong></label><input id="speed" type="range" min="0.7" max="1.4" step="0.1" value="1"></div><div class="sl"><label><span>النبرة</span><strong id="pitchVal">0</strong></label><input id="pitch" type="range" min="-4" max="4" step="1" value="0"></div><div class="sl"><label><span>الحدة / الشخصية</span><strong id="toneVal">50%</strong></label><input id="tone" type="range" min="0" max="100" value="50"></div><div class="r" style="margin-top:14px"><button id="suggest" class="btn s" type="button">اقتراح تلقائي</button><button id="best" class="btn s" type="button">أفضل إعدادات تلقائيًا</button><button id="preview" class="btn p" type="button">تجربة الصوت</button><button id="saveFav" class="btn s" type="button">حفظ كمفضل</button></div><div id="status" class="status">اختر النمط ثم جرّب الصوت. إذا كان المتصفح يدعم الأصوات العربية فسيتم تشغيل المعاينة مباشرة.</div></div><div class="card" data-animate><h2>النص والمفضلات</h2><textarea id="text">مرحبًا بكم في تجربة ToneForge من مُلهم ساوند. هنا يمكننا تشكيل شخصية الصوت بحيث تكون هادئة، رسمية، عاطفية، أو مناسبة للمحتوى الإعلاني والقصصي.</textarea><div class="fav"><strong>الأنماط المفضلة</strong><div id="favList" class="fav"><div class="item">لا توجد مفضلات بعد.</div></div></div></div></section></div><script>const K='mulhem_theme_v2',F='mulhem_toneforge_favs_v1',theme=document.getElementById('theme'),stylesWrap=document.getElementById('styles'),speed=document.getElementById('speed'),pitch=document.getElementById('pitch'),tone=document.getElementById('tone'),speedVal=document.getElementById('speedVal'),pitchVal=document.getElementById('pitchVal'),toneVal=document.getElementById('toneVal'),suggest=document.getElementById('suggest'),best=document.getElementById('best'),preview=document.getElementById('preview'),saveFav=document.getElementById('saveFav'),statusBox=document.getElementById('status'),text=document.getElementById('text'),favList=document.getElementById('favList');const styles=[{id:'calm',name:'Calm',rate:0.9,pitch:0,tone:35,label:'صوت هادئ'},{id:'energetic',name:'Energetic',rate:1.2,pitch:2,tone:78,label:'صوت حماسي'},{id:'professional',name:'Professional',rate:0.95,pitch:-1,tone:48,label:'صوت رسمي'},{id:'emotional',name:'Emotional',rate:0.88,pitch:1,tone:62,label:'صوت عاطفي'},{id:'podcast',name:'Podcast',rate:1.0,pitch:0,tone:55,label:'بودكاست'},{id:'ad',name:'Ad',rate:1.15,pitch:1,tone:72,label:'إعلان'},{id:'youtube',name:'YouTube',rate:1.08,pitch:1,tone:67,label:'يوتيوب'},{id:'story',name:'Storytelling',rate:0.85,pitch:1,tone:58,label:'قصة'},{id:'ai-natural',name:'AI Natural',rate:1.0,pitch:0,tone:52,label:'AI طبيعي'},{id:'ai-fast',name:'AI Fast',rate:1.28,pitch:0,tone:66,label:'AI سريع'},{id:'ai-clear',name:'AI Clear',rate:0.92,pitch:-1,tone:44,label:'AI واضح جدًا'}];let current='professional';function applyTheme(v){const t=v==='dark'?'dark':'light';document.body.dataset.theme=t;theme.textContent=t==='dark'?'الوضع النهاري':'الوضع الليلي';localStorage.setItem(K,t)}function initTheme(){const s=localStorage.getItem(K),d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;applyTheme(s||(d?'dark':'light'))}function sync(){speedVal.textContent=`${Number(speed.value).toFixed(1)}x`;pitchVal.textContent=pitch.value;toneVal.textContent=`${tone.value}%`;renderStyles()}function renderStyles(){stylesWrap.innerHTML=styles.map(s=>`<button class="style ${s.id===current?'on':''}" data-id="${s.id}" type="button">${s.label}</button>`).join('')}function applyStyle(id){const st=styles.find(s=>s.id===id)||styles[0];current=st.id;speed.value=st.rate;pitch.value=st.pitch;tone.value=st.tone;sync();statusBox.textContent=`تم اختيار ${st.label}. يمكنك الآن تجربة الصوت أو تعديل القيم يدويًا.`}function detectSuggestion(){const v=text.value;if(/قصة|حكاية|رواية/.test(v))return'story';if(/إعلان|عرض|خصم|منتج/.test(v))return'ad';if(/بودكاست|حلقة|ضيف/.test(v))return'podcast';if(/رسمي|مؤسسة|إدارة|تنفيذي/.test(v))return'professional';if(/حماس|إطلاق|مذهل/.test(v))return'energetic';return'ai-clear'}function playPreview(){const utter=new SpeechSynthesisUtterance(text.value.trim()||'هذه معاينة سريعة من ToneForge');const st=styles.find(s=>s.id===current)||styles[0];utter.lang='ar-SA';utter.rate=Math.max(.6,Math.min(1.5,Number(speed.value)));utter.pitch=Math.max(.5,Math.min(1.8,1+Number(pitch.value)*.08));if('speechSynthesis' in window){window.speechSynthesis.cancel();window.speechSynthesis.speak(utter);statusBox.textContent=`جاري تشغيل معاينة ${st.label}. السرعة ${speed.value}x والنبرة ${pitch.value}.`;return}statusBox.textContent='المتصفح الحالي لا يدعم SpeechSynthesis.'}function loadFavs(){try{return JSON.parse(localStorage.getItem(F)||'[]')}catch{return[]}}function saveFavs(v){localStorage.setItem(F,JSON.stringify(v))}function renderFavs(){const items=loadFavs();favList.innerHTML=items.length?items.slice().reverse().map((item,i)=>`<div class="item"><div><strong>${item.label}</strong><div class="mini">${item.rate}x • pitch ${item.pitch} • tone ${item.tone}%</div></div><button class="btn s fav-use" data-index="${items.length-1-i}" type="button">استخدم</button></div>`).join(''):'<div class="item">لا توجد مفضلات بعد.</div>'}theme.onclick=()=>applyTheme(document.body.dataset.theme==='dark'?'light':'dark');stylesWrap.addEventListener('click',e=>{const btn=e.target.closest('.style');if(!btn)return;applyStyle(btn.dataset.id)});[speed,pitch,tone].forEach(el=>el.oninput=sync);suggest.onclick=()=>applyStyle(detectSuggestion());best.onclick=()=>{const sug=detectSuggestion();applyStyle(sug);tone.value=Math.min(100,Number(tone.value)+6);sync();statusBox.textContent='تم تطبيق أفضل إعدادات تلقائيًا حسب النص.'};preview.onclick=playPreview;saveFav.onclick=()=>{const st=styles.find(s=>s.id===current)||styles[0],f=loadFavs();f.push({id:st.id,label:st.label,rate:speed.value,pitch:pitch.value,tone:tone.value});saveFavs(f.slice(-8));renderFavs();statusBox.textContent=`تم حفظ ${st.label} ضمن المفضلات.`};favList.addEventListener('click',e=>{const btn=e.target.closest('.fav-use');if(!btn)return;const items=loadFavs();const item=items[Number(btn.dataset.index)];if(!item)return;current=item.id;speed.value=item.rate;pitch.value=item.pitch;tone.value=item.tone;sync();statusBox.textContent=`تم استعادة ${item.label} من المفضلات.`});initTheme();renderFavs();applyStyle(current);document.querySelectorAll('.nav,.hero,.card').forEach((n,i)=>setTimeout(()=>n.classList.add('is-visible'),80+i*60))</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ToneForge™ | مُلهم ساوند</title>
+  <link rel="stylesheet" href="content-page.css" />
+  <link rel="stylesheet" href="tool-pages.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav glass" data-animate>
+      <a class="brand" href="index.html" aria-label="Mulhem Sound Home">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="Mulhem Sound Logo" />
+        <div class="brand-title">مُلهم ساوند</div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+        <a href="text-to-speech.html" data-i18n="nav_voxa">Voxa</a>
+        <a href="offerings.html" data-i18n="nav_offerings">ماذا نقدم</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-switch">
+          <button class="lang-chip active" id="langAr" type="button">عربي</button>
+          <button class="lang-chip" id="langEn" type="button">English</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div data-animate>
+        <span class="eyebrow" data-i18n="badge">ToneForge™</span>
+        <h1 data-i18n="hero_title">شكّل أسلوب القراءة قبل أن تذهب إلى Voxa</h1>
+        <p class="lead" data-i18n="hero_lead">اختر نبرة المحتوى أولًا: بودكاست، إعلان، قصة، تعليم، هادئ، أو حماسي. ثم أرسل الإعداد مباشرة إلى Voxa ليصبح الاختيار أسرع وأوضح.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#workspace" data-i18n="hero_primary">ابدأ تشكيل النبرة</a>
+          <a class="btn btn-secondary" href="text-to-speech.html" data-i18n="hero_secondary">افتح Voxa</a>
+        </div>
+      </div>
+      <aside class="hero-card" data-animate>
+        <div class="stat">
+          <strong data-i18n="hero_stat_title">Preset جاهز للإرسال</strong>
+          <p class="copy" data-i18n="hero_stat_text">ToneForge لا يبقى صفحة منفصلة فقط. الإعدادات التي تحفظها هنا يمكن إرسالها مباشرة إلى Voxa لتكمل التوليد على نفس الأساس.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="workspace">
+      <div class="section-head" data-animate>
+        <div>
+          <span class="eyebrow" data-i18n="styles_badge">أنماط جاهزة</span>
+          <h2 class="section-title" data-i18n="styles_title">اختر أسلوب القراءة ثم عدّله كما تريد</h2>
+        </div>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-stack">
+          <div class="panel" data-animate>
+            <div class="style-grid" id="styleGrid"></div>
+          </div>
+          <div class="note-box" data-animate>
+            <strong data-i18n="tip_title">أفضل استخدام</strong>
+            <p class="note-text" id="styleHint">اختر نمطًا من الأعلى لتظهر التوصية المناسبة للنص.</p>
+          </div>
+        </div>
+
+        <div class="panel-stack">
+          <div class="panel" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="studio_badge">الاستوديو</span>
+                <h3 data-i18n="studio_title">جرب النص ثم صدّر الإعداد إلى Voxa</h3>
+              </div>
+
+              <textarea class="textarea" id="sampleText"></textarea>
+
+              <div class="inline-row">
+                <select class="field" id="voiceFamily"></select>
+                <select class="field" id="goalSelect"></select>
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="speed_label">السرعة</span><strong id="speedValue">1.0x</strong></label>
+                <input id="speed" type="range" min="0.7" max="1.35" step="0.05" value="1" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="pitch_label">النبرة</span><strong id="pitchValue">0</strong></label>
+                <input id="pitch" type="range" min="-4" max="4" step="1" value="0" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="energy_label">الحيوية</span><strong id="energyValue">50%</strong></label>
+                <input id="energy" type="range" min="0" max="100" value="50" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="pauses_label">إيقاع الوقفات</span><strong id="pausesValue">42%</strong></label>
+                <input id="pauses" type="range" min="0" max="100" value="42" />
+              </div>
+
+              <div class="chip-row" id="presetChips"></div>
+
+              <div class="tool-actions">
+                <button class="btn btn-secondary" id="suggestBtn" type="button" data-i18n="suggest_btn">اقتراح نمط</button>
+                <button class="btn btn-secondary" id="previewBtn" type="button" data-i18n="preview_btn">تجربة النمط</button>
+                <button class="btn btn-secondary" id="saveBtn" type="button" data-i18n="save_btn">حفظ Preset</button>
+                <button class="btn btn-primary" id="applyBtn" type="button" data-i18n="apply_btn">إرسال إلى Voxa</button>
+              </div>
+
+              <div class="status-box" id="statusBox" data-i18n="status_idle">اختر نمطًا ثم جرّب المعاينة أو أرسل الإعداد إلى Voxa.</div>
+            </div>
+          </div>
+
+          <div class="history-card" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="saved_badge">Presets محفوظة</span>
+                <h3 data-i18n="saved_title">آخر الأنماط التي جهزتها</h3>
+              </div>
+              <div class="history-list" id="presetList">
+                <div class="history-empty" data-i18n="saved_empty">لا توجد Presets محفوظة بعد.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer glass" data-animate>
+      <div class="footer-links">
+        <a href="index.html" data-i18n="footer_home">الرئيسية</a>
+        <a href="about.html" data-i18n="footer_about">من نحن</a>
+        <a href="offerings.html" data-i18n="footer_offerings">ماذا نقدم</a>
+        <a href="contact.html" data-i18n="footer_contact">تواصل معنا</a>
+        <a href="faq.html" data-i18n="footer_faq">الأسئلة الشائعة</a>
+      </div>
+      <div class="footer-note" data-i18n="footer_note">ToneForge يعمل كطبقة قرار قبل Voxa: تحدد الأسلوب، تحفظ الإيقاع، ثم تنقل النتيجة إلى صفحة النص إلى صوت.</div>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Scroll To Top">↑</button>
+
+  <script>
+    window.PAGE_COPY = {
+      ar: {
+        title: "ToneForge™ | مُلهم ساوند",
+        theme_dark: "الوضع الليلي",
+        theme_light: "الوضع النهاري",
+        nav_home: "الرئيسية",
+        nav_voxa: "Voxa",
+        nav_offerings: "ماذا نقدم",
+        badge: "ToneForge™",
+        hero_title: "شكّل أسلوب القراءة قبل أن تذهب إلى Voxa",
+        hero_lead: "اختر نبرة المحتوى أولًا: بودكاست، إعلان، قصة، تعليم، هادئ، أو حماسي. ثم أرسل الإعداد مباشرة إلى Voxa ليصبح الاختيار أسرع وأوضح.",
+        hero_primary: "ابدأ تشكيل النبرة",
+        hero_secondary: "افتح Voxa",
+        hero_stat_title: "Preset جاهز للإرسال",
+        hero_stat_text: "ToneForge لا يبقى صفحة منفصلة فقط. الإعدادات التي تحفظها هنا يمكن إرسالها مباشرة إلى Voxa لتكمل التوليد على نفس الأساس.",
+        styles_badge: "أنماط جاهزة",
+        styles_title: "اختر أسلوب القراءة ثم عدّله كما تريد",
+        tip_title: "أفضل استخدام",
+        studio_badge: "الاستوديو",
+        studio_title: "جرب النص ثم صدّر الإعداد إلى Voxa",
+        speed_label: "السرعة",
+        pitch_label: "النبرة",
+        energy_label: "الحيوية",
+        pauses_label: "إيقاع الوقفات",
+        suggest_btn: "اقتراح نمط",
+        preview_btn: "تجربة النمط",
+        save_btn: "حفظ Preset",
+        apply_btn: "إرسال إلى Voxa",
+        status_idle: "اختر نمطًا ثم جرّب المعاينة أو أرسل الإعداد إلى Voxa.",
+        saved_badge: "Presets محفوظة",
+        saved_title: "آخر الأنماط التي جهزتها",
+        saved_empty: "لا توجد Presets محفوظة بعد.",
+        footer_home: "الرئيسية",
+        footer_about: "من نحن",
+        footer_offerings: "ماذا نقدم",
+        footer_contact: "تواصل معنا",
+        footer_faq: "الأسئلة الشائعة",
+        footer_note: "ToneForge يعمل كطبقة قرار قبل Voxa: تحدد الأسلوب، تحفظ الإيقاع، ثم تنقل النتيجة إلى صفحة النص إلى صوت."
+      },
+      en: {
+        title: "ToneForge™ | Mulhem Sound",
+        theme_dark: "Dark Mode",
+        theme_light: "Light Mode",
+        nav_home: "Home",
+        nav_voxa: "Voxa",
+        nav_offerings: "What We Offer",
+        badge: "ToneForge™",
+        hero_title: "Shape the reading style before you move into Voxa",
+        hero_lead: "Choose the delivery first: podcast, ad, story, education, calm, or energetic. Then send that preset directly into Voxa so voice selection feels faster and clearer.",
+        hero_primary: "Start Shaping Tone",
+        hero_secondary: "Open Voxa",
+        hero_stat_title: "Preset ready to send",
+        hero_stat_text: "ToneForge is not just a standalone page. The settings you save here can move directly into Voxa so the voice workflow starts with a clearer foundation.",
+        styles_badge: "Ready Styles",
+        styles_title: "Choose a reading style, then tune it further",
+        tip_title: "Best Use",
+        studio_badge: "Studio",
+        studio_title: "Try the text, then export the preset to Voxa",
+        speed_label: "Speed",
+        pitch_label: "Pitch",
+        energy_label: "Energy",
+        pauses_label: "Pause Rhythm",
+        suggest_btn: "Suggest Style",
+        preview_btn: "Preview Style",
+        save_btn: "Save Preset",
+        apply_btn: "Send To Voxa",
+        status_idle: "Choose a style, then preview it or send the preset to Voxa.",
+        saved_badge: "Saved Presets",
+        saved_title: "Recent styles you prepared",
+        saved_empty: "No saved presets yet.",
+        footer_home: "Home",
+        footer_about: "About",
+        footer_offerings: "What We Offer",
+        footer_contact: "Contact",
+        footer_faq: "FAQ",
+        footer_note: "ToneForge acts as a decision layer before Voxa: define the style, save the pacing, then move the result into the text-to-speech page."
+      }
+    };
+  </script>
+  <script src="content-page.js"></script>
+  <script>
+    const PRESET_KEY = "mulhem_toneforge_preset_v1";
+    const PRESET_LIST_KEY = "mulhem_toneforge_saved_v1";
+    const styleGrid = document.getElementById("styleGrid");
+    const sampleText = document.getElementById("sampleText");
+    const voiceFamily = document.getElementById("voiceFamily");
+    const goalSelect = document.getElementById("goalSelect");
+    const speed = document.getElementById("speed");
+    const pitch = document.getElementById("pitch");
+    const energy = document.getElementById("energy");
+    const pauses = document.getElementById("pauses");
+    const speedValue = document.getElementById("speedValue");
+    const pitchValue = document.getElementById("pitchValue");
+    const energyValue = document.getElementById("energyValue");
+    const pausesValue = document.getElementById("pausesValue");
+    const statusBox = document.getElementById("statusBox");
+    const styleHint = document.getElementById("styleHint");
+    const presetChips = document.getElementById("presetChips");
+    const presetList = document.getElementById("presetList");
+    const suggestBtn = document.getElementById("suggestBtn");
+    const previewBtn = document.getElementById("previewBtn");
+    const saveBtn = document.getElementById("saveBtn");
+    const applyBtn = document.getElementById("applyBtn");
+
+    const styleProfiles = [
+      {
+        id: "podcast",
+        icon: "🎙️",
+        voiceId: "ruwad",
+        titleAr: "بودكاست",
+        titleEn: "Podcast",
+        descAr: "أسلوب متوازن للحلقات والمقدمات والصوت المستمر.",
+        descEn: "Balanced delivery for podcast episodes, intros, and steady reads.",
+        hintAr: "اختيار مناسب للحلقات والمحتوى الذي يحتاج حضورًا واضحًا بدون مبالغة.",
+        hintEn: "Best for episodes and spoken content that needs presence without sounding too heavy.",
+        sampleAr: "في هذه الحلقة سنراجع الفكرة الأساسية، ثم ننتقل إلى التطبيق العملي خطوة بخطوة.",
+        sampleEn: "In this episode, we will review the core idea first, then move into the practical application step by step.",
+        speed: 1.0,
+        pitch: 0,
+        energy: 56,
+        pauses: 44
+      },
+      {
+        id: "ad",
+        icon: "📣",
+        voiceId: "barq",
+        titleAr: "إعلان",
+        titleEn: "Ad",
+        descAr: "إيقاع أسرع وعبارات أقصر للعروض والرسائل الإعلانية.",
+        descEn: "Faster pacing and tighter phrasing for promos and short ad reads.",
+        hintAr: "مناسب للعروض القصيرة، الحملات، والرسائل التي تحتاج دعوة واضحة للفعل.",
+        hintEn: "Ideal for promos, campaigns, and copy that needs a clear call to action.",
+        sampleAr: "عرض اليوم يبدأ الآن. جرّب الخدمة بسرعة، واكتشف الفرق من أول تشغيل.",
+        sampleEn: "Today’s offer starts now. Try the service fast and hear the difference from the first play.",
+        speed: 1.18,
+        pitch: 1,
+        energy: 82,
+        pauses: 18
+      },
+      {
+        id: "story",
+        icon: "📖",
+        voiceId: "atheer",
+        titleAr: "قصصي",
+        titleEn: "Story",
+        descAr: "سرد أهدأ للمحتوى الطويل والقصص والمقالات الصوتية.",
+        descEn: "A slower narrative rhythm for stories, long-form reads, and reflective content.",
+        hintAr: "اختيار جيد للقصص والبودكاست السردي والمحتوى الذي يحتاج وقفات أوضح.",
+        hintEn: "A strong fit for stories, narrative podcasts, and content that benefits from clearer pauses.",
+        sampleAr: "كان يا ما كان، في بداية الحكاية، يظهر الصوت الهادئ ليقود السرد بسلاسة.",
+        sampleEn: "Once upon a time, a softer voice carried the story with a calmer, more deliberate pace.",
+        speed: 0.86,
+        pitch: 1,
+        energy: 54,
+        pauses: 62
+      },
+      {
+        id: "education",
+        icon: "🎓",
+        voiceId: "juman",
+        titleAr: "تعليمي",
+        titleEn: "Education",
+        descAr: "قراءة مرتبة وواضحة للدروس، الشروحات، والمحتوى الإجرائي.",
+        descEn: "A structured and clear style for lessons, explainers, and guided learning.",
+        hintAr: "مناسب للدروس والمقاطع التي تشرح خطوات أو مفاهيم بشكل مباشر.",
+        hintEn: "Ideal for lessons and content that walks the listener through steps or concepts.",
+        sampleAr: "في هذا الدرس سنراجع المفهوم الأساسي، ثم ننتقل إلى التطبيق العملي خطوة بخطوة.",
+        sampleEn: "In this lesson, we will review the main concept first, then move into the practical steps one by one.",
+        speed: 0.95,
+        pitch: -1,
+        energy: 46,
+        pauses: 42
+      },
+      {
+        id: "calm",
+        icon: "🌿",
+        voiceId: "lujain",
+        titleAr: "هادئ",
+        titleEn: "Calm",
+        descAr: "إيقاع ألين ونبرة أهدأ للمحتوى التوضيحي والمريح.",
+        descEn: "A softer pace and calmer tone for reassuring, easy-to-follow content.",
+        hintAr: "مناسب للشروحات الهادئة، رسائل الترحيب، وتجارب الاستخدام التي تحتاج لطفًا أكثر.",
+        hintEn: "Great for gentle explainers, onboarding, welcome messages, and softer flows.",
+        sampleAr: "أهلًا بك. سنرتب الفكرة بهدوء، ثم ننتقل إلى كل خطوة بصورة واضحة ومريحة.",
+        sampleEn: "Welcome. We will organize the idea calmly, then move through each step in a clear and comfortable way.",
+        speed: 0.92,
+        pitch: 1,
+        energy: 38,
+        pauses: 52
+      },
+      {
+        id: "energetic",
+        icon: "⚡",
+        voiceId: "sami",
+        titleAr: "حماسي",
+        titleEn: "Energetic",
+        descAr: "حيوية أعلى للمحتوى القصير والسوشيال والمقاطع السريعة.",
+        descEn: "Higher energy for social clips, creator content, and quick attention-grabbing reads.",
+        hintAr: "اختيار مناسب للريلز، المقاطع القصيرة، والمحتوى الذي يحتاج سرعة وحركة.",
+        hintEn: "Best for reels, short-form clips, and content that needs speed and lift.",
+        sampleAr: "أهلًا! هذا الأسلوب يعطي النص حركة أسرع وحضورًا أكبر للمحتوى القصير.",
+        sampleEn: "This style gives the line more motion and energy for shorter, faster content.",
+        speed: 1.12,
+        pitch: 1,
+        energy: 74,
+        pauses: 24
+      }
+    ];
+
+    let activeStyleId = "podcast";
+
+    function lang() {
+      return document.documentElement.lang === "en" ? "en" : "ar";
+    }
+
+    function localeText(ar, en) {
+      return lang() === "ar" ? ar : en;
+    }
+
+    function getStyle(id = activeStyleId) {
+      return styleProfiles.find((item) => item.id === id) || styleProfiles[0];
+    }
+
+    function setStatus(value) {
+      statusBox.textContent = value;
+    }
+
+    function syncRanges() {
+      speedValue.textContent = `${Number(speed.value).toFixed(2)}x`;
+      pitchValue.textContent = pitch.value;
+      energyValue.textContent = `${energy.value}%`;
+      pausesValue.textContent = `${pauses.value}%`;
+    }
+
+    function renderSelects() {
+      voiceFamily.innerHTML = [
+        { value: "auto", ar: "اقتراح تلقائي", en: "Auto Suggest" },
+        { value: "formal", ar: "رسمي", en: "Formal" },
+        { value: "clear", ar: "واضح", en: "Clear" },
+        { value: "radio", ar: "إذاعي", en: "Radio" },
+        { value: "gulf", ar: "خليجي", en: "Gulf" },
+        { value: "story", ar: "قصصي", en: "Story" }
+      ].map((item) => `<option value="${item.value}">${localeText(item.ar, item.en)}</option>`).join("");
+
+      goalSelect.innerHTML = [
+        { value: "podcast", ar: "بودكاست", en: "Podcast" },
+        { value: "ad", ar: "إعلان", en: "Ad" },
+        { value: "education", ar: "تعليمي", en: "Education" },
+        { value: "story", ar: "قصصي", en: "Story" },
+        { value: "social", ar: "سوشيال", en: "Social" }
+      ].map((item) => `<option value="${item.value}">${localeText(item.ar, item.en)}</option>`).join("");
+    }
+
+    function renderStyles() {
+      styleGrid.innerHTML = styleProfiles.map((style) => `
+        <article class="style-card ${style.id === activeStyleId ? "active" : ""}" data-style="${style.id}">
+          <div class="icon">${style.icon}</div>
+          <h3>${localeText(style.titleAr, style.titleEn)}</h3>
+          <p class="muted">${localeText(style.descAr, style.descEn)}</p>
+        </article>
+      `).join("");
+    }
+
+    function renderPresetChips(style) {
+      presetChips.innerHTML = [
+        localeText(`الصوت المقترح: ${style.voiceId}`, `Suggested voice: ${style.voiceId}`),
+        localeText(`السرعة ${Number(speed.value).toFixed(2)}x`, `Speed ${Number(speed.value).toFixed(2)}x`),
+        localeText(`النبرة ${pitch.value}`, `Pitch ${pitch.value}`),
+        localeText(`الحيوية ${energy.value}%`, `Energy ${energy.value}%`)
+      ].map((item) => `<span class="stat-pill">${item}</span>`).join("");
+    }
+
+    function applyStyle(id, keepText = false) {
+      const style = getStyle(id);
+      activeStyleId = style.id;
+      speed.value = style.speed;
+      pitch.value = style.pitch;
+      energy.value = style.energy;
+      pauses.value = style.pauses;
+      goalSelect.value = style.id === "energetic" ? "social" : style.id;
+      if (!keepText || !sampleText.value.trim()) {
+        sampleText.value = localeText(style.sampleAr, style.sampleEn);
+      }
+      styleHint.textContent = localeText(style.hintAr, style.hintEn);
+      renderStyles();
+      syncRanges();
+      renderPresetChips(style);
+      setStatus(localeText(`تم اختيار نمط ${style.titleAr}.`, `Selected the ${style.titleEn} style.`));
+    }
+
+    function findPreferredBrowserVoice(style) {
+      if (!("speechSynthesis" in window)) return null;
+      const available = window.speechSynthesis.getVoices();
+      const preferredLang = lang() === "ar" ? "ar" : "en";
+      let filtered = available.filter((voice) => voice.lang.toLowerCase().startsWith(preferredLang));
+      if (!filtered.length) filtered = available;
+      const hintMap = {
+        ruwad: ["male", "david", "broadcast"],
+        barq: ["male", "david"],
+        atheer: ["zira", "female"],
+        juman: ["zira", "female"],
+        lujain: ["zira", "female"],
+        sami: ["david", "male"]
+      };
+      const hints = hintMap[style.voiceId] || [];
+      return filtered.find((voice) => {
+        const ref = `${voice.name} ${voice.voiceURI}`.toLowerCase();
+        return hints.some((hint) => ref.includes(hint));
+      }) || filtered[0] || null;
+    }
+
+    function suggestStyleId() {
+      const text = sampleText.value.trim();
+      if (/عرض|خصم|إعلان|launch|offer|sale|promo/i.test(text)) return "ad";
+      if (/كان يا ما كان|حكاية|قصة|story|novel/i.test(text)) return "story";
+      if (/في هذا الدرس|سنتعلم|شرح|lesson|course|tutorial/i.test(text)) return "education";
+      if (/ريلز|يوتيوب|shorts|reel|social|creator|tiktok/i.test(text)) return "energetic";
+      if (/أهلًا|welcome|intro|podcast|حلقة/i.test(text)) return "podcast";
+      return "calm";
+    }
+
+    function previewStyle() {
+      const style = getStyle();
+      const text = sampleText.value.trim() || localeText(style.sampleAr, style.sampleEn);
+      if (!("speechSynthesis" in window)) {
+        setStatus(localeText("تعذّر تشغيل المعاينة الصوتية على هذا المتصفح حاليًا.", "Audio preview is currently unavailable in this browser."));
+        return;
+      }
+
+      const utterance = new SpeechSynthesisUtterance(text);
+      utterance.lang = lang() === "ar" ? "ar-SA" : "en-US";
+      utterance.rate = Math.max(0.72, Math.min(1.3, Number(speed.value)));
+      utterance.pitch = Math.max(0.6, Math.min(1.8, 1 + Number(pitch.value) * 0.1));
+      utterance.volume = Math.max(0.72, Math.min(1, 0.72 + Number(energy.value) / 380));
+      const preferred = findPreferredBrowserVoice(style);
+      if (preferred) utterance.voice = preferred;
+
+      window.speechSynthesis.cancel();
+      window.speechSynthesis.speak(utterance);
+      setStatus(localeText(`جارٍ تشغيل معاينة لنمط ${style.titleAr}.`, `Playing a preview for the ${style.titleEn} style.`));
+    }
+
+    function getSavedPresets() {
+      try {
+        return JSON.parse(localStorage.getItem(PRESET_LIST_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function savePresets(items) {
+      localStorage.setItem(PRESET_LIST_KEY, JSON.stringify(items.slice(-8)));
+    }
+
+    function renderSavedPresets() {
+      const items = getSavedPresets();
+      if (!items.length) {
+        presetList.innerHTML = `<div class="history-empty">${localeText("لا توجد Presets محفوظة بعد.", "No saved presets yet.")}</div>`;
+        return;
+      }
+
+      presetList.innerHTML = items.slice().reverse().map((item, reversedIndex) => {
+        const realIndex = items.length - 1 - reversedIndex;
+        return `
+          <div class="history-item">
+            <div>
+              <strong>${lang() === "ar" ? item.nameAr : item.nameEn}</strong>
+              <div class="muted">${lang() === "ar" ? item.summaryAr : item.summaryEn}</div>
+            </div>
+            <div class="tool-actions">
+              <button class="btn btn-secondary" type="button" data-restore="${realIndex}">${localeText("استعادة", "Restore")}</button>
+              <button class="btn btn-primary" type="button" data-send="${realIndex}">${localeText("إرسال إلى Voxa", "Send To Voxa")}</button>
+            </div>
+          </div>
+        `;
+      }).join("");
+    }
+
+    function saveCurrentPreset() {
+      const style = getStyle();
+      const items = getSavedPresets();
+      items.push({
+        styleId: style.id,
+        voiceId: style.voiceId,
+        nameAr: style.titleAr,
+        nameEn: style.titleEn,
+        speed: Number(speed.value),
+        pitch: Number(pitch.value),
+        energy: Number(energy.value),
+        pauses: Number(pauses.value),
+        sampleTextAr: sampleText.value.trim(),
+        sampleTextEn: sampleText.value.trim(),
+        summaryAr: `${style.titleAr} • ${Number(speed.value).toFixed(2)}x • ${energy.value}%`,
+        summaryEn: `${style.titleEn} • ${Number(speed.value).toFixed(2)}x • ${energy.value}%`
+      });
+      savePresets(items);
+      renderSavedPresets();
+      setStatus(localeText(`تم حفظ Preset لنمط ${style.titleAr}.`, `Saved a preset for ${style.titleEn}.`));
+    }
+
+    function sendPresetToVoxa(payload) {
+      localStorage.setItem(PRESET_KEY, JSON.stringify(payload));
+      window.location.href = "text-to-speech.html";
+    }
+
+    function buildOutgoingPreset() {
+      const style = getStyle();
+      return {
+        source: "toneforge",
+        styleId: style.id === "calm" ? "education" : style.id === "energetic" ? "ad" : style.id,
+        voiceId: style.voiceId,
+        speed: Number(speed.value),
+        pitch: Number(pitch.value),
+        energy: Number(energy.value),
+        pauses: Number(pauses.value),
+        sampleTextAr: sampleText.value.trim() || style.sampleAr,
+        sampleTextEn: sampleText.value.trim() || style.sampleEn
+      };
+    }
+
+    function restorePreset(index) {
+      const item = getSavedPresets()[index];
+      if (!item) return;
+      activeStyleId = item.styleId;
+      renderSelects();
+      applyStyle(item.styleId, true);
+      speed.value = item.speed;
+      pitch.value = item.pitch;
+      energy.value = item.energy;
+      pauses.value = item.pauses;
+      sampleText.value = lang() === "ar" ? item.sampleTextAr : item.sampleTextEn;
+      syncRanges();
+      renderPresetChips(getStyle(item.styleId));
+      setStatus(localeText(`تمت استعادة Preset ${item.nameAr}.`, `Restored the ${item.nameEn} preset.`));
+    }
+
+    function renderAll() {
+      renderSelects();
+      renderStyles();
+      renderSavedPresets();
+      if (!sampleText.value.trim()) {
+        sampleText.value = localeText(getStyle().sampleAr, getStyle().sampleEn);
+      }
+      styleHint.textContent = localeText(getStyle().hintAr, getStyle().hintEn);
+      syncRanges();
+      renderPresetChips(getStyle());
+      setStatus(localeText("اختر نمطًا ثم جرّب المعاينة أو أرسل الإعداد إلى Voxa.", "Choose a style, then preview it or send the preset to Voxa."));
+    }
+
+    styleGrid.addEventListener("click", (event) => {
+      const card = event.target.closest("[data-style]");
+      if (!card) return;
+      applyStyle(card.dataset.style);
+    });
+
+    [speed, pitch, energy, pauses].forEach((input) => input.addEventListener("input", () => {
+      syncRanges();
+      renderPresetChips(getStyle());
+    }));
+
+    suggestBtn.addEventListener("click", () => {
+      const id = suggestStyleId();
+      applyStyle(id, true);
+      setStatus(localeText(`تم اقتراح نمط ${getStyle(id).titleAr} بناءً على النص الحالي.`, `Suggested the ${getStyle(id).titleEn} style from the current text.`));
+    });
+
+    previewBtn.addEventListener("click", previewStyle);
+    saveBtn.addEventListener("click", saveCurrentPreset);
+    applyBtn.addEventListener("click", () => {
+      sendPresetToVoxa(buildOutgoingPreset());
+    });
+
+    presetList.addEventListener("click", (event) => {
+      const restore = event.target.closest("[data-restore]");
+      const send = event.target.closest("[data-send]");
+      if (restore) restorePreset(Number(restore.dataset.restore));
+      if (send) {
+        const item = getSavedPresets()[Number(send.dataset.send)];
+        if (!item) return;
+        sendPresetToVoxa({
+          source: "toneforge",
+          styleId: item.styleId === "calm" ? "education" : item.styleId === "energetic" ? "ad" : item.styleId,
+          voiceId: item.voiceId,
+          speed: item.speed,
+          pitch: item.pitch,
+          energy: item.energy,
+          pauses: item.pauses,
+          sampleTextAr: item.sampleTextAr,
+          sampleTextEn: item.sampleTextEn
+        });
+      }
+    });
+
+    document.getElementById("langAr").addEventListener("click", () => setTimeout(renderAll, 0));
+    document.getElementById("langEn").addEventListener("click", () => setTimeout(renderAll, 0));
+
+    applyStyle(activeStyleId);
+    renderAll();
+  </script>
+</body>
+</html>
