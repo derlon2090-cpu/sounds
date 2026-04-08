@@ -15,6 +15,7 @@ const ui = {
   file: $("fileInput"),
   browse: $("browseBtn"),
   run: $("runBtn"),
+  record: $("recordBtn"),
   clear: $("clearBtn"),
   demo: $("demoBtn"),
   name: $("fileName"),
@@ -71,6 +72,7 @@ const staticNodes = {
   heroStatTexts: all(".hero-card .muted"),
   uploadTitle: d.querySelector(".upload-copy h3"),
   uploadCopy: d.querySelector(".upload-copy .muted"),
+  supportLive: d.querySelector(".support-list .support-badge:nth-child(4)"),
   supportMulti: d.querySelector(".support-list .support-badge:last-child"),
   metricLabels: all(".metric-label"),
   progressTitle: d.querySelectorAll(".section-card .section-head h3")[0],
@@ -93,7 +95,7 @@ const staticNodes = {
 const ctx = ui.canvas.getContext("2d");
 let currentLang = localStorage.getItem(LANG_KEY) || "ar";
 
-const state = { files: [], file: null, url: "", duration: 0, payload: null, busy: false };
+const state = { files: [], file: null, url: "", duration: 0, payload: null, busy: false, recording: false, recognition: null, liveTranscript: "", liveInterim: "" };
 
 const copy = {
   ar: {
@@ -102,14 +104,15 @@ const copy = {
     heroTitle: "حوّل التسجيل إلى نص خلال ثوانٍ وبنتيجة جاهزة للاستخدام",
     heroLead: "ارفع ملفك، شاهد مراحل المعالجة بوضوح، ثم احصل على تفريغ كامل وملخص ونقاط رئيسية وترجمة وكلمات مفتاحية في صفحة واحدة مرتبة وواضحة.",
     heroPrimary: "ابدأ التفريغ الآن", heroSecondary: "استكشف الخدمات",
-    heroTags: ["تفريغ + ملخص + ترجمة", "معاينة صوتية قبل التحويل", "تصدير TXT و JSON و SRT"],
+    heroTags: ["تفريغ + ملخص + ترجمة", "تسجيل مباشر من الميكروفون", "تصدير TXT و JSON و SRT"],
     heroStats: [
       ["الخدمة القائدة", "هذه الصفحة صارت المنتج الأوضح داخل المنصة، لذلك ركزنا على أن تكون أسرع فهمًا وأقرب لمنصة جاهزة لا مجرد نموذج أولي."],
-      ["تدفّق بسيط", "ارفع الملف، اختر اللغة، شغّل التحليل، ثم تنقّل بين النتائج داخل تبويبات واضحة بدل تكديس طويل."],
+      ["تدفّق بسيط", "ارفع الملف أو ابدأ تسجيلًا مباشرًا، اختر اللغة، شغّل التحليل، ثم تنقّل بين النتائج داخل تبويبات واضحة بدل تكديس طويل."],
       ["نتيجة نهائية جاهزة", "شريط إجراءات واضح للتنزيل والنسخ وإعادة المعالجة، مع سجل نتائج يمكن الرجوع إليه في أي وقت."]
     ],
     uploadTitle: "اسحب ملفك هنا أو اضغط للرفع",
     uploadCopy: "يمكنك رفع أكثر من ملف، وسنعالج أول ملف مباشرة مع إظهار الدفعة والمدة والصيغة بشكل واضح.",
+    supportLive: "تسجيل مباشر",
     supportMulti: "دعم رفع متعدد",
     metricLabels: ["الملف الحالي", "مدة التسجيل", "الدفعة"],
     progressTitle: "تابع كل خطوة بوضوح",
@@ -140,7 +143,7 @@ const copy = {
     placeholders: ["ستظهر نتيجة التفريغ هنا بعد بدء المعالجة.", "سيظهر الملخص هنا.", "ستظهر النقاط الرئيسية هنا.", "ستظهر الترجمة هنا.", "ابدأ المعالجة أولًا", "سيظهر JSON الخام هنا."],
     quickReady: "جاهز للنسخ والتنزيل بعد التحليل", suggestionTitle: "اقتراح تلقائي",
     suggestionBody: "للملفات التعليمية أو الاجتماعات، ابدأ بالعربية ومستوى ملخص متوسط لتحصل على توازن جيد بين الاختصار والدقة.",
-    browseBtn: "ابدأ الآن", runBtn: "حلّل التسجيل", clearBtn: "مسح الملف", demoBtn: "تجربة سريعة",
+    browseBtn: "ابدأ الآن", runBtn: "حلّل التسجيل", recordBtn: "تسجيل مباشر", recordStopBtn: "إيقاف التسجيل", clearBtn: "مسح الملف", demoBtn: "تجربة سريعة",
     options: {
       lang: { auto: "تلقائي", ar: "العربية", en: "الإنجليزية", "ar-gulf": "العربية الخليجية" },
       summary: { short: "قصير", medium: "متوسط", detailed: "مفصل" },
@@ -158,6 +161,14 @@ const copy = {
     translationTemplate: "ترجمة مختصرة: This recording was processed into a readable transcript with summary and key points.",
     keywordSeed: ["تفريغ", "ملخص", "نقاط", "ترجمة", "اجتماع", "محتوى", "صوت", "تحليل", "محاضرة", "توثيق"],
     historyOpen: "فتح النتيجة", historyOpenStatus: "تم فتح نتيجة محفوظة من السجل.",
+    liveReady: "المتصفح يدعم التسجيل المباشر. يمكنك بدء التفريغ من الميكروفون.",
+    liveUnsupported: "المتصفح الحالي لا يدعم التفريغ المباشر من الميكروفون.",
+    liveRecording: "جارٍ الاستماع الآن. تحدّث بوضوح وسيظهر النص مباشرة.",
+    liveStopped: "تم إيقاف التسجيل المباشر.",
+    liveTranscriptTitle: "تفريغ مباشر",
+    liveTranscriptMeta: "ناتج الميكروفون المباشر",
+    liveSaved: "تم حفظ التفريغ المباشر في السجل.",
+    liveError: "تعذّر بدء التسجيل المباشر على هذا المتصفح أو الجهاز.",
     downloadNames: { txt: "transcript.txt", json: "result.json", srt: "captions.srt" }
   },
   en: {
@@ -166,14 +177,15 @@ const copy = {
     heroTitle: "Turn recordings into text in seconds with results ready to use",
     heroLead: "Upload your file, watch the processing stages clearly, then get a full transcript, summary, key points, translation, and keywords in one organized page.",
     heroPrimary: "Start Transcription", heroSecondary: "Explore Services",
-    heroTags: ["Transcription + summary + translation", "Audio preview before analysis", "TXT, JSON, and SRT export"],
+    heroTags: ["Transcription + summary + translation", "Live microphone transcription", "TXT, JSON, and SRT export"],
     heroStats: [
       ["Flagship product", "This page is now the clearest product inside the platform, designed to feel closer to a ready tool than a prototype."],
-      ["Simple flow", "Upload the file, choose the language, run analysis, then move through structured result tabs."],
+      ["Simple flow", "Upload the file or start a live recording, choose the language, run analysis, then move through structured result tabs."],
       ["Ready outcome", "A clear action bar for copy, download, and rerun, with saved history cards you can reopen anytime."]
     ],
     uploadTitle: "Drag your file here or click to upload",
     uploadCopy: "You can upload multiple files. We analyze the first file immediately and still show the batch clearly.",
+    supportLive: "Live recording",
     supportMulti: "Multi-file support",
     metricLabels: ["Current File", "Recording Length", "Batch"],
     progressTitle: "Follow every stage clearly",
@@ -204,7 +216,7 @@ const copy = {
     placeholders: ["The transcript will appear here after processing starts.", "The summary will appear here.", "Key points will appear here.", "The translation will appear here.", "Run the analysis first.", "The raw JSON will appear here."],
     quickReady: "Ready for copy and download after analysis", suggestionTitle: "Auto suggestion",
     suggestionBody: "For lectures or meetings, start with Arabic and a medium summary to balance brevity and clarity.",
-    browseBtn: "Upload File", runBtn: "Analyze Recording", clearBtn: "Clear File", demoBtn: "Quick Demo",
+    browseBtn: "Upload File", runBtn: "Analyze Recording", recordBtn: "Live Record", recordStopBtn: "Stop Recording", clearBtn: "Clear File", demoBtn: "Quick Demo",
     options: {
       lang: { auto: "Auto", ar: "Arabic", en: "English", "ar-gulf": "Gulf Arabic" },
       summary: { short: "Short", medium: "Medium", detailed: "Detailed" },
@@ -222,6 +234,14 @@ const copy = {
     translationTemplate: "Short translation: تمت معالجة هذا التسجيل إلى نص واضح مع ملخص ونقاط رئيسية.",
     keywordSeed: ["transcript", "summary", "keywords", "audio", "recording", "meeting", "content", "analysis", "lecture", "archive"],
     historyOpen: "Open Result", historyOpenStatus: "Opened a saved result from history.",
+    liveReady: "This browser supports live microphone transcription.",
+    liveUnsupported: "This browser does not support live microphone transcription.",
+    liveRecording: "Listening now. Speak clearly and the transcript will appear live.",
+    liveStopped: "Live recording has been stopped.",
+    liveTranscriptTitle: "Live Transcript",
+    liveTranscriptMeta: "Direct microphone input",
+    liveSaved: "Saved the live transcript to history.",
+    liveError: "Could not start live recording on this browser or device.",
     downloadNames: { txt: "transcript.txt", json: "result.json", srt: "captions.srt" }
   }
 };
@@ -268,16 +288,16 @@ function applyLanguage(lang) {
   setText(staticNodes.navHome, t("navHome")); setText(staticNodes.navServices, t("navServices")); setText(staticNodes.navVoxa, t("navVoxa"));
   setText(staticNodes.heroTitle, t("heroTitle")); setText(staticNodes.heroLead, t("heroLead")); setText(staticNodes.heroPrimary, t("heroPrimary")); setText(staticNodes.heroSecondary, t("heroSecondary"));
   staticNodes.heroTags.forEach((node, i) => setText(node, t("heroTags")[i])); staticNodes.heroStatTitles.forEach((node, i) => setText(node, t("heroStats")[i][0])); staticNodes.heroStatTexts.forEach((node, i) => setText(node, t("heroStats")[i][1]));
-  setText(staticNodes.uploadTitle, t("uploadTitle")); setText(staticNodes.uploadCopy, t("uploadCopy")); setText(staticNodes.supportMulti, t("supportMulti")); staticNodes.metricLabels.forEach((n, i) => setText(n, t("metricLabels")[i]));
+  setText(staticNodes.uploadTitle, t("uploadTitle")); setText(staticNodes.uploadCopy, t("uploadCopy")); setText(staticNodes.supportLive, t("supportLive")); setText(staticNodes.supportMulti, t("supportMulti")); staticNodes.metricLabels.forEach((n, i) => setText(n, t("metricLabels")[i]));
   setText(staticNodes.progressTitle, t("progressTitle")); setText(staticNodes.previewTitle, t("previewTitle")); setText(staticNodes.settingsTitle, t("settingsTitle"));
   staticNodes.useTitles.forEach((n, i) => setText(n, t("useTitles")[i])); staticNodes.useTexts.forEach((n, i) => setText(n, t("useTexts")[i]));
   staticNodes.sectionTitles.forEach((n, i) => setText(n, t("sectionTitles")[i])); staticNodes.sectionCopies.forEach((n, i) => setText(n, t("sectionCopies")[i]));
   staticNodes.fieldLabels.forEach((n, i) => setText(n, t("fieldLabels")[i])); setText(staticNodes.rangeLabel, t("rangeLabel"));
   setText(ui.copy, t("copyBtn")); setText(ui.rerun, t("rerunBtn")); ui.tabs.forEach((n, i) => setText(n, t("tabs")[i]));
   setText(staticNodes.historyTitle, t("sectionTitles")[2]); setText(staticNodes.historyCopy, t("sectionCopies")[2]); setText(staticNodes.historyEmptyTitle, t("historyEmptyTitle")); setText(staticNodes.historyEmptyText, t("historyEmptyText"));
-  setText(ui.browse, t("browseBtn")); setText(ui.run, t("runBtn")); setText(ui.clear, t("clearBtn")); setText(ui.demo, t("demoBtn"));
+  setText(ui.browse, t("browseBtn")); setText(ui.run, t("runBtn")); setText(ui.record, state.recording ? t("recordStopBtn") : t("recordBtn")); setText(ui.clear, t("clearBtn")); setText(ui.demo, t("demoBtn"));
   setText(ui.suggestionTitle, t("suggestionTitle")); setText(ui.suggestionBody, t("suggestionBody"));
-  updateSelectOptions(); syncTags(); resetResult(); resetProgress(); renderHistory(); localStorage.setItem(LANG_KEY, currentLang);
+  updateSelectOptions(); syncTags(); resetResult(); resetProgress(); if (!state.file) setText(ui.note, recognitionSupported() ? t("liveReady") : t("noteReady")); renderHistory(); localStorage.setItem(LANG_KEY, currentLang);
 }
 
 function syncTags() {
@@ -306,9 +326,10 @@ function setStage(index) {
 }
 
 function clearSelection() {
+  if (state.recording) stopLiveRecording(true);
   if (state.url) URL.revokeObjectURL(state.url);
-  Object.assign(state, { files: [], file: null, url: "", duration: 0, payload: null });
-  ui.file.value = ""; setText(ui.name, t("fileEmpty")); setText(ui.duration, "--"); setText(ui.batch, t("batchEmpty")); setText(ui.preview, t("previewEmpty")); ui.queue.innerHTML = `<div class="queue-pill">${t("queueEmpty")}</div>`; ui.audio.removeAttribute("src"); ui.audio.load(); drawWave([]); resetProgress(); resetResult();
+  Object.assign(state, { files: [], file: null, url: "", duration: 0, payload: null, liveTranscript: "", liveInterim: "" });
+  ui.file.value = ""; setText(ui.name, t("fileEmpty")); setText(ui.duration, "--"); setText(ui.batch, t("batchEmpty")); setText(ui.preview, t("previewEmpty")); ui.queue.innerHTML = `<div class="queue-pill">${t("queueEmpty")}</div>`; ui.audio.removeAttribute("src"); ui.audio.load(); drawWave([]); resetProgress(); resetResult(); setText(ui.record, t("recordBtn")); setText(ui.note, recognitionSupported() ? t("liveReady") : t("noteReady"));
 }
 
 function renderQueue(files) {
@@ -337,6 +358,81 @@ function createPayload() {
   };
 }
 
+function recognitionSupported() {
+  return Boolean(window.SpeechRecognition || window.webkitSpeechRecognition);
+}
+
+function recognitionLang() {
+  if (ui.lang.value === "en") return "en-US";
+  if (ui.lang.value === "ar-gulf") return "ar-SA";
+  if (ui.lang.value === "ar") return "ar-SA";
+  return currentLang === "en" ? "en-US" : "ar-SA";
+}
+
+function sentenceChunks(text) {
+  return text
+    .split(/[\.\!\؟\?]\s+/)
+    .map((item) => item.trim())
+    .filter(Boolean);
+}
+
+function extractKeywordsFromText(text) {
+  const words = text
+    .toLowerCase()
+    .replace(/[^\p{L}\p{N}\s]/gu, " ")
+    .split(/\s+/)
+    .filter((word) => word.length > 3);
+  const ignore = new Set(["this", "that", "with", "from", "have", "your", "into", "على", "هذا", "هذه", "ذلك", "التي", "الذي", "يمكن", "خلال"]);
+  const counts = new Map();
+  words.forEach((word) => {
+    if (ignore.has(word)) return;
+    counts.set(word, (counts.get(word) || 0) + 1);
+  });
+  return [...counts.entries()]
+    .sort((a, b) => b[1] - a[1])
+    .slice(0, Number(ui.keywordRange.value))
+    .map(([word]) => word);
+}
+
+function buildLivePayload(text) {
+  const clean = text.trim();
+  const sentences = sentenceChunks(clean);
+  const summarySentences = sentences.slice(0, ui.summary.value === "short" ? 1 : ui.summary.value === "detailed" ? 3 : 2);
+  const points = (sentences.length ? sentences : [clean]).slice(0, 3).map((line, index) => `${index + 1}. ${line}`);
+  const keywords = extractKeywordsFromText(clean);
+  const translation = currentLang === "ar"
+    ? "ترجمة مختصرة: تم التقاط النص مباشرة من الميكروفون ويمكن الآن تحريره أو تنزيله."
+    : "Short translation: this text was captured live from the microphone and is now ready for editing or export.";
+
+  return {
+    fileName: t("liveTranscriptTitle"),
+    transcript: clean || t("placeholders")[0],
+    summary: summarySentences.join(currentLang === "ar" ? "، " : ". "),
+    points: points.join("\n"),
+    translation,
+    keywords: keywords.length ? keywords : t("keywordSeed").slice(0, Number(ui.keywordRange.value)),
+    raw: JSON.stringify({
+      source: "microphone",
+      language: recognitionLang(),
+      summary: ui.summary.value,
+      export: ui.exportPreset.value,
+      transcript: clean
+    }, null, 2)
+  };
+}
+
+function savePayloadToHistory(payload, meta = {}) {
+  const items = getHistory();
+  items.push({
+    ...payload,
+    duration: meta.duration || formatDuration(state.duration || 18),
+    lang: meta.lang || ui.lang.options[ui.lang.selectedIndex].text,
+    createdAt: new Date().toLocaleString(currentLang === "ar" ? "ar-SA" : "en-US")
+  });
+  saveHistory(items);
+  renderHistory();
+}
+
 async function runAnalysis() {
   if (state.busy) return;
   if (!state.file) {
@@ -348,7 +444,7 @@ async function runAnalysis() {
   for (let i = 0; i < stageMeta.length; i += 1) { setStage(i); await wait(650); }
   state.payload = createPayload();
   setText(ui.transcript, state.payload.transcript); setText(ui.summaryPanel, state.payload.summary); setText(ui.points, state.payload.points); setText(ui.translation, state.payload.translation); setText(ui.raw, state.payload.raw); ui.keywords.innerHTML = state.payload.keywords.map((word) => `<div class="keyword-chip">${word}</div>`).join(""); setText(ui.resultTitle, state.file?.name || t("demoFile")); setText(ui.resultMeta, `${ui.lang.options[ui.lang.selectedIndex].text} • ${ui.summary.options[ui.summary.selectedIndex].text} • ${formatDuration(state.duration || 18)}`);
-  const items = getHistory(); items.push({ ...state.payload, duration: formatDuration(state.duration || 18), lang: ui.lang.options[ui.lang.selectedIndex].text, createdAt: new Date().toLocaleString(currentLang === "ar" ? "ar-SA" : "en-US") }); saveHistory(items); renderHistory(); state.busy = false;
+  savePayloadToHistory(state.payload, { duration: formatDuration(state.duration || 18), lang: ui.lang.options[ui.lang.selectedIndex].text }); state.busy = false;
 }
 
 function renderHistory() {
@@ -370,6 +466,99 @@ function openHistory(index) {
   state.payload = item; setText(ui.transcript, item.transcript); setText(ui.summaryPanel, item.summary); setText(ui.points, item.points); setText(ui.translation, item.translation); setText(ui.raw, item.raw); ui.keywords.innerHTML = item.keywords.map((word) => `<div class="keyword-chip">${word}</div>`).join(""); setText(ui.resultTitle, item.fileName); setText(ui.resultMeta, `${item.lang} • ${item.duration}`); setText(ui.status, t("historyOpenStatus"));
 }
 
+function updateLivePanels(text, interim = "") {
+  const merged = [text, interim].filter(Boolean).join(" ").trim();
+  if (!merged) return;
+  state.payload = buildLivePayload(merged);
+  setText(ui.transcript, merged);
+  setText(ui.summaryPanel, state.payload.summary);
+  setText(ui.points, state.payload.points);
+  setText(ui.translation, state.payload.translation);
+  setText(ui.raw, state.payload.raw);
+  ui.keywords.innerHTML = state.payload.keywords.map((word) => `<div class="keyword-chip">${word}</div>`).join("");
+  setText(ui.resultTitle, t("liveTranscriptTitle"));
+  setText(ui.resultMeta, `${t("liveTranscriptMeta")} • ${ui.lang.options[ui.lang.selectedIndex].text}`);
+}
+
+function stopLiveRecording(silent = false) {
+  if (state.recognition) {
+    try { state.recognition.onend = null; state.recognition.stop(); } catch {}
+  }
+  state.recording = false;
+  state.recognition = null;
+  setText(ui.record, t("recordBtn"));
+  if (!silent) setText(ui.status, t("liveStopped"));
+  if (state.liveTranscript.trim()) {
+    updateLivePanels(state.liveTranscript);
+    savePayloadToHistory(state.payload, { duration: currentLang === "ar" ? "مباشر" : "Live", lang: ui.lang.options[ui.lang.selectedIndex].text });
+    setText(ui.note, t("liveSaved"));
+  }
+}
+
+function startLiveRecording() {
+  if (!recognitionSupported()) {
+    setText(ui.status, t("liveUnsupported"));
+    return;
+  }
+
+  const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+  const recognition = new SpeechRecognition();
+  state.liveTranscript = "";
+  state.liveInterim = "";
+  state.recording = true;
+  state.recognition = recognition;
+  setText(ui.record, t("recordStopBtn"));
+  setText(ui.status, t("liveRecording"));
+  setText(ui.note, t("liveReady"));
+  setText(ui.resultTitle, t("liveTranscriptTitle"));
+  setText(ui.resultMeta, `${t("liveTranscriptMeta")} • ${ui.lang.options[ui.lang.selectedIndex].text}`);
+  resetProgress();
+
+  recognition.lang = recognitionLang();
+  recognition.continuous = true;
+  recognition.interimResults = true;
+
+  recognition.onresult = (event) => {
+    let interim = "";
+    for (let i = event.resultIndex; i < event.results.length; i += 1) {
+      const chunk = event.results[i][0].transcript.trim();
+      if (event.results[i].isFinal) state.liveTranscript = `${state.liveTranscript} ${chunk}`.trim();
+      else interim = `${interim} ${chunk}`.trim();
+    }
+    state.liveInterim = interim;
+    updateLivePanels(state.liveTranscript, interim);
+  };
+
+  recognition.onerror = () => {
+    state.recording = false;
+    state.recognition = null;
+    setText(ui.record, t("recordBtn"));
+    setText(ui.status, t("liveError"));
+  };
+
+  recognition.onend = () => {
+    const shouldSave = state.recording;
+    state.recording = false;
+    state.recognition = null;
+    setText(ui.record, t("recordBtn"));
+    setText(ui.status, t("liveStopped"));
+    if (shouldSave && state.liveTranscript.trim()) {
+      updateLivePanels(state.liveTranscript);
+      savePayloadToHistory(state.payload, { duration: currentLang === "ar" ? "مباشر" : "Live", lang: ui.lang.options[ui.lang.selectedIndex].text });
+      setText(ui.note, t("liveSaved"));
+    }
+  };
+
+  try {
+    recognition.start();
+  } catch {
+    state.recording = false;
+    state.recognition = null;
+    setText(ui.record, t("recordBtn"));
+    setText(ui.status, t("liveError"));
+  }
+}
+
 function copyTranscript() { navigator.clipboard?.writeText(ui.transcript.textContent || ""); setText(ui.status, t("copied")); }
 function exportSrt() { const lines = (state.payload?.transcript || ui.transcript.textContent).split(". ").filter(Boolean); const srt = lines.map((line, i) => `${i + 1}\n00:00:${String(i * 3).padStart(2, "0")},000 --> 00:00:${String(i * 3 + 2).padStart(2, "0")},500\n${line.trim()}\n`).join("\n"); download(t("downloadNames").srt, srt, "text/plain"); }
 function switchTab(name) { ui.tabs.forEach((tab) => tab.classList.toggle("active", tab.dataset.tab === name)); ui.panels.forEach((panel) => panel.classList.toggle("active", panel.dataset.panel === name)); }
@@ -380,6 +569,7 @@ ui.langEn.onclick = () => applyLanguage("en");
 ui.browse.onclick = () => ui.file.click();
 ui.file.onchange = () => setFiles(ui.file.files);
 ui.run.onclick = () => runAnalysis();
+ui.record.onclick = () => { if (state.recording) stopLiveRecording(); else startLiveRecording(); };
 ui.clear.onclick = () => clearSelection();
 ui.demo.onclick = async () => { const fake = new File(["demo"], t("demoFile"), { type: "audio/mp3" }); await setFiles([fake]); await runAnalysis(); };
 ui.copy.onclick = () => copyTranscript();

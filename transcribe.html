@@ -54,13 +54,13 @@
         </div>
         <div class="hero-highlights">
           <div class="hero-highlight">تفريغ + ملخص + ترجمة</div>
-          <div class="hero-highlight">معاينة صوتية قبل التحويل</div>
+          <div class="hero-highlight">تسجيل مباشر من الميكروفون</div>
           <div class="hero-highlight">تصدير TXT و JSON و SRT</div>
         </div>
       </div>
       <aside class="hero-card glass" data-animate>
         <div class="hero-stat"><div class="hero-stat-icon">🎙️</div><div><strong>الخدمة القائدة</strong><span class="muted">هذه الصفحة صارت المنتج الأوضح داخل المنصة، لذلك ركزنا على أن تكون أسرع فهمًا وأقرب لمنصة جاهزة لا مجرد نموذج أولي.</span></div></div>
-        <div class="hero-stat"><div class="hero-stat-icon">⚡</div><div><strong>تدفّق بسيط</strong><span class="muted">ارفع الملف، اختر اللغة، شغّل التحليل، ثم تنقّل بين النتائج داخل تبويبات واضحة بدل تكديس طويل.</span></div></div>
+        <div class="hero-stat"><div class="hero-stat-icon">⚡</div><div><strong>تدفّق بسيط</strong><span class="muted">ارفع الملف أو ابدأ تسجيلًا مباشرًا، اختر اللغة، شغّل التحليل، ثم تنقّل بين النتائج داخل تبويبات واضحة بدل تكديس طويل.</span></div></div>
         <div class="hero-stat"><div class="hero-stat-icon">📦</div><div><strong>نتيجة نهائية جاهزة</strong><span class="muted">شريط إجراءات واضح للتنزيل والنسخ وإعادة المعالجة، مع سجل نتائج يمكن الرجوع إليه في أي وقت.</span></div></div>
       </aside>
     </section>
@@ -82,22 +82,24 @@
                   <p class="muted">يمكنك رفع أكثر من ملف، وسنعالج أول ملف مباشرة مع إظهار الدفعة والمدة والصيغة بشكل واضح.</p>
                 </div>
               </div>
-              <div class="support-list">
-                <div class="support-badge">MP3</div>
-                <div class="support-badge">WAV</div>
-                <div class="support-badge">M4A</div>
-                <div class="support-badge">دعم رفع متعدد</div>
-              </div>
-              <div class="upload-actions">
-                <div class="row">
-                  <button class="btn btn-primary" id="browseBtn" type="button">ابدأ الآن</button>
-                  <button class="btn btn-secondary" id="runBtn" type="button">حلّل التسجيل</button>
+                <div class="support-list">
+                  <div class="support-badge">MP3</div>
+                  <div class="support-badge">WAV</div>
+                  <div class="support-badge">M4A</div>
+                  <div class="support-badge">تسجيل مباشر</div>
+                  <div class="support-badge">دعم رفع متعدد</div>
                 </div>
-                <div class="row">
-                  <button class="ghost-btn" id="clearBtn" type="button">مسح الملف</button>
-                  <button class="ghost-btn" id="demoBtn" type="button">تجربة سريعة</button>
+                <div class="upload-actions">
+                  <div class="row">
+                    <button class="btn btn-primary" id="browseBtn" type="button">ابدأ الآن</button>
+                    <button class="btn btn-secondary" id="runBtn" type="button">حلّل التسجيل</button>
+                  </div>
+                  <div class="row">
+                    <button class="ghost-btn" id="recordBtn" type="button">تسجيل مباشر</button>
+                    <button class="ghost-btn" id="clearBtn" type="button">مسح الملف</button>
+                    <button class="ghost-btn" id="demoBtn" type="button">تجربة سريعة</button>
+                  </div>
                 </div>
-              </div>
               <div class="meta-grid">
                 <div class="metric-card"><div class="metric-label">الملف الحالي</div><div class="metric-value" id="fileName">لا يوجد ملف مرفوع</div></div>
                 <div class="metric-card"><div class="metric-label">مدة التسجيل</div><div class="metric-value" id="fileDuration">--</div></div>

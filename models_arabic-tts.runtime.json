@@ -1,0 +1,29 @@
+{
+    "backend":  "python_adapter",
+    "httpBackend":  {
+                        "url":  "http://127.0.0.1:3211/synthesize",
+                        "headers":  {
+
+                                    }
+                    },
+    "commandBackend":  {
+                           "command":  "",
+                           "args":  [
+
+                                    ],
+                           "cwd":  ""
+                       },
+    "pythonAdapter":  {
+                          "pythonCommand":  "C:\\Program Files\\Python311\\python.exe",
+                          "pythonArgs":  [
+
+                                         ],
+                          "entry":  "providers/python-real-model-adapter.py",
+                          "backend":  "coqui_xtts",
+                          "model_name":  "tts_models/multilingual/multi-dataset/xtts_v2",
+                          "language":  "ar",
+                          "gpu":  false,
+                          "speaker_wav":  "",
+                          "speaker":  ""
+                      }
+}

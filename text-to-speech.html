@@ -437,10 +437,96 @@
       margin-top: 16px;
     }
 
+    .duration-box {
+      display: grid;
+      gap: 12px;
+      margin-top: 16px;
+      padding: 16px 18px;
+      border-radius: 20px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(34, 197, 94, 0.12), rgba(21, 128, 61, 0.05));
+    }
+
+    .duration-head,
+    .duration-meta,
+    .duration-controls,
+    .duration-input-wrap {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+    }
+
+    .duration-head {
+      justify-content: space-between;
+    }
+
+    .duration-meta {
+      gap: 10px;
+    }
+
+    .duration-chip {
+      padding: 10px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.74);
+      color: var(--muted);
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    body[data-theme="dark"] .duration-chip {
+      background: rgba(14, 26, 35, 0.9);
+    }
+
+    .duration-controls input[type="range"] {
+      flex: 1 1 280px;
+    }
+
+    .duration-input-wrap {
+      padding: 8px;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: var(--panel-strong);
+    }
+
+    .duration-number {
+      width: 110px;
+      min-width: 110px;
+      border: 0;
+      box-shadow: none;
+      padding: 10px 12px;
+    }
+
+    .duration-reset {
+      padding-inline: 14px;
+    }
+
     .favorites {
       display: grid;
       gap: 10px;
       margin-top: 18px;
+    }
+
+    .engine-box {
+      display: grid;
+      gap: 10px;
+      margin-top: 18px;
+      padding: 16px 18px;
+      border-radius: 22px;
+      border: 1px solid var(--border);
+      background: linear-gradient(180deg, rgba(34, 197, 94, 0.10), rgba(21, 128, 61, 0.05));
+    }
+
+    .engine-box audio {
+      width: 100%;
+      border-radius: 18px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.88);
+    }
+
+    body[data-theme="dark"] .engine-box audio {
+      background: rgba(14, 26, 35, 0.92);
     }
 
     .favorite-item {
@@ -564,7 +650,7 @@
 
           <div class="sl">
             <label><span data-i18n="speed_label">السرعة</span><strong id="speedValue">1.0x</strong></label>
-            <input id="speed" type="range" min="0.7" max="1.4" step="0.1" value="1" />
+            <input id="speed" type="range" min="0.55" max="1.65" step="0.05" value="1" />
           </div>
 
           <div class="sl">
@@ -587,14 +673,44 @@
             <div id="estimateOutput" class="small">12 ثانية تقريبًا</div>
           </div>
 
+          <div class="duration-box">
+            <div class="duration-head">
+              <strong data-i18n="target_duration_title">المدة المستهدفة</strong>
+              <button class="btn btn-secondary duration-reset" id="durationResetBtn" type="button" data-i18n="duration_reset_btn">إعادة للمدة الذكية</button>
+            </div>
+
+            <div class="duration-meta">
+              <span id="recommendedDurationOutput" class="duration-chip" data-i18n="recommended_duration">اقتراح النظام: 12.0 ثانية</span>
+              <span id="wordCountOutput" class="duration-chip" data-i18n="word_count_label">عدد الكلمات: 24</span>
+            </div>
+
+            <div class="duration-controls">
+              <input id="targetDurationRange" type="range" min="4" max="60" step="0.5" value="12" />
+              <div class="duration-input-wrap">
+                <input class="field duration-number" id="targetDurationInput" type="number" min="4" max="60" step="0.5" value="12" />
+                <span data-i18n="seconds_unit">ثانية</span>
+              </div>
+            </div>
+
+            <div id="durationHint" class="small" data-i18n="duration_hint_balanced">سنوازن السرعة تلقائيًا بحسب هذه المدة.</div>
+          </div>
+
           <div class="studio-actions">
             <button class="btn btn-secondary" id="suggestBtn" type="button" data-i18n="suggest_btn">اقتراح صوت</button>
             <button class="btn btn-secondary" id="bestBtn" type="button" data-i18n="best_btn">أفضل إعداد تلقائيًا</button>
             <button class="btn btn-primary" id="previewBtn" type="button" data-i18n="preview_btn">تجربة الصوت</button>
+            <button class="btn btn-secondary" id="generateBtn" type="button" data-i18n="generate_btn">توليد WAV</button>
+            <button class="btn btn-secondary" id="downloadBtn" type="button" data-i18n="download_btn">تنزيل WAV</button>
             <button class="btn btn-secondary" id="saveBtn" type="button" data-i18n="save_btn">حفظ كمفضل</button>
           </div>
 
           <div class="status" id="statusBox" data-i18n="status_idle">اختر الصوت أو الإعداد المناسب ثم جرّب المعاينة أو احفظ الإعداد ضمن المفضلات.</div>
+
+          <div class="engine-box">
+            <strong data-i18n="engine_title">مخرجات المحرك</strong>
+            <audio id="engineAudio" controls preload="none"></audio>
+            <div id="engineMeta" class="small" data-i18n="engine_idle">عند تشغيل الخادم المحلي سيظهر هنا ملف WAV الناتج من Mulhem Engine.</div>
+          </div>
 
           <div class="favorites">
             <strong data-i18n="favorites_title">المفضلات وآخر الإعدادات</strong>

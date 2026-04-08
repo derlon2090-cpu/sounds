@@ -1,34 +1,61 @@
-# Saudi TTS SaaS
+# Mulhem Sound
 
-منصة SaaS لتحويل النص العربي إلى صوت، مع محرك داخلي، API خاص، لوحة Studio، ونظام jobs غير متزامن.
+Mulhem Sound is a local Arabic audio platform prototype with:
 
-## الهيكل
+- `Voxa™` for text to speech
+- `WriteWave™` for speech to text
+- `ClearTone™` for audio enhancement
+- `ClipFlow™` for segmentation
+- `ToneForge™` for style presets
 
-```text
-apps/
-  web/                 # واجهة Next.js
-services/
-  api/                 # FastAPI + PostgreSQL
-  worker/              # Celery worker + Arabic preprocessing + audio rendering
-infra/
-  docker-compose.yml   # Postgres + Redis + API + Worker + Web
-docs/
-  architecture.md      # المخطط الهندسي والقرارات
-```
-
-## التشغيل السريع
+## Quick Start
 
 ```powershell
-Copy-Item .env.example .env
-docker compose -f infra/docker-compose.yml --env-file .env up --build
+npm start
 ```
 
-## الروابط
+Then open:
 
-- Web: http://localhost:3000
-- API Docs: http://localhost:8000/docs
+- `http://localhost:3210/`
+- `http://localhost:3210/text-to-speech.html`
 
-## ملاحظات
+## Current Engine
 
-- الـ Worker الحالي يستخدم مولّد WAV تجريبي deterministic حتى نثبت البايبلاين قبل إدخال FastPitch أو VITS.
-- `sound.html` تُرك كما هو بدون تعديل.
+The current engine is a local hybrid-ready TTS stack:
+
+- procedural synthesis available now
+- target-duration control available now
+- style-aware rendering available now
+- hybrid routing prepared for a future ML engine
+
+## ML-Ready Path
+
+The server now supports an automatic engine mode:
+
+- if a real local ML TTS provider is configured later, the server can route to it
+- if no ML provider is configured, it falls back to the local procedural engine
+
+Planned ML manifest path:
+
+```text
+C:\man\models\arabic-tts.manifest.json
+```
+
+## Main Files
+
+- `C:\man\mulhem-engine.js`
+- `C:\man\server.js`
+- `C:\man\voxa.js`
+- `C:\man\text-to-speech.html`
+
+## Real Arabic Model Path
+
+Public API stays the same (/api/tts). Internally it now uses a command-based ML manifest that calls the Python adapter.
+
+Key files:
+- C:/man/models/arabic-tts.manifest.json
+- C:/man/models/arabic-tts.runtime.json
+- C:/man/providers/python-real-model-adapter.py
+
+Behavior:
+- If ML libs/weights are missing, it falls back to the local procedural engine automatically.

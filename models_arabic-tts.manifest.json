@@ -1,0 +1,111 @@
+{
+    "provider":  "command",
+    "command":  "C:\\Program Files\\Python311\\python.exe",
+    "args":  [
+                 "providers/python-real-model-adapter.py"
+             ],
+    "output":  "json",
+    "sampleRate":  24000,
+    "voices":  [
+                   {
+                       "id":  "siraj",
+                       "remoteId":  "siraj",
+                       "label":  "ط·آ³ط·آ±ط·آ§ط·آ¬",
+                       "gender":  "male",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "podcast",
+                                      "education",
+                                      "story"
+                                  ]
+                   },
+                   {
+                       "id":  "lujain",
+                       "remoteId":  "lujain",
+                       "label":  "ط¸â€‍ط·آ¬ط¸ظ¹ط¸â€ ",
+                       "gender":  "female",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "education",
+                                      "story",
+                                      "podcast"
+                                  ]
+                   },
+                   {
+                       "id":  "ruwad",
+                       "remoteId":  "ruwad",
+                       "label":  "ط·آ±ط¸ث†ط·آ§ط·آ¯",
+                       "gender":  "male",
+                       "locale":  "ar-EG",
+                       "styles":  [
+                                      "podcast",
+                                      "ad"
+                                  ]
+                   },
+                   {
+                       "id":  "nouf",
+                       "remoteId":  "nouf",
+                       "label":  "ط¸â€ ط¸ث†ط¸ظ¾",
+                       "gender":  "female",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "podcast",
+                                      "story"
+                                  ]
+                   },
+                   {
+                       "id":  "sami",
+                       "remoteId":  "sami",
+                       "label":  "ط·آ³ط·آ§ط¸â€¦ط¸ظ¹",
+                       "gender":  "male",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "ad",
+                                      "podcast"
+                                  ]
+                   },
+                   {
+                       "id":  "atheer",
+                       "remoteId":  "atheer",
+                       "label":  "ط·آ£ط·آ«ط¸ظ¹ط·آ±",
+                       "gender":  "female",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "story",
+                                      "podcast"
+                                  ]
+                   },
+                   {
+                       "id":  "juman",
+                       "remoteId":  "juman",
+                       "label":  "ط·آ¬ط¸â€¦ط·آ§ط¸â€ ",
+                       "gender":  "female",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "education",
+                                      "podcast"
+                                  ]
+                   },
+                   {
+                       "id":  "barq",
+                       "remoteId":  "barq",
+                       "label":  "ط·آ¨ط·آ±ط¸â€ڑ",
+                       "gender":  "male",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "ad"
+                                  ]
+                   },
+                   {
+                       "id":  "robot",
+                       "remoteId":  "robot",
+                       "label":  "ط·آ±ط¸ث†ط·آ¨ط¸ث†ط·ع¾",
+                       "gender":  "neutral",
+                       "locale":  "ar-SA",
+                       "styles":  [
+                                      "podcast",
+                                      "ad"
+                                  ]
+                   }
+               ]
+}

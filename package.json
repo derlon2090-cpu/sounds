@@ -1,0 +1,11 @@
+{
+  "name": "mulhem-sound",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Mulhem Sound local static app with a built-in Node TTS engine.",
+  "scripts": {
+    "start": "node server.js",
+    "engine:test": "node scripts/test-engine.js",
+    "provider:start": "node providers/mulhem-ml-provider.js"
+  }
+}

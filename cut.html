@@ -1,2 +1,608 @@
-﻿<!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تقطيع الصوت | مُلهم ساوند</title><style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap');:root{--bg:#f5fff7;--panel:#ffffffd9;--text:#0f172a;--muted:#64748b;--b:#16a34a;--b2:#22c55e;--b3:#15803d;--border:#16a34a24;--soft:#effcf3}body[data-theme=dark]{--bg:#08141b;--panel:#0a141de3;--text:#f6f8fc;--muted:#a8b5c6;--border:#22c55e22;--soft:#10202b;color-scheme:dark}*{box-sizing:border-box}body{margin:0;font-family:Tajawal,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 12% 16%,#22c55e2e,transparent 18%),linear-gradient(180deg,#fbfffc,#f4fff7 46%,#ecfff0),var(--bg);color:var(--text)}body[data-theme=dark]{background:radial-gradient(circle at 12% 16%,#22c55e26,transparent 18%),linear-gradient(180deg,#08141b,#0d1920 46%,#112129),var(--bg)}.c{width:min(1100px,calc(100vw - 32px));margin:auto;padding-bottom:32px}.nav,.card{background:var(--panel);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:28px}.nav{margin-top:14px;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.r{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.logo{width:44px;height:44px;border-radius:14px;object-fit:cover;background:#fff}.t{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--b2),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.nav a{text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}.btn{border:0;border-radius:999px;padding:13px 18px;font:800 15px Tajawal;cursor:pointer}.p{background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff}.s,.toggle{background:#ffffffc9;border:1px solid var(--border);color:var(--text)}body[data-theme=dark] .s,body[data-theme=dark] .toggle{background:#10202b}.hero{padding:42px 0 20px}.ey,.pill{display:inline-flex;padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:#fff9;font-weight:800}.ey{color:var(--b);font-size:14px}.pill{font-size:13px;color:var(--text)}h1{margin:16px 0 12px;font-size:clamp(34px,5vw,54px)}.lead,.mini{color:var(--muted);line-height:1.9}.lead{max-width:760px;font-size:18px}.g{display:grid;grid-template-columns:.92fr 1.08fr;gap:16px}.card{padding:22px}.up{border:1px dashed #16a34a66;border-radius:22px;padding:20px;text-align:center;background:linear-gradient(180deg,#22c55e12,#15803d08);transition:.2s}.up.on{transform:translateY(-2px);box-shadow:0 0 0 6px #22c55e14}.icon{width:64px;height:64px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,#22c55e2b,#15803d14)}.meta,.st{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:12px}.track{margin-top:14px;height:12px;border-radius:999px;background:#22c55e1f;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--b2),var(--b3));transition:width .25s}.sl{margin-top:14px}.sl label{display:flex;justify-content:space-between;color:var(--muted);font-weight:700}.sl input{width:100%;accent-color:var(--b);margin-top:8px}.list{display:grid;gap:12px;margin-top:14px}.seg{border-radius:18px;padding:14px;border:1px solid var(--border);background:var(--soft);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.seg strong{display:block}.seg small{color:var(--muted)}[data-animate]{opacity:0;transform:translateY(22px);transition:.6s}[data-animate].is-visible{opacity:1;transform:none}@media(max-width:900px){.g{grid-template-columns:1fr}}</style></head><body><div class="c"><div class="nav"><div class="r"><img class="logo" src="../mulhem-logo.jpg" alt="logo"><div class="t">مُلهم ساوند</div></div><div class="r"><a href="../index.html">الرئيسية</a><a href="index.html">الاستوديو</a><a href="transcribe.html">تفريغ</a><button id="theme" class="btn toggle" type="button">الوضع الليلي</button></div></div><section class="hero" data-animate><span class="ey">Cut</span><h1>قسّم الملف إلى مقاطع ذكية</h1><p class="lead">صفحة مستقلة لتقطيع الصوت: ارفع الملف، حدّد طول المقطع المستهدف، ثم دع النظام يولد شرائح منظمة وقابلة للتنزيل.</p><div class="r"><span class="pill">Auto Segments</span><span class="pill">Clip Titles</span><span class="pill">Download JSON</span></div></section><section class="g"><div class="card" data-animate><h2>الملف والإعدادات</h2><div id="drop" class="up"><div class="icon">✂️</div><h3>اسحب الملف أو اضغط للرفع</h3><input id="file" type="file" accept="audio/*" hidden><div class="r" style="justify-content:center"><button id="browse" class="btn p" type="button">ابدأ الآن</button><button id="run" class="btn s" type="button">قسّم الملف</button></div><div class="meta"><span id="name">لا يوجد ملف</span><span id="meta">audio/*</span></div></div><div class="sl"><label><span>طول المقطع المستهدف</span><strong id="lenVal">30 ثانية</strong></label><input id="len" type="range" min="10" max="120" step="5" value="30"></div><div class="sl"><label><span>حساسية الوقفات</span><strong id="pauseVal">60%</strong></label><input id="pause" type="range" min="0" max="100" value="60"></div><div class="st"><span id="status">جاهز للتقطيع</span><span id="eta">الوقت المتبقي: --</span></div><div class="track"><div id="fill" class="fill"></div></div><div class="r" style="margin-top:14px"><button id="downloadJson" class="btn s" type="button">تحميل JSON</button><button id="downloadTxt" class="btn s" type="button">تحميل TXT</button></div></div><div class="card" data-animate><h2>المقاطع الناتجة</h2><div id="segments" class="list"><div class="seg">لا توجد مقاطع بعد.</div></div></div></section></div><script>const K='mulhem_theme_v2',theme=document.getElementById('theme'),drop=document.getElementById('drop'),file=document.getElementById('file'),browse=document.getElementById('browse'),run=document.getElementById('run'),nameEl=document.getElementById('name'),metaEl=document.getElementById('meta'),len=document.getElementById('len'),pause=document.getElementById('pause'),lenVal=document.getElementById('lenVal'),pauseVal=document.getElementById('pauseVal'),statusEl=document.getElementById('status'),eta=document.getElementById('eta'),fill=document.getElementById('fill'),segments=document.getElementById('segments'),downloadJson=document.getElementById('downloadJson'),downloadTxt=document.getElementById('downloadTxt');let current=null,duration=0,data=null,timer=null,url=null;function applyTheme(v){const t=v==='dark'?'dark':'light';document.body.dataset.theme=t;theme.textContent=t==='dark'?'الوضع النهاري':'الوضع الليلي';localStorage.setItem(K,t)}function initTheme(){const s=localStorage.getItem(K),d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;applyTheme(s||(d?'dark':'light'))}function sync(){lenVal.textContent=`${len.value} ثانية`;pauseVal.textContent=`${pause.value}%`}function blob(b,n){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}function setFile(f){current=f||null;data=null;duration=0;fill.style.width='0%';eta.textContent='الوقت المتبقي: --';segments.innerHTML='<div class="seg">لا توجد مقاطع بعد.</div>';if(url){URL.revokeObjectURL(url);url=null}if(!current){nameEl.textContent='لا يوجد ملف';metaEl.textContent='audio/*';statusEl.textContent='جاهز للتقطيع';return}url=URL.createObjectURL(current);const probe=new Audio(url);probe.addEventListener('loadedmetadata',()=>{duration=Number.isFinite(probe.duration)?probe.duration:0;metaEl.textContent=`${(current.size/1024/1024).toFixed(2)} MB • ${duration?duration.toFixed(1):'--'} ثانية`},{once:true});nameEl.textContent=current.name;statusEl.textContent='تم استلام الملف. اضغط قسّم الملف.';drop.classList.add('on');setTimeout(()=>drop.classList.remove('on'),450)}function segment(){if(!current){statusEl.textContent='ارفع ملفًا أولًا.';return}let p=8;fill.style.width=`${p}%`;statusEl.textContent='جاري إنشاء المقاطع...';if(timer)clearInterval(timer);timer=setInterval(()=>{p=Math.min(p+13,94);fill.style.width=`${p}%`;eta.textContent=`الوقت المتبقي: ${Math.max(0,((100-p)/15)).toFixed(1)} ث`},180);setTimeout(()=>{if(timer)clearInterval(timer);const target=Number(len.value),total=Math.max(target+5,Math.round(duration)||target*3),count=Math.max(2,Math.ceil(total/target));data=Array.from({length:count},(_,i)=>{const start=i*target,end=Math.min(total,(i+1)*target);return{title:`مقطع ${i+1}`,start,end,length:(end-start)}});segments.innerHTML=data.map((seg,i)=>`<div class="seg"><div><strong>${seg.title}</strong><small>من ${seg.start}ث إلى ${seg.end}ث</small></div><div><small>طول المقطع: ${seg.length}ث</small><small>حساسية الوقفات: ${pause.value}%</small></div></div>`).join('');fill.style.width='100%';statusEl.textContent='تم إنشاء المقاطع بنجاح.';eta.textContent='الوقت المتبقي: 0.0 ث'},1750)}theme.onclick=()=>applyTheme(document.body.dataset.theme==='dark'?'light':'dark');browse.onclick=()=>file.click();drop.onclick=(e)=>{if(e.target.closest('button'))return;file.click()};file.onchange=e=>{const f=e.target.files?.[0];if(f)setFile(f)};['dragenter','dragover'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.add('on')}));['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('on')}));drop.addEventListener('drop',e=>{const f=e.dataTransfer?.files?.[0];if(f)setFile(f)});len.oninput=sync;pause.oninput=sync;run.onclick=segment;downloadJson.onclick=()=>{if(!data){statusEl.textContent='لا توجد نتائج JSON بعد.';return}blob(new Blob([JSON.stringify(data,null,2)],{type:'application/json;charset=utf-8'}),'segments.json')};downloadTxt.onclick=()=>{if(!data){statusEl.textContent='لا توجد نتائج TXT بعد.';return}blob(new Blob([data.map(seg=>`${seg.title} | ${seg.start}-${seg.end} | ${seg.length}ث`).join('\n')],{type:'text/plain;charset=utf-8'}),'segments.txt')};initTheme();sync();document.querySelectorAll('.nav,.hero,.card').forEach((n,i)=>setTimeout(()=>n.classList.add('is-visible'),80+i*60))</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClipFlow™ | مُلهم ساوند</title>
+  <link rel="stylesheet" href="content-page.css" />
+  <link rel="stylesheet" href="tool-pages.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav glass" data-animate>
+      <a class="brand" href="index.html" aria-label="Mulhem Sound Home">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="Mulhem Sound Logo" />
+        <div class="brand-title">مُلهم ساوند</div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+        <a href="transcribe.html" data-i18n="nav_writewave">WriteWave</a>
+        <a href="offerings.html" data-i18n="nav_offerings">ماذا نقدم</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-switch">
+          <button class="lang-chip active" id="langAr" type="button">عربي</button>
+          <button class="lang-chip" id="langEn" type="button">English</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div data-animate>
+        <span class="eyebrow" data-i18n="badge">ClipFlow™</span>
+        <h1 data-i18n="hero_title">قسّم التسجيل الطويل إلى مقاطع قابلة لإعادة الاستخدام</h1>
+        <p class="lead" data-i18n="hero_lead">ارفع الملف، حدد طول المقطع المناسب والتداخل بين الأجزاء، ثم دع ClipFlow يبني خطة تقطيع واضحة يمكنك نسخها أو تنزيلها أو استخدامها داخل فريق الإنتاج.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#workspace" data-i18n="hero_primary">ابدأ التقطيع</a>
+          <a class="btn btn-secondary" href="transcribe.html" data-i18n="hero_secondary">افتح WriteWave</a>
+        </div>
+      </div>
+      <aside class="hero-card" data-animate>
+        <div class="stat">
+          <strong data-i18n="hero_stat_title">خطة تقطيع واضحة</strong>
+          <p class="copy" data-i18n="hero_stat_text">الصفحة تنتج لك خطة مقاطع بأوقات بداية ونهاية ومتوسط مدة وتداخل بسيط، بدل إبقاء التقطيع مجرد فكرة ضمن قائمة خدمات.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="workspace">
+      <div class="section-head" data-animate>
+        <div>
+          <span class="eyebrow" data-i18n="work_badge">التحليل</span>
+          <h2 class="section-title" data-i18n="work_title">ارفع الملف ثم ابنِ خطة المقاطع</h2>
+        </div>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-stack">
+          <div class="upload-card" data-animate>
+            <input id="fileInput" type="file" accept="audio/*" hidden />
+            <div class="dropzone" id="dropzone" tabindex="0" role="button">
+              <div class="dropzone-icon">✂️</div>
+              <strong data-i18n="drop_title">اسحب الملف أو اضغط للرفع</strong>
+              <div class="muted" data-i18n="drop_text">ندعم MP3 و WAV و M4A. بعد قراءة المدة ستتمكن من بناء خطة المقاطع فورًا.</div>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-pill" id="fileName">-</span>
+              <span class="meta-pill" id="fileDuration">-</span>
+              <span class="meta-pill" id="segmentCount">-</span>
+            </div>
+
+            <div class="audio-box">
+              <strong data-i18n="audio_title">المعاينة الأصلية</strong>
+              <audio id="audioPlayer" controls></audio>
+            </div>
+          </div>
+
+          <div class="history-card" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="history_badge">السجل</span>
+                <h3 data-i18n="history_title">آخر خطط التقطيع</h3>
+              </div>
+              <div class="history-list" id="historyList">
+                <div class="history-empty" data-i18n="history_empty">لا توجد خطط محفوظة بعد.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-stack">
+          <div class="panel" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="controls_badge">الضبط</span>
+                <h3 data-i18n="controls_title">حدد منطق التقطيع</h3>
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="length_label">المدة المستهدفة للمقطع</span><strong id="lengthValue">45s</strong></label>
+                <input id="targetLength" type="range" min="15" max="120" step="5" value="45" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="overlap_label">تداخل بسيط بين المقاطع</span><strong id="overlapValue">2s</strong></label>
+                <input id="overlap" type="range" min="0" max="8" step="1" value="2" />
+              </div>
+
+              <div class="range-row">
+                <label for="modeSelect" data-i18n="mode_label">حساسية الوقفات</label>
+                <select class="field" id="modeSelect">
+                  <option value="balanced">متوازن</option>
+                  <option value="tight">أقصر</option>
+                  <option value="relaxed">أطول</option>
+                </select>
+              </div>
+
+              <div class="progress-shell">
+                <div class="inline-row" style="justify-content:space-between;">
+                  <strong data-i18n="progress_title">حالة التخطيط</strong>
+                  <span class="muted" id="stageLabel">-</span>
+                </div>
+                <div class="progress-bar"><span id="progressBar"></span></div>
+              </div>
+
+              <div class="tool-actions">
+                <button class="btn btn-secondary" id="buildBtn" type="button" data-i18n="build_btn">ابنِ الخطة</button>
+                <button class="btn btn-secondary" id="copyBtn" type="button" data-i18n="copy_btn">نسخ الخطة</button>
+                <button class="btn btn-secondary" id="jsonBtn" type="button" data-i18n="json_btn">تنزيل JSON</button>
+                <button class="btn btn-primary" id="resetBtn" type="button" data-i18n="reset_btn">إعادة الضبط</button>
+              </div>
+
+              <div class="status-box" id="statusBox" data-i18n="status_idle">ارفع ملفًا صوتيًا ثم حدد المدة المناسبة لكل مقطع لنبني الخطة.</div>
+            </div>
+          </div>
+
+          <div class="result-card" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="results_badge">النتيجة</span>
+                <h3 data-i18n="results_title">المقاطع المقترحة</h3>
+              </div>
+
+              <div class="metric-grid" id="metricGrid">
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_1_title">عدد المقاطع</h3>
+                  <p class="muted" data-i18n="metric_1_text">سيظهر بعد بناء الخطة.</p>
+                </div>
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_2_title">المتوسط</h3>
+                  <p class="muted" data-i18n="metric_2_text">سيظهر بعد بناء الخطة.</p>
+                </div>
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_3_title">التداخل</h3>
+                  <p class="muted" data-i18n="metric_3_text">سيظهر بعد بناء الخطة.</p>
+                </div>
+              </div>
+
+              <div class="segment-list" id="segmentList">
+                <div class="empty-state" data-i18n="segments_empty">ستظهر المقاطع هنا بعد بناء الخطة.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer glass" data-animate>
+      <div class="footer-links">
+        <a href="index.html" data-i18n="footer_home">الرئيسية</a>
+        <a href="about.html" data-i18n="footer_about">من نحن</a>
+        <a href="offerings.html" data-i18n="footer_offerings">ماذا نقدم</a>
+        <a href="contact.html" data-i18n="footer_contact">تواصل معنا</a>
+        <a href="faq.html" data-i18n="footer_faq">الأسئلة الشائعة</a>
+      </div>
+      <div class="footer-note" data-i18n="footer_note">ClipFlow يسهّل تحويل التسجيل الطويل إلى خطة عمل قابلة للتنفيذ قبل التحرير أو النشر أو إعادة الاستخدام.</div>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Scroll To Top">↑</button>
+
+  <script>
+    window.PAGE_COPY = {
+      ar: {
+        title: "ClipFlow™ | مُلهم ساوند",
+        theme_dark: "الوضع الليلي",
+        theme_light: "الوضع النهاري",
+        nav_home: "الرئيسية",
+        nav_writewave: "WriteWave",
+        nav_offerings: "ماذا نقدم",
+        badge: "ClipFlow™",
+        hero_title: "قسّم التسجيل الطويل إلى مقاطع قابلة لإعادة الاستخدام",
+        hero_lead: "ارفع الملف، حدد طول المقطع المناسب والتداخل بين الأجزاء، ثم دع ClipFlow يبني خطة تقطيع واضحة يمكنك نسخها أو تنزيلها أو استخدامها داخل فريق الإنتاج.",
+        hero_primary: "ابدأ التقطيع",
+        hero_secondary: "افتح WriteWave",
+        hero_stat_title: "خطة تقطيع واضحة",
+        hero_stat_text: "الصفحة تنتج لك خطة مقاطع بأوقات بداية ونهاية ومتوسط مدة وتداخل بسيط، بدل إبقاء التقطيع مجرد فكرة ضمن قائمة خدمات.",
+        work_badge: "التحليل",
+        work_title: "ارفع الملف ثم ابنِ خطة المقاطع",
+        drop_title: "اسحب الملف أو اضغط للرفع",
+        drop_text: "ندعم MP3 و WAV و M4A. بعد قراءة المدة ستتمكن من بناء خطة المقاطع فورًا.",
+        audio_title: "المعاينة الأصلية",
+        history_badge: "السجل",
+        history_title: "آخر خطط التقطيع",
+        history_empty: "لا توجد خطط محفوظة بعد.",
+        controls_badge: "الضبط",
+        controls_title: "حدد منطق التقطيع",
+        length_label: "المدة المستهدفة للمقطع",
+        overlap_label: "تداخل بسيط بين المقاطع",
+        mode_label: "حساسية الوقفات",
+        progress_title: "حالة التخطيط",
+        build_btn: "ابنِ الخطة",
+        copy_btn: "نسخ الخطة",
+        json_btn: "تنزيل JSON",
+        reset_btn: "إعادة الضبط",
+        status_idle: "ارفع ملفًا صوتيًا ثم حدد المدة المناسبة لكل مقطع لنبني الخطة.",
+        results_badge: "النتيجة",
+        results_title: "المقاطع المقترحة",
+        metric_1_title: "عدد المقاطع",
+        metric_1_text: "سيظهر بعد بناء الخطة.",
+        metric_2_title: "المتوسط",
+        metric_2_text: "سيظهر بعد بناء الخطة.",
+        metric_3_title: "التداخل",
+        metric_3_text: "سيظهر بعد بناء الخطة.",
+        segments_empty: "ستظهر المقاطع هنا بعد بناء الخطة.",
+        footer_home: "الرئيسية",
+        footer_about: "من نحن",
+        footer_offerings: "ماذا نقدم",
+        footer_contact: "تواصل معنا",
+        footer_faq: "الأسئلة الشائعة",
+        footer_note: "ClipFlow يسهّل تحويل التسجيل الطويل إلى خطة عمل قابلة للتنفيذ قبل التحرير أو النشر أو إعادة الاستخدام."
+      },
+      en: {
+        title: "ClipFlow™ | Mulhem Sound",
+        theme_dark: "Dark Mode",
+        theme_light: "Light Mode",
+        nav_home: "Home",
+        nav_writewave: "WriteWave",
+        nav_offerings: "What We Offer",
+        badge: "ClipFlow™",
+        hero_title: "Split long recordings into reusable segments",
+        hero_lead: "Upload the file, choose a target clip length and overlap, then let ClipFlow build a clear segmentation plan you can copy, download, or hand to production.",
+        hero_primary: "Start Segmenting",
+        hero_secondary: "Open WriteWave",
+        hero_stat_title: "A clear cut plan",
+        hero_stat_text: "This page now produces a segment plan with start times, end times, average duration, and overlap instead of leaving clipping as a vague feature.",
+        work_badge: "Analysis",
+        work_title: "Upload the file, then build the segment plan",
+        drop_title: "Drag the file here or click to upload",
+        drop_text: "We support MP3, WAV, and M4A. Once the duration is loaded, the segment plan can be generated instantly.",
+        audio_title: "Original Preview",
+        history_badge: "History",
+        history_title: "Recent segmentation plans",
+        history_empty: "No saved plans yet.",
+        controls_badge: "Controls",
+        controls_title: "Define the segmentation logic",
+        length_label: "Target clip length",
+        overlap_label: "Light overlap between clips",
+        mode_label: "Pause sensitivity",
+        progress_title: "Planning status",
+        build_btn: "Build Plan",
+        copy_btn: "Copy Plan",
+        json_btn: "Download JSON",
+        reset_btn: "Reset",
+        status_idle: "Upload an audio file, then choose a suitable segment length so we can build the plan.",
+        results_badge: "Result",
+        results_title: "Suggested segments",
+        metric_1_title: "Segments",
+        metric_1_text: "Appears after planning.",
+        metric_2_title: "Average",
+        metric_2_text: "Appears after planning.",
+        metric_3_title: "Overlap",
+        metric_3_text: "Appears after planning.",
+        segments_empty: "Segments will appear here after the plan is built.",
+        footer_home: "Home",
+        footer_about: "About",
+        footer_offerings: "What We Offer",
+        footer_contact: "Contact",
+        footer_faq: "FAQ",
+        footer_note: "ClipFlow turns a long recording into an actionable plan before editing, publishing, or reusing the material."
+      }
+    };
+  </script>
+  <script src="content-page.js"></script>
+  <script>
+    const HISTORY_KEY = "mulhem_clipflow_history_v1";
+    const fileInput = document.getElementById("fileInput");
+    const dropzone = document.getElementById("dropzone");
+    const audioPlayer = document.getElementById("audioPlayer");
+    const fileName = document.getElementById("fileName");
+    const fileDuration = document.getElementById("fileDuration");
+    const segmentCount = document.getElementById("segmentCount");
+    const targetLength = document.getElementById("targetLength");
+    const overlap = document.getElementById("overlap");
+    const modeSelect = document.getElementById("modeSelect");
+    const lengthValue = document.getElementById("lengthValue");
+    const overlapValue = document.getElementById("overlapValue");
+    const progressBar = document.getElementById("progressBar");
+    const stageLabel = document.getElementById("stageLabel");
+    const statusBox = document.getElementById("statusBox");
+    const metricGrid = document.getElementById("metricGrid");
+    const segmentList = document.getElementById("segmentList");
+    const historyList = document.getElementById("historyList");
+    const buildBtn = document.getElementById("buildBtn");
+    const copyBtn = document.getElementById("copyBtn");
+    const jsonBtn = document.getElementById("jsonBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let selectedFile = null;
+    let selectedUrl = "";
+    let selectedDuration = 0;
+    let lastPlan = null;
+
+    function lang() {
+      return document.documentElement.lang === "en" ? "en" : "ar";
+    }
+
+    function localize(ar, en) {
+      return lang() === "ar" ? ar : en;
+    }
+
+    function formatDuration(seconds) {
+      if (!seconds) return "--:--";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.floor(seconds % 60).toString().padStart(2, "0");
+      return `${mins}:${secs}`;
+    }
+
+    function setStatus(value) {
+      statusBox.textContent = value;
+    }
+
+    function setProgress(percent, label) {
+      progressBar.style.width = `${percent}%`;
+      stageLabel.textContent = label;
+    }
+
+    function updateControlLabels() {
+      lengthValue.textContent = `${targetLength.value}s`;
+      overlapValue.textContent = `${overlap.value}s`;
+      const options = {
+        ar: {
+          balanced: "متوازن",
+          tight: "أقصر",
+          relaxed: "أطول"
+        },
+        en: {
+          balanced: "Balanced",
+          tight: "Tighter",
+          relaxed: "Longer"
+        }
+      };
+      modeSelect.innerHTML = Object.entries(options[lang()]).map(([value, label]) => `
+        <option value="${value}" ${modeSelect.value === value ? "selected" : ""}>${label}</option>
+      `).join("");
+    }
+
+    function loadFile(file) {
+      if (!file) return;
+      selectedFile = file;
+      if (selectedUrl) URL.revokeObjectURL(selectedUrl);
+      selectedUrl = URL.createObjectURL(file);
+      audioPlayer.src = selectedUrl;
+      fileName.textContent = file.name;
+      fileDuration.textContent = localize("جاري قراءة المدة...", "Reading duration...");
+      segmentCount.textContent = "-";
+      audioPlayer.onloadedmetadata = () => {
+        selectedDuration = Number(audioPlayer.duration || 0);
+        fileDuration.textContent = formatDuration(selectedDuration);
+      };
+      setStatus(localize(`تم تحميل ${file.name}. يمكنك الآن بناء الخطة.`, `Loaded ${file.name}. You can now build the plan.`));
+    }
+
+    dropzone.addEventListener("click", () => fileInput.click());
+    dropzone.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        fileInput.click();
+      }
+    });
+    ["dragenter", "dragover"].forEach((type) => dropzone.addEventListener(type, (event) => {
+      event.preventDefault();
+      dropzone.classList.add("dragover");
+    }));
+    ["dragleave", "drop"].forEach((type) => dropzone.addEventListener(type, (event) => {
+      event.preventDefault();
+      dropzone.classList.remove("dragover");
+    }));
+    dropzone.addEventListener("drop", (event) => loadFile(event.dataTransfer?.files?.[0]));
+    fileInput.addEventListener("change", (event) => loadFile(event.target.files?.[0]));
+
+    function buildSegments() {
+      if (!selectedFile || !selectedDuration) return null;
+      const length = Number(targetLength.value);
+      const overlapValueLocal = Number(overlap.value);
+      const modeFactor = modeSelect.value === "tight" ? 0.88 : modeSelect.value === "relaxed" ? 1.08 : 1;
+      const segmentDuration = Math.max(12, Math.round(length * modeFactor));
+      const step = Math.max(8, segmentDuration - overlapValueLocal);
+      const segments = [];
+      let cursor = 0;
+      let index = 1;
+
+      while (cursor < selectedDuration) {
+        const start = cursor;
+        const end = Math.min(selectedDuration, start + segmentDuration);
+        segments.push({
+          id: index,
+          start,
+          end,
+          duration: end - start
+        });
+        if (end >= selectedDuration) break;
+        cursor += step;
+        index += 1;
+      }
+
+      return {
+        fileName: selectedFile.name,
+        duration: selectedDuration,
+        targetLength: length,
+        overlap: overlapValueLocal,
+        mode: modeSelect.value,
+        createdAt: new Date().toISOString(),
+        segments
+      };
+    }
+
+    function renderPlan(plan) {
+      segmentCount.textContent = localize(`${plan.segments.length} مقطع`, `${plan.segments.length} clips`);
+      const average = plan.segments.reduce((sum, item) => sum + item.duration, 0) / plan.segments.length;
+
+      metricGrid.innerHTML = `
+        <div class="metric-card">
+          <strong>${plan.segments.length}</strong>
+          <h3>${localize("عدد المقاطع", "Segments")}</h3>
+          <p class="muted">${localize("عدد المقاطع الناتجة عن الخطة.", "Total segments generated by the plan.")}</p>
+        </div>
+        <div class="metric-card">
+          <strong>${formatDuration(average)}</strong>
+          <h3>${localize("المتوسط", "Average")}</h3>
+          <p class="muted">${localize("متوسط مدة كل مقطع تقريبًا.", "Approximate average duration per segment.")}</p>
+        </div>
+        <div class="metric-card">
+          <strong>${plan.overlap}s</strong>
+          <h3>${localize("التداخل", "Overlap")}</h3>
+          <p class="muted">${localize("التداخل المختار بين نهاية كل مقطع وبداية التالي.", "Selected overlap between the end of one clip and the next.")}</p>
+        </div>
+      `;
+
+      segmentList.innerHTML = plan.segments.map((segment) => `
+        <article class="segment-card">
+          <div>
+            <strong>${localize(`المقطع ${segment.id}`, `Clip ${segment.id}`)}</strong>
+            <div class="muted">${formatDuration(segment.start)} → ${formatDuration(segment.end)} • ${formatDuration(segment.duration)}</div>
+          </div>
+          <div class="tool-actions">
+            <button class="btn btn-secondary" type="button" data-seek="${segment.start}">${localize("انتقل", "Jump")}</button>
+          </div>
+        </article>
+      `).join("");
+    }
+
+    function getHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHistory(items) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(-8)));
+    }
+
+    function renderHistory() {
+      const items = getHistory();
+      if (!items.length) {
+        historyList.innerHTML = `<div class="history-empty">${localize("لا توجد خطط محفوظة بعد.", "No saved plans yet.")}</div>`;
+        return;
+      }
+
+      historyList.innerHTML = items.slice().reverse().map((item) => `
+        <div class="history-item">
+          <div>
+            <strong>${item.fileName}</strong>
+            <div class="muted">${localize(`${item.segments.length} مقطع • ${formatDuration(item.duration)} • ${item.targetLength}s`, `${item.segments.length} clips • ${formatDuration(item.duration)} • ${item.targetLength}s`)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    async function buildPlan() {
+      if (!selectedFile || !selectedDuration) {
+        setStatus(localize("ارفع ملفًا صالحًا أولًا حتى نبني خطة المقاطع.", "Upload a valid file first so the segment plan can be built."));
+        return;
+      }
+
+      const stages = [
+        localize("قراءة المدة", "Reading duration"),
+        localize("تطبيق منطق الوقفات", "Applying pause logic"),
+        localize("بناء المقاطع", "Building segments"),
+        localize("تجهيز الخطة", "Finalizing plan")
+      ];
+
+      for (let index = 0; index < stages.length; index += 1) {
+        setProgress((index / (stages.length - 1 || 1)) * 100, stages[index]);
+        await new Promise((resolve) => setTimeout(resolve, 280));
+      }
+
+      lastPlan = buildSegments();
+      if (!lastPlan) return;
+      renderPlan(lastPlan);
+      const items = getHistory();
+      items.push(lastPlan);
+      saveHistory(items);
+      renderHistory();
+      setStatus(localize(`تم تجهيز ${lastPlan.segments.length} مقطعًا لملف ${selectedFile.name}.`, `Prepared ${lastPlan.segments.length} clips for ${selectedFile.name}.`));
+    }
+
+    function planText(plan) {
+      return plan.segments.map((segment) => `${localize("المقطع", "Clip")} ${segment.id}: ${formatDuration(segment.start)} -> ${formatDuration(segment.end)} (${formatDuration(segment.duration)})`).join("\n");
+    }
+
+    async function copyPlan() {
+      if (!lastPlan) {
+        setStatus(localize("ابنِ الخطة أولًا حتى ننسخها.", "Build the plan first so it can be copied."));
+        return;
+      }
+
+      try {
+        await navigator.clipboard.writeText(planText(lastPlan));
+        setStatus(localize("تم نسخ خطة المقاطع.", "Copied the segment plan."));
+      } catch {
+        setStatus(localize("تعذّر النسخ التلقائي على هذا المتصفح.", "Automatic copy is unavailable in this browser."));
+      }
+    }
+
+    function downloadJson() {
+      if (!lastPlan) {
+        setStatus(localize("ابنِ الخطة أولًا حتى يتم تنزيل JSON.", "Build the plan first so JSON can be downloaded."));
+        return;
+      }
+      const blob = new Blob([JSON.stringify(lastPlan, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${lastPlan.fileName.replace(/\.[^.]+$/, "")}-clipflow-plan.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      setStatus(localize("تم تنزيل ملف JSON للخطة.", "Downloaded the JSON segment plan."));
+    }
+
+    function resetAll() {
+      audioPlayer.pause();
+      audioPlayer.removeAttribute("src");
+      audioPlayer.load();
+      if (selectedUrl) URL.revokeObjectURL(selectedUrl);
+      selectedFile = null;
+      selectedUrl = "";
+      selectedDuration = 0;
+      lastPlan = null;
+      fileName.textContent = "-";
+      fileDuration.textContent = "-";
+      segmentCount.textContent = "-";
+      setProgress(0, "-");
+      metricGrid.innerHTML = `
+        <div class="metric-card"><strong>--</strong><h3>${localize("عدد المقاطع", "Segments")}</h3><p class="muted">${localize("سيظهر بعد بناء الخطة.", "Appears after planning.")}</p></div>
+        <div class="metric-card"><strong>--</strong><h3>${localize("المتوسط", "Average")}</h3><p class="muted">${localize("سيظهر بعد بناء الخطة.", "Appears after planning.")}</p></div>
+        <div class="metric-card"><strong>--</strong><h3>${localize("التداخل", "Overlap")}</h3><p class="muted">${localize("سيظهر بعد بناء الخطة.", "Appears after planning.")}</p></div>
+      `;
+      segmentList.innerHTML = `<div class="empty-state">${localize("ستظهر المقاطع هنا بعد بناء الخطة.", "Segments will appear here after the plan is built.")}</div>`;
+      setStatus(localize("تمت إعادة ضبط الصفحة. ارفع ملفًا جديدًا لبدء خطة أخرى.", "The page was reset. Upload a new file to start another plan."));
+    }
+
+    segmentList.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-seek]");
+      if (!button) return;
+      audioPlayer.currentTime = Number(button.dataset.seek);
+      audioPlayer.play();
+    });
+
+    [targetLength, overlap].forEach((input) => input.addEventListener("input", updateControlLabels));
+    modeSelect.addEventListener("change", updateControlLabels);
+    buildBtn.addEventListener("click", buildPlan);
+    copyBtn.addEventListener("click", copyPlan);
+    jsonBtn.addEventListener("click", downloadJson);
+    resetBtn.addEventListener("click", resetAll);
+    document.getElementById("langAr").addEventListener("click", () => setTimeout(() => {
+      updateControlLabels();
+      renderHistory();
+      if (lastPlan) renderPlan(lastPlan);
+    }, 0));
+    document.getElementById("langEn").addEventListener("click", () => setTimeout(() => {
+      updateControlLabels();
+      renderHistory();
+      if (lastPlan) renderPlan(lastPlan);
+    }, 0));
+
+    updateControlLabels();
+    renderHistory();
+    setProgress(0, "-");
+  </script>
+</body>
+</html>

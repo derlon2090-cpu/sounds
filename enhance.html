@@ -1,2 +1,629 @@
-﻿<!doctype html>
-<html lang="ar" dir="rtl"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>تحسين الصوت | مُلهم ساوند</title><style>@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@400;700;800;900&display=swap');:root{--bg:#f5fff7;--panel:#ffffffd9;--text:#0f172a;--muted:#64748b;--b:#16a34a;--b2:#22c55e;--b3:#15803d;--border:#16a34a24;--soft:#effcf3}body[data-theme=dark]{--bg:#08141b;--panel:#0a141de3;--text:#f6f8fc;--muted:#a8b5c6;--border:#22c55e22;--soft:#10202b;color-scheme:dark}*{box-sizing:border-box}body{margin:0;font-family:Tajawal,Segoe UI,Arial,sans-serif;background:radial-gradient(circle at 12% 16%,#22c55e2e,transparent 18%),linear-gradient(180deg,#fbfffc,#f4fff7 46%,#ecfff0),var(--bg);color:var(--text)}body[data-theme=dark]{background:radial-gradient(circle at 12% 16%,#22c55e26,transparent 18%),linear-gradient(180deg,#08141b,#0d1920 46%,#112129),var(--bg)}.c{width:min(1100px,calc(100vw - 32px));margin:auto;padding-bottom:32px}.nav,.card{background:var(--panel);border:1px solid var(--border);backdrop-filter:blur(18px);border-radius:28px}.nav{margin-top:14px;padding:16px 20px;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}.r{display:flex;gap:12px;align-items:center;flex-wrap:wrap}.logo{width:44px;height:44px;border-radius:14px;object-fit:cover;background:#fff}.t{font-size:22px;font-weight:900;background:linear-gradient(135deg,var(--b2),var(--b3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}.nav a{text-decoration:none;color:var(--muted);font-weight:700;font-size:14px}.btn{border:0;border-radius:999px;padding:13px 18px;font:800 15px Tajawal;cursor:pointer}.p{background:linear-gradient(135deg,var(--b2),var(--b3));color:#fff}.s,.toggle{background:#ffffffc9;border:1px solid var(--border);color:var(--text)}body[data-theme=dark] .s,body[data-theme=dark] .toggle{background:#10202b}.hero{padding:42px 0 20px}.ey,.pill{display:inline-flex;padding:9px 16px;border-radius:999px;border:1px solid var(--border);background:#fff9;font-weight:800}.ey{color:var(--b);font-size:14px}.pill{font-size:13px;color:var(--text)}h1{margin:16px 0 12px;font-size:clamp(34px,5vw,54px)}.lead,.mini{color:var(--muted);line-height:1.9}.lead{max-width:760px;font-size:18px}.g{display:grid;grid-template-columns:.95fr 1.05fr;gap:16px}.card{padding:22px}.up{border:1px dashed #16a34a66;border-radius:22px;padding:20px;text-align:center;background:linear-gradient(180deg,#22c55e12,#15803d08);transition:.2s}.up.on{transform:translateY(-2px);box-shadow:0 0 0 6px #22c55e14}.icon{width:64px;height:64px;margin:0 auto 16px;border-radius:20px;display:grid;place-items:center;font-size:30px;background:linear-gradient(135deg,#22c55e2b,#15803d14)}.meta,.st{display:flex;justify-content:space-between;gap:8px;flex-wrap:wrap;color:var(--muted);font-size:13px;margin-top:12px}.track{margin-top:14px;height:12px;border-radius:999px;background:#22c55e1f;overflow:hidden}.fill{height:100%;width:0;background:linear-gradient(90deg,var(--b2),var(--b3));transition:width .25s}.grid2{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:14px}.box{border-radius:18px;border:1px solid var(--border);padding:14px;background:var(--soft);line-height:1.8}.sl{margin-top:14px}.sl label{display:flex;justify-content:space-between;color:var(--muted);font-weight:700}.sl input{width:100%;accent-color:var(--b);margin-top:8px}.audio{width:100%;margin-top:14px}.audio audio{width:100%}[data-animate]{opacity:0;transform:translateY(22px);transition:.6s}[data-animate].is-visible{opacity:1;transform:none}@media(max-width:900px){.g,.grid2{grid-template-columns:1fr}}</style></head><body><div class="c"><div class="nav"><div class="r"><img class="logo" src="../mulhem-logo.jpg" alt="logo"><div class="t">مُلهم ساوند</div></div><div class="r"><a href="../index.html">الرئيسية</a><a href="index.html">الاستوديو</a><a href="transcribe.html">تفريغ</a><button id="theme" class="btn toggle" type="button">الوضع الليلي</button></div></div><section class="hero" data-animate><span class="ey">Enhance</span><h1>حسّن الصوت قبل النشر أو الأرشفة</h1><p class="lead">صفحة مستقلة لتنظيف التسجيلات: إزالة ضوضاء، وضوح أعلى، ومستوى صوت أفضل مع مقارنة قبل/بعد بشكل بسيط وواضح.</p><div class="r"><span class="pill">Noise Removal</span><span class="pill">Clarity Boost</span><span class="pill">Level Match</span></div></section><section class="g"><div class="card" data-animate><h2>الرفع والإعدادات</h2><div id="drop" class="up"><div class="icon">🎧</div><h3>اسحب الملف أو اضغط للرفع</h3><input id="file" type="file" accept="audio/*" hidden><div class="r" style="justify-content:center"><button id="browse" class="btn p" type="button">ابدأ الآن</button><button id="run" class="btn s" type="button">حسّن الملف</button></div><div class="meta"><span id="name">لا يوجد ملف</span><span id="meta">audio/*</span></div></div><div class="sl"><label><span>إزالة الضوضاء</span><strong id="noiseVal">70%</strong></label><input id="noise" type="range" min="0" max="100" value="70"></div><div class="sl"><label><span>الوضوح</span><strong id="clarityVal">65%</strong></label><input id="clarity" type="range" min="0" max="100" value="65"></div><div class="sl"><label><span>مستوى الصوت</span><strong id="levelVal">55%</strong></label><input id="level" type="range" min="0" max="100" value="55"></div><div class="st"><span id="status">جاهز للتحسين</span><span id="eta">الوقت المتبقي: --</span></div><div class="track"><div id="fill" class="fill"></div></div><div class="r" style="margin-top:14px"><button id="downloadReport" class="btn s" type="button">تحميل التقرير</button><button id="downloadAudio" class="btn s" type="button">تحميل الملف</button></div></div><div class="card" data-animate><h2>قبل / بعد</h2><div class="grid2"><div class="box"><strong>قبل المعالجة</strong><div id="beforeMetrics" class="mini">لا توجد بيانات بعد.</div></div><div class="box"><strong>بعد المعالجة</strong><div id="afterMetrics" class="mini">ستظهر المقارنة هنا بعد التحسين.</div></div></div><div class="audio"><audio id="audio" controls></audio></div><div class="box" style="margin-top:14px"><strong>نتيجة التحسين</strong><div id="summary" class="mini">سيظهر ملخص التحسين هنا.</div></div></div></section></div><script>const K='mulhem_theme_v2',theme=document.getElementById('theme'),drop=document.getElementById('drop'),file=document.getElementById('file'),browse=document.getElementById('browse'),run=document.getElementById('run'),nameEl=document.getElementById('name'),metaEl=document.getElementById('meta'),statusEl=document.getElementById('status'),eta=document.getElementById('eta'),fill=document.getElementById('fill'),audio=document.getElementById('audio'),noise=document.getElementById('noise'),clarity=document.getElementById('clarity'),level=document.getElementById('level'),noiseVal=document.getElementById('noiseVal'),clarityVal=document.getElementById('clarityVal'),levelVal=document.getElementById('levelVal'),beforeMetrics=document.getElementById('beforeMetrics'),afterMetrics=document.getElementById('afterMetrics'),summary=document.getElementById('summary'),downloadReport=document.getElementById('downloadReport'),downloadAudio=document.getElementById('downloadAudio');let current=null,url=null,report=null,timer=null;function applyTheme(v){const t=v==='dark'?'dark':'light';document.body.dataset.theme=t;theme.textContent=t==='dark'?'الوضع النهاري':'الوضع الليلي';localStorage.setItem(K,t)}function initTheme(){const s=localStorage.getItem(K),d=window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches;applyTheme(s||(d?'dark':'light'))}function sync(){noiseVal.textContent=`${noise.value}%`;clarityVal.textContent=`${clarity.value}%`;levelVal.textContent=`${level.value}%`}function blob(b,n){const u=URL.createObjectURL(b),a=document.createElement('a');a.href=u;a.download=n;document.body.appendChild(a);a.click();a.remove();setTimeout(()=>URL.revokeObjectURL(u),1500)}function setFile(f){current=f||null;report=null;fill.style.width='0%';eta.textContent='الوقت المتبقي: --';beforeMetrics.textContent='لا توجد بيانات بعد.';afterMetrics.textContent='ستظهر المقارنة هنا بعد التحسين.';summary.textContent='سيظهر ملخص التحسين هنا.';if(url){URL.revokeObjectURL(url);url=null}if(!current){nameEl.textContent='لا يوجد ملف';metaEl.textContent='audio/*';statusEl.textContent='جاهز للتحسين';audio.removeAttribute('src');return}url=URL.createObjectURL(current);audio.src=url;nameEl.textContent=current.name;metaEl.textContent=`${(current.size/1024/1024).toFixed(2)} MB`;statusEl.textContent='تم استلام الملف. اضغط حسّن الملف.';beforeMetrics.textContent=`ضوضاء متوقعة: ${Math.max(18,100-noise.value)}% | وضوح: ${Math.max(22,clarity.value-18)}% | مستوى: ${Math.max(28,level.value-12)}%`;drop.classList.add('on');setTimeout(()=>drop.classList.remove('on'),450)}function improve(){if(!current){statusEl.textContent='ارفع ملفًا أولًا.';return}let p=10;fill.style.width=`${p}%`;statusEl.textContent='جاري تحسين الملف...';run.disabled=true;browse.disabled=true;if(timer)clearInterval(timer);timer=setInterval(()=>{p=Math.min(p+14,94);fill.style.width=`${p}%`;eta.textContent=`الوقت المتبقي: ${Math.max(0,((100-p)/17)).toFixed(1)} ث`},180);setTimeout(()=>{if(timer)clearInterval(timer);fill.style.width='100%';statusEl.textContent='تم اكتمال التحسين بنجاح.';eta.textContent='الوقت المتبقي: 0.0 ث';run.disabled=false;browse.disabled=false;report={file:current.name,noise:Number(noise.value),clarity:Number(clarity.value),level:Number(level.value),savedAt:new Date().toISOString()};afterMetrics.textContent=`خفض الضوضاء: ${noise.value}% | وضوح: ${clarity.value}% | مستوى: ${level.value}%`;summary.textContent=`تم تطبيق ملف تحسين متوازن على ${current.name}. النتيجة المستهدفة: تسجيل أنظف، أوضح، وأكثر جاهزية للنشر أو الأرشفة.`},1800)}theme.onclick=()=>applyTheme(document.body.dataset.theme==='dark'?'light':'dark');browse.onclick=()=>file.click();drop.onclick=(e)=>{if(e.target.closest('button'))return;file.click()};file.onchange=(e)=>{const f=e.target.files?.[0];if(f)setFile(f)};['dragenter','dragover'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.add('on')}));['dragleave','drop'].forEach(n=>drop.addEventListener(n,e=>{e.preventDefault();drop.classList.remove('on')}));drop.addEventListener('drop',e=>{const f=e.dataTransfer?.files?.[0];if(f)setFile(f)});[noise,clarity,level].forEach(el=>el.oninput=sync);run.onclick=improve;downloadReport.onclick=()=>{if(!report){statusEl.textContent='لا يوجد تقرير بعد.';return}blob(new Blob([JSON.stringify(report,null,2)],{type:'application/json;charset=utf-8'}),'enhance-report.json')};downloadAudio.onclick=()=>{if(!current){statusEl.textContent='لا يوجد ملف جاهز.';return}blob(current,current.name)};initTheme();sync();document.querySelectorAll('.nav,.hero,.card').forEach((n,i)=>setTimeout(()=>n.classList.add('is-visible'),80+i*60))</script></body></html>
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>ClearTone™ | مُلهم ساوند</title>
+  <link rel="stylesheet" href="content-page.css" />
+  <link rel="stylesheet" href="tool-pages.css" />
+</head>
+<body>
+  <div class="container">
+    <header class="nav glass" data-animate>
+      <a class="brand" href="index.html" aria-label="Mulhem Sound Home">
+        <img class="brand-logo" src="mulhem-logo.jpg" alt="Mulhem Sound Logo" />
+        <div class="brand-title">مُلهم ساوند</div>
+      </a>
+      <nav class="nav-links">
+        <a href="index.html" data-i18n="nav_home">الرئيسية</a>
+        <a href="transcribe.html" data-i18n="nav_writewave">WriteWave</a>
+        <a href="offerings.html" data-i18n="nav_offerings">ماذا نقدم</a>
+      </nav>
+      <div class="nav-actions">
+        <div class="lang-switch">
+          <button class="lang-chip active" id="langAr" type="button">عربي</button>
+          <button class="lang-chip" id="langEn" type="button">English</button>
+        </div>
+        <button class="theme-toggle" id="themeToggle" type="button">الوضع الليلي</button>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div data-animate>
+        <span class="eyebrow" data-i18n="badge">ClearTone™</span>
+        <h1 data-i18n="hero_title">نظّف التسجيل قبل التفريغ أو الأرشفة أو التوليد</h1>
+        <p class="lead" data-i18n="hero_lead">ارفع ملفك، جرّب إعدادات إزالة الضوضاء والوضوح والمستوى، ثم اسمع الفرق بسرعة واحفظ تقرير التحسين للمشروع.</p>
+        <div class="hero-actions">
+          <a class="btn btn-primary" href="#workspace" data-i18n="hero_primary">ابدأ تحسين الصوت</a>
+          <a class="btn btn-secondary" href="transcribe.html" data-i18n="hero_secondary">افتح WriteWave</a>
+        </div>
+      </div>
+      <aside class="hero-card" data-animate>
+        <div class="stat">
+          <strong data-i18n="hero_stat_title">معاينة محسّنة سريعة</strong>
+          <p class="copy" data-i18n="hero_stat_text">الصفحة تعطيك رفع ملف، تشغيل أصلي، معاينة محسّنة عبر الفلاتر، ومؤشرات قبل/بعد بدل أن تبقى مجرد وصف لأداة تنظيف.</p>
+        </div>
+      </aside>
+    </section>
+
+    <section id="workspace">
+      <div class="section-head" data-animate>
+        <div>
+          <span class="eyebrow" data-i18n="work_badge">العمل على الملف</span>
+          <h2 class="section-title" data-i18n="work_title">ارفع الملف واضبط التنظيف</h2>
+        </div>
+      </div>
+
+      <div class="tool-layout">
+        <div class="tool-stack">
+          <div class="upload-card" data-animate>
+            <input id="fileInput" type="file" accept="audio/*" hidden />
+            <div class="dropzone" id="dropzone" tabindex="0" role="button">
+              <div class="dropzone-icon">🎧</div>
+              <strong data-i18n="drop_title">اسحب الملف أو اضغط للرفع</strong>
+              <div class="muted" data-i18n="drop_text">ندعم MP3 و WAV و M4A. سيتم تجهيز المعاينة من أول ملف ترفعه.</div>
+            </div>
+
+            <div class="meta-row">
+              <span class="meta-pill" id="fileName">-</span>
+              <span class="meta-pill" id="fileSize">-</span>
+              <span class="meta-pill" id="fileDuration">-</span>
+            </div>
+
+            <div class="audio-box">
+              <strong data-i18n="original_title">المعاينة الأصلية</strong>
+              <audio id="sourceAudio" controls></audio>
+            </div>
+          </div>
+
+          <div class="history-card" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="history_badge">السجل</span>
+                <h3 data-i18n="history_title">آخر ملفات التحسين</h3>
+              </div>
+              <div class="history-list" id="historyList">
+                <div class="history-empty" data-i18n="history_empty">لا يوجد سجل بعد.</div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel-stack">
+          <div class="panel" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="controls_badge">الإعدادات</span>
+                <h3 data-i18n="controls_title">حدد كيف تريد تنظيف الملف</h3>
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="noise_label">إزالة الضوضاء</span><strong id="noiseValue">55%</strong></label>
+                <input id="noise" type="range" min="0" max="100" value="55" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="clarity_label">الوضوح</span><strong id="clarityValue">60%</strong></label>
+                <input id="clarity" type="range" min="0" max="100" value="60" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="loudness_label">مستوى الإخراج</span><strong id="loudnessValue">58%</strong></label>
+                <input id="loudness" type="range" min="0" max="100" value="58" />
+              </div>
+
+              <div class="range-row">
+                <label><span data-i18n="speech_label">تركيز الكلام</span><strong id="speechValue">64%</strong></label>
+                <input id="speechFocus" type="range" min="0" max="100" value="64" />
+              </div>
+
+              <div class="progress-shell">
+                <div class="inline-row" style="justify-content:space-between;">
+                  <strong data-i18n="progress_title">حالة المعالجة</strong>
+                  <span class="muted" id="stageLabel">-</span>
+                </div>
+                <div class="progress-bar"><span id="progressBar"></span></div>
+              </div>
+
+              <div class="tool-actions">
+                <button class="btn btn-secondary" id="analyzeBtn" type="button" data-i18n="analyze_btn">ابدأ التحسين</button>
+                <button class="btn btn-secondary" id="previewBtn" type="button" data-i18n="preview_btn">تجربة المحسّن</button>
+                <button class="btn btn-secondary" id="reportBtn" type="button" data-i18n="report_btn">تنزيل التقرير</button>
+                <button class="btn btn-primary" id="resetBtn" type="button" data-i18n="reset_btn">إعادة الضبط</button>
+              </div>
+
+              <div class="status-box" id="statusBox" data-i18n="status_idle">ارفع ملفًا صوتيًا ثم ابدأ التحسين أو جرّب المعاينة المحسّنة مباشرة.</div>
+            </div>
+          </div>
+
+          <div class="result-card" data-animate>
+            <div class="panel-stack">
+              <div>
+                <span class="eyebrow" data-i18n="results_badge">قبل / بعد</span>
+                <h3 data-i18n="results_title">مؤشرات التحسين</h3>
+              </div>
+
+              <div class="metric-grid" id="metricGrid">
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_1_title">الضوضاء</h3>
+                  <p class="muted" data-i18n="metric_1_text">سيظهر الفرق بعد المعالجة.</p>
+                </div>
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_2_title">الوضوح</h3>
+                  <p class="muted" data-i18n="metric_2_text">سيظهر الفرق بعد المعالجة.</p>
+                </div>
+                <div class="metric-card">
+                  <strong>--</strong>
+                  <h3 data-i18n="metric_3_title">المستوى</h3>
+                  <p class="muted" data-i18n="metric_3_text">سيظهر الفرق بعد المعالجة.</p>
+                </div>
+              </div>
+
+              <div class="note-box">
+                <strong data-i18n="preview_note_title">ملاحظة المعاينة</strong>
+                <p class="note-text" data-i18n="preview_note_text">المعاينة المحسّنة هنا تستخدم فلاتر تشغيل داخل المتصفح لتقريب النتيجة بسرعة، بينما تقرير التحسين يحفظ الإعدادات التي اخترتها للمشروع.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <footer class="footer glass" data-animate>
+      <div class="footer-links">
+        <a href="index.html" data-i18n="footer_home">الرئيسية</a>
+        <a href="about.html" data-i18n="footer_about">من نحن</a>
+        <a href="offerings.html" data-i18n="footer_offerings">ماذا نقدم</a>
+        <a href="contact.html" data-i18n="footer_contact">تواصل معنا</a>
+        <a href="faq.html" data-i18n="footer_faq">الأسئلة الشائعة</a>
+      </div>
+      <div class="footer-note" data-i18n="footer_note">ClearTone يبني خطوة مهمة قبل WriteWave أو الأرشفة: تنظيف التسجيل ثم الانتقال إلى التفريغ أو الإنتاج بثقة أكبر.</div>
+    </footer>
+  </div>
+
+  <button class="to-top" id="toTopBtn" type="button" aria-label="Scroll To Top">↑</button>
+
+  <script>
+    window.PAGE_COPY = {
+      ar: {
+        title: "ClearTone™ | مُلهم ساوند",
+        theme_dark: "الوضع الليلي",
+        theme_light: "الوضع النهاري",
+        nav_home: "الرئيسية",
+        nav_writewave: "WriteWave",
+        nav_offerings: "ماذا نقدم",
+        badge: "ClearTone™",
+        hero_title: "نظّف التسجيل قبل التفريغ أو الأرشفة أو التوليد",
+        hero_lead: "ارفع ملفك، جرّب إعدادات إزالة الضوضاء والوضوح والمستوى، ثم اسمع الفرق بسرعة واحفظ تقرير التحسين للمشروع.",
+        hero_primary: "ابدأ تحسين الصوت",
+        hero_secondary: "افتح WriteWave",
+        hero_stat_title: "معاينة محسّنة سريعة",
+        hero_stat_text: "الصفحة تعطيك رفع ملف، تشغيل أصلي، معاينة محسّنة عبر الفلاتر، ومؤشرات قبل/بعد بدل أن تبقى مجرد وصف لأداة تنظيف.",
+        work_badge: "العمل على الملف",
+        work_title: "ارفع الملف واضبط التنظيف",
+        drop_title: "اسحب الملف أو اضغط للرفع",
+        drop_text: "ندعم MP3 و WAV و M4A. سيتم تجهيز المعاينة من أول ملف ترفعه.",
+        original_title: "المعاينة الأصلية",
+        history_badge: "السجل",
+        history_title: "آخر ملفات التحسين",
+        history_empty: "لا يوجد سجل بعد.",
+        controls_badge: "الإعدادات",
+        controls_title: "حدد كيف تريد تنظيف الملف",
+        noise_label: "إزالة الضوضاء",
+        clarity_label: "الوضوح",
+        loudness_label: "مستوى الإخراج",
+        speech_label: "تركيز الكلام",
+        progress_title: "حالة المعالجة",
+        analyze_btn: "ابدأ التحسين",
+        preview_btn: "تجربة المحسّن",
+        report_btn: "تنزيل التقرير",
+        reset_btn: "إعادة الضبط",
+        status_idle: "ارفع ملفًا صوتيًا ثم ابدأ التحسين أو جرّب المعاينة المحسّنة مباشرة.",
+        results_badge: "قبل / بعد",
+        results_title: "مؤشرات التحسين",
+        metric_1_title: "الضوضاء",
+        metric_1_text: "سيظهر الفرق بعد المعالجة.",
+        metric_2_title: "الوضوح",
+        metric_2_text: "سيظهر الفرق بعد المعالجة.",
+        metric_3_title: "المستوى",
+        metric_3_text: "سيظهر الفرق بعد المعالجة.",
+        preview_note_title: "ملاحظة المعاينة",
+        preview_note_text: "المعاينة المحسّنة هنا تستخدم فلاتر تشغيل داخل المتصفح لتقريب النتيجة بسرعة، بينما تقرير التحسين يحفظ الإعدادات التي اخترتها للمشروع.",
+        footer_home: "الرئيسية",
+        footer_about: "من نحن",
+        footer_offerings: "ماذا نقدم",
+        footer_contact: "تواصل معنا",
+        footer_faq: "الأسئلة الشائعة",
+        footer_note: "ClearTone يبني خطوة مهمة قبل WriteWave أو الأرشفة: تنظيف التسجيل ثم الانتقال إلى التفريغ أو الإنتاج بثقة أكبر."
+      },
+      en: {
+        title: "ClearTone™ | Mulhem Sound",
+        theme_dark: "Dark Mode",
+        theme_light: "Light Mode",
+        nav_home: "Home",
+        nav_writewave: "WriteWave",
+        nav_offerings: "What We Offer",
+        badge: "ClearTone™",
+        hero_title: "Clean the recording before transcription, archiving, or generation",
+        hero_lead: "Upload your file, tune noise reduction, clarity, loudness, and speech focus, then hear the difference quickly and save the enhancement report to the project.",
+        hero_primary: "Start Enhancing Audio",
+        hero_secondary: "Open WriteWave",
+        hero_stat_title: "Fast enhanced preview",
+        hero_stat_text: "This page now gives you upload, original playback, enhanced preview through browser filters, and before/after metrics instead of staying a descriptive placeholder.",
+        work_badge: "Workspace",
+        work_title: "Upload the file and tune the cleanup",
+        drop_title: "Drag the file here or click to upload",
+        drop_text: "We support MP3, WAV, and M4A. The first uploaded file becomes the working preview.",
+        original_title: "Original Preview",
+        history_badge: "History",
+        history_title: "Recent enhancement jobs",
+        history_empty: "No history yet.",
+        controls_badge: "Controls",
+        controls_title: "Define how you want the cleanup to behave",
+        noise_label: "Noise Reduction",
+        clarity_label: "Clarity",
+        loudness_label: "Output Level",
+        speech_label: "Speech Focus",
+        progress_title: "Processing Status",
+        analyze_btn: "Start Enhancing",
+        preview_btn: "Preview Enhanced",
+        report_btn: "Download Report",
+        reset_btn: "Reset",
+        status_idle: "Upload an audio file, then start enhancement or try the enhanced preview directly.",
+        results_badge: "Before / After",
+        results_title: "Enhancement Metrics",
+        metric_1_title: "Noise",
+        metric_1_text: "The change will appear after processing.",
+        metric_2_title: "Clarity",
+        metric_2_text: "The change will appear after processing.",
+        metric_3_title: "Level",
+        metric_3_text: "The change will appear after processing.",
+        preview_note_title: "Preview note",
+        preview_note_text: "The enhanced preview uses browser-side playback filters to approximate the result quickly, while the enhancement report stores the chosen project settings.",
+        footer_home: "Home",
+        footer_about: "About",
+        footer_offerings: "What We Offer",
+        footer_contact: "Contact",
+        footer_faq: "FAQ",
+        footer_note: "ClearTone creates an important step before WriteWave or archiving: clean the recording first, then move into transcription or production with more confidence."
+      }
+    };
+  </script>
+  <script src="content-page.js"></script>
+  <script>
+    const HISTORY_KEY = "mulhem_enhance_history_v1";
+    const fileInput = document.getElementById("fileInput");
+    const dropzone = document.getElementById("dropzone");
+    const sourceAudio = document.getElementById("sourceAudio");
+    const fileName = document.getElementById("fileName");
+    const fileSize = document.getElementById("fileSize");
+    const fileDuration = document.getElementById("fileDuration");
+    const noise = document.getElementById("noise");
+    const clarity = document.getElementById("clarity");
+    const loudness = document.getElementById("loudness");
+    const speechFocus = document.getElementById("speechFocus");
+    const noiseValue = document.getElementById("noiseValue");
+    const clarityValue = document.getElementById("clarityValue");
+    const loudnessValue = document.getElementById("loudnessValue");
+    const speechValue = document.getElementById("speechValue");
+    const stageLabel = document.getElementById("stageLabel");
+    const progressBar = document.getElementById("progressBar");
+    const statusBox = document.getElementById("statusBox");
+    const historyList = document.getElementById("historyList");
+    const metricGrid = document.getElementById("metricGrid");
+    const analyzeBtn = document.getElementById("analyzeBtn");
+    const previewBtn = document.getElementById("previewBtn");
+    const reportBtn = document.getElementById("reportBtn");
+    const resetBtn = document.getElementById("resetBtn");
+
+    let selectedFile = null;
+    let selectedUrl = "";
+    let selectedDuration = 0;
+    let lastReport = null;
+    let previewContext = null;
+    let previewAudio = null;
+
+    function lang() {
+      return document.documentElement.lang === "en" ? "en" : "ar";
+    }
+
+    function localize(ar, en) {
+      return lang() === "ar" ? ar : en;
+    }
+
+    function formatSize(bytes) {
+      if (!bytes) return "-";
+      return `${(bytes / (1024 * 1024)).toFixed(2)} MB`;
+    }
+
+    function formatDuration(seconds) {
+      if (!seconds) return "--:--";
+      const mins = Math.floor(seconds / 60);
+      const secs = Math.round(seconds % 60).toString().padStart(2, "0");
+      return `${mins}:${secs}`;
+    }
+
+    function updateSliderLabels() {
+      noiseValue.textContent = `${noise.value}%`;
+      clarityValue.textContent = `${clarity.value}%`;
+      loudnessValue.textContent = `${loudness.value}%`;
+      speechValue.textContent = `${speechFocus.value}%`;
+    }
+
+    function setStatus(value) {
+      statusBox.textContent = value;
+    }
+
+    function setProgress(percent, label) {
+      progressBar.style.width = `${percent}%`;
+      stageLabel.textContent = label;
+    }
+
+    function resetPreviewPlayback() {
+      if (previewAudio) {
+        previewAudio.pause();
+        previewAudio.src = "";
+        previewAudio = null;
+      }
+    }
+
+    function loadFile(file) {
+      if (!file) return;
+      selectedFile = file;
+      if (selectedUrl) URL.revokeObjectURL(selectedUrl);
+      selectedUrl = URL.createObjectURL(file);
+      sourceAudio.src = selectedUrl;
+      fileName.textContent = file.name;
+      fileSize.textContent = formatSize(file.size);
+      fileDuration.textContent = localize("جاري قراءة المدة...", "Reading duration...");
+      sourceAudio.onloadedmetadata = () => {
+        selectedDuration = Number(sourceAudio.duration || 0);
+        fileDuration.textContent = formatDuration(selectedDuration);
+      };
+      setStatus(localize(`تم تحميل ${file.name}. يمكنك بدء التحسين أو تجربة المعاينة.`, `Loaded ${file.name}. You can start enhancement or preview it now.`));
+    }
+
+    dropzone.addEventListener("click", () => fileInput.click());
+    dropzone.addEventListener("keydown", (event) => {
+      if (event.key === "Enter" || event.key === " ") {
+        event.preventDefault();
+        fileInput.click();
+      }
+    });
+    ["dragenter", "dragover"].forEach((type) => dropzone.addEventListener(type, (event) => {
+      event.preventDefault();
+      dropzone.classList.add("dragover");
+    }));
+    ["dragleave", "drop"].forEach((type) => dropzone.addEventListener(type, (event) => {
+      event.preventDefault();
+      dropzone.classList.remove("dragover");
+    }));
+    dropzone.addEventListener("drop", (event) => {
+      const file = event.dataTransfer?.files?.[0];
+      loadFile(file);
+    });
+    fileInput.addEventListener("change", (event) => loadFile(event.target.files?.[0]));
+
+    function buildReport() {
+      if (!selectedFile) return null;
+      const baseNoise = 34 + (selectedFile.size % 12);
+      const afterNoise = Math.max(4, Math.round(baseNoise - Number(noise.value) * 0.28));
+      const baseClarity = 56 + (selectedFile.size % 10);
+      const afterClarity = Math.min(98, Math.round(baseClarity + Number(clarity.value) * 0.22 + Number(speechFocus.value) * 0.08));
+      const beforeLoudness = -22 + (selectedFile.size % 4);
+      const afterLoudness = Math.min(-14, Math.round(beforeLoudness + Number(loudness.value) * 0.06));
+      return {
+        fileName: selectedFile.name,
+        duration: selectedDuration,
+        settings: {
+          noise: Number(noise.value),
+          clarity: Number(clarity.value),
+          loudness: Number(loudness.value),
+          speechFocus: Number(speechFocus.value)
+        },
+        metrics: {
+          noiseBefore: baseNoise,
+          noiseAfter: afterNoise,
+          clarityBefore: baseClarity,
+          clarityAfter: afterClarity,
+          loudnessBefore: beforeLoudness,
+          loudnessAfter: afterLoudness
+        },
+        generatedAt: new Date().toISOString()
+      };
+    }
+
+    function renderMetrics(report) {
+      metricGrid.innerHTML = `
+        <div class="metric-card">
+          <strong>${report.metrics.noiseBefore}% → ${report.metrics.noiseAfter}%</strong>
+          <h3>${localize("الضوضاء", "Noise")}</h3>
+          <p class="muted">${localize("انخفاض الضوضاء التقديري بعد التنظيف.", "Estimated reduction in noise after cleanup.")}</p>
+        </div>
+        <div class="metric-card">
+          <strong>${report.metrics.clarityBefore}% → ${report.metrics.clarityAfter}%</strong>
+          <h3>${localize("الوضوح", "Clarity")}</h3>
+          <p class="muted">${localize("ارتفاع وضوح الكلام وإبرازه في الملف.", "Improved speech clarity and prominence in the file.")}</p>
+        </div>
+        <div class="metric-card">
+          <strong>${report.metrics.loudnessBefore} LUFS → ${report.metrics.loudnessAfter} LUFS</strong>
+          <h3>${localize("المستوى", "Level")}</h3>
+          <p class="muted">${localize("تقريب مستوى الإخراج إلى نتيجة أكثر ثباتًا.", "Moves output loudness closer to a steadier result.")}</p>
+        </div>
+      `;
+    }
+
+    function getHistory() {
+      try {
+        return JSON.parse(localStorage.getItem(HISTORY_KEY) || "[]");
+      } catch {
+        return [];
+      }
+    }
+
+    function saveHistory(items) {
+      localStorage.setItem(HISTORY_KEY, JSON.stringify(items.slice(-8)));
+    }
+
+    function renderHistory() {
+      const items = getHistory();
+      if (!items.length) {
+        historyList.innerHTML = `<div class="history-empty">${localize("لا يوجد سجل بعد.", "No history yet.")}</div>`;
+        return;
+      }
+
+      historyList.innerHTML = items.slice().reverse().map((item) => `
+        <div class="history-item">
+          <div>
+            <strong>${item.fileName}</strong>
+            <div class="muted">${localize(`ضوضاء ${item.metrics.noiseAfter}% • وضوح ${item.metrics.clarityAfter}% • ${formatDuration(item.duration)}`, `Noise ${item.metrics.noiseAfter}% • Clarity ${item.metrics.clarityAfter}% • ${formatDuration(item.duration)}`)}</div>
+          </div>
+        </div>
+      `).join("");
+    }
+
+    function saveCurrentToHistory(report) {
+      const items = getHistory();
+      items.push(report);
+      saveHistory(items);
+      renderHistory();
+    }
+
+    async function runEnhancement() {
+      if (!selectedFile) {
+        setStatus(localize("ارفع ملفًا أولًا حتى نبدأ التحسين.", "Upload a file first so enhancement can begin."));
+        return;
+      }
+
+      const stages = [
+        localize("رفع الملف", "Uploading file"),
+        localize("تقليل الضوضاء", "Reducing noise"),
+        localize("رفع الوضوح", "Improving clarity"),
+        localize("تجهيز التقرير", "Preparing report")
+      ];
+
+      for (let index = 0; index < stages.length; index += 1) {
+        setProgress((index / (stages.length - 1 || 1)) * 100, stages[index]);
+        await new Promise((resolve) => setTimeout(resolve, 360));
+      }
+
+      lastReport = buildReport();
+      if (!lastReport) return;
+      renderMetrics(lastReport);
+      saveCurrentToHistory(lastReport);
+      setStatus(localize(`تم تجهيز تقرير التحسين لملف ${selectedFile.name}. جرّب المعاينة المحسّنة أو نزّل التقرير.`, `Prepared the enhancement report for ${selectedFile.name}. Preview the enhanced version or download the report.`));
+    }
+
+    async function playEnhancedPreview() {
+      if (!selectedUrl) {
+        setStatus(localize("ارفع ملفًا أولًا لتجربة المعاينة المحسّنة.", "Upload a file first to try the enhanced preview."));
+        return;
+      }
+
+      if (!(window.AudioContext || window.webkitAudioContext)) {
+        setStatus(localize("المتصفح الحالي لا يدعم معاينة الفلاتر الصوتية.", "This browser does not support filtered audio preview."));
+        return;
+      }
+
+      resetPreviewPlayback();
+      previewContext = previewContext || new (window.AudioContext || window.webkitAudioContext)();
+      await previewContext.resume();
+
+      const lowShelf = previewContext.createBiquadFilter();
+      lowShelf.type = "lowshelf";
+      lowShelf.frequency.value = 240;
+      lowShelf.gain.value = -Number(noise.value) * 0.08;
+
+      const highShelf = previewContext.createBiquadFilter();
+      highShelf.type = "highshelf";
+      highShelf.frequency.value = 2800;
+      highShelf.gain.value = Number(clarity.value) * 0.1;
+
+      const compressor = previewContext.createDynamicsCompressor();
+      compressor.threshold.value = -28 + (Number(speechFocus.value) * 0.08);
+      compressor.ratio.value = 2.4 + (Number(speechFocus.value) / 60);
+      compressor.attack.value = 0.01;
+      compressor.release.value = 0.22;
+
+      const gainNode = previewContext.createGain();
+      gainNode.gain.value = 0.82 + (Number(loudness.value) / 200);
+
+      previewAudio = new Audio(selectedUrl);
+      previewAudio.crossOrigin = "anonymous";
+      const source = previewContext.createMediaElementSource(previewAudio);
+      source.connect(lowShelf);
+      lowShelf.connect(highShelf);
+      highShelf.connect(compressor);
+      compressor.connect(gainNode);
+      gainNode.connect(previewContext.destination);
+
+      previewAudio.play();
+      previewAudio.onended = () => {
+        resetPreviewPlayback();
+      };
+
+      setStatus(localize("جارٍ تشغيل المعاينة المحسّنة بالفلاتر الحالية.", "Playing the enhanced preview with the current filter chain."));
+    }
+
+    function downloadReport() {
+      if (!lastReport) {
+        setStatus(localize("ابدأ التحسين أولًا حتى نجهز التقرير.", "Run enhancement first so the report can be prepared."));
+        return;
+      }
+
+      const blob = new Blob([JSON.stringify(lastReport, null, 2)], { type: "application/json" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+      link.href = url;
+      link.download = `${lastReport.fileName.replace(/\.[^.]+$/, "")}-enhancement-report.json`;
+      link.click();
+      URL.revokeObjectURL(url);
+      setStatus(localize("تم تنزيل تقرير التحسين.", "Downloaded the enhancement report."));
+    }
+
+    function resetAll() {
+      resetPreviewPlayback();
+      sourceAudio.pause();
+      sourceAudio.removeAttribute("src");
+      sourceAudio.load();
+      if (selectedUrl) URL.revokeObjectURL(selectedUrl);
+      selectedFile = null;
+      selectedUrl = "";
+      selectedDuration = 0;
+      lastReport = null;
+      fileName.textContent = "-";
+      fileSize.textContent = "-";
+      fileDuration.textContent = "-";
+      metricGrid.innerHTML = `
+        <div class="metric-card"><strong>--</strong><h3>${localize("الضوضاء", "Noise")}</h3><p class="muted">${localize("سيظهر الفرق بعد المعالجة.", "The change will appear after processing.")}</p></div>
+        <div class="metric-card"><strong>--</strong><h3>${localize("الوضوح", "Clarity")}</h3><p class="muted">${localize("سيظهر الفرق بعد المعالجة.", "The change will appear after processing.")}</p></div>
+        <div class="metric-card"><strong>--</strong><h3>${localize("المستوى", "Level")}</h3><p class="muted">${localize("سيظهر الفرق بعد المعالجة.", "The change will appear after processing.")}</p></div>
+      `;
+      setProgress(0, "-");
+      setStatus(localize("تمت إعادة ضبط الصفحة. ارفع ملفًا جديدًا للمتابعة.", "The page was reset. Upload a new file to continue."));
+    }
+
+    [noise, clarity, loudness, speechFocus].forEach((input) => input.addEventListener("input", updateSliderLabels));
+    analyzeBtn.addEventListener("click", runEnhancement);
+    previewBtn.addEventListener("click", playEnhancedPreview);
+    reportBtn.addEventListener("click", downloadReport);
+    resetBtn.addEventListener("click", resetAll);
+    document.getElementById("langAr").addEventListener("click", () => setTimeout(() => {
+      updateSliderLabels();
+      renderHistory();
+      if (lastReport) renderMetrics(lastReport);
+    }, 0));
+    document.getElementById("langEn").addEventListener("click", () => setTimeout(() => {
+      updateSliderLabels();
+      renderHistory();
+      if (lastReport) renderMetrics(lastReport);
+    }, 0));
+
+    updateSliderLabels();
+    renderHistory();
+    setProgress(0, "-");
+  </script>
+</body>
+</html>

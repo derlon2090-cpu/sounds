@@ -1,0 +1,7 @@
+generated/
+*.log
+*.tmp
+*.bak
+*.old.html
+sapi-test.wav
+sapi-format-test.wav

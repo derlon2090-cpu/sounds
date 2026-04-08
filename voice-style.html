@@ -378,6 +378,8 @@
     }
 
     function renderSelects() {
+      const currentFamily = voiceFamily.value || "auto";
+      const currentGoal = goalSelect.value || goalForStyle(activeStyleId);
       voiceFamily.innerHTML = [
         { value: "auto", ar: "اقتراح تلقائي", en: "Auto Suggest" },
         { value: "formal", ar: "رسمي", en: "Formal" },
@@ -386,6 +388,7 @@
         { value: "gulf", ar: "خليجي", en: "Gulf" },
         { value: "story", ar: "قصصي", en: "Story" }
       ].map((item) => `<option value="${item.value}">${localeText(item.ar, item.en)}</option>`).join("");
+      voiceFamily.value = currentFamily;
 
       goalSelect.innerHTML = [
         { value: "podcast", ar: "بودكاست", en: "Podcast" },
@@ -394,6 +397,25 @@
         { value: "story", ar: "قصصي", en: "Story" },
         { value: "social", ar: "سوشيال", en: "Social" }
       ].map((item) => `<option value="${item.value}">${localeText(item.ar, item.en)}</option>`).join("");
+      goalSelect.value = currentGoal;
+    }
+
+    function goalForStyle(styleId) {
+      if (styleId === "energetic") return "social";
+      if (styleId === "calm") return "education";
+      return styleId;
+    }
+
+    function resolvedVoiceId(baseVoiceId) {
+      const mapping = {
+        auto: baseVoiceId,
+        formal: "siraj",
+        clear: "lujain",
+        radio: "ruwad",
+        gulf: "nouf",
+        story: "atheer"
+      };
+      return mapping[voiceFamily.value] || baseVoiceId;
     }
 
     function renderStyles() {
@@ -408,7 +430,7 @@
 
     function renderPresetChips(style) {
       presetChips.innerHTML = [
-        localeText(`الصوت المقترح: ${style.voiceId}`, `Suggested voice: ${style.voiceId}`),
+        localeText(`الصوت المقترح: ${resolvedVoiceId(style.voiceId)}`, `Suggested voice: ${resolvedVoiceId(style.voiceId)}`),
         localeText(`السرعة ${Number(speed.value).toFixed(2)}x`, `Speed ${Number(speed.value).toFixed(2)}x`),
         localeText(`النبرة ${pitch.value}`, `Pitch ${pitch.value}`),
         localeText(`الحيوية ${energy.value}%`, `Energy ${energy.value}%`)
@@ -422,7 +444,7 @@
       pitch.value = style.pitch;
       energy.value = style.energy;
       pauses.value = style.pauses;
-      goalSelect.value = style.id === "energetic" ? "social" : style.id;
+      goalSelect.value = goalForStyle(style.id);
       if (!keepText || !sampleText.value.trim()) {
         sampleText.value = localeText(style.sampleAr, style.sampleEn);
       }
@@ -445,9 +467,11 @@
         atheer: ["zira", "female"],
         juman: ["zira", "female"],
         lujain: ["zira", "female"],
-        sami: ["david", "male"]
+        sami: ["david", "male"],
+        siraj: ["david", "male"],
+        nouf: ["zira", "female"]
       };
-      const hints = hintMap[style.voiceId] || [];
+      const hints = hintMap[resolvedVoiceId(style.voiceId)] || [];
       return filtered.find((voice) => {
         const ref = `${voice.name} ${voice.voiceURI}`.toLowerCase();
         return hints.some((hint) => ref.includes(hint));
@@ -526,7 +550,7 @@
       const items = getSavedPresets();
       items.push({
         styleId: style.id,
-        voiceId: style.voiceId,
+        voiceId: resolvedVoiceId(style.voiceId),
         nameAr: style.titleAr,
         nameEn: style.titleEn,
         speed: Number(speed.value),
@@ -552,8 +576,8 @@
       const style = getStyle();
       return {
         source: "toneforge",
-        styleId: style.id === "calm" ? "education" : style.id === "energetic" ? "ad" : style.id,
-        voiceId: style.voiceId,
+        styleId: goalSelect.value === "social" ? "ad" : goalSelect.value,
+        voiceId: resolvedVoiceId(style.voiceId),
         speed: Number(speed.value),
         pitch: Number(pitch.value),
         energy: Number(energy.value),
@@ -602,6 +626,8 @@
       syncRanges();
       renderPresetChips(getStyle());
     }));
+    voiceFamily.addEventListener("change", () => renderPresetChips(getStyle()));
+    goalSelect.addEventListener("change", () => renderPresetChips(getStyle()));
 
     suggestBtn.addEventListener("click", () => {
       const id = suggestStyleId();
@@ -624,7 +650,7 @@
         if (!item) return;
         sendPresetToVoxa({
           source: "toneforge",
-          styleId: item.styleId === "calm" ? "education" : item.styleId === "energetic" ? "ad" : item.styleId,
+          styleId: item.styleId === "social" ? "ad" : item.styleId,
           voiceId: item.voiceId,
           speed: item.speed,
           pitch: item.pitch,
