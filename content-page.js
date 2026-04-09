@@ -56,5 +56,14 @@ document.querySelectorAll("[data-animate]").forEach((node, index) => {
   setTimeout(() => node.classList.add("is-visible"), 80 + index * 45);
 });
 
+document.querySelectorAll(".card").forEach((card) => {
+  card.addEventListener("click", (event) => {
+    const link = card.querySelector("a");
+    if (!link) return;
+    if (event.target.closest("a, button")) return;
+    window.location.href = link.getAttribute("href");
+  });
+});
+
 applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"));
 applyLanguage(currentLang);
