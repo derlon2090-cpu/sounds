@@ -41,6 +41,33 @@ let currentLang = "ar";
 let currentVoiceId = "siraj";
 let generatedBlob = null;
 let generatedUrl = "";
+const requiredElements = [
+  themeToggle,
+  langAr,
+  langEn,
+  toTopBtn,
+  voiceGrid,
+  textInput,
+  styleSelect,
+  voiceSelect,
+  speed,
+  pitch,
+  energy,
+  pauses,
+  targetDurationRange,
+  targetDurationInput,
+  suggestBtn,
+  bestBtn,
+  previewBtn,
+  generateBtn,
+  downloadBtn,
+  saveBtn,
+  statusBox,
+  engineAudio,
+  engineMeta,
+  favoriteList
+];
+const missingElements = requiredElements.some((el) => !el);
 const timingState = {
   baselineSpeed: 1,
   suggestedDuration: 12,
@@ -1069,103 +1096,105 @@ function applyLanguage(lang) {
   localStorage.setItem(LANG_KEY, currentLang);
 }
 
-themeToggle.addEventListener("click", () => {
-  applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
-});
+if (!missingElements) {
+  themeToggle.addEventListener("click", () => {
+    applyTheme(document.body.dataset.theme === "dark" ? "light" : "dark");
+  });
 
-langAr.addEventListener("click", () => applyLanguage("ar"));
-langEn.addEventListener("click", () => applyLanguage("en"));
+  langAr.addEventListener("click", () => applyLanguage("ar"));
+  langEn.addEventListener("click", () => applyLanguage("en"));
 
-suggestBtn.addEventListener("click", () => {
-  const id = suggestVoiceId();
-  loadVoice(id);
-  const voice = voices.find((item) => item.id === id) || voices[0];
-  setText(statusBox, copy[currentLang].status_suggested.replace("{voice}", voiceName(voice)));
-});
+  suggestBtn.addEventListener("click", () => {
+    const id = suggestVoiceId();
+    loadVoice(id);
+    const voice = voices.find((item) => item.id === id) || voices[0];
+    setText(statusBox, copy[currentLang].status_suggested.replace("{voice}", voiceName(voice)));
+  });
 
-bestBtn.addEventListener("click", () => {
-  applyBestSettings();
-});
+  bestBtn.addEventListener("click", () => {
+    applyBestSettings();
+  });
 
-previewBtn.addEventListener("click", () => {
-  previewVoice();
-});
+  previewBtn.addEventListener("click", () => {
+    previewVoice();
+  });
 
-generateBtn.addEventListener("click", () => {
-  generateEngineAudio();
-});
+  generateBtn.addEventListener("click", () => {
+    generateEngineAudio();
+  });
 
-downloadBtn.addEventListener("click", async () => {
-  if (!generatedBlob || !generatedUrl) {
-    await generateEngineAudio({ autoDownload: true });
-    return;
-  }
-  downloadGeneratedAudio();
-});
+  downloadBtn.addEventListener("click", async () => {
+    if (!generatedBlob || !generatedUrl) {
+      await generateEngineAudio({ autoDownload: true });
+      return;
+    }
+    downloadGeneratedAudio();
+  });
 
-saveBtn.addEventListener("click", () => {
-  saveCurrentFavorite();
-});
+  saveBtn.addEventListener("click", () => {
+    saveCurrentFavorite();
+  });
 
-[speed, pitch, energy, pauses].forEach((input) => {
-  input.addEventListener("input", () => {
+  [speed, pitch, energy, pauses].forEach((input) => {
+    input.addEventListener("input", () => {
+      syncControls();
+      clearGeneratedAudio();
+    });
+  });
+
+  targetDurationRange.addEventListener("input", () => {
+    applyTargetDuration(targetDurationRange.value);
+  });
+
+  targetDurationInput.addEventListener("input", () => {
+    applyTargetDuration(targetDurationInput.value);
+  });
+
+  durationResetBtn.addEventListener("click", () => {
+    speed.value = timingState.baselineSpeed.toFixed(2);
     syncControls();
     clearGeneratedAudio();
   });
-});
 
-targetDurationRange.addEventListener("input", () => {
-  applyTargetDuration(targetDurationRange.value);
-});
+  styleSelect.addEventListener("change", () => {
+    const style = styles[styleSelect.value];
+    speed.value = style.speed;
+    pitch.value = style.pitch;
+    energy.value = style.energy;
+    pauses.value = style.pauses;
+    setBaselineSpeed(speed.value);
+    syncControls();
+    clearGeneratedAudio();
+  });
 
-targetDurationInput.addEventListener("input", () => {
-  applyTargetDuration(targetDurationInput.value);
-});
+  voiceSelect.addEventListener("change", () => {
+    loadVoice(voiceSelect.value);
+  });
 
-durationResetBtn.addEventListener("click", () => {
-  speed.value = timingState.baselineSpeed.toFixed(2);
-  syncControls();
-  clearGeneratedAudio();
-});
+  textInput.addEventListener("input", () => {
+    updateEstimate();
+    clearGeneratedAudio();
+  });
 
-styleSelect.addEventListener("change", () => {
-  const style = styles[styleSelect.value];
-  speed.value = style.speed;
-  pitch.value = style.pitch;
-  energy.value = style.energy;
-  pauses.value = style.pauses;
-  setBaselineSpeed(speed.value);
-  syncControls();
-  clearGeneratedAudio();
-});
+  voiceGrid.addEventListener("click", (event) => {
+    const preview = event.target.closest("[data-preview]");
+    const use = event.target.closest("[data-use]");
+    if (preview) previewVoice(preview.dataset.preview);
+    if (use) loadVoice(use.dataset.use);
+  });
 
-voiceSelect.addEventListener("change", () => {
-  loadVoice(voiceSelect.value);
-});
-
-textInput.addEventListener("input", () => {
-  updateEstimate();
-  clearGeneratedAudio();
-});
-
-voiceGrid.addEventListener("click", (event) => {
-  const preview = event.target.closest("[data-preview]");
-  const use = event.target.closest("[data-use]");
-  if (preview) previewVoice(preview.dataset.preview);
-  if (use) loadVoice(use.dataset.use);
-});
-
-favoriteList.addEventListener("click", (event) => {
-  const button = event.target.closest("[data-fav]");
-  if (!button) return;
-  restoreFavorite(Number(button.dataset.fav));
-});
+  favoriteList.addEventListener("click", (event) => {
+    const button = event.target.closest("[data-fav]");
+    if (!button) return;
+    restoreFavorite(Number(button.dataset.fav));
+  });
+}
 
 window.addEventListener("scroll", () => {
-  toTopBtn.classList.toggle("visible", window.scrollY > 320);
+  toTopBtn?.classList.toggle("visible", window.scrollY > 320);
 });
 
-toTopBtn.addEventListener("click", () => {
+toTopBtn?.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
@@ -1175,7 +1204,9 @@ document.querySelectorAll("[data-animate]").forEach((node, index) => {
 
 applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"));
 applyLanguage(localStorage.getItem(LANG_KEY) || "ar");
-setEngineButtonsState({ generating: false, ready: false });
+if (!missingElements) {
+  setEngineButtonsState({ generating: false, ready: false });
+}
 
 window.addEventListener("beforeunload", () => {
   if (generatedUrl) URL.revokeObjectURL(generatedUrl);
