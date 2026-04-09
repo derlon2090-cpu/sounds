@@ -2,6 +2,17 @@ const THEME_KEY = "mulhem_theme_v2";
 const LANG_KEY = "mulhem_lang_v2";
 const FAV_KEY = "mulhem_voxa_favorites_v3";
 const TONEFORGE_KEY = "mulhem_toneforge_preset_v1";
+const API_BASE = (() => {
+  const fromWindow = typeof window !== "undefined" ? window.MULHEM_API_BASE : "";
+  const fromStorage = typeof localStorage !== "undefined" ? localStorage.getItem("mulhem_api_base") : "";
+  const params = new URLSearchParams(window.location.search);
+  const fromQuery = params.get("api");
+  const value = (fromQuery || fromWindow || fromStorage || "").trim();
+  if (value && typeof localStorage !== "undefined") {
+    localStorage.setItem("mulhem_api_base", value);
+  }
+  return value.replace(/\/+$/, "");
+})();
 
 const themeToggle = document.getElementById("themeToggle");
 const langAr = document.getElementById("langAr");
@@ -891,7 +902,7 @@ async function generateEngineAudio({ autoDownload = false } = {}) {
   setText(statusBox, copy[currentLang].status_generating.replace("{voice}", voiceName(sourceVoice)));
 
   try {
-    const response = await fetch("/api/tts", {
+    const response = await fetch(`${API_BASE}/api/tts`, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({

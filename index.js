@@ -612,6 +612,13 @@ servicesGrid.addEventListener("click", (event) => {
   if (link) window.location.href = link.getAttribute("href");
 });
 
+infoGrid.addEventListener("click", (event) => {
+  const card = event.target.closest(".card");
+  if (!card || event.target.closest("a, button")) return;
+  const link = card.querySelector(".service-link");
+  if (link) window.location.href = link.getAttribute("href");
+});
+
 faqGrid.addEventListener("click", (event) => {
   const button = event.target.closest("[data-faq]");
   if (!button) return;

@@ -1,0 +1,17 @@
+<svg width="240" height="64" viewBox="0 0 240 64" fill="none" xmlns="http://www.w3.org/2000/svg" aria-label="Mulhem Sound Logo">
+  <defs>
+    <linearGradient id="brand" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#22C55E"/>
+      <stop offset="100%" stop-color="#15803D"/>
+    </linearGradient>
+  </defs>
+  <rect x="0.5" y="0.5" width="63" height="63" rx="16" fill="#F3FFF7" stroke="#D1F2DB"/>
+  <g stroke="url(#brand)" stroke-width="4" stroke-linecap="round">
+    <line x1="14" y1="32" x2="14" y2="32"/>
+    <line x1="22" y1="24" x2="22" y2="40"/>
+    <line x1="30" y1="18" x2="30" y2="46"/>
+    <line x1="38" y1="24" x2="38" y2="40"/>
+    <line x1="46" y1="28" x2="46" y2="36"/>
+  </g>
+  <text x="76" y="41" fill="#0F172A" font-family="Tajawal, Segoe UI, Arial" font-size="26" font-weight="900">ملم ساوند</text>
+</svg>
