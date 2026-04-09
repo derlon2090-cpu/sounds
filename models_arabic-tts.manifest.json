@@ -2,7 +2,7 @@
     "provider":  "command",
     "command":  "C:\\Program Files\\Python311\\python.exe",
     "args":  [
-                 "providers/python-real-model-adapter.py"
+                 "providers_python-real-model-adapter.py"
              ],
     "output":  "json",
     "sampleRate":  24000,

@@ -5,7 +5,7 @@
   "description": "Mulhem Sound local static app with a built-in Node TTS engine.",
   "scripts": {
     "start": "node server.js",
-    "engine:test": "node scripts/test-engine.js",
-    "provider:start": "node providers/mulhem-ml-provider.js"
+    "engine:test": "node test-engine.js",
+    "provider:start": "node providers_mulhem-ml-provider.js"
   }
 }

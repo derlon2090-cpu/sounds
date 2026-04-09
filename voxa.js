@@ -249,10 +249,10 @@ const voices = [
     sampleAr: "مرحبًا بكم. يسعدنا تقديم هذا الملخص التنفيذي بصوت رسمي واضح ومنظّم.",
     sampleEn: "Welcome. This is a formal executive-style sample with a steady and confident tone.",
     style: "education",
-    rate: 0.95,
-    pitch: -1,
-    energy: 42,
-    pauses: 38
+    rate: 0.9,
+    pitch: -2,
+    energy: 34,
+    pauses: 52
   },
   {
     id: "lujain",
@@ -276,10 +276,10 @@ const voices = [
     sampleAr: "أهلًا بك. في هذا الشرح سنرتب الفكرة خطوة بخطوة بصوت مريح وواضح.",
     sampleEn: "Hello there. This explainer sample is designed to sound calm, clear, and easy to follow.",
     style: "education",
-    rate: 0.98,
-    pitch: 1,
-    energy: 48,
-    pauses: 42
+    rate: 1.02,
+    pitch: 2,
+    energy: 44,
+    pauses: 46
   },
   {
     id: "ruwad",
@@ -302,11 +302,11 @@ const voices = [
     voiceIndex: 2,
     sampleAr: "هنا تبدأ الهوية الصوتية للمحتوى. حضور إذاعي أوضح للمقدمات والافتتاحيات.",
     sampleEn: "This is a broadcast-style sample built for intros, sonic identity, and high-presence reads.",
-    style: "podcast",
-    rate: 1.0,
-    pitch: 0,
-    energy: 65,
-    pauses: 32
+    style: "ad",
+    rate: 1.08,
+    pitch: -1,
+    energy: 76,
+    pauses: 26
   },
   {
     id: "nouf",
@@ -330,10 +330,10 @@ const voices = [
     sampleAr: "يا هلا. هذا نموذج صوت خليجي دافئ يناسب المحتوى المحلي واليومي بشكل أقرب.",
     sampleEn: "Here is a warmer Gulf-style sample tailored for regional content and local audiences.",
     style: "podcast",
-    rate: 1.02,
+    rate: 0.98,
     pitch: 1,
-    energy: 55,
-    pauses: 36
+    energy: 52,
+    pauses: 42
   },
   {
     id: "sami",
@@ -357,10 +357,10 @@ const voices = [
     sampleAr: "أهلًا! هذا مثال أسرع للمحتوى القصير والسوشيال والريلز واليوميات.",
     sampleEn: "This faster sample fits creator content, shorts, and social media voiceovers.",
     style: "ad",
-    rate: 1.12,
-    pitch: 1,
-    energy: 72,
-    pauses: 22
+    rate: 1.18,
+    pitch: 2,
+    energy: 78,
+    pauses: 20
   },
   {
     id: "atheer",
@@ -384,10 +384,10 @@ const voices = [
     sampleAr: "كان يا ما كان، في بداية الحكاية، يظهر الصوت الهادئ ليقود السرد بسلاسة.",
     sampleEn: "Once upon a time, a softer narrative voice carried the story with a slower, calmer rhythm.",
     style: "story",
-    rate: 0.86,
+    rate: 0.88,
     pitch: 1,
-    energy: 56,
-    pauses: 60
+    energy: 40,
+    pauses: 64
   },
   {
     id: "juman",
@@ -411,10 +411,10 @@ const voices = [
     sampleAr: "في هذا الدرس سنراجع الفكرة الأساسية، ثم ننتقل إلى الخطوات واحدة بعد الأخرى.",
     sampleEn: "In this lesson, we will review the core idea first, then move through the steps one by one.",
     style: "education",
-    rate: 0.94,
+    rate: 0.96,
     pitch: 0,
     energy: 46,
-    pauses: 40
+    pauses: 50
   },
   {
     id: "barq",
@@ -438,10 +438,10 @@ const voices = [
     sampleAr: "عرض اليوم يبدأ الآن. جرّب الفرق بسرعة، واطلب الخدمة خلال ثوانٍ.",
     sampleEn: "Today’s offer starts now. Hear the difference fast and launch your promo in seconds.",
     style: "ad",
-    rate: 1.18,
-    pitch: 2,
-    energy: 82,
-    pauses: 18
+    rate: 1.24,
+    pitch: -2,
+    energy: 88,
+    pauses: 14
   }
 ];
 

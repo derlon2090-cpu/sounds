@@ -17,7 +17,7 @@ npm start
 Then open:
 
 - `http://localhost:3210/`
-- `http://localhost:3210/text-to-speech.html`
+- `http://localhost:3210/voxa.html`
 
 ## Current Engine
 
@@ -46,7 +46,7 @@ C:\man\models\arabic-tts.manifest.json
 - `C:\man\mulhem-engine.js`
 - `C:\man\server.js`
 - `C:\man\voxa.js`
-- `C:\man\text-to-speech.html`
+- `C:\man\voxa.html`
 
 ## Real Arabic Model Path
 

@@ -9,7 +9,7 @@ const { spawnSync } = require("child_process");
 const SAMPLE_RATE = 24000;
 const ENGINE_VERSION = "3.0.0";
 const TWO_PI = Math.PI * 2;
-const ML_MANIFEST_PATH = path.join(__dirname, "models", "arabic-tts.manifest.json");
+const ML_MANIFEST_PATH = path.join(__dirname, "models_arabic-tts.manifest.json");
 
 const STYLE_PROFILES = {
   podcast: {

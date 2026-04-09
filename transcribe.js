@@ -6,6 +6,7 @@ const all = (selector) => Array.from(d.querySelectorAll(selector));
 const THEME_KEY = "mulhem_theme_v2";
 const LANG_KEY = "mulhem_lang_v2";
 const HISTORY_KEY = "mulhem_transcribe_history_v4";
+const AUTO_DEMO_KEY = "mulhem_transcribe_autodemo";
 
 const ui = {
   theme: $("themeToggle"),
@@ -597,3 +598,9 @@ applyLanguage(currentLang);
 renderHistory();
 clearSelection();
 all("[data-animate]").forEach((node, index) => setTimeout(() => node.classList.add("is-visible"), 80 + index * 45));
+
+const shouldAutoDemo = window.location.hash === "#demo" || localStorage.getItem(AUTO_DEMO_KEY) === "1";
+if (shouldAutoDemo) {
+  localStorage.removeItem(AUTO_DEMO_KEY);
+  ui.demo?.click();
+}

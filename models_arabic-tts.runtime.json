@@ -18,7 +18,7 @@
                           "pythonArgs":  [
 
                                          ],
-                          "entry":  "providers/python-real-model-adapter.py",
+                          "entry":  "providers_python-real-model-adapter.py",
                           "backend":  "coqui_xtts",
                           "model_name":  "tts_models/multilingual/multi-dataset/xtts_v2",
                           "language":  "ar",

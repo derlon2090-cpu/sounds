@@ -16,7 +16,7 @@
       </a>
       <nav class="nav-links">
         <a href="index.html" data-i18n="nav_home">الرئيسية</a>
-        <a href="text-to-speech.html" data-i18n="nav_voxa">Voxa</a>
+        <a href="voxa.html" data-i18n="nav_voxa">Voxa</a>
         <a href="offerings.html" data-i18n="nav_offerings">ماذا نقدم</a>
       </nav>
       <div class="nav-actions">
@@ -35,7 +35,7 @@
         <p class="lead" data-i18n="hero_lead">اختر نبرة المحتوى أولًا: بودكاست، إعلان، قصة، تعليم، هادئ، أو حماسي. ثم أرسل الإعداد مباشرة إلى Voxa ليصبح الاختيار أسرع وأوضح.</p>
         <div class="hero-actions">
           <a class="btn btn-primary" href="#workspace" data-i18n="hero_primary">ابدأ تشكيل النبرة</a>
-          <a class="btn btn-secondary" href="text-to-speech.html" data-i18n="hero_secondary">افتح Voxa</a>
+          <a class="btn btn-secondary" href="voxa.html" data-i18n="hero_secondary">افتح Voxa</a>
         </div>
       </div>
       <aside class="hero-card" data-animate>
@@ -569,7 +569,7 @@
 
     function sendPresetToVoxa(payload) {
       localStorage.setItem(PRESET_KEY, JSON.stringify(payload));
-      window.location.href = "text-to-speech.html";
+      window.location.href = "voxa.html";
     }
 
     function buildOutgoingPreset() {

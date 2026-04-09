@@ -1,0 +1,10 @@
+*.log
+*.wav
+*.mp3
+*.m4a
+.env
+.git
+.gitignore
+node_modules
+pip-tts.log
+test-write.txt

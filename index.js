@@ -39,13 +39,13 @@ const copy = {
     stat_two: "أصوات رئيسية داخل Voxa",
     stat_three: "متوسط تجهيز النتيجة",
     demo_badge: "تجربة مباشرة",
-    demo_title: "جرّب عينة صوتية من الصفحة نفسها",
-    demo_lead: "اكتب سطرًا قصيرًا، اختر صوتًا مناسبًا، واستمع إلى معاينة فورية توضّح كيف تبدأ تجربة النص إلى صوت داخل المنصة.",
-    demo_voice_label: "الصوت المقترح",
-    demo_preview: "استمع الآن",
-    demo_cta: "افتح Voxa",
-    demo_status: "جرّب العينة السريعة هنا، ثم افتح Voxa لاختيار الصوت والنمط وحفظ الإعدادات داخل تجربة أوضح.",
-    demo_text: "مرحبًا بكم في مُلهم ساوند. هنا نساعدك على تحويل الصوت والنص إلى محتوى احترافي بسرعة ووضوح.",
+    demo_title: "جرّب تفريغًا سريعًا من الصفحة نفسها",
+    demo_lead: "اضغط تجربة سريعة وسنأخذك مباشرة لصفحة التفريغ مع مثال جاهز لتشاهد النتيجة والتنزيل.",
+    demo_voice_label: "نوع المثال",
+    demo_preview: "ابدأ تجربة سريعة",
+    demo_cta: "افتح WriteWave",
+    demo_status: "سيتم نقلك لتجربة تفريغ جاهزة مع ملخص ونقاط قابلة للنسخ والتنزيل.",
+    demo_text: "ملخص سريع: الاجتماع ركز على ثلاث نقاط رئيسية: تحديث الجدول الزمني، توزيع المهام، وتأكيد المخرجات النهائية.",
     services_badge: "الخدمات",
     services_title: "خدمتان رئيسيتان تبدأ منهما التجربة",
     services_copy: "ابدأ إمّا بتحويل الصوت إلى نص عبر WriteWave، أو بتحويل النص إلى صوت عبر Voxa. هذا هو قلب المنتج قبل أي أدوات مساندة.",
@@ -72,9 +72,9 @@ const copy = {
     footer_note: "منصة صوت ذكية تركّز على منتجين رئيسيين واضحين: تحويل النص إلى صوت وتحويل الصوت إلى نص، مع أدوات مساندة عند الحاجة.",
     faq_toggle_open: "إظهار الإجابة",
     faq_toggle_close: "إخفاء الإجابة",
-    preview_playing: "جارٍ تشغيل معاينة صوتية لصوت {voice}. افتح Voxa لتعديل النبرة والإيقاع وحفظ الإعداد.",
-    preview_missing: "تعذّر تشغيل المعاينة الصوتية على هذا المتصفح حاليًا.",
-    preview_ready: "اختر صوتًا ثم اضغط استمع الآن لتجربة عينة سريعة."
+    preview_playing: "جارٍ تجهيز تجربة التفريغ السريعة الآن.",
+    preview_missing: "تعذّر تشغيل تجربة التفريغ السريعة. افتح WriteWave للمتابعة.",
+    preview_ready: "اضغط ابدأ تجربة سريعة لنقلك مباشرة إلى صفحة التفريغ."
   },
   en: {
     title: "Mulhem Sound | AI Audio Platform",
@@ -96,13 +96,13 @@ const copy = {
     stat_two: "core voices inside Voxa",
     stat_three: "average result time",
     demo_badge: "Live Demo",
-    demo_title: "Try a quick voice sample from the homepage",
-    demo_lead: "Write a short line, choose a suitable voice, and listen instantly to see how the text-to-speech experience begins inside the platform.",
-    demo_voice_label: "Suggested voice",
-    demo_preview: "Listen Now",
-    demo_cta: "Open Voxa",
-    demo_status: "Try the quick sample here, then open Voxa to pick a voice, a style, and save your preferred setup.",
-    demo_text: "Welcome to Mulhem Sound. We help you turn text and audio into polished content with speed and clarity.",
+    demo_title: "Try a quick transcription demo from the homepage",
+    demo_lead: "Click the quick demo and we will take you to the transcription page with a ready example.",
+    demo_voice_label: "Demo scenario",
+    demo_preview: "Start Quick Demo",
+    demo_cta: "Open WriteWave",
+    demo_status: "You will be redirected to a ready transcription demo with summary and key points.",
+    demo_text: "Quick summary: the meeting focused on timeline updates, task ownership, and final deliverables.",
     services_badge: "Services",
     services_title: "Two primary products lead the experience",
     services_copy: "Start with WriteWave for speech to text or Voxa for text to speech. These two products now carry the product story first.",
@@ -129,9 +129,9 @@ const copy = {
     footer_note: "An audio platform centered on two clear flagship products: text to speech and speech to text, with supporting tools when needed.",
     faq_toggle_open: "Show Answer",
     faq_toggle_close: "Hide Answer",
-    preview_playing: "Playing a preview for {voice}. Open Voxa to refine the tone, pacing, and saved setup.",
-    preview_missing: "Audio preview is currently unavailable in this browser.",
-    preview_ready: "Choose a voice and press Listen Now for a quick sample."
+    preview_playing: "Launching the quick transcription demo now.",
+    preview_missing: "Quick demo is unavailable in this browser. Open WriteWave to continue.",
+    preview_ready: "Press Start Quick Demo to jump into the transcription page."
   }
 };
 
@@ -148,7 +148,7 @@ const services = {
       icon: "🔊",
       title: "Voxa™",
       text: "حوّل النص إلى صوت مع مكتبة أصوات أوضح وتصنيفات أقرب للاستخدام الفعلي.",
-      href: "text-to-speech.html",
+      href: "voxa.html",
       cta: "جرّب الآن"
     }
   ],
@@ -164,7 +164,7 @@ const services = {
       icon: "🔊",
       title: "Voxa™",
       text: "Convert text into speech with a clearer voice shelf and more practical categories.",
-      href: "text-to-speech.html",
+      href: "voxa.html",
       cta: "Try Now"
     }
   ]
@@ -474,7 +474,7 @@ function renderVoiceShelf() {
         <button class="btn btn-secondary preview-shelf" type="button" data-sample="${voice.sample}" data-voice="${voice.name}" data-voice-id="${heroVoices[currentLang][index]?.id || "siraj"}">
           ${currentLang === "ar" ? "استمع" : "Listen"}
         </button>
-        <a class="voice-link" href="text-to-speech.html">${currentLang === "ar" ? "افتح Voxa" : "Open Voxa"} ←</a>
+        <a class="voice-link" href="voxa.html">${currentLang === "ar" ? "افتح Voxa" : "Open Voxa"} ←</a>
       </div>
     </article>
   `).join("");
@@ -526,6 +526,7 @@ function renderFaq() {
 }
 
 function renderHeroVoices() {
+  if (!heroVoice) return;
   heroVoice.innerHTML = heroVoices[currentLang].map((voice) => `
     <option value="${voice.id}">${voice.label}</option>
   `).join("");
@@ -573,17 +574,20 @@ function applyLanguage(lang) {
 }
 
 heroPreview.addEventListener("click", () => {
-  const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
-  const text = heroText.value.trim() || selected.sample;
-  playPreview(text, selected.label, selected.id);
+  try {
+    localStorage.setItem("mulhem_transcribe_autodemo", "1");
+  } catch {}
+  window.location.href = "transcribe.html#demo";
 });
 
-heroVoice.addEventListener("change", () => {
-  const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
-  if (!heroText.value.trim()) {
-    heroText.value = selected.sample;
-  }
-});
+if (heroVoice) {
+  heroVoice.addEventListener("change", () => {
+    const selected = heroVoices[currentLang].find((voice) => voice.id === heroVoice.value) || heroVoices[currentLang][0];
+    if (!heroText.value.trim()) {
+      heroText.value = selected.sample;
+    }
+  });
+}
 
 voicesGrid.addEventListener("click", (event) => {
   const button = event.target.closest(".preview-shelf");
