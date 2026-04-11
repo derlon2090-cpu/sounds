@@ -701,6 +701,26 @@ function describeEngineOutput({ duration, version, voice, style, mode }) {
   return `${base} • v${version} • ${mode} • ${voice} • ${style}`;
 }
 
+async function checkEngineHealth() {
+  if (!API_BASE) {
+    setText(statusBox, currentLang === "ar" ? "يرجى ربط الباكند أولًا لتعمل الأصوات." : "Connect the backend first to enable audio.");
+    return;
+  }
+  try {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 9000);
+    const res = await fetch(`${API_BASE}/api/health`, { signal: controller.signal });
+    clearTimeout(timeout);
+    if (!res.ok) throw new Error("health failed");
+    const data = await res.json();
+    const label = currentLang === "ar" ? "المحرك متصل" : "Engine connected";
+    setText(engineMeta, `${label} • v${data.version || "?"} • ${data.mode || "hybrid"}`);
+  } catch {
+    setText(engineMeta, copy[currentLang].engine_idle);
+    setText(statusBox, currentLang === "ar" ? "لم نتمكن من الوصول للمحرك الآن. تأكد أن الباكند يعمل على Render." : "Engine is not reachable right now. Make sure the Render backend is running.");
+  }
+}
+
 function renderVoiceGrid() {
   voiceGrid.innerHTML = voices.map((voice) => `
     <article class="voice-card" data-animate>
@@ -957,6 +977,7 @@ async function generateEngineAudio({ autoDownload = false } = {}) {
     setEngineButtonsState({ generating: false, ready: false });
     setText(engineMeta, copy[currentLang].engine_idle);
     setText(statusBox, copy[currentLang].status_engine_error);
+    checkEngineHealth();
   }
 }
 
@@ -1217,6 +1238,7 @@ applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matc
 applyLanguage(localStorage.getItem(LANG_KEY) || "ar");
 if (!missingElements) {
   setEngineButtonsState({ generating: false, ready: false });
+  checkEngineHealth();
 }
 
 window.addEventListener("beforeunload", () => {
