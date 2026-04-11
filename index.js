@@ -642,6 +642,15 @@ toTopBtn.addEventListener("click", () => {
   window.scrollTo({ top: 0, behavior: "smooth" });
 });
 
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href]");
+  if (link) return;
+  const card = event.target.closest(".card");
+  if (!card) return;
+  const cardLink = card.querySelector("a[href]");
+  if (cardLink) window.location.href = cardLink.getAttribute("href");
+});
+
 window.speechSynthesis?.addEventListener?.("voiceschanged", () => {
   setText(heroStatus, copy[currentLang].preview_ready);
 });

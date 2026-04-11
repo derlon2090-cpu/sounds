@@ -65,5 +65,14 @@ document.querySelectorAll(".card").forEach((card) => {
   });
 });
 
+document.addEventListener("click", (event) => {
+  const link = event.target.closest("a[href]");
+  if (link) return;
+  const card = event.target.closest(".card");
+  if (!card) return;
+  const cardLink = card.querySelector("a[href]");
+  if (cardLink) window.location.href = cardLink.getAttribute("href");
+});
+
 applyTheme(localStorage.getItem(THEME_KEY) || ((window.matchMedia && window.matchMedia("(prefers-color-scheme: dark)").matches) ? "dark" : "light"));
 applyLanguage(currentLang);
