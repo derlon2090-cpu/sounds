@@ -7,7 +7,7 @@ const API_BASE = (() => {
   const fromStorage = typeof localStorage !== "undefined" ? localStorage.getItem("mulhem_api_base") : "";
   const params = new URLSearchParams(window.location.search);
   const fromQuery = params.get("api");
-  const value = (fromQuery || fromWindow || fromStorage || "").trim();
+  const value = (fromQuery || fromWindow || fromStorage || "").trim() || "https://sounds-etxp.onrender.com";
   if (value && typeof localStorage !== "undefined") {
     localStorage.setItem("mulhem_api_base", value);
   }
